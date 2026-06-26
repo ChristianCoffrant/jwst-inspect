@@ -1,0 +1,101 @@
+{
+  "anomaly_prim": null,
+  "anomaly_type": "none",
+  "camera_extrinsics": {
+    "frame": "world",
+    "look_at_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "orientation_note": "placeholder look-at target for Week 3 episode-linked thin slice",
+    "position_m": [
+      -16.713,
+      34.2668,
+      -5.3582
+    ],
+    "quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "camera_intrinsics": {
+    "clipping_range_m": [
+      0.1,
+      250.0
+    ],
+    "cx_px": 8.0,
+    "cy_px": 6.0,
+    "fx_px": 525.0,
+    "fy_px": 525.0,
+    "height_px": 480,
+    "placeholder_height_px": 12,
+    "placeholder_width_px": 16,
+    "width_px": 640
+  },
+  "depth_noise_model": "none_week3_placeholder",
+  "episode_id": "dev_approach_0001",
+  "exposure_setting": "fixed_week3_thin_slice_placeholder",
+  "frame_id": "dev_approach_0001_f0028",
+  "frame_index": 28,
+  "generation_mode": "episode_rollout",
+  "inspector_pose": {
+    "frame": "world",
+    "position_m": [
+      -16.713,
+      34.2668,
+      -5.3582
+    ],
+    "quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "label_map": {
+    "0": "background",
+    "1": "jwst_primary_mirror",
+    "2": "jwst_secondary_mirror",
+    "3": "jwst_sunshield_layer_outer",
+    "4": "jwst_sunshield_edge",
+    "5": "jwst_bus",
+    "6": "jwst_antenna",
+    "7": "jwst_truss",
+    "8": "inspector_body",
+    "9": "inspector_solar_panel"
+  },
+  "lighting_condition": "high_glare_edge",
+  "material_variant": "nominal",
+  "media_status": "tiny_placeholder_media",
+  "outputs": {
+    "depth": "depth/dev_test/dev_approach_0001_f0028.json",
+    "instance_mask": "masks/instance/dev_test/dev_approach_0001_f0028.png",
+    "metadata": "metadata/dev_test/dev_approach_0001_f0028.json",
+    "rgb": "images/dev_test/dev_approach_0001_f0028.png",
+    "semantic_mask": "masks/semantic/dev_test/dev_approach_0001_f0028.png"
+  },
+  "policy_id": "scripted_baseline",
+  "renderer_mode": "rasterized",
+  "sampler_mode": "uniform_standoff",
+  "seed": 1001028,
+  "split": "dev_test",
+  "target_pose": {
+    "frame": "world",
+    "position_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "target_region": "approach_hold_standoff",
+  "task_id": "approach_hold_standoff"
+}

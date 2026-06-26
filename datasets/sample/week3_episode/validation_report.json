@@ -1,0 +1,40 @@
+{
+  "corrupt_or_blank_fraction": 0.0,
+  "corrupt_or_blank_frame_count": 0,
+  "dataset_phase": "week3_episode_thin_slice",
+  "episode_counts": {
+    "dev_approach_0001": 50,
+    "dev_sunshield_0001": 50
+  },
+  "episode_metadata_completeness": 1.0,
+  "errors": [],
+  "expected_frame_count": 100,
+  "frame_count": 100,
+  "generation_mode": "episode_rollout",
+  "guardrails": {
+    "public_reference_images_used_for_training": false,
+    "static_and_episode_frames_distinguished_by_generation_mode": true,
+    "unknown_semantic_label_ids": "prohibited"
+  },
+  "manifest_path": "datasets/sample/week3_episode/dataset_manifest.json",
+  "max_corrupt_or_blank_fraction": 0.05,
+  "media_completeness": 1.0,
+  "metadata_completeness": 1.0,
+  "renderer_counts": {
+    "rasterized": 100
+  },
+  "rollout_joinability": {
+    "join_index_key_matches": 100,
+    "join_index_records": 100,
+    "join_key": [
+      "episode_id",
+      "frame_index"
+    ],
+    "joinable_frame_fraction": 1.0,
+    "unique_dataset_join_keys": 100
+  },
+  "split_counts": {
+    "dev_test": 100
+  },
+  "status": "passed"
+}

@@ -112,6 +112,47 @@ def read_png_grayscale_values(path: Path) -> list[int]:
     return values
 
 
+def read_png_rgb_values(path: Path) -> list[tuple[int, int, int]]:
+    data = path.read_bytes()
+    if not data.startswith(PNG_SIGNATURE):
+        raise ValueError(f"{path}: not a PNG file")
+    offset = len(PNG_SIGNATURE)
+    width = height = color_type = None
+    idat_chunks: list[bytes] = []
+    while offset < len(data):
+        chunk_length = struct.unpack(">I", data[offset : offset + 4])[0]
+        chunk_type = data[offset + 4 : offset + 8]
+        chunk_payload = data[offset + 8 : offset + 8 + chunk_length]
+        if chunk_type == b"IHDR":
+            width, height, bit_depth, color_type, *_ = struct.unpack(">IIBBBBB", chunk_payload)
+            if bit_depth != 8 or color_type != 2:
+                raise ValueError(f"{path}: expected 8-bit RGB PNG")
+        elif chunk_type == b"IDAT":
+            idat_chunks.append(chunk_payload)
+        elif chunk_type == b"IEND":
+            break
+        offset += 12 + chunk_length
+    if width is None or height is None or color_type is None:
+        raise ValueError(f"{path}: incomplete PNG")
+    raw = zlib.decompress(b"".join(idat_chunks))
+    stride = width * 3 + 1
+    values: list[tuple[int, int, int]] = []
+    for row_index in range(height):
+        row = raw[row_index * stride : (row_index + 1) * stride]
+        if row[0] != 0:
+            raise ValueError(f"{path}: unsupported PNG filter type {row[0]}")
+        pixels = row[1:]
+        for offset_index in range(0, len(pixels), 3):
+            values.append(
+                (
+                    pixels[offset_index],
+                    pixels[offset_index + 1],
+                    pixels[offset_index + 2],
+                )
+            )
+    return values
+
+
 def write_depth_json(path: Path, width: int, height: int, depth_m: float) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = {

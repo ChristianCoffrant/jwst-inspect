@@ -11,3 +11,4 @@
 - Expanded Workstream 3 episode and metrics contracts for Week 1 local scoring: required episode fields, local low-dimensional observation/action assumptions, safety inheritance from the scene contract, normalized-score definition, unsafe coverage exclusion, and local-vs-Vast boundaries.
 - Froze Workstream 1 scene contract 0.1 for Week 2 with contract-freeze metadata, selected NASA JWST GLB source, proxy fallback component mapping, semantic guardrails, task-region guardrails, and explicit mirror/sunshield coverage cells.
 - Froze Workstream 2 dataset schema v0.1 for Week 2 with tiny placeholder media requirements, JSON depth placeholders for tracked samples, sample media completeness guardrails, and semantic-mask label validation.
+- Extended Workstream 2 dataset schema for Week 3 with episode rollout metadata fields, 100-frame thin-slice guardrails, rollout join keys, corrupt/blank frame threshold, and static-vs-episode generation-mode separation.
