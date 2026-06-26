@@ -1,21 +1,59 @@
 version: 0.1.0
+status: draft_week1_gate0
 dataset:
   name: jwst-inspect-sample
+  version: 0.1.0
+  owner: team2_synthetic_data_perception
+  description: metadata-first synthetic inspection dataset contract for JWST-Inspect
   split_policy:
     train: rasterized_randomized
     validation: rasterized_holdout
     dev_test: rasterized_and_path_traced_dev
     final_test: held_out_path_traced
+splits:
+  train:
+    description: rasterized training frames generated from non-held-out seeds
+    renderer_modes_allowed:
+      - rasterized
+    tuning_allowed: true
+  validation:
+    description: rasterized holdout frames for development-time perception checks
+    renderer_modes_allowed:
+      - rasterized
+    tuning_allowed: true
+  dev_test:
+    description: paired rasterized/path-traced development checks before final freeze
+    renderer_modes_allowed:
+      - rasterized
+      - path_traced
+    tuning_allowed: true
+  final_test:
+    description: held-out path-traced evaluation frames, not populated in Week 1
+    renderer_modes_allowed:
+      - path_traced
+    tuning_allowed: false
+renderer_modes:
+  - rasterized
+  - path_traced
 outputs:
   rgb: images/{split}/{frame_id}.png
   depth: depth/{split}/{frame_id}.exr
   semantic_mask: masks/semantic/{split}/{frame_id}.png
+  instance_mask: masks/instance/{split}/{frame_id}.png
   metadata: metadata/{split}/{frame_id}.json
+  manifest: dataset_manifest.json
+media_policy:
+  week1_sample_media_required: false
+  large_generated_outputs_in_git: prohibited
+  missing_media_status: metadata_only_placeholder
 metadata_fields:
   - frame_id
+  - split
   - seed
   - episode_id
   - renderer_mode
+  - sampler_mode
+  - target_region
   - camera_intrinsics
   - camera_extrinsics
   - target_pose
@@ -25,9 +63,122 @@ metadata_fields:
   - material_variant
   - anomaly_type
   - anomaly_prim
+  - depth_noise_model
   - exposure_setting
+  - outputs
+  - media_status
+metadata_schema:
+  frame_id:
+    type: string
+    required: true
+    unique: true
+  split:
+    type: enum
+    values:
+      - train
+      - validation
+      - dev_test
+      - final_test
+  seed:
+    type: integer
+    required: true
+  episode_id:
+    type: string
+    required: true
+    split_leakage_guardrail: no_cross_split_reuse_unless_paired_renderer_comparison
+  renderer_mode:
+    type: enum
+    values:
+      - rasterized
+      - path_traced
+  sampler_mode:
+    type: enum
+    values:
+      - uniform_standoff
+      - task_focused
+      - failure_focused
+  target_region:
+    type: enum
+    source: contracts/scene_contract.yaml:task_regions
+  camera_intrinsics:
+    required_keys:
+      - width_px
+      - height_px
+      - fx_px
+      - fy_px
+      - cx_px
+      - cy_px
+      - clipping_range_m
+  camera_extrinsics:
+    frame: world
+    required_keys:
+      - position_m
+      - quaternion_xyzw
+      - look_at_m
+  target_pose:
+    frame: world
+    required_keys:
+      - position_m
+      - quaternion_xyzw
+  inspector_pose:
+    frame: world
+    required_keys:
+      - position_m
+      - quaternion_xyzw
+  label_map:
+    source: contracts/scene_contract.yaml:labels
+    unknown_label_ids: prohibited
+  anomaly_type:
+    source: replicator/anomaly_catalog.yaml:anomalies.anomaly_id
+  anomaly_prim:
+    nullable_when_anomaly_type: none
+  outputs:
+    required_keys:
+      - rgb
+      - depth
+      - semantic_mask
+      - instance_mask
+      - metadata
+camera_sampling:
+  modes:
+    uniform_standoff:
+      description: deterministic views around the declared standoff shell
+      week1_status: implemented_as_metadata_sampler
+    task_focused:
+      description: deterministic views aimed at mirror, sunshield, truss, and bus task regions
+      week1_status: implemented_as_metadata_sampler
+    failure_focused:
+      description: deterministic views near glare, occlusion, low-light, and thin-structure stress cases
+      week1_status: implemented_as_metadata_sampler
+guardrails:
+  metadata_completeness_required: 1.0
+  unknown_label_ids: prohibited
+  public_reference_images_in_training: prohibited
+  train_validation_test_episode_leakage: prohibited_unless_paired_renderer_comparison
+  renderer_metrics_must_be_separate: true
+  anomaly_false_alarm_reporting_required_for_high_glare: true
 reference_image_policy:
   official_training_use: prohibited
   validation_use: allowed_with_manifest
   heldout_tuning_use: prohibited
-
+validation:
+  local_commands:
+    - python scripts/validate_contracts.py
+    - python scripts/generate_dummy_dataset.py
+    - python scripts/validate_dataset.py
+    - python scripts/e2e_local_smoke.py
+downstream_handoff:
+  consumes_from_workstream1:
+    - labels
+    - task_regions
+    - camera_rgb
+    - camera_depth
+    - materials.variants
+    - lighting.variants
+  provides_to_workstream3:
+    - frame metadata
+    - camera poses
+    - renderer mode
+    - material variant
+    - anomaly state
+    - target region

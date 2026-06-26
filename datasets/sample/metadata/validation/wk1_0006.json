@@ -1,0 +1,95 @@
+{
+  "anomaly_prim": "/World/JWST/Optics/PrimaryMirror",
+  "anomaly_type": "mirror_region_obstruction",
+  "camera_extrinsics": {
+    "frame": "world",
+    "look_at_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "orientation_note": "placeholder look-at target for Week 1 metadata contract",
+    "position_m": [
+      -28.8428,
+      -25.9702,
+      9.6769
+    ],
+    "quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "camera_intrinsics": {
+    "clipping_range_m": [
+      0.1,
+      250.0
+    ],
+    "cx_px": 320.0,
+    "cy_px": 240.0,
+    "fx_px": 525.0,
+    "fy_px": 525.0,
+    "height_px": 480,
+    "width_px": 640
+  },
+  "depth_noise_model": "none_week1_placeholder",
+  "episode_id": "wk1_validation_0006",
+  "exposure_setting": "auto_nominal_week1_placeholder",
+  "frame_id": "wk1_0006",
+  "inspector_pose": {
+    "frame": "world",
+    "position_m": [
+      -28.8428,
+      -25.9702,
+      9.6769
+    ],
+    "quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "label_map": {
+    "0": "background",
+    "1": "jwst_primary_mirror",
+    "2": "jwst_secondary_mirror",
+    "3": "jwst_sunshield_layer_outer",
+    "4": "jwst_sunshield_edge",
+    "5": "jwst_bus",
+    "6": "jwst_antenna",
+    "7": "jwst_truss",
+    "8": "inspector_body",
+    "9": "inspector_solar_panel"
+  },
+  "lighting_condition": "nominal_sun_key",
+  "material_variant": "degraded",
+  "media_status": "metadata_only_placeholder",
+  "outputs": {
+    "depth": "depth/validation/wk1_0006.exr",
+    "instance_mask": "masks/instance/validation/wk1_0006.png",
+    "metadata": "metadata/validation/wk1_0006.json",
+    "rgb": "images/validation/wk1_0006.png",
+    "semantic_mask": "masks/semantic/validation/wk1_0006.png"
+  },
+  "renderer_mode": "rasterized",
+  "sampler_mode": "uniform_standoff",
+  "seed": 120206,
+  "split": "validation",
+  "target_pose": {
+    "frame": "world",
+    "position_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "target_region": "approach_hold_standoff"
+}

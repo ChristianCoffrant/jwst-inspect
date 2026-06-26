@@ -1,0 +1,95 @@
+{
+  "anomaly_prim": null,
+  "anomaly_type": "none",
+  "camera_extrinsics": {
+    "frame": "world",
+    "look_at_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "orientation_note": "placeholder look-at target for Week 1 metadata contract",
+    "position_m": [
+      39.3923,
+      0.0,
+      -6.9459
+    ],
+    "quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "camera_intrinsics": {
+    "clipping_range_m": [
+      0.1,
+      250.0
+    ],
+    "cx_px": 320.0,
+    "cy_px": 240.0,
+    "fx_px": 525.0,
+    "fy_px": 525.0,
+    "height_px": 480,
+    "width_px": 640
+  },
+  "depth_noise_model": "none_week1_placeholder",
+  "episode_id": "wk1_train_0000",
+  "exposure_setting": "auto_nominal_week1_placeholder",
+  "frame_id": "wk1_0000",
+  "inspector_pose": {
+    "frame": "world",
+    "position_m": [
+      39.3923,
+      0.0,
+      -6.9459
+    ],
+    "quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "label_map": {
+    "0": "background",
+    "1": "jwst_primary_mirror",
+    "2": "jwst_secondary_mirror",
+    "3": "jwst_sunshield_layer_outer",
+    "4": "jwst_sunshield_edge",
+    "5": "jwst_bus",
+    "6": "jwst_antenna",
+    "7": "jwst_truss",
+    "8": "inspector_body",
+    "9": "inspector_solar_panel"
+  },
+  "lighting_condition": "nominal_sun_key",
+  "material_variant": "nominal",
+  "media_status": "metadata_only_placeholder",
+  "outputs": {
+    "depth": "depth/train/wk1_0000.exr",
+    "instance_mask": "masks/instance/train/wk1_0000.png",
+    "metadata": "metadata/train/wk1_0000.json",
+    "rgb": "images/train/wk1_0000.png",
+    "semantic_mask": "masks/semantic/train/wk1_0000.png"
+  },
+  "renderer_mode": "rasterized",
+  "sampler_mode": "uniform_standoff",
+  "seed": 120200,
+  "split": "train",
+  "target_pose": {
+    "frame": "world",
+    "position_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "target_region": "approach_hold_standoff"
+}

@@ -12,6 +12,7 @@ from jwst_inspect.contracts import validate_all_contracts
 from jwst_inspect.evaluation.metrics import compute_trajectory_metrics, task_success
 from jwst_inspect.evaluation.r2p_gap import r2p_gap
 from jwst_inspect.policy.scripted import generate_toy_scripted_rollout
+from jwst_inspect.validation.dataset import validate_dataset_package
 from jwst_inspect.validation.reference_manifest import validate_reference_manifest
 from jwst_inspect.validation.scene import validate_scene_package
 
@@ -20,6 +21,7 @@ def main() -> int:
     errors: list[str] = []
     errors.extend(validate_all_contracts(ROOT))
     errors.extend(validate_scene_package(ROOT))
+    errors.extend(validate_dataset_package(ROOT))
     errors.extend(validate_reference_manifest(ROOT / "validation" / "reference_manifest.csv"))
     errors.extend(validate_gpu_run_registry(ROOT / "compute" / "gpu_run_registry.csv"))
     if errors:

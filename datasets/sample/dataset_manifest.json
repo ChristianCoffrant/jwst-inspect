@@ -1,0 +1,91 @@
+{
+  "dataset": "jwst-inspect-sample",
+  "dataset_version": "0.1.0",
+  "frames": [
+    {
+      "frame_id": "wk1_0000",
+      "metadata_path": "metadata/train/wk1_0000.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk1_0001",
+      "metadata_path": "metadata/train/wk1_0001.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk1_0002",
+      "metadata_path": "metadata/train/wk1_0002.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk1_0003",
+      "metadata_path": "metadata/train/wk1_0003.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk1_0004",
+      "metadata_path": "metadata/train/wk1_0004.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk1_0005",
+      "metadata_path": "metadata/train/wk1_0005.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk1_0006",
+      "metadata_path": "metadata/validation/wk1_0006.json",
+      "renderer_mode": "rasterized",
+      "split": "validation"
+    },
+    {
+      "frame_id": "wk1_0007",
+      "metadata_path": "metadata/validation/wk1_0007.json",
+      "renderer_mode": "rasterized",
+      "split": "validation"
+    },
+    {
+      "frame_id": "wk1_0008",
+      "metadata_path": "metadata/dev_test/wk1_0008.json",
+      "renderer_mode": "rasterized",
+      "split": "dev_test"
+    },
+    {
+      "frame_id": "wk1_0009",
+      "metadata_path": "metadata/dev_test/wk1_0009.json",
+      "renderer_mode": "path_traced",
+      "split": "dev_test"
+    }
+  ],
+  "generated_by": "scripts/generate_dummy_dataset.py",
+  "purpose": "Week 1 metadata-only ship gate sample; not rendered Isaac Sim data.",
+  "schema_version": "0.1.0",
+  "summary": {
+    "anomaly_counts": {
+      "glare_induced_false_anomaly_condition": 1,
+      "mirror_region_obstruction": 1,
+      "none": 6,
+      "sunshield_discoloration": 1,
+      "truss_occlusion_proxy": 1
+    },
+    "frame_count": 10,
+    "large_generated_outputs_committed": false,
+    "media_status": "metadata_only_placeholder",
+    "public_reference_images_used_for_training": false,
+    "renderer_counts": {
+      "path_traced": 1,
+      "rasterized": 9
+    },
+    "split_counts": {
+      "dev_test": 2,
+      "train": 6,
+      "validation": 2
+    }
+  }
+}
