@@ -7,6 +7,8 @@ over "World"
         def Sphere "Keepout"
         {
             custom string jwstInspect:safetyRole = "hard_keepout"
+            custom double jwstInspect:radiusM = 12
+            custom string jwstInspect:week3Decision = "freeze_before_policy_results"
             double radius = 12
         }
 
@@ -21,6 +23,9 @@ over "World"
         def Cube "ApproachCorridor"
         {
             custom string jwstInspect:safetyRole = "preferred_approach_corridor"
+            custom double jwstInspect:minY = -35
+            custom double jwstInspect:maxY = 0
+            custom string jwstInspect:week3Decision = "freeze_before_policy_results"
             double size = 1
             double3 xformOp:scale = (8, 30, 8)
             double3 xformOp:translate = (0, -20, 5)

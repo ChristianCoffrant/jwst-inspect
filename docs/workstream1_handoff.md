@@ -6,6 +6,10 @@ Scene contract: `contracts/scene_contract.yaml` version `0.1.0`, frozen Week 2 c
 
 Proxy root scene: `usd/jwst_inspect_root.usd`.
 
+Week 3 scene tag: `scene-proxy-thin-slice-v0.1`.
+
+Week 3 fixed seed: `31003`.
+
 This is a proxy scene for contract validation and downstream planning. It is not a flight-accurate JWST model and should not be presented as one.
 
 Selected external source asset: `jwst_nasa_glb_2025` in `assets/source_manifest.csv`.
@@ -67,6 +71,8 @@ Use:
 - label IDs from `contracts/scene_contract.yaml`
 - RGB/depth camera paths
 - material variant names
+- camera IDs from `configs/renderers/thin_slice_validation.yaml`
+- scene tag `scene-proxy-thin-slice-v0.1` for the first 100-frame thin-slice sample
 - `validation/reference_manifest.csv` only for validation and reporting, not training
 
 Do not:
@@ -81,8 +87,10 @@ Do not:
 Use:
 
 - task-region IDs from the contract
+- episode aliases from `usd/layers/tasks.usd`
 - safety and collision proxy paths
 - standoff metadata in `contracts/scene_contract.yaml`
+- standoff metadata in `usd/layers/tasks.usd`
 - toy local smoke test as contract health signal only
 
 Do not:
@@ -111,3 +119,7 @@ python -m unittest discover -s tests
 ```
 
 The local smoke test is not an Isaac Sim result. It verifies contracts, manifests, and toy metrics before GPU work.
+
+## Week 3 Render Status
+
+`validation/render_manifest.csv` reserves paired rasterized and path-traced rows for all required fixed camera IDs. Rows are marked `blocked_vast_required` until an Isaac Sim or Omniverse RTX run generates and syncs artifacts.

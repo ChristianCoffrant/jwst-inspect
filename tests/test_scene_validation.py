@@ -7,6 +7,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from jwst_inspect.validation.scene import (
     validate_component_mapping,
+    validate_render_manifest,
     validate_scene_contract,
     validate_source_manifest,
     validate_usd_proxy_layers,
@@ -22,6 +23,9 @@ class SceneValidationTests(unittest.TestCase):
 
     def test_component_mapping_freezes_required_labels_and_paths(self):
         self.assertEqual(validate_component_mapping(ROOT / "assets" / "jwst" / "component_mapping.csv"), [])
+
+    def test_render_manifest_has_paired_week3_views(self):
+        self.assertEqual(validate_render_manifest(ROOT / "validation" / "render_manifest.csv"), [])
 
     def test_proxy_usd_layers_have_required_contract_tokens(self):
         self.assertEqual(validate_usd_proxy_layers(ROOT), [])

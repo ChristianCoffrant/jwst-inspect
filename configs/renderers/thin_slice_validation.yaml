@@ -1,0 +1,41 @@
+version: 0.1.0
+scene_tag: scene-proxy-thin-slice-v0.1
+seed: 31003
+renderers:
+  rasterized:
+    purpose: fast validation and data-generation compatibility
+    samples_per_pixel: 1
+    output_format: png
+  path_traced:
+    purpose: fixed-pose renderer-fidelity smoke validation
+    samples_per_pixel: 64
+    output_format: png
+cameras:
+  - camera_id: mirror_inspection_fixed
+    target_region: mirror_inspection
+    target_region_id: mirror_inspection_v0
+    camera_prim: /World/Inspector/Sensors/RGBCamera
+    pose_m:
+      position: [0.0, -30.0, 8.0]
+      look_at: [0.0, 0.0, 6.0]
+    notes: Fixed mirror-facing proxy validation view.
+  - camera_id: sunshield_survey_fixed
+    target_region: sunshield_survey
+    target_region_id: sunshield_survey_v0
+    camera_prim: /World/Inspector/Sensors/RGBCamera
+    pose_m:
+      position: [0.0, -45.0, 4.0]
+      look_at: [0.0, 0.0, 0.0]
+    notes: Fixed sunshield survey proxy validation view.
+  - camera_id: approach_standoff_overview
+    target_region: approach_hold_standoff
+    target_region_id: approach_hold_standoff_v0
+    camera_prim: /World/Inspector/Sensors/RGBCamera
+    pose_m:
+      position: [8.0, -35.0, 10.0]
+      look_at: [0.0, 0.0, 4.0]
+    notes: Fixed approach and standoff overview validation view.
+guardrails:
+  fixed_seed_required: true
+  paired_renderer_modes_required: true
+  generated_outputs_tracked_in_git: false

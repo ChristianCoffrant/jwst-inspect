@@ -25,6 +25,8 @@ validation/reference_images/**
 !validation/reference_images/spacecraft/
 !validation/reference_images/diagrams/
 !validation/reference_images/backgrounds/
+validation/renders/**
+!validation/renders/README.md
 
 # Heavy generated outputs
 *.log

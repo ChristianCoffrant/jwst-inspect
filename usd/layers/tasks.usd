@@ -7,13 +7,19 @@ over "World"
         def Xform "ApproachHoldStandoff"
         {
             custom string jwstInspect:regionId = "approach_hold_standoff_v0"
+            custom string jwstInspect:episodeTaskAlias = "approach_hold_standoff_episode"
+            custom bool jwstInspect:thinSliceRequired = true
             custom string jwstInspect:targetPrim = "/World/JWST"
             custom double jwstInspect:nominalStandoffM = 35
+            custom double jwstInspect:minValidStandoffM = 25
+            custom double jwstInspect:maxValidStandoffM = 45
         }
 
         def Xform "MirrorInspection"
         {
             custom string jwstInspect:regionId = "mirror_inspection_v0"
+            custom string jwstInspect:episodeTaskAlias = "mirror_inspection_episode"
+            custom bool jwstInspect:thinSliceRequired = true
             custom string[] jwstInspect:targetPrims = ["/World/JWST/Optics/PrimaryMirror", "/World/JWST/Optics/SecondaryMirror"]
             custom int jwstInspect:coverageCellCount = 16
             custom string[] jwstInspect:coverageCells = [
@@ -35,11 +41,15 @@ over "World"
                 "mirror_cell_15"
             ]
             custom double jwstInspect:nominalStandoffM = 30
+            custom double jwstInspect:minValidStandoffM = 25
+            custom double jwstInspect:maxValidStandoffM = 40
         }
 
         def Xform "SunshieldSurvey"
         {
             custom string jwstInspect:regionId = "sunshield_survey_v0"
+            custom string jwstInspect:episodeTaskAlias = "sunshield_survey_episode"
+            custom bool jwstInspect:thinSliceRequired = true
             custom string[] jwstInspect:targetPrims = ["/World/JWST/Sunshield"]
             custom int jwstInspect:coverageCellCount = 24
             custom string[] jwstInspect:coverageCells = [
@@ -69,6 +79,8 @@ over "World"
                 "sunshield_cell_23"
             ]
             custom double jwstInspect:nominalStandoffM = 45
+            custom double jwstInspect:minValidStandoffM = 35
+            custom double jwstInspect:maxValidStandoffM = 55
         }
     }
 }

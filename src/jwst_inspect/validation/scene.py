@@ -52,6 +52,29 @@ REQUIRED_COMPONENT_LABELS = {
 
 VALID_IMPORT_STATUS = {"proxy_fallback", "source_selected", "imported", "converted"}
 
+REQUIRED_RENDER_COLUMNS = (
+    "render_id",
+    "scene_tag",
+    "seed",
+    "camera_id",
+    "renderer_mode",
+    "material_variant",
+    "lighting_variant",
+    "expected_output_path",
+    "status",
+    "notes",
+)
+
+THIN_SLICE_SCENE_TAG = "scene-proxy-thin-slice-v0.1"
+THIN_SLICE_SEED = "31003"
+THIN_SLICE_CAMERA_IDS = {
+    "mirror_inspection_fixed",
+    "sunshield_survey_fixed",
+    "approach_standoff_overview",
+}
+THIN_SLICE_RENDERER_MODES = {"rasterized", "path_traced"}
+VALID_RENDER_STATUS = {"planned", "blocked_vast_required", "completed"}
+
 REQUIRED_SCENE_TOKENS = (
     "status: frozen_week2_contract_0_1",
     "contract_freeze:",
@@ -65,6 +88,7 @@ REQUIRED_SCENE_TOKENS = (
     "task_guardrails:",
     "materials:",
     "validation:",
+    "thin_slice:",
     "ship_gate:",
     "downstream_handoff:",
 )
@@ -126,12 +150,18 @@ USD_REQUIRED_TOKENS = {
         '"StandoffShell"',
         '"ApproachCorridor"',
         '"CollisionProxies"',
+        "radiusM",
+        "minRadiusM",
+        "maxRadiusM",
+        "freeze_before_policy_results",
     ),
     Path("usd/layers/tasks.usd"): (
         '"Tasks"',
         '"ApproachHoldStandoff"',
         '"MirrorInspection"',
         '"SunshieldSurvey"',
+        "episodeTaskAlias",
+        "thinSliceRequired",
         "coverageCellCount",
         "mirror_cell_00",
         "mirror_cell_15",
@@ -252,6 +282,63 @@ def validate_component_mapping(path: Path | str) -> list[str]:
     return errors
 
 
+def validate_render_manifest(path: Path | str) -> list[str]:
+    manifest_path = Path(path)
+    if not manifest_path.exists():
+        return [f"Missing render manifest: {manifest_path}"]
+
+    errors: list[str] = []
+    paired: dict[str, set[str]] = {camera_id: set() for camera_id in THIN_SLICE_CAMERA_IDS}
+    seen_ids: set[str] = set()
+    with manifest_path.open(newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        missing = [column for column in REQUIRED_RENDER_COLUMNS if column not in (reader.fieldnames or [])]
+        if missing:
+            return [f"{manifest_path}: missing columns {missing}"]
+
+        for index, row in enumerate(reader, start=2):
+            render_id = row.get("render_id", "").strip()
+            if not render_id:
+                errors.append(f"{manifest_path}:{index}: empty render_id")
+            elif render_id in seen_ids:
+                errors.append(f"{manifest_path}:{index}: duplicate render_id {render_id!r}")
+            seen_ids.add(render_id)
+
+            scene_tag = row.get("scene_tag", "").strip()
+            if scene_tag != THIN_SLICE_SCENE_TAG:
+                errors.append(f"{manifest_path}:{index}: expected scene_tag {THIN_SLICE_SCENE_TAG!r}, found {scene_tag!r}")
+
+            seed = row.get("seed", "").strip()
+            if seed != THIN_SLICE_SEED:
+                errors.append(f"{manifest_path}:{index}: expected seed {THIN_SLICE_SEED}, found {seed!r}")
+
+            camera_id = row.get("camera_id", "").strip()
+            if camera_id not in THIN_SLICE_CAMERA_IDS:
+                errors.append(f"{manifest_path}:{index}: invalid camera_id {camera_id!r}")
+
+            renderer_mode = row.get("renderer_mode", "").strip()
+            if renderer_mode not in THIN_SLICE_RENDERER_MODES:
+                errors.append(f"{manifest_path}:{index}: invalid renderer_mode {renderer_mode!r}")
+            elif camera_id in paired:
+                paired[camera_id].add(renderer_mode)
+
+            output_path = row.get("expected_output_path", "").strip()
+            if not output_path.startswith("validation/renders/week3/"):
+                errors.append(f"{manifest_path}:{index}: expected_output_path must be under validation/renders/week3/")
+
+            status = row.get("status", "").strip()
+            if status not in VALID_RENDER_STATUS:
+                errors.append(f"{manifest_path}:{index}: invalid status {status!r}")
+            if status == "completed" and not row.get("notes", "").strip():
+                errors.append(f"{manifest_path}:{index}: completed render rows require artifact notes")
+
+    for camera_id, modes in paired.items():
+        if modes != THIN_SLICE_RENDERER_MODES:
+            errors.append(f"{manifest_path}: camera {camera_id!r} must have paired rasterized and path_traced rows")
+
+    return errors
+
+
 def validate_scene_contract(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     contract_path = root_path / "contracts" / "scene_contract.yaml"
@@ -293,6 +380,11 @@ def validate_scene_contract(root: Path | str = ".") -> list[str]:
         "task_region_id_renames_after_week2",
         "selected_external_geometry_asset: jwst_nasa_glb_2025",
         "large_downloads_tracked_in_git: false",
+        "scene_tag: scene-proxy-thin-slice-v0.1",
+        "fixed_seed: 31003",
+        "render_manifest: validation/render_manifest.csv",
+        "vast_smoke:",
+        "blocked_vast_required",
     ):
         if guardrail not in text:
             errors.append(f"{contract_path}: missing guardrail {guardrail!r}")
@@ -328,6 +420,16 @@ def validate_usd_proxy_layers(root: Path | str = ".") -> list[str]:
                 errors.append(f"{usd_path}: expected 16 mirror coverage cells, found {mirror_cells}")
             if sunshield_cells != 24:
                 errors.append(f"{usd_path}: expected 24 sunshield coverage cells, found {sunshield_cells}")
+            for alias in (
+                "approach_hold_standoff_episode",
+                "mirror_inspection_episode",
+                "sunshield_survey_episode",
+            ):
+                if alias not in text:
+                    errors.append(f"{usd_path}: missing Week 3 task alias {alias!r}")
+            for standoff_token in ("minValidStandoffM", "maxValidStandoffM"):
+                if standoff_token not in text:
+                    errors.append(f"{usd_path}: missing standoff metadata {standoff_token!r}")
 
     return errors
 
@@ -338,5 +440,6 @@ def validate_scene_package(root: Path | str = ".") -> list[str]:
     errors.extend(validate_scene_contract(root_path))
     errors.extend(validate_source_manifest(root_path / "assets" / "source_manifest.csv"))
     errors.extend(validate_component_mapping(root_path / "assets" / "jwst" / "component_mapping.csv"))
+    errors.extend(validate_render_manifest(root_path / "validation" / "render_manifest.csv"))
     errors.extend(validate_usd_proxy_layers(root_path))
     return errors
