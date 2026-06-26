@@ -1,5 +1,5 @@
 version: 0.1.0
-status: draft_week1_gate0
+status: frozen_week2_v0_1
 dataset:
   name: jwst-inspect-sample
   version: 0.1.0
@@ -37,15 +37,26 @@ renderer_modes:
   - path_traced
 outputs:
   rgb: images/{split}/{frame_id}.png
-  depth: depth/{split}/{frame_id}.exr
+  depth: depth/{split}/{frame_id}.json
   semantic_mask: masks/semantic/{split}/{frame_id}.png
   instance_mask: masks/instance/{split}/{frame_id}.png
   metadata: metadata/{split}/{frame_id}.json
   manifest: dataset_manifest.json
 media_policy:
   week1_sample_media_required: false
+  week2_sample_media_required: true
   large_generated_outputs_in_git: prohibited
   missing_media_status: metadata_only_placeholder
+  placeholder_media_status: tiny_placeholder_media
+  placeholder_media_purpose: schema_validation_only_not_replicator_output
+  placeholder_formats:
+    rgb: png_rgb_8bit
+    depth: json_depth_grid_meters
+    semantic_mask: png_grayscale_label_ids
+    instance_mask: png_grayscale_instance_ids
+  sample_frame_count:
+    min: 10
+    max: 50
 metadata_fields:
   - frame_id
   - split
@@ -109,6 +120,8 @@ metadata_schema:
       - cx_px
       - cy_px
       - clipping_range_m
+      - placeholder_width_px
+      - placeholder_height_px
   camera_extrinsics:
     frame: world
     required_keys:
@@ -152,7 +165,9 @@ camera_sampling:
       week1_status: implemented_as_metadata_sampler
 guardrails:
   metadata_completeness_required: 1.0
+  sample_media_completeness_required: 1.0
   unknown_label_ids: prohibited
+  semantic_mask_unknown_label_ids: prohibited
   public_reference_images_in_training: prohibited
   train_validation_test_episode_leakage: prohibited_unless_paired_renderer_comparison
   renderer_metrics_must_be_separate: true
@@ -167,6 +182,7 @@ validation:
     - python scripts/generate_dummy_dataset.py
     - python scripts/validate_dataset.py
     - python scripts/e2e_local_smoke.py
+    - pytest
 downstream_handoff:
   consumes_from_workstream1:
     - labels

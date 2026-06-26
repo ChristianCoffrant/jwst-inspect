@@ -1,0 +1,97 @@
+{
+  "anomaly_prim": "/World/JWST/Optics/PrimaryMirror",
+  "anomaly_type": "glare_induced_false_anomaly_condition",
+  "camera_extrinsics": {
+    "frame": "world",
+    "look_at_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "orientation_note": "placeholder look-at target for Week 2 dataset skeleton",
+    "position_m": [
+      4.1523,
+      -29.5453,
+      3.1359
+    ],
+    "quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "camera_intrinsics": {
+    "clipping_range_m": [
+      0.1,
+      250.0
+    ],
+    "cx_px": 8.0,
+    "cy_px": 6.0,
+    "fx_px": 525.0,
+    "fy_px": 525.0,
+    "height_px": 480,
+    "placeholder_height_px": 12,
+    "placeholder_width_px": 16,
+    "width_px": 640
+  },
+  "depth_noise_model": "none_week2_placeholder",
+  "episode_id": "wk2_dev_test_0022",
+  "exposure_setting": "auto_nominal_week2_placeholder",
+  "frame_id": "wk2_0022",
+  "inspector_pose": {
+    "frame": "world",
+    "position_m": [
+      4.1523,
+      -29.5453,
+      3.1359
+    ],
+    "quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "label_map": {
+    "0": "background",
+    "1": "jwst_primary_mirror",
+    "2": "jwst_secondary_mirror",
+    "3": "jwst_sunshield_layer_outer",
+    "4": "jwst_sunshield_edge",
+    "5": "jwst_bus",
+    "6": "jwst_antenna",
+    "7": "jwst_truss",
+    "8": "inspector_body",
+    "9": "inspector_solar_panel"
+  },
+  "lighting_condition": "high_glare_edge",
+  "material_variant": "degraded",
+  "media_status": "tiny_placeholder_media",
+  "outputs": {
+    "depth": "depth/dev_test/wk2_0022.json",
+    "instance_mask": "masks/instance/dev_test/wk2_0022.png",
+    "metadata": "metadata/dev_test/wk2_0022.json",
+    "rgb": "images/dev_test/wk2_0022.png",
+    "semantic_mask": "masks/semantic/dev_test/wk2_0022.png"
+  },
+  "renderer_mode": "rasterized",
+  "sampler_mode": "task_focused",
+  "seed": 220222,
+  "split": "dev_test",
+  "target_pose": {
+    "frame": "world",
+    "position_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "quaternion_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "target_region": "mirror_inspection"
+}

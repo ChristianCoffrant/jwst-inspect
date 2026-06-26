@@ -283,6 +283,24 @@ def validate_dataset_contract_structure(root: Path | str = ".") -> list[str]:
         errors.append(
             f"{contract_path}: guardrails.metadata_completeness_required must be 1.0"
         )
+    elif guardrails.get("sample_media_completeness_required") != 1.0:
+        errors.append(
+            f"{contract_path}: guardrails.sample_media_completeness_required must be 1.0"
+        )
+
+    media_policy = schema.get("media_policy")
+    if not isinstance(media_policy, dict):
+        errors.append(f"{contract_path}: media_policy must be a mapping")
+    else:
+        if media_policy.get("week2_sample_media_required") is not True:
+            errors.append(f"{contract_path}: media_policy.week2_sample_media_required must be true")
+        if media_policy.get("placeholder_media_status") != "tiny_placeholder_media":
+            errors.append(f"{contract_path}: media_policy.placeholder_media_status must be tiny_placeholder_media")
+        sample_frame_count = media_policy.get("sample_frame_count")
+        if not isinstance(sample_frame_count, dict):
+            errors.append(f"{contract_path}: media_policy.sample_frame_count must define min/max")
+        elif sample_frame_count.get("min") != 10 or sample_frame_count.get("max") != 50:
+            errors.append(f"{contract_path}: media_policy.sample_frame_count must be min=10 max=50")
 
     reference_policy = schema.get("reference_image_policy")
     if not isinstance(reference_policy, dict):

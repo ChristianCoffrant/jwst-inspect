@@ -17,6 +17,7 @@ The shared research goal is to measure renderer-to-policy transfer: whether insp
 - Workstream 1 Week 1 execution log: `docs/workstream1_week1_execution.md`
 - Workstream 1 Week 2 execution log: `docs/workstream1_week2_execution.md`
 - Workstream 2 Week 1 execution log: `docs/workstream2_week1_execution.md`
+- Workstream 2 Week 2 execution log: `docs/workstream2_week2_execution.md`
 - Workstream 3 Week 1 execution log: `docs/workstream3_week1_execution.md`
 - Execution plan: `outputs/capstone_proposals/04_12_week_execution_plan_15_person_team.md`
 - Contracts: `contracts/`
@@ -51,8 +52,9 @@ python -m unittest discover -s tests
 
 ## Current Workstream 2 Gate
 
-The Week 1 Synthetic Data and Perception Benchmark gate is a metadata-first data
-contract, deterministic camera sample, and local dataset validator.
+The Week 2 Synthetic Data and Perception Benchmark gate is a frozen dataset
+schema v0.1, deterministic camera sample, tiny placeholder media dataset, and
+local dataset validator.
 
 Run:
 
