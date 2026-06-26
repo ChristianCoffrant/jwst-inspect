@@ -6,4 +6,11 @@ episode_schema: contracts/episode_schema.yaml
 metrics_schema: contracts/metrics_schema.yaml
 episodes: configs/episodes/dev_episodes.yaml
 policy: configs/policies/scripted_baseline.yaml
-
+output_dir: runs/thin_slice
+required_episode_id: dev_approach_0001
+renderer_pair:
+  rasterized:
+    nuisance_condition: clean
+  path_traced:
+    nuisance_condition: high_glare_proxy
+    proxy_only_until_synced_gpu_logs: true
