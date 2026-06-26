@@ -15,6 +15,8 @@ jobs:
           python-version: "3.11"
       - name: Validate contracts
         run: python scripts/validate_contracts.py
+      - name: Validate scene package
+        run: python scripts/validate_scene.py
       - name: Validate reference manifest
         run: python scripts/validate_reference_manifest.py
       - name: Validate run registry
