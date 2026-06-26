@@ -240,7 +240,12 @@ def rollout_episode(
     while not env.state.terminated:
         observation = env.observe()
         action = scripted_approach_action(observation, env_config, policy_config)
-        samples.append(env.step(action))
+        sample = env.step(action)
+        sample["episode_id"] = env_config.episode_id
+        sample["frame_id"] = f"{env_config.episode_id}_{env_config.renderer_mode}_{sample['step']:04d}"
+        sample["target_region"] = env_config.target_region
+        sample["renderer_mode"] = env_config.renderer_mode
+        samples.append(sample)
 
     return {
         "schema_version": "0.1.0",
