@@ -1,0 +1,809 @@
+{
+  "frame_count": 100,
+  "join_key": [
+    "episode_id",
+    "frame_index"
+  ],
+  "records": [
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0000",
+      "frame_index": 0,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0000.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0001",
+      "frame_index": 1,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0001.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0002",
+      "frame_index": 2,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0002.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0003",
+      "frame_index": 3,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0003.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0004",
+      "frame_index": 4,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0004.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0005",
+      "frame_index": 5,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0005.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0006",
+      "frame_index": 6,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0006.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0007",
+      "frame_index": 7,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0007.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0008",
+      "frame_index": 8,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0008.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0009",
+      "frame_index": 9,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0009.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0010",
+      "frame_index": 10,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0010.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0011",
+      "frame_index": 11,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0011.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0012",
+      "frame_index": 12,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0012.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0013",
+      "frame_index": 13,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0013.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0014",
+      "frame_index": 14,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0014.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0015",
+      "frame_index": 15,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0015.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0016",
+      "frame_index": 16,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0016.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0017",
+      "frame_index": 17,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0017.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0018",
+      "frame_index": 18,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0018.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0019",
+      "frame_index": 19,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0019.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0020",
+      "frame_index": 20,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0020.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0021",
+      "frame_index": 21,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0021.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0022",
+      "frame_index": 22,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0022.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0023",
+      "frame_index": 23,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0023.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0024",
+      "frame_index": 24,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0024.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0025",
+      "frame_index": 25,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0025.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0026",
+      "frame_index": 26,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0026.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0027",
+      "frame_index": 27,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0027.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0028",
+      "frame_index": 28,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0028.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0029",
+      "frame_index": 29,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0029.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0030",
+      "frame_index": 30,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0030.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0031",
+      "frame_index": 31,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0031.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0032",
+      "frame_index": 32,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0032.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0033",
+      "frame_index": 33,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0033.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0034",
+      "frame_index": 34,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0034.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0035",
+      "frame_index": 35,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0035.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0036",
+      "frame_index": 36,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0036.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0037",
+      "frame_index": 37,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0037.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0038",
+      "frame_index": 38,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0038.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0039",
+      "frame_index": 39,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0039.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0040",
+      "frame_index": 40,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0040.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0041",
+      "frame_index": 41,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0041.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0042",
+      "frame_index": 42,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0042.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0043",
+      "frame_index": 43,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0043.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0044",
+      "frame_index": 44,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0044.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0045",
+      "frame_index": 45,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0045.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0046",
+      "frame_index": 46,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0046.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0047",
+      "frame_index": 47,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0047.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0048",
+      "frame_index": 48,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0048.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_approach_0001",
+      "frame_id": "dev_approach_0001_f0049",
+      "frame_index": 49,
+      "metadata_path": "metadata/dev_test/dev_approach_0001_f0049.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "approach_hold_standoff"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0000",
+      "frame_index": 0,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0000.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0001",
+      "frame_index": 1,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0001.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0002",
+      "frame_index": 2,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0002.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0003",
+      "frame_index": 3,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0003.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0004",
+      "frame_index": 4,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0004.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0005",
+      "frame_index": 5,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0005.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0006",
+      "frame_index": 6,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0006.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0007",
+      "frame_index": 7,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0007.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0008",
+      "frame_index": 8,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0008.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0009",
+      "frame_index": 9,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0009.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0010",
+      "frame_index": 10,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0010.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0011",
+      "frame_index": 11,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0011.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0012",
+      "frame_index": 12,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0012.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0013",
+      "frame_index": 13,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0013.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0014",
+      "frame_index": 14,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0014.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0015",
+      "frame_index": 15,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0015.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0016",
+      "frame_index": 16,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0016.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0017",
+      "frame_index": 17,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0017.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0018",
+      "frame_index": 18,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0018.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0019",
+      "frame_index": 19,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0019.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0020",
+      "frame_index": 20,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0020.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0021",
+      "frame_index": 21,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0021.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0022",
+      "frame_index": 22,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0022.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0023",
+      "frame_index": 23,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0023.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0024",
+      "frame_index": 24,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0024.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0025",
+      "frame_index": 25,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0025.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0026",
+      "frame_index": 26,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0026.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0027",
+      "frame_index": 27,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0027.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0028",
+      "frame_index": 28,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0028.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0029",
+      "frame_index": 29,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0029.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0030",
+      "frame_index": 30,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0030.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0031",
+      "frame_index": 31,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0031.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0032",
+      "frame_index": 32,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0032.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0033",
+      "frame_index": 33,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0033.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0034",
+      "frame_index": 34,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0034.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0035",
+      "frame_index": 35,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0035.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0036",
+      "frame_index": 36,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0036.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0037",
+      "frame_index": 37,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0037.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0038",
+      "frame_index": 38,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0038.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0039",
+      "frame_index": 39,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0039.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0040",
+      "frame_index": 40,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0040.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0041",
+      "frame_index": 41,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0041.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0042",
+      "frame_index": 42,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0042.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0043",
+      "frame_index": 43,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0043.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0044",
+      "frame_index": 44,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0044.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0045",
+      "frame_index": 45,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0045.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0046",
+      "frame_index": 46,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0046.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0047",
+      "frame_index": 47,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0047.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0048",
+      "frame_index": 48,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0048.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    },
+    {
+      "episode_id": "dev_sunshield_0001",
+      "frame_id": "dev_sunshield_0001_f0049",
+      "frame_index": 49,
+      "metadata_path": "metadata/dev_test/dev_sunshield_0001_f0049.json",
+      "policy_id": "scripted_baseline",
+      "task_id": "sunshield_survey"
+    }
+  ]
+}

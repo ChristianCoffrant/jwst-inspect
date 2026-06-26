@@ -11,7 +11,26 @@ from jwst_inspect.contracts import (
     load_contract_yaml,
     validate_dataset_contract_structure,
 )
-from jwst_inspect.data.media import read_depth_json_info, read_png_grayscale_values, read_png_info
+from jwst_inspect.data.media import (
+    read_depth_json_info,
+    read_png_grayscale_values,
+    read_png_info,
+    read_png_rgb_values,
+)
+from jwst_inspect.data.week3_episode_dataset import (
+    MAX_CORRUPT_OR_BLANK_FRACTION,
+    WEEK3_DATASET_DIR,
+    WEEK3_FRAME_COUNT,
+    WEEK3_GENERATION_MODE,
+)
+
+
+WEEK3_REQUIRED_METADATA_FIELDS: tuple[str, ...] = (
+    "generation_mode",
+    "frame_index",
+    "policy_id",
+    "task_id",
+)
 
 
 def _as_string_key_map(mapping: dict[Any, Any]) -> dict[str, str]:
@@ -415,9 +434,321 @@ def validate_sample_dataset(
     return errors
 
 
+def _load_manifest(path: Path) -> tuple[dict[str, Any] | None, list[str]]:
+    if not path.exists():
+        return None, [f"{path}: missing dataset manifest"]
+    try:
+        manifest = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        return None, [f"{path}: cannot parse JSON: {exc}"]
+    if not isinstance(manifest, dict):
+        return None, [f"{path}: manifest root must be a mapping"]
+    return manifest, []
+
+
+def _load_episode_config(root_path: Path) -> tuple[dict[str, dict[str, Any]], list[str]]:
+    errors: list[str] = []
+    try:
+        config = load_contract_yaml(root_path / "configs" / "episodes" / "dev_episodes.yaml")
+    except Exception as exc:
+        return {}, [f"configs/episodes/dev_episodes.yaml: cannot parse episodes: {exc}"]
+    episodes = config.get("episodes")
+    if not isinstance(episodes, list):
+        return {}, ["configs/episodes/dev_episodes.yaml: episodes must be a list"]
+    by_id: dict[str, dict[str, Any]] = {}
+    for index, episode in enumerate(episodes):
+        if not isinstance(episode, dict):
+            errors.append(f"configs/episodes/dev_episodes.yaml: episode {index} must be a mapping")
+            continue
+        episode_id = episode.get("episode_id")
+        if not isinstance(episode_id, str) or not episode_id:
+            errors.append(f"configs/episodes/dev_episodes.yaml: episode {index} missing episode_id")
+            continue
+        by_id[episode_id] = episode
+    return by_id, errors
+
+
+def _is_blank_week3_media(sample_path: Path, metadata: dict[str, Any]) -> bool:
+    outputs = metadata["outputs"]
+    rgb_values = read_png_rgb_values(sample_path / outputs["rgb"])
+    semantic_values = read_png_grayscale_values(sample_path / outputs["semantic_mask"])
+    instance_values = read_png_grayscale_values(sample_path / outputs["instance_mask"])
+    return (
+        len(set(rgb_values)) <= 1
+        or len(set(semantic_values)) <= 1
+        or len(set(instance_values)) <= 1
+    )
+
+
+def _frame_record_value(frame_record: dict[str, Any], metadata: dict[str, Any], key: str) -> list[str]:
+    if frame_record.get(key) != metadata.get(key):
+        return [
+            f"{metadata.get('frame_id')}: manifest {key} {frame_record.get(key)!r} "
+            f"does not match metadata {metadata.get(key)!r}"
+        ]
+    return []
+
+
+def _relative_posix(path: Path, root_path: Path) -> str:
+    try:
+        return path.relative_to(root_path).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def validate_week3_episode_dataset_with_report(
+    root: Path | str = ".",
+    dataset_dir: Path | str | None = None,
+) -> tuple[list[str], dict[str, Any]]:
+    root_path = Path(root)
+    sample_path = Path(dataset_dir) if dataset_dir is not None else root_path / WEEK3_DATASET_DIR
+    manifest_path = sample_path / "dataset_manifest.json"
+    errors: list[str] = []
+
+    try:
+        schema = load_contract_yaml(root_path / "contracts" / "dataset_schema.yaml")
+    except Exception as exc:
+        return [f"contracts/dataset_schema.yaml: cannot parse schema: {exc}"], {
+            "status": "failed",
+            "errors": [str(exc)],
+        }
+
+    scene_labels, label_errors = _scene_labels(root_path)
+    errors.extend(label_errors)
+    task_regions, material_variants, lighting_variants, variant_errors = _scene_variants(root_path)
+    errors.extend(variant_errors)
+    anomaly_ids, anomaly_errors = _allowed_anomalies(root_path)
+    errors.extend(anomaly_errors)
+    episodes_by_id, episode_errors = _load_episode_config(root_path)
+    errors.extend(episode_errors)
+
+    manifest, manifest_errors = _load_manifest(manifest_path)
+    errors.extend(manifest_errors)
+    if manifest is None:
+        report = {
+            "status": "failed",
+            "dataset_phase": "week3_episode_thin_slice",
+            "manifest_path": _relative_posix(manifest_path, root_path),
+            "errors": errors,
+        }
+        return errors, report
+
+    frames = manifest.get("frames")
+    if not isinstance(frames, list) or not frames:
+        errors.append(f"{manifest_path}: frames must be a non-empty list")
+        frames = []
+    if len(frames) != WEEK3_FRAME_COUNT:
+        errors.append(f"{manifest_path}: Week 3 episode dataset must include exactly {WEEK3_FRAME_COUNT} frames")
+    if manifest.get("generation_mode") != WEEK3_GENERATION_MODE:
+        errors.append(f"{manifest_path}: generation_mode must be {WEEK3_GENERATION_MODE!r}")
+    if manifest.get("dataset_phase") != "week3_episode_thin_slice":
+        errors.append(f"{manifest_path}: dataset_phase must be 'week3_episode_thin_slice'")
+
+    split_counts: Counter[str] = Counter()
+    renderer_counts: Counter[str] = Counter()
+    episode_counts: Counter[str] = Counter()
+    join_keys: set[tuple[str, int]] = set()
+    complete_metadata_count = 0
+    complete_episode_metadata_count = 0
+    complete_media_count = 0
+    blank_or_corrupt_count = 0
+
+    for index, frame_record in enumerate(frames):
+        if not isinstance(frame_record, dict):
+            errors.append(f"{manifest_path}: frame record {index} must be a mapping")
+            continue
+        metadata_relpath = frame_record.get("metadata_path")
+        if not isinstance(metadata_relpath, str):
+            errors.append(f"{manifest_path}: frame record {index} missing metadata_path")
+            continue
+        metadata_path = sample_path / metadata_relpath
+        if not metadata_path.exists():
+            errors.append(f"{metadata_path}: missing metadata file")
+            blank_or_corrupt_count += 1
+            continue
+
+        metadata, frame_errors = _validate_metadata_file(
+            metadata_path,
+            schema,
+            scene_labels,
+            task_regions,
+            material_variants,
+            lighting_variants,
+            anomaly_ids,
+        )
+        if metadata is None:
+            errors.extend(f"{metadata_path}: {error}" for error in frame_errors)
+            blank_or_corrupt_count += 1
+            continue
+
+        week3_metadata_errors: list[str] = []
+        for field in WEEK3_REQUIRED_METADATA_FIELDS:
+            if field not in metadata:
+                week3_metadata_errors.append(f"{metadata['frame_id']}: missing Week 3 metadata field {field!r}")
+        if metadata.get("generation_mode") != WEEK3_GENERATION_MODE:
+            week3_metadata_errors.append(
+                f"{metadata['frame_id']}: generation_mode must be {WEEK3_GENERATION_MODE!r}"
+            )
+        if not isinstance(metadata.get("frame_index"), int) or metadata.get("frame_index", -1) < 0:
+            week3_metadata_errors.append(f"{metadata['frame_id']}: frame_index must be a non-negative integer")
+        if not isinstance(metadata.get("policy_id"), str) or not metadata.get("policy_id"):
+            week3_metadata_errors.append(f"{metadata['frame_id']}: policy_id must be a non-empty string")
+        if not isinstance(metadata.get("task_id"), str) or not metadata.get("task_id"):
+            week3_metadata_errors.append(f"{metadata['frame_id']}: task_id must be a non-empty string")
+
+        episode = episodes_by_id.get(str(metadata.get("episode_id")))
+        if episode is None:
+            week3_metadata_errors.append(
+                f"{metadata['frame_id']}: episode_id {metadata.get('episode_id')!r} is not in dev episode config"
+            )
+        else:
+            if metadata.get("policy_id") != episode.get("policy_id"):
+                week3_metadata_errors.append(
+                    f"{metadata['frame_id']}: policy_id does not match dev episode config"
+                )
+            if metadata.get("task_id") != episode.get("task_name"):
+                week3_metadata_errors.append(
+                    f"{metadata['frame_id']}: task_id does not match dev episode config"
+                )
+
+        for key in ("frame_id", "episode_id", "frame_index", "generation_mode", "policy_id", "task_id"):
+            week3_metadata_errors.extend(_frame_record_value(frame_record, metadata, key))
+
+        errors.extend(f"{metadata_path}: {error}" for error in frame_errors)
+        errors.extend(f"{metadata_path}: {error}" for error in week3_metadata_errors)
+        if not frame_errors and not week3_metadata_errors:
+            complete_metadata_count += 1
+        if not week3_metadata_errors:
+            complete_episode_metadata_count += 1
+
+        media_errors = _validate_output_media(sample_path, metadata, scene_labels)
+        media_blank = False
+        if not media_errors:
+            try:
+                media_blank = _is_blank_week3_media(sample_path, metadata)
+            except Exception as exc:
+                media_errors.append(f"{metadata['frame_id']}: cannot inspect blank/corrupt guardrail: {exc}")
+        errors.extend(f"{metadata_path}: {error}" for error in media_errors)
+        if not media_errors and not media_blank:
+            complete_media_count += 1
+        else:
+            blank_or_corrupt_count += 1
+
+        episode_id = str(metadata.get("episode_id"))
+        frame_index = metadata.get("frame_index")
+        if isinstance(frame_index, int):
+            join_key = (episode_id, frame_index)
+            if join_key in join_keys:
+                errors.append(f"{metadata_path}: duplicated rollout join key {join_key!r}")
+            join_keys.add(join_key)
+        split_counts[str(metadata.get("split"))] += 1
+        renderer_counts[str(metadata.get("renderer_mode"))] += 1
+        episode_counts[episode_id] += 1
+
+    join_index_path = sample_path / str(manifest.get("rollout_join_index_path", "rollout_join_index.json"))
+    join_index_records = 0
+    join_index_key_matches = 0
+    if not join_index_path.exists():
+        errors.append(f"{join_index_path}: missing rollout join index")
+    else:
+        try:
+            join_index = json.loads(join_index_path.read_text(encoding="utf-8"))
+            records = join_index.get("records")
+            if join_index.get("join_key") != ["episode_id", "frame_index"]:
+                errors.append(f"{join_index_path}: join_key must be ['episode_id', 'frame_index']")
+            if not isinstance(records, list):
+                errors.append(f"{join_index_path}: records must be a list")
+            else:
+                join_index_records = len(records)
+                join_index_keys: set[tuple[str, int]] = set()
+                for record in records:
+                    if isinstance(record, dict) and isinstance(record.get("frame_index"), int):
+                        join_index_keys.add((str(record.get("episode_id")), int(record["frame_index"])))
+                join_index_key_matches = len(join_keys & join_index_keys)
+                if join_index_keys != join_keys:
+                    errors.append(f"{join_index_path}: rollout join keys must match dataset metadata")
+        except Exception as exc:
+            errors.append(f"{join_index_path}: cannot parse rollout join index: {exc}")
+
+    summary = manifest.get("summary")
+    if not isinstance(summary, dict):
+        errors.append(f"{manifest_path}: summary must be present")
+    else:
+        if summary.get("public_reference_images_used_for_training") is not False:
+            errors.append(f"{manifest_path}: public_reference_images_used_for_training must be false")
+        if summary.get("large_generated_outputs_committed") is not False:
+            errors.append(f"{manifest_path}: large_generated_outputs_committed must be false")
+        if summary.get("placeholder_media_files") != len(frames) * 4:
+            errors.append(f"{manifest_path}: summary.placeholder_media_files must equal frame_count * 4")
+
+    frame_count = len(frames)
+    corrupt_or_blank_fraction = blank_or_corrupt_count / frame_count if frame_count else 1.0
+    if corrupt_or_blank_fraction > MAX_CORRUPT_OR_BLANK_FRACTION:
+        errors.append(
+            f"{manifest_path}: corrupt or blank frame fraction is "
+            f"{corrupt_or_blank_fraction:.3f}, expected <= {MAX_CORRUPT_OR_BLANK_FRACTION:.3f}"
+        )
+
+    report = {
+        "status": "failed" if errors else "passed",
+        "dataset_phase": "week3_episode_thin_slice",
+        "generation_mode": manifest.get("generation_mode"),
+        "manifest_path": _relative_posix(manifest_path, root_path),
+        "frame_count": frame_count,
+        "expected_frame_count": WEEK3_FRAME_COUNT,
+        "metadata_completeness": complete_metadata_count / frame_count if frame_count else 0.0,
+        "episode_metadata_completeness": complete_episode_metadata_count / frame_count if frame_count else 0.0,
+        "media_completeness": complete_media_count / frame_count if frame_count else 0.0,
+        "corrupt_or_blank_frame_count": blank_or_corrupt_count,
+        "corrupt_or_blank_fraction": corrupt_or_blank_fraction,
+        "max_corrupt_or_blank_fraction": MAX_CORRUPT_OR_BLANK_FRACTION,
+        "split_counts": dict(sorted(split_counts.items())),
+        "renderer_counts": dict(sorted(renderer_counts.items())),
+        "episode_counts": dict(sorted(episode_counts.items())),
+        "rollout_joinability": {
+            "join_key": ["episode_id", "frame_index"],
+            "unique_dataset_join_keys": len(join_keys),
+            "join_index_records": join_index_records,
+            "join_index_key_matches": join_index_key_matches,
+            "joinable_frame_fraction": join_index_key_matches / frame_count if frame_count else 0.0,
+        },
+        "guardrails": {
+            "public_reference_images_used_for_training": False,
+            "unknown_semantic_label_ids": "prohibited",
+            "static_and_episode_frames_distinguished_by_generation_mode": True,
+        },
+        "errors": errors,
+    }
+    return errors, report
+
+
+def validate_week3_episode_dataset(
+    root: Path | str = ".",
+    dataset_dir: Path | str | None = None,
+) -> list[str]:
+    errors, _ = validate_week3_episode_dataset_with_report(root, dataset_dir)
+    return errors
+
+
+def write_week3_validation_report(
+    root: Path | str = ".",
+    dataset_dir: Path | str | None = None,
+    report_path: Path | str | None = None,
+) -> tuple[Path, list[str]]:
+    root_path = Path(root)
+    sample_path = Path(dataset_dir) if dataset_dir is not None else root_path / WEEK3_DATASET_DIR
+    errors, report = validate_week3_episode_dataset_with_report(root_path, sample_path)
+    output_path = Path(report_path) if report_path is not None else sample_path / "validation_report.json"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return output_path, errors
+
+
 def validate_dataset_package(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     errors: list[str] = []
     errors.extend(validate_dataset_contract_structure(root_path))
     errors.extend(validate_sample_dataset(root_path))
+    if (root_path / WEEK3_DATASET_DIR / "dataset_manifest.json").exists():
+        errors.extend(validate_week3_episode_dataset(root_path))
     return errors

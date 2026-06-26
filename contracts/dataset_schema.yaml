@@ -45,6 +45,7 @@ outputs:
 media_policy:
   week1_sample_media_required: false
   week2_sample_media_required: true
+  week3_episode_sample_required: true
   large_generated_outputs_in_git: prohibited
   missing_media_status: metadata_only_placeholder
   placeholder_media_status: tiny_placeholder_media
@@ -57,11 +58,17 @@ media_policy:
   sample_frame_count:
     min: 10
     max: 50
+  week3_episode_frame_count: 100
+  max_corrupt_or_blank_frame_fraction: 0.05
 metadata_fields:
   - frame_id
   - split
   - seed
   - episode_id
+  - frame_index
+  - generation_mode
+  - policy_id
+  - task_id
   - renderer_mode
   - sampler_mode
   - target_region
@@ -97,6 +104,24 @@ metadata_schema:
     type: string
     required: true
     split_leakage_guardrail: no_cross_split_reuse_unless_paired_renderer_comparison
+  frame_index:
+    type: integer
+    required_for_generation_mode: episode_rollout
+    rollout_join_key: true
+  generation_mode:
+    type: enum
+    values:
+      - static_sample
+      - episode_rollout
+    required_for_week3_episode_dataset: true
+  policy_id:
+    type: string
+    required_for_generation_mode: episode_rollout
+    source: configs/policies/
+  task_id:
+    type: string
+    required_for_generation_mode: episode_rollout
+    source: configs/episodes/
   renderer_mode:
     type: enum
     values:
@@ -166,10 +191,17 @@ camera_sampling:
 guardrails:
   metadata_completeness_required: 1.0
   sample_media_completeness_required: 1.0
+  week3_episode_frame_count_required: 100
+  week3_episode_metadata_completeness_required: 1.0
+  week3_rollout_join_key:
+    - episode_id
+    - frame_index
+  max_corrupt_or_blank_frame_fraction: 0.05
   unknown_label_ids: prohibited
   semantic_mask_unknown_label_ids: prohibited
   public_reference_images_in_training: prohibited
   train_validation_test_episode_leakage: prohibited_unless_paired_renderer_comparison
+  static_and_episode_frames_must_be_distinguished_by_generation_mode: true
   renderer_metrics_must_be_separate: true
   anomaly_false_alarm_reporting_required_for_high_glare: true
 reference_image_policy:
@@ -181,6 +213,9 @@ validation:
     - python scripts/validate_contracts.py
     - python scripts/generate_dummy_dataset.py
     - python scripts/validate_dataset.py
+    - python scripts/generate_week3_dataset.py
+    - python scripts/validate_week3_dataset.py
+    - python scripts/create_week3_contact_sheet.py
     - python scripts/e2e_local_smoke.py
     - pytest
 downstream_handoff:

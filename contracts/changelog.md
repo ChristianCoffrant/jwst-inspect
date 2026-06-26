@@ -12,3 +12,4 @@
 - Froze Workstream 1 scene contract 0.1 for Week 2 with contract-freeze metadata, selected NASA JWST GLB source, proxy fallback component mapping, semantic guardrails, task-region guardrails, and explicit mirror/sunshield coverage cells.
 - Froze Workstream 2 dataset schema v0.1 for Week 2 with tiny placeholder media requirements, JSON depth placeholders for tracked samples, sample media completeness guardrails, and semantic-mask label validation.
 - Added Workstream 1 Week 3 thin-slice scene support: scene tag and seed, fixed validation cameras, task aliases, standoff metadata, render manifest with paired raster/path-traced rows, external reference checklist rows, and validator guardrails.
+- Extended Workstream 2 dataset schema for Week 3 with episode rollout metadata fields, 100-frame thin-slice guardrails, rollout join keys, corrupt/blank frame threshold, and static-vs-episode generation-mode separation.
