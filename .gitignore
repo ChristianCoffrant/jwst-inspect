@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local/editor state
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Runtime artifacts
+runs/*
+!runs/README.md
+datasets/raw/*
+!datasets/raw/README.md
+datasets/generated/*
+!datasets/generated/README.md
+validation/reference_images/**
+!validation/reference_images/README.md
+!validation/reference_images/spacecraft/
+!validation/reference_images/diagrams/
+!validation/reference_images/backgrounds/
+
+# Heavy generated outputs
+*.log
+*.tmp
+*.ckpt
+*.pth
+*.pt
+*.onnx
+*.exr
+*.mp4
+*.mov
+
+# Omniverse/Isaac local caches
+kit/
+cache/
+ov/
+_isaac_sim/
+

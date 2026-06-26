@@ -1,0 +1,25 @@
+name: local-smoke
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate contracts
+        run: python scripts/validate_contracts.py
+      - name: Validate reference manifest
+        run: python scripts/validate_reference_manifest.py
+      - name: Validate run registry
+        run: python scripts/validate_run_registry.py
+      - name: Run local smoke
+        run: python scripts/e2e_local_smoke.py
+      - name: Run unit tests
+        run: python -m unittest discover -s tests

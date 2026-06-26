@@ -1,0 +1,28 @@
+#usda 1.0
+
+over "World"
+{
+    def Scope "Lighting"
+    {
+        def DistantLight "NominalSunKey"
+        {
+            custom string jwstInspect:variant = "nominal_sun_key"
+            float intensity = 3000
+            float angle = 0.53
+        }
+
+        def DistantLight "HighGlareEdge"
+        {
+            custom string jwstInspect:variant = "high_glare_edge"
+            float intensity = 7000
+            float angle = 0.25
+        }
+
+        def DistantLight "LowLightColdSide"
+        {
+            custom string jwstInspect:variant = "low_light_cold_side"
+            float intensity = 500
+            float angle = 1.0
+        }
+    }
+}

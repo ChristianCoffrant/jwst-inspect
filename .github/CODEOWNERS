@@ -1,0 +1,24 @@
+# Replace placeholders with actual GitHub handles once teams are assigned.
+
+/contracts/ @ChristianCoffrant
+/docs/ @ChristianCoffrant
+
+# Team 1: Digital Twin and Asset Benchmark
+/assets/ @ChristianCoffrant
+/usd/ @ChristianCoffrant
+/validation/ @ChristianCoffrant
+
+# Team 2: Synthetic Data and Perception Benchmark
+/replicator/ @ChristianCoffrant
+/datasets/ @ChristianCoffrant
+
+# Team 3: Autonomous Inspection Policy and R2P Evaluation
+/isaac_env/ @ChristianCoffrant
+/evaluation/ @ChristianCoffrant
+
+# Shared lightweight code and scripts
+/src/ @ChristianCoffrant
+/scripts/ @ChristianCoffrant
+/tests/ @ChristianCoffrant
+/compute/ @ChristianCoffrant
+/configs/ @ChristianCoffrant

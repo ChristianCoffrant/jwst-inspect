@@ -1,0 +1,113 @@
+#usda 1.0
+
+over "World"
+{
+    def Xform "JWST"
+    {
+        custom string jwstInspect:assetRole = "inspection_target"
+        custom double jwstInspect:declaredBoundingRadiusM = 55
+
+        def Xform "Optics"
+        {
+            def Cylinder "PrimaryMirror"
+            {
+                custom string jwstInspect:proxyShape = "cylinder"
+                double radius = 3.25
+                double height = 0.2
+                double3 xformOp:translate = (0, 0, 6)
+                token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Sphere "SecondaryMirror"
+            {
+                custom string jwstInspect:proxyShape = "sphere"
+                double radius = 0.7
+                double3 xformOp:translate = (0, 0, 13)
+                token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+
+        def Xform "Sunshield"
+        {
+            custom string jwstInspect:proxyShape = "stacked_flattened_cubes"
+            def Cube "OuterLayer"
+            {
+                double size = 1
+                double3 xformOp:scale = (18, 10, 0.04)
+                double3 xformOp:translate = (0, 0, 0)
+                token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+            }
+
+            def Cube "EdgeBand"
+            {
+                double size = 1
+                double3 xformOp:scale = (18.5, 10.5, 0.05)
+                double3 xformOp:translate = (0, 0, -0.08)
+                token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+            }
+        }
+
+        def Cube "Bus"
+        {
+            double size = 1
+            double3 xformOp:scale = (2.5, 2, 1.5)
+            double3 xformOp:translate = (0, -2.5, 1.5)
+            token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+        }
+
+        def Cylinder "Antenna"
+        {
+            double radius = 0.35
+            double height = 2.0
+            double3 xformOp:translate = (2.5, -2.5, 1.5)
+            token[] xformOpOrder = ["xformOp:translate"]
+        }
+
+        def Xform "Truss"
+        {
+            def Cylinder "SecondarySupportA"
+            {
+                double radius = 0.06
+                double height = 8.0
+                double3 xformOp:translate = (-2.8, 0, 9)
+                token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Cylinder "SecondarySupportB"
+            {
+                double radius = 0.06
+                double height = 8.0
+                double3 xformOp:translate = (2.8, 0, 9)
+                token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+    }
+
+    def Xform "Inspector"
+    {
+        custom string jwstInspect:assetRole = "proxy_inspector"
+        def Cube "Body"
+        {
+            double size = 1
+            double3 xformOp:scale = (0.6, 0.45, 0.35)
+            double3 xformOp:translate = (0, -35, 5)
+            token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+        }
+
+        def Cube "SolarPanelLeft"
+        {
+            double size = 1
+            double3 xformOp:scale = (1.2, 0.04, 0.35)
+            double3 xformOp:translate = (-1.0, -35, 5)
+            token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+        }
+
+        def Cube "SolarPanelRight"
+        {
+            double size = 1
+            double3 xformOp:scale = (1.2, 0.04, 0.35)
+            double3 xformOp:translate = (1.0, -35, 5)
+            token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+        }
+    }
+}

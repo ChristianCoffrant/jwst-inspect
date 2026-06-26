@@ -1,0 +1,23 @@
+version: 0.1.0
+primary_metrics:
+  - task_success
+  - surface_coverage
+  - standoff_error_mean
+  - standoff_error_max
+  - relative_velocity_at_hold
+  - keepout_violation_rate
+  - collision_rate
+  - abort_rate
+  - control_effort
+  - r2p_gap
+normalized_score:
+  task_success_weight: 0.35
+  coverage_weight: 0.30
+  standoff_error_weight: 0.15
+  safety_violation_weight: 0.15
+  abort_weight: 0.05
+guardrails:
+  unsafe_coverage_counts_as_success: false
+  final_seed_tuning_allowed: false
+  metric_weight_changes_after_freeze: requires_integration_approval
+

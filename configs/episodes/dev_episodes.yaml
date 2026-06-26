@@ -1,0 +1,15 @@
+version: 0.1.0
+episodes:
+  - episode_id: dev_approach_0001
+    seed: 1001
+    task_name: approach_hold_standoff
+    renderer_mode: rasterized
+    material_variant: nominal
+    policy_id: scripted_baseline
+  - episode_id: dev_sunshield_0001
+    seed: 1002
+    task_name: sunshield_survey
+    renderer_mode: rasterized
+    material_variant: nominal
+    policy_id: scripted_baseline
+

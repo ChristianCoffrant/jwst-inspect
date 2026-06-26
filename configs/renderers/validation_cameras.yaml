@@ -1,0 +1,12 @@
+version: 0.1.0
+cameras:
+  - camera_id: front_mirror_reference
+    target_region: mirror_inspection
+    notes: Approximate front-facing mirror validation view.
+  - camera_id: sunshield_side_reference
+    target_region: sunshield_survey
+    notes: Approximate side-view sunshield validation view.
+renderer_modes:
+  - rasterized
+  - path_traced
+

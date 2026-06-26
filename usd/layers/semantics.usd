@@ -1,0 +1,76 @@
+#usda 1.0
+
+over "World"
+{
+    over "JWST"
+    {
+        over "Optics"
+        {
+            over "PrimaryMirror"
+            {
+                custom int jwstInspect:labelId = 1
+                custom string jwstInspect:labelName = "jwst_primary_mirror"
+            }
+
+            over "SecondaryMirror"
+            {
+                custom int jwstInspect:labelId = 2
+                custom string jwstInspect:labelName = "jwst_secondary_mirror"
+            }
+        }
+
+        over "Sunshield"
+        {
+            over "OuterLayer"
+            {
+                custom int jwstInspect:labelId = 3
+                custom string jwstInspect:labelName = "jwst_sunshield_layer_outer"
+            }
+
+            over "EdgeBand"
+            {
+                custom int jwstInspect:labelId = 4
+                custom string jwstInspect:labelName = "jwst_sunshield_edge"
+            }
+        }
+
+        over "Bus"
+        {
+            custom int jwstInspect:labelId = 5
+            custom string jwstInspect:labelName = "jwst_bus"
+        }
+
+        over "Antenna"
+        {
+            custom int jwstInspect:labelId = 6
+            custom string jwstInspect:labelName = "jwst_antenna"
+        }
+
+        over "Truss"
+        {
+            custom int jwstInspect:labelId = 7
+            custom string jwstInspect:labelName = "jwst_truss"
+        }
+    }
+
+    over "Inspector"
+    {
+        over "Body"
+        {
+            custom int jwstInspect:labelId = 8
+            custom string jwstInspect:labelName = "inspector_body"
+        }
+
+        over "SolarPanelLeft"
+        {
+            custom int jwstInspect:labelId = 9
+            custom string jwstInspect:labelName = "inspector_solar_panel"
+        }
+
+        over "SolarPanelRight"
+        {
+            custom int jwstInspect:labelId = 9
+            custom string jwstInspect:labelName = "inspector_solar_panel"
+        }
+    }
+}

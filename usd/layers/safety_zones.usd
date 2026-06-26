@@ -1,0 +1,50 @@
+#usda 1.0
+
+over "World"
+{
+    def Scope "Safety"
+    {
+        def Sphere "Keepout"
+        {
+            custom string jwstInspect:safetyRole = "hard_keepout"
+            double radius = 12
+        }
+
+        def Sphere "StandoffShell"
+        {
+            custom string jwstInspect:safetyRole = "valid_standoff_band_centerline"
+            custom double jwstInspect:minRadiusM = 25
+            custom double jwstInspect:maxRadiusM = 45
+            double radius = 35
+        }
+
+        def Cube "ApproachCorridor"
+        {
+            custom string jwstInspect:safetyRole = "preferred_approach_corridor"
+            double size = 1
+            double3 xformOp:scale = (8, 30, 8)
+            double3 xformOp:translate = (0, -20, 5)
+            token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+        }
+
+        def Scope "CollisionProxies"
+        {
+            def Cube "JWSTBusProxy"
+            {
+                custom string jwstInspect:proxyFor = "/World/JWST/Bus"
+                double size = 1
+                double3 xformOp:scale = (3, 2.5, 2)
+                double3 xformOp:translate = (0, -2.5, 1.5)
+                token[] xformOpOrder = ["xformOp:scale", "xformOp:translate"]
+            }
+
+            def Cube "SunshieldProxy"
+            {
+                custom string jwstInspect:proxyFor = "/World/JWST/Sunshield"
+                double size = 1
+                double3 xformOp:scale = (19, 11, 0.25)
+                token[] xformOpOrder = ["xformOp:scale"]
+            }
+        }
+    }
+}

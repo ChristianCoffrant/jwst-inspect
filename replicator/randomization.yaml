@@ -1,0 +1,11 @@
+version: 0.1.0
+randomization:
+  lighting:
+    enabled: false
+  camera_pose:
+    enabled: false
+  material_variant:
+    enabled: false
+  sensor_noise:
+    enabled: false
+

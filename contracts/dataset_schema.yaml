@@ -1,0 +1,33 @@
+version: 0.1.0
+dataset:
+  name: jwst-inspect-sample
+  split_policy:
+    train: rasterized_randomized
+    validation: rasterized_holdout
+    dev_test: rasterized_and_path_traced_dev
+    final_test: held_out_path_traced
+outputs:
+  rgb: images/{split}/{frame_id}.png
+  depth: depth/{split}/{frame_id}.exr
+  semantic_mask: masks/semantic/{split}/{frame_id}.png
+  metadata: metadata/{split}/{frame_id}.json
+metadata_fields:
+  - frame_id
+  - seed
+  - episode_id
+  - renderer_mode
+  - camera_intrinsics
+  - camera_extrinsics
+  - target_pose
+  - inspector_pose
+  - label_map
+  - lighting_condition
+  - material_variant
+  - anomaly_type
+  - anomaly_prim
+  - exposure_setting
+reference_image_policy:
+  official_training_use: prohibited
+  validation_use: allowed_with_manifest
+  heldout_tuning_use: prohibited
+

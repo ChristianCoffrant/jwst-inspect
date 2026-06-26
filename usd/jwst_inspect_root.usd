@@ -1,0 +1,21 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    subLayers = [
+        @layers/geometry.usd@,
+        @layers/materials.usd@,
+        @layers/semantics.usd@,
+        @layers/sensors.usd@,
+        @layers/safety_zones.usd@,
+        @layers/tasks.usd@,
+        @layers/lighting_variants.usd@
+    ]
+)
+
+def Xform "World" (
+    kind = "assembly"
+)
+{
+    custom string jwstInspect:sceneVersion = "0.1.0"
+    custom string jwstInspect:scope = "week1_proxy_contract_scene"
+}

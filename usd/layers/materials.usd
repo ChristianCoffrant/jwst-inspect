@@ -1,0 +1,44 @@
+#usda 1.0
+
+over "World"
+{
+    def Scope "Materials"
+    {
+        custom string jwstInspect:variantSetName = "material_condition"
+
+        def Material "NominalMirrorGold"
+        {
+            custom string jwstInspect:variant = "nominal"
+            custom double3 jwstInspect:baseColor = (1.0, 0.72, 0.25)
+            custom double jwstInspect:roughness = 0.22
+        }
+
+        def Material "HighGlareMirrorGold"
+        {
+            custom string jwstInspect:variant = "high_glare"
+            custom double3 jwstInspect:baseColor = (1.0, 0.82, 0.32)
+            custom double jwstInspect:roughness = 0.04
+        }
+
+        def Material "NominalSunshield"
+        {
+            custom string jwstInspect:variant = "nominal"
+            custom double3 jwstInspect:baseColor = (0.82, 0.78, 0.68)
+            custom double jwstInspect:roughness = 0.35
+        }
+
+        def Material "DegradedSunshield"
+        {
+            custom string jwstInspect:variant = "degraded"
+            custom double3 jwstInspect:baseColor = (0.44, 0.42, 0.38)
+            custom double jwstInspect:roughness = 0.75
+        }
+
+        def Material "AnomalyPatch"
+        {
+            custom string jwstInspect:variant = "anomaly_test"
+            custom double3 jwstInspect:baseColor = (0.95, 0.10, 0.08)
+            custom double jwstInspect:roughness = 0.50
+        }
+    }
+}

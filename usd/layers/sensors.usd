@@ -1,0 +1,37 @@
+#usda 1.0
+
+over "World"
+{
+    over "Inspector"
+    {
+        def Xform "Sensors"
+        {
+            def Camera "RGBCamera"
+            {
+                custom string jwstInspect:sensorRole = "rgb"
+                float focalLength = 24
+                float horizontalAperture = 20.955
+                float verticalAperture = 15.2908
+                double3 xformOp:translate = (0, -0.35, 0)
+                token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Camera "DepthCamera"
+            {
+                custom string jwstInspect:sensorRole = "depth"
+                float focalLength = 24
+                float horizontalAperture = 20.955
+                float verticalAperture = 15.2908
+                double3 xformOp:translate = (0, -0.35, -0.05)
+                token[] xformOpOrder = ["xformOp:translate"]
+            }
+
+            def Xform "IMUFrame"
+            {
+                custom string jwstInspect:sensorRole = "imu_reference"
+                double3 xformOp:translate = (0, 0, 0)
+                token[] xformOpOrder = ["xformOp:translate"]
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+version: 0.1.0
+experiment_id: thin_slice_v0_1
+scene_contract: contracts/scene_contract.yaml
+dataset_schema: contracts/dataset_schema.yaml
+episode_schema: contracts/episode_schema.yaml
+metrics_schema: contracts/metrics_schema.yaml
+episodes: configs/episodes/dev_episodes.yaml
+policy: configs/policies/scripted_baseline.yaml
+
