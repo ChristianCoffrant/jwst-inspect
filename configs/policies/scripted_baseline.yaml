@@ -2,7 +2,7 @@ version: 0.1.0
 policy_id: scripted_baseline
 type: deterministic_scripted
 parameters:
-  target_standoff_m: 20.0
+  target_standoff_m: 35.0
   max_relative_velocity_mps: 0.5
   abort_distance_m: 8.0
-
+  slow_zone_m: 5.0
