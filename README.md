@@ -15,6 +15,7 @@ The shared research goal is to measure renderer-to-policy transfer: whether insp
 - Repo architecture: `docs/architecture/repo_structure_atomic_work_packages.md`
 - Workstream 1 handoff: `docs/workstream1_handoff.md`
 - Workstream 1 Week 1 execution log: `docs/workstream1_week1_execution.md`
+- Workstream 1 Week 2 execution log: `docs/workstream1_week2_execution.md`
 - Workstream 2 Week 1 execution log: `docs/workstream2_week1_execution.md`
 - Workstream 3 Week 1 execution log: `docs/workstream3_week1_execution.md`
 - Execution plan: `outputs/capstone_proposals/04_12_week_execution_plan_15_person_team.md`
@@ -35,17 +36,17 @@ The scaffold intentionally avoids committing large datasets, generated renders, 
 
 ## Current Workstream 1 Gate
 
-The Week 1 Digital Twin and Asset Benchmark gate includes a lightweight proxy OpenUSD scene, source/reference manifests, scene contract, and local validation.
+The Week 2 Digital Twin and Asset Benchmark gate freezes `scene_contract.yaml` v0.1, records the selected NASA JWST GLB source, keeps the proxy fallback mapped under stable prim paths, and validates semantic/task/safety guardrails.
 
 Run:
 
 ```bash
 python scripts/validate_contracts.py
 python scripts/validate_scene.py
-python scripts/generate_dummy_dataset.py
-python scripts/validate_dataset.py
 python scripts/validate_reference_manifest.py
+python scripts/validate_run_registry.py
 python scripts/e2e_local_smoke.py
+python -m unittest discover -s tests
 ```
 
 ## Current Workstream 2 Gate

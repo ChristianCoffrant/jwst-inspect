@@ -2,11 +2,15 @@
 
 ## Artifact Version
 
-Scene contract: `contracts/scene_contract.yaml` version `0.1.0`, draft Week 1 gate.
+Scene contract: `contracts/scene_contract.yaml` version `0.1.0`, frozen Week 2 contract.
 
 Proxy root scene: `usd/jwst_inspect_root.usd`.
 
 This is a proxy scene for contract validation and downstream planning. It is not a flight-accurate JWST model and should not be presented as one.
+
+Selected external source asset: `jwst_nasa_glb_2025` in `assets/source_manifest.csv`.
+
+Component mapping: `assets/jwst/component_mapping.csv`.
 
 ## Stable Paths
 
@@ -44,7 +48,7 @@ This is a proxy scene for contract validation and downstream planning. It is not
 | Mirror inspection | `mirror_inspection_v0` | `/World/JWST/Optics/PrimaryMirror`, `/World/JWST/Optics/SecondaryMirror` | 16 |
 | Sunshield survey | `sunshield_survey_v0` | `/World/JWST/Sunshield` | 24 |
 
-Coverage cells are placeholders for metric integration. They should not be resized to improve scores after policy work begins.
+Coverage cells are machine-readable in `usd/layers/tasks.usd`. They should not be resized or removed to improve scores after policy work begins.
 
 ## Safety Regions
 
@@ -70,6 +74,7 @@ Do not:
 - copy label IDs into private schema files without checking the contract
 - use public JWST references in training or tuning
 - treat the proxy scene as final visual fidelity
+- train on the selected NASA GLB or public reference imagery
 
 ## Workstream 3 Interface
 
@@ -85,6 +90,15 @@ Do not:
 - shrink safety zones to improve policy scores
 - count coverage collected during keepout or collision violation
 - change task-region IDs without a contract changelog entry
+- resize or remove coverage cells after policy work begins
+
+## Week 2 Freeze Rules
+
+- Label IDs 0 through 9 are frozen until the contract 0.2 review.
+- Task-region IDs are frozen after Week 2.
+- Existing safety paths are frozen after Week 2.
+- Imported JWST geometry must be mapped into the frozen contract paths or wrapped under them.
+- Breaking changes require `contracts/changelog.md` plus integration review.
 
 ## Validation
 
@@ -93,6 +107,7 @@ Run:
 ```bash
 python scripts/validate_scene.py
 python scripts/e2e_local_smoke.py
+python -m unittest discover -s tests
 ```
 
 The local smoke test is not an Isaac Sim result. It verifies contracts, manifests, and toy metrics before GPU work.

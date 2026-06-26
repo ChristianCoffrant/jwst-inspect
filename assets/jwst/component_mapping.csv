@@ -1,0 +1,10 @@
+component,label_id,label_name,contract_prim,proxy_prim,selected_source_asset_id,import_status,week2_decision,notes
+primary_mirror,1,jwst_primary_mirror,/World/JWST/Optics/PrimaryMirror,/World/JWST/Optics/PrimaryMirror,jwst_nasa_glb_2025,proxy_fallback,freeze_proxy_path,Imported geometry must be wrapped or mapped to this prim path.
+secondary_mirror,2,jwst_secondary_mirror,/World/JWST/Optics/SecondaryMirror,/World/JWST/Optics/SecondaryMirror,jwst_nasa_glb_2025,proxy_fallback,freeze_proxy_path,Imported geometry must preserve this label and target path.
+sunshield_outer,3,jwst_sunshield_layer_outer,/World/JWST/Sunshield/OuterLayer,/World/JWST/Sunshield/OuterLayer,jwst_nasa_glb_2025,proxy_fallback,freeze_proxy_path,Sunshield survey coverage is based on this proxy until source mesh conversion is validated.
+sunshield_edge,4,jwst_sunshield_edge,/World/JWST/Sunshield/EdgeBand,/World/JWST/Sunshield/EdgeBand,jwst_nasa_glb_2025,proxy_fallback,freeze_proxy_path,Edge remains a separate label for perception and glare false-alarm checks.
+bus,5,jwst_bus,/World/JWST/Bus,/World/JWST/Bus,jwst_nasa_glb_2025,proxy_fallback,freeze_proxy_path,Collision proxy path is frozen separately under /World/Safety.
+antenna,6,jwst_antenna,/World/JWST/Antenna,/World/JWST/Antenna,jwst_nasa_glb_2025,proxy_fallback,freeze_proxy_path,Keep coarse proxy until imported asset hierarchy is inspected.
+truss,7,jwst_truss,/World/JWST/Truss,/World/JWST/Truss,jwst_nasa_glb_2025,proxy_fallback,freeze_proxy_path,Thin structures are important for perception; preserve separate label.
+inspector_body,8,inspector_body,/World/Inspector/Body,/World/Inspector/Body,inspector_proxy_001,proxy_fallback,freeze_proxy_path,Generated local proxy remains the Week 2 inspector asset.
+inspector_solar_panel,9,inspector_solar_panel,/World/Inspector/SolarPanelLeft;/World/Inspector/SolarPanelRight,/World/Inspector/SolarPanelLeft;/World/Inspector/SolarPanelRight,inspector_proxy_001,proxy_fallback,freeze_proxy_path,Panels share one semantic label by design.

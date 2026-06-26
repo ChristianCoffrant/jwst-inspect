@@ -24,16 +24,48 @@ REQUIRED_SOURCE_COLUMNS = (
 )
 
 VALID_TRAINING_USE = {"prohibited", "proxy_only", "allowed_with_review"}
-VALID_ASSET_STATUS = {"planned", "acquired", "converted", "created", "deprecated"}
+VALID_ASSET_STATUS = {"planned", "selected", "acquired", "converted", "created", "deprecated"}
+
+REQUIRED_COMPONENT_MAPPING_COLUMNS = (
+    "component",
+    "label_id",
+    "label_name",
+    "contract_prim",
+    "proxy_prim",
+    "selected_source_asset_id",
+    "import_status",
+    "week2_decision",
+    "notes",
+)
+
+REQUIRED_COMPONENT_LABELS = {
+    "jwst_primary_mirror": "1",
+    "jwst_secondary_mirror": "2",
+    "jwst_sunshield_layer_outer": "3",
+    "jwst_sunshield_edge": "4",
+    "jwst_bus": "5",
+    "jwst_antenna": "6",
+    "jwst_truss": "7",
+    "inspector_body": "8",
+    "inspector_solar_panel": "9",
+}
+
+VALID_IMPORT_STATUS = {"proxy_fallback", "source_selected", "imported", "converted"}
 
 REQUIRED_SCENE_TOKENS = (
+    "status: frozen_week2_contract_0_1",
+    "contract_freeze:",
     "scene_files:",
+    "asset_strategy:",
     "frames:",
     "labels:",
     "task_regions:",
     "safety:",
+    "semantic_guardrails:",
+    "task_guardrails:",
     "materials:",
     "validation:",
+    "ship_gate:",
     "downstream_handoff:",
 )
 
@@ -101,6 +133,10 @@ USD_REQUIRED_TOKENS = {
         '"MirrorInspection"',
         '"SunshieldSurvey"',
         "coverageCellCount",
+        "mirror_cell_00",
+        "mirror_cell_15",
+        "sunshield_cell_00",
+        "sunshield_cell_23",
     ),
     Path("usd/layers/lighting_variants.usd"): (
         '"Lighting"',
@@ -171,6 +207,51 @@ def validate_source_manifest(path: Path | str) -> list[str]:
     return errors
 
 
+def validate_component_mapping(path: Path | str) -> list[str]:
+    mapping_path = Path(path)
+    if not mapping_path.exists():
+        return [f"Missing component mapping manifest: {mapping_path}"]
+
+    errors: list[str] = []
+    seen_labels: dict[str, str] = {}
+    with mapping_path.open(newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        missing = [column for column in REQUIRED_COMPONENT_MAPPING_COLUMNS if column not in (reader.fieldnames or [])]
+        if missing:
+            return [f"{mapping_path}: missing columns {missing}"]
+
+        for index, row in enumerate(reader, start=2):
+            label_id = row.get("label_id", "").strip()
+            label_name = row.get("label_name", "").strip()
+            if not label_id or not label_name:
+                errors.append(f"{mapping_path}:{index}: label_id and label_name are required")
+                continue
+            if label_name in seen_labels and seen_labels[label_name] != label_id:
+                errors.append(f"{mapping_path}:{index}: conflicting label ID for {label_name!r}")
+            seen_labels[label_name] = label_id
+
+            for column in ("contract_prim", "proxy_prim", "selected_source_asset_id", "week2_decision"):
+                if not row.get(column, "").strip():
+                    errors.append(f"{mapping_path}:{index}: empty required field {column}")
+
+            import_status = row.get("import_status", "").strip()
+            if import_status not in VALID_IMPORT_STATUS:
+                errors.append(f"{mapping_path}:{index}: invalid import_status {import_status!r}")
+
+            contract_prim = row.get("contract_prim", "").strip()
+            if not contract_prim.startswith("/World/"):
+                errors.append(f"{mapping_path}:{index}: contract_prim must be an absolute /World path")
+
+    for label_name, expected_id in REQUIRED_COMPONENT_LABELS.items():
+        actual_id = seen_labels.get(label_name)
+        if actual_id is None:
+            errors.append(f"{mapping_path}: missing required label mapping {label_name!r}")
+        elif actual_id != expected_id:
+            errors.append(f"{mapping_path}: label {label_name!r} expected ID {expected_id}, found {actual_id}")
+
+    return errors
+
+
 def validate_scene_contract(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     contract_path = root_path / "contracts" / "scene_contract.yaml"
@@ -207,11 +288,20 @@ def validate_scene_contract(root: Path | str = ".") -> list[str]:
         "unsafe_coverage_counts_for_score: false",
         "collision_proxy_changes_after_week6",
         "keepout_shrink_after_policy_training",
+        "required_task_region_label_coverage_min: 0.90",
+        "current_proxy_task_region_label_coverage: 1.00",
+        "task_region_id_renames_after_week2",
+        "selected_external_geometry_asset: jwst_nasa_glb_2025",
+        "large_downloads_tracked_in_git: false",
     ):
         if guardrail not in text:
             errors.append(f"{contract_path}: missing guardrail {guardrail!r}")
 
     return errors
+
+
+def _count_occurrences(text: str, pattern: str) -> int:
+    return len(re.findall(pattern, text))
 
 
 def validate_usd_proxy_layers(root: Path | str = ".") -> list[str]:
@@ -231,6 +321,14 @@ def validate_usd_proxy_layers(root: Path | str = ".") -> list[str]:
             if token not in text:
                 errors.append(f"{usd_path}: missing token {token!r}")
 
+        if relative_path == Path("usd/layers/tasks.usd"):
+            mirror_cells = _count_occurrences(text, r'"mirror_cell_\d{2}"')
+            sunshield_cells = _count_occurrences(text, r'"sunshield_cell_\d{2}"')
+            if mirror_cells != 16:
+                errors.append(f"{usd_path}: expected 16 mirror coverage cells, found {mirror_cells}")
+            if sunshield_cells != 24:
+                errors.append(f"{usd_path}: expected 24 sunshield coverage cells, found {sunshield_cells}")
+
     return errors
 
 
@@ -239,5 +337,6 @@ def validate_scene_package(root: Path | str = ".") -> list[str]:
     errors: list[str] = []
     errors.extend(validate_scene_contract(root_path))
     errors.extend(validate_source_manifest(root_path / "assets" / "source_manifest.csv"))
+    errors.extend(validate_component_mapping(root_path / "assets" / "jwst" / "component_mapping.csv"))
     errors.extend(validate_usd_proxy_layers(root_path))
     return errors

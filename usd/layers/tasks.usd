@@ -16,6 +16,24 @@ over "World"
             custom string jwstInspect:regionId = "mirror_inspection_v0"
             custom string[] jwstInspect:targetPrims = ["/World/JWST/Optics/PrimaryMirror", "/World/JWST/Optics/SecondaryMirror"]
             custom int jwstInspect:coverageCellCount = 16
+            custom string[] jwstInspect:coverageCells = [
+                "mirror_cell_00",
+                "mirror_cell_01",
+                "mirror_cell_02",
+                "mirror_cell_03",
+                "mirror_cell_04",
+                "mirror_cell_05",
+                "mirror_cell_06",
+                "mirror_cell_07",
+                "mirror_cell_08",
+                "mirror_cell_09",
+                "mirror_cell_10",
+                "mirror_cell_11",
+                "mirror_cell_12",
+                "mirror_cell_13",
+                "mirror_cell_14",
+                "mirror_cell_15"
+            ]
             custom double jwstInspect:nominalStandoffM = 30
         }
 
@@ -24,6 +42,32 @@ over "World"
             custom string jwstInspect:regionId = "sunshield_survey_v0"
             custom string[] jwstInspect:targetPrims = ["/World/JWST/Sunshield"]
             custom int jwstInspect:coverageCellCount = 24
+            custom string[] jwstInspect:coverageCells = [
+                "sunshield_cell_00",
+                "sunshield_cell_01",
+                "sunshield_cell_02",
+                "sunshield_cell_03",
+                "sunshield_cell_04",
+                "sunshield_cell_05",
+                "sunshield_cell_06",
+                "sunshield_cell_07",
+                "sunshield_cell_08",
+                "sunshield_cell_09",
+                "sunshield_cell_10",
+                "sunshield_cell_11",
+                "sunshield_cell_12",
+                "sunshield_cell_13",
+                "sunshield_cell_14",
+                "sunshield_cell_15",
+                "sunshield_cell_16",
+                "sunshield_cell_17",
+                "sunshield_cell_18",
+                "sunshield_cell_19",
+                "sunshield_cell_20",
+                "sunshield_cell_21",
+                "sunshield_cell_22",
+                "sunshield_cell_23"
+            ]
             custom double jwstInspect:nominalStandoffM = 45
         }
     }

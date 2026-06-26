@@ -18,14 +18,15 @@ Track how the OpenUSD scene and rendered outputs compare with public JWST refere
 
 | Component | Reference Evidence | Scene Status | Notes |
 | --- | --- | --- | --- |
-| Primary mirror | `ref_nasa_jwst_3d` | Proxy present | `/World/JWST/Optics/PrimaryMirror` |
-| Secondary mirror | `ref_nasa_jwst_3d` | Proxy present | `/World/JWST/Optics/SecondaryMirror` |
-| Sunshield | `ref_nasa_jwst_3d` | Proxy present | `/World/JWST/Sunshield` |
-| Bus | `ref_nasa_jwst_3d` | Proxy present | `/World/JWST/Bus` |
-| Truss/supports | `ref_nasa_jwst_3d` | Proxy present | `/World/JWST/Truss` |
+| Primary mirror | `ref_nasa_jwst_3d` | Proxy present; source mapping recorded | `/World/JWST/Optics/PrimaryMirror` |
+| Secondary mirror | `ref_nasa_jwst_3d` | Proxy present; source mapping recorded | `/World/JWST/Optics/SecondaryMirror` |
+| Sunshield | `ref_nasa_jwst_3d` | Proxy present; source mapping recorded | `/World/JWST/Sunshield` |
+| Bus | `ref_nasa_jwst_3d` | Proxy present; source mapping recorded | `/World/JWST/Bus` |
+| Truss/supports | `ref_nasa_jwst_3d` | Proxy present; source mapping recorded | `/World/JWST/Truss` |
 
 ## Mismatch Log
 
 | Date | Reference ID | Scene Version | Mismatch | Decision |
 | --- | --- | --- | --- | --- |
 | 2026-06-26 | `ref_nasa_jwst_3d` | 0.1.0 | Proxy geometry is intentionally coarse. | Accept for Week 1 contracts only; do not claim visual fidelity. |
+| 2026-06-26 | `ref_nasa_jwst_3d` | 0.1.0 Week 2 freeze | Selected NASA GLB source is not imported into Git-tracked scene. | Preserve proxy fallback and component mapping until isolated import validates stable paths. |

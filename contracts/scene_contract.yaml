@@ -1,5 +1,11 @@
 version: 0.1.0
-status: draft_week1_gate0
+status: frozen_week2_contract_0_1
+contract_freeze:
+  gate: gate1_contract_freeze_0_1
+  date: 2026-06-26
+  owner: team1_scene_qa_integration_lead
+  downstream_adaptation_window_hours: 48
+  breaking_change_policy: changelog_and_integration_review_required
 units:
   meters_per_unit: 1.0
 frames:
@@ -21,6 +27,12 @@ scene_files:
     safety_zones: usd/layers/safety_zones.usd
     tasks: usd/layers/tasks.usd
     lighting_variants: usd/layers/lighting_variants.usd
+asset_strategy:
+  selected_external_geometry_asset: jwst_nasa_glb_2025
+  current_scene_source: proxy_fallback_with_source_mapping
+  fallback_reason: preserve_stable_contract_paths_until_imported_geometry_is_component_mapped
+  component_mapping_manifest: assets/jwst/component_mapping.csv
+  large_downloads_tracked_in_git: false
 labels:
   0: background
   1: jwst_primary_mirror
@@ -48,12 +60,18 @@ task_regions:
       - /World/JWST/Optics/SecondaryMirror
     nominal_standoff_m: 30.0
     coverage_cell_count: 16
+    required_label_ids:
+      - 1
+      - 2
   sunshield_survey:
     region_id: sunshield_survey_v0
     target_prims:
       - /World/JWST/Sunshield
     nominal_standoff_m: 45.0
     coverage_cell_count: 24
+    required_label_ids:
+      - 3
+      - 4
 safety:
   keepout_volume: /World/Safety/Keepout
   standoff_shell: /World/Safety/StandoffShell
@@ -65,6 +83,16 @@ safety:
     collision_proxy_changes_after_week6: requires_integration_approval
     keepout_shrink_after_policy_training: prohibited_without_bug_record
     unsafe_coverage_counts_for_score: false
+semantic_guardrails:
+  duplicate_label_ids_allowed: false
+  unknown_label_ids_allowed: false
+  required_task_region_label_coverage_min: 0.90
+  current_proxy_task_region_label_coverage: 1.00
+  label_ids_frozen_until: contract_0_2_review
+task_guardrails:
+  coverage_cell_resize_after_policy_training: prohibited_without_bug_record
+  coverage_cell_removal_after_week2: requires_contract_changelog
+  task_region_id_renames_after_week2: prohibited_without_integration_review
 materials:
   variants:
     nominal:
@@ -86,6 +114,15 @@ validation:
     - python scripts/validate_scene.py
     - python scripts/validate_reference_manifest.py
     - python scripts/e2e_local_smoke.py
+ship_gate:
+  week2_contract_freeze_0_1:
+    required:
+      - scene_contract_status_frozen
+      - selected_external_geometry_asset_recorded
+      - proxy_fallback_component_mapping_recorded
+      - semantic_label_coverage_at_or_above_guardrail
+      - safety_and_task_regions_machine_readable
+      - all_local_validators_pass
 downstream_handoff:
   provides_to_workstream2:
     - labels
