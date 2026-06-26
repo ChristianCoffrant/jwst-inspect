@@ -11,6 +11,7 @@ from jwst_inspect.contracts import (
     load_contract_yaml,
     validate_dataset_contract_structure,
 )
+from jwst_inspect.data.media import read_depth_json_info, read_png_grayscale_values, read_png_info
 
 
 def _as_string_key_map(mapping: dict[Any, Any]) -> dict[str, str]:
@@ -225,10 +226,63 @@ def _validate_metadata_file(
 
     if not isinstance(metadata.get("seed"), int):
         errors.append(f"{frame_id}: seed must be an integer")
-    if metadata.get("media_status") != schema.get("media_policy", {}).get("missing_media_status"):
-        errors.append(f"{frame_id}: media_status must declare the Week 1 metadata-only placeholder")
+    if metadata.get("media_status") != schema.get("media_policy", {}).get("placeholder_media_status"):
+        errors.append(f"{frame_id}: media_status must declare the Week 2 tiny placeholder media")
 
     return metadata, errors
+
+
+def _validate_output_media(
+    sample_path: Path,
+    metadata: dict[str, Any],
+    scene_labels: dict[str, str],
+) -> list[str]:
+    frame_id = str(metadata["frame_id"])
+    intrinsics = metadata["camera_intrinsics"]
+    width_px = intrinsics.get("placeholder_width_px")
+    height_px = intrinsics.get("placeholder_height_px")
+    if not isinstance(width_px, int) or not isinstance(height_px, int):
+        return [f"{frame_id}: placeholder_width_px and placeholder_height_px must be integers"]
+
+    outputs = metadata["outputs"]
+    errors: list[str] = []
+    for output_name in ("rgb", "depth", "semantic_mask", "instance_mask"):
+        output_path = sample_path / outputs[output_name]
+        if not output_path.exists():
+            errors.append(f"{frame_id}: missing output file {outputs[output_name]}")
+            continue
+        if output_path.stat().st_size == 0:
+            errors.append(f"{frame_id}: empty output file {outputs[output_name]}")
+            continue
+
+        try:
+            if output_name == "depth":
+                info = read_depth_json_info(output_path)
+                if info["width_px"] != width_px or info["height_px"] != height_px:
+                    errors.append(f"{frame_id}: depth dimensions do not match metadata")
+            else:
+                info = read_png_info(output_path)
+                if info["width_px"] != width_px or info["height_px"] != height_px:
+                    errors.append(f"{frame_id}: {output_name} dimensions do not match metadata")
+                if output_name == "rgb" and info["color_type"] != 2:
+                    errors.append(f"{frame_id}: rgb must be an 8-bit RGB PNG")
+                if output_name in {"semantic_mask", "instance_mask"} and info["color_type"] != 0:
+                    errors.append(f"{frame_id}: {output_name} must be an 8-bit grayscale PNG")
+        except Exception as exc:
+            errors.append(f"{frame_id}: invalid {output_name} output: {exc}")
+
+    semantic_path = sample_path / outputs["semantic_mask"]
+    if semantic_path.exists():
+        try:
+            valid_label_ids = {int(label_id) for label_id in scene_labels}
+            used_label_ids = set(read_png_grayscale_values(semantic_path))
+            unknown_label_ids = used_label_ids - valid_label_ids
+            for label_id in sorted(unknown_label_ids):
+                errors.append(f"{frame_id}: semantic mask contains unknown label ID {label_id}")
+        except Exception as exc:
+            errors.append(f"{frame_id}: cannot inspect semantic mask labels: {exc}")
+
+    return errors
 
 
 def validate_sample_dataset(
@@ -263,14 +317,18 @@ def validate_sample_dataset(
     if not isinstance(frames, list) or not frames:
         errors.append(f"{manifest_path}: frames must be a non-empty list")
         return errors
-    if len(frames) < 10:
-        errors.append(f"{manifest_path}: Week 1 sample must include at least 10 frames")
+    sample_frame_count = schema.get("media_policy", {}).get("sample_frame_count", {})
+    min_frames = sample_frame_count.get("min", 10)
+    max_frames = sample_frame_count.get("max", 50)
+    if len(frames) < min_frames or len(frames) > max_frames:
+        errors.append(f"{manifest_path}: Week 2 sample must include {min_frames}-{max_frames} frames")
 
     frame_ids: set[str] = set()
     split_counts: Counter[str] = Counter()
     renderer_counts: Counter[str] = Counter()
     episodes_by_split: dict[str, set[str]] = defaultdict(set)
     complete_frame_count = 0
+    complete_media_count = 0
 
     for index, frame_record in enumerate(frames):
         if not isinstance(frame_record, dict):
@@ -298,6 +356,9 @@ def validate_sample_dataset(
         if metadata is None:
             continue
 
+        media_errors = _validate_output_media(sample_path, metadata, scene_labels)
+        errors.extend(f"{metadata_path}: {error}" for error in media_errors)
+
         frame_id = str(metadata["frame_id"])
         if frame_id in frame_ids:
             errors.append(f"{metadata_path}: duplicated frame_id {frame_id!r}")
@@ -310,6 +371,8 @@ def validate_sample_dataset(
         episodes_by_split[split].add(episode_id)
         if not frame_errors:
             complete_frame_count += 1
+        if not media_errors:
+            complete_media_count += 1
 
     split_names = list(episodes_by_split)
     for index, split_name in enumerate(split_names):
@@ -324,6 +387,10 @@ def validate_sample_dataset(
     if complete_frame_count / len(frames) < 1.0:
         errors.append(
             f"{manifest_path}: metadata completeness is {complete_frame_count}/{len(frames)}, expected 100%"
+        )
+    if complete_media_count / len(frames) < 1.0:
+        errors.append(
+            f"{manifest_path}: sample media completeness is {complete_media_count}/{len(frames)}, expected 100%"
         )
     for required_renderer in ("rasterized", "path_traced"):
         if renderer_counts[required_renderer] == 0:
@@ -340,8 +407,10 @@ def validate_sample_dataset(
             errors.append(
                 f"{manifest_path}: public_reference_images_used_for_training must be false"
             )
-        if summary.get("media_status") != schema.get("media_policy", {}).get("missing_media_status"):
+        if summary.get("media_status") != schema.get("media_policy", {}).get("placeholder_media_status"):
             errors.append(f"{manifest_path}: summary.media_status must match schema media policy")
+        if summary.get("placeholder_media_files") != len(frames) * 4:
+            errors.append(f"{manifest_path}: summary.placeholder_media_files must equal frame_count * 4")
 
     return errors
 
