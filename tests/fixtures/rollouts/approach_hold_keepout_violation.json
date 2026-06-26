@@ -1,0 +1,72 @@
+{
+  "schema_version": "0.1.0",
+  "episode": {
+    "episode_id": "toy_approach_hold_keepout_violation",
+    "seed": 1002,
+    "task_name": "approach_hold_standoff",
+    "target_region": "approach_hold_standoff_v0",
+    "renderer_mode": "rasterized",
+    "nuisance_condition": "clean",
+    "policy_id": "scripted_baseline",
+    "coverage_cell_count": 4,
+    "initial_state": {
+      "position_m": [60.0, 0.0, 0.0],
+      "relative_velocity_mps": [-0.7, 0.0, 0.0]
+    },
+    "success_criteria": {
+      "standoff_error_tolerance_m": 2.0,
+      "max_hold_velocity_mps": 0.5,
+      "minimum_surface_coverage": 0.0
+    }
+  },
+  "samples": [
+    {
+      "step": 0,
+      "time_s": 0.0,
+      "position_m": [60.0, 0.0, 0.0],
+      "standoff_error_m": 8.0,
+      "relative_speed_mps": 0.70,
+      "distance_to_keepout_m": 50.0,
+      "coverage_patch": "approach_entry",
+      "keepout_violation": false,
+      "collision": false,
+      "abort": false
+    },
+    {
+      "step": 1,
+      "time_s": 1.0,
+      "position_m": [48.0, 0.0, 0.0],
+      "standoff_error_m": 3.0,
+      "relative_speed_mps": 0.60,
+      "distance_to_keepout_m": 38.0,
+      "coverage_patch": "approach_mid",
+      "keepout_violation": false,
+      "collision": false,
+      "abort": false
+    },
+    {
+      "step": 2,
+      "time_s": 2.0,
+      "position_m": [8.5, 0.0, 0.0],
+      "standoff_error_m": 26.5,
+      "relative_speed_mps": 0.80,
+      "distance_to_keepout_m": -1.5,
+      "coverage_patch": "unsafe_inside_keepout",
+      "keepout_violation": true,
+      "collision": false,
+      "abort": false
+    },
+    {
+      "step": 3,
+      "time_s": 3.0,
+      "position_m": [8.0, 0.0, 0.0],
+      "standoff_error_m": 27.0,
+      "relative_speed_mps": 0.0,
+      "distance_to_keepout_m": -2.0,
+      "coverage_patch": "unsafe_inside_keepout",
+      "keepout_violation": true,
+      "collision": false,
+      "abort": true
+    }
+  ]
+}

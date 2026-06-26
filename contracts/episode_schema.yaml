@@ -1,4 +1,6 @@
 version: 0.1.0
+owner: team3_autonomous_inspection
+status: draft_week1_gate
 episode_fields:
   - episode_id
   - seed
@@ -6,19 +8,78 @@ episode_fields:
   - initial_state
   - target_region
   - renderer_mode
+  - nuisance_condition
   - material_variant
   - lighting_condition
   - sensor_noise_profile
   - latency_profile
   - policy_id
+  - coverage_cell_count
+  - success_criteria
 tasks:
-  - approach_hold_standoff
-  - sunshield_survey
-  - mirror_inspection
-  - anomaly_reacquisition
+  approach_hold_standoff:
+    required_week: 1
+    target_region: approach_hold_standoff_v0
+    primary_goal: approach to the inspection shell and hold safe relative pose
+    required_metrics:
+      - task_success
+      - standoff_error_mean
+      - standoff_error_max
+      - relative_velocity_at_hold_mps
+      - keepout_violation_rate
+      - abort_rate
+  sunshield_survey:
+    required_week: 4
+    target_region: sunshield_survey_v0
+    primary_goal: survey sunshield coverage cells while respecting standoff
+  mirror_inspection:
+    required_week: 7
+    target_region: mirror_inspection_v0
+    primary_goal: inspect mirror regions under glare and viewpoint constraints
+  anomaly_reacquisition:
+    required_week: 7
+    target_region: pending_team1_team2_contract
+    primary_goal: reacquire a flagged anomaly region if provided by data pipeline
+observation_space:
+  week1_required_low_dimensional_state:
+    - relative_position_m
+    - relative_velocity_mps
+    - standoff_error_m
+    - distance_to_keepout_m
+    - target_region_id
+    - coverage_patch_id
+  optional_later:
+    - rgb_image
+    - depth_image
+    - semantic_mask
+    - perception_confidence
+action_space:
+  week1_required:
+    type: desired_velocity_control
+    fields:
+      - desired_translational_velocity_mps
+      - look_at_target
+      - abort
 termination:
   collision: true
   keepout_violation: true
   max_steps: true
   abort_command: true
-
+safety_rules:
+  inherited_from_scene_contract:
+    - safety.keepout_volume
+    - safety.standoff_shell
+    - safety.collision_proxies
+  unsafe_coverage_counts_for_score: false
+  abort_episodes_count_in_summary: true
+local_vs_vast:
+  local:
+    - schema validation
+    - toy rollout JSON scoring
+    - metric unit tests
+    - R2P placeholder report generation
+  vast_ai_x090_required:
+    - Isaac Sim scene load
+    - Isaac Lab rollout in official scene
+    - RTX rasterized render validation
+    - path-traced evaluation

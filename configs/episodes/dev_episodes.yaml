@@ -3,13 +3,32 @@ episodes:
   - episode_id: dev_approach_0001
     seed: 1001
     task_name: approach_hold_standoff
+    target_region: approach_hold_standoff_v0
     renderer_mode: rasterized
+    nuisance_condition: clean
     material_variant: nominal
     policy_id: scripted_baseline
+    coverage_cell_count: 4
+    initial_state:
+      position_m: [60.0, 0.0, 0.0]
+      relative_velocity_mps: [-0.5, 0.0, 0.0]
+    success_criteria:
+      standoff_error_tolerance_m: 2.0
+      max_hold_velocity_mps: 0.5
+      minimum_surface_coverage: 0.0
   - episode_id: dev_sunshield_0001
     seed: 1002
     task_name: sunshield_survey
+    target_region: sunshield_survey_v0
     renderer_mode: rasterized
+    nuisance_condition: clean
     material_variant: nominal
     policy_id: scripted_baseline
-
+    coverage_cell_count: 24
+    initial_state:
+      position_m: [75.0, 0.0, 0.0]
+      relative_velocity_mps: [-0.3, 0.0, 0.0]
+    success_criteria:
+      standoff_error_tolerance_m: 4.0
+      max_hold_velocity_mps: 0.5
+      minimum_surface_coverage: 0.5

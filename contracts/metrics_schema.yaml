@@ -1,16 +1,40 @@
 version: 0.1.0
+owner: team3_autonomous_inspection
+status: draft_week1_gate
 primary_metrics:
   - task_success
   - surface_coverage
+  - raw_surface_coverage
+  - unsafe_coverage_patch_count
   - standoff_error_mean
   - standoff_error_max
-  - relative_velocity_at_hold
+  - final_standoff_error_m
+  - relative_velocity_at_hold_mps
+  - safety_violation_rate
+  - keepout_violation_count
   - keepout_violation_rate
+  - collision_count
   - collision_rate
+  - abort_count
   - abort_rate
   - control_effort
   - r2p_gap
+metric_definitions:
+  task_success: binary task completion after applying safety, standoff, velocity, and task-specific coverage criteria
+  surface_coverage: unique safe coverage patches divided by coverage_cell_count
+  raw_surface_coverage: all unique observed coverage patches divided by coverage_cell_count before safety exclusion
+  unsafe_coverage_patch_count: coverage patches seen only during unsafe states
+  standoff_error_mean: mean absolute standoff error over an episode
+  standoff_error_max: maximum absolute standoff error over an episode
+  final_standoff_error_m: final absolute standoff error
+  relative_velocity_at_hold_mps: final relative speed in meters per second
+  safety_violation_rate: fraction of steps with keepout violation or collision
+  keepout_violation_rate: fraction of steps inside keepout
+  collision_rate: fraction of steps with collision
+  abort_rate: fraction of steps with abort command or abort termination
+  r2p_gap: normalized_score_rasterized_eval minus normalized_score_path_traced_eval
 normalized_score:
+  formula: task_success_weight * task_success + coverage_weight * surface_coverage - standoff_error_weight * min(standoff_error_mean / 10, 1) - safety_violation_weight * safety_violation_rate - abort_weight * abort_rate
   task_success_weight: 0.35
   coverage_weight: 0.30
   standoff_error_weight: 0.15
@@ -18,6 +42,10 @@ normalized_score:
   abort_weight: 0.05
 guardrails:
   unsafe_coverage_counts_as_success: false
+  unsafe_coverage_is_excluded_from_surface_coverage: true
+  abort_episodes_count_in_summary_metrics: true
+  video_only_success_allowed: false
+  image_based_policy_required_for_week1: false
+  long_gpu_training_before_local_metric_tests: prohibited
   final_seed_tuning_allowed: false
   metric_weight_changes_after_freeze: requires_integration_approval
-
