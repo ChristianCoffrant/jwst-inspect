@@ -1,0 +1,36 @@
+version: 0.1.0
+scene_tag: scene-proxy-thin-slice-v0.1
+owner: team1_material_lighting_lead
+guardrails:
+  switchable_by_config: true
+  tune_to_make_perception_easy: false
+  tune_to_heldout_reference_images: false
+lighting_variants:
+  - variant_id: nominal_sun_key
+    usd_token: NominalSunKey
+    stress_role: clean baseline illumination
+    intensity_class: nominal
+    benchmark_role: default contract and sanity-check lighting
+    enabled_by_default: true
+    training_tuning_allowed: false
+  - variant_id: high_glare_edge
+    usd_token: HighGlareEdge
+    stress_role: edge-on high-glare illumination
+    intensity_class: high
+    benchmark_role: required reflective-stress lighting
+    enabled_by_default: false
+    training_tuning_allowed: false
+  - variant_id: low_light_cold_side
+    usd_token: LowLightColdSide
+    stress_role: low-light shadow-side illumination
+    intensity_class: low
+    benchmark_role: required low-signal stress lighting
+    enabled_by_default: false
+    training_tuning_allowed: false
+  - variant_id: mixed_stress
+    usd_token: MixedStress
+    stress_role: mixed low-light and glancing highlight condition
+    intensity_class: mixed
+    benchmark_role: required anomaly-test stress lighting
+    enabled_by_default: false
+    training_tuning_allowed: false

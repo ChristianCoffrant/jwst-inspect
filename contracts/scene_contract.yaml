@@ -94,6 +94,7 @@ task_guardrails:
   coverage_cell_removal_after_week2: requires_contract_changelog
   task_region_id_renames_after_week2: prohibited_without_integration_review
 materials:
+  variant_catalog: configs/materials/material_variants.yaml
   variants:
     nominal:
       description: baseline proxy materials for contract and downstream tests
@@ -103,11 +104,17 @@ materials:
       description: darkened or weathered thermal blanket stress case
     anomaly_test:
       description: localized anomaly surfaces for later data and policy tests
+  guardrails:
+    high_glare_and_degraded_required_even_if_performance_drops: true
+    tune_to_make_perception_easy: false
+    tune_to_heldout_reference_images: false
 lighting:
+  variant_catalog: configs/lighting/lighting_variants.yaml
   variants:
     - nominal_sun_key
     - high_glare_edge
     - low_light_cold_side
+    - mixed_stress
 validation:
   local_commands:
     - python scripts/validate_contracts.py
@@ -164,6 +171,28 @@ sparse_annotations:
     public_reference_training_use_allowed: false
     candidate_reference_manifest_required: true
     annotation_artifact_large_file_git_tracking_allowed: false
+week5_stressors:
+  renderer_stress_config: configs/renderers/week5_material_stress.yaml
+  anomaly_regions: configs/anomalies/week5_anomaly_regions.yaml
+  sensor_frame_config: configs/sensors/inspector_sensor_frames.yaml
+  collision_proxy_report: validation/reports/week5_collision_proxy_report.md
+  material_stress_report: validation/reports/week5_material_stress_report.md
+  required_material_variants:
+    - nominal
+    - high_glare
+    - degraded
+    - anomaly_test
+  required_lighting_variants:
+    - nominal_sun_key
+    - high_glare_edge
+    - low_light_cold_side
+    - mixed_stress
+  guardrails:
+    anomaly_real_jwst_failure_claims_allowed: false
+    material_or_lighting_tuning_to_perception_allowed: false
+    material_or_lighting_tuning_to_heldout_references_allowed: false
+    collision_proxy_shrinkage_allowed: false
+    sensor_path_renames_after_week2: prohibited_without_integration_review
 ship_gate:
   week2_contract_freeze_0_1:
     required:
@@ -194,15 +223,38 @@ ship_gate:
       - sparse_keypoint_template_has_at_least_ten_training_excluded_candidates
       - public_reference_rows_allowed_for_training_equal_zero
       - all_local_validators_pass
+  week5_material_lighting_anomaly_safety_sensor_gate:
+    required:
+      - material_variant_catalog_0_1_released
+      - lighting_variant_catalog_0_1_released
+      - all_material_and_lighting_variants_selectable_by_config
+      - week5_stress_render_matrix_has_24_rows
+      - render_rows_do_not_claim_completion_without_artifacts
+      - team2_has_at_least_two_variant_combos
+      - team3_has_high_glare_evaluation_combo
+      - anomaly_regions_tied_to_known_task_regions
+      - anomaly_real_failure_claims_equal_zero
+      - collision_proxy_report_documents_all_existing_proxies
+      - collision_proxy_shrinkage_equal_zero
+      - sensor_frame_validation_passes_for_rgb_depth_imu
+      - label_task_region_and_coverage_patch_renames_equal_zero
+      - public_reference_training_or_tuning_use_equal_zero
+      - no_large_or_generated_assets_committed
+      - all_local_validators_pass
 downstream_handoff:
   provides_to_workstream2:
     - labels
     - camera_rgb
     - camera_depth
     - materials.variants
+    - lighting.variants
+    - week5_stressors
+    - anomaly_regions
   provides_to_workstream3:
     - frames
     - safety
     - task_regions
     - coverage_surfaces
+    - week5_stressors
+    - sensor_frame_config
     - collision_proxies

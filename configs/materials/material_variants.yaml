@@ -1,0 +1,41 @@
+version: 0.1.0
+scene_tag: scene-proxy-thin-slice-v0.1
+owner: team1_material_lighting_lead
+guardrails:
+  switchable_by_config: true
+  tune_to_make_perception_easy: false
+  tune_to_heldout_reference_images: false
+  high_glare_and_degraded_required_even_if_performance_drops: true
+material_variants:
+  - variant_id: nominal
+    usd_token: NominalMirrorGold;NominalSunshield
+    target_components: primary_mirror;secondary_mirror;sunshield
+    stress_role: baseline
+    reference_motivation: public structural references only
+    benchmark_role: default contract and sanity-check condition
+    enabled_by_default: true
+    training_tuning_allowed: false
+  - variant_id: high_glare
+    usd_token: HighGlareMirrorGold
+    target_components: primary_mirror;secondary_mirror
+    stress_role: reflective false-positive stressor
+    reference_motivation: public mirror reflectance references without fitting any single image
+    benchmark_role: required perception and policy stress condition
+    enabled_by_default: false
+    training_tuning_allowed: false
+  - variant_id: degraded
+    usd_token: DegradedSunshield
+    target_components: sunshield
+    stress_role: low-contrast blanket stressor
+    reference_motivation: public deployed-sunshield appearance references without held-out tuning
+    benchmark_role: required robustness stress condition
+    enabled_by_default: false
+    training_tuning_allowed: false
+  - variant_id: anomaly_test
+    usd_token: AnomalyPatch
+    target_components: primary_mirror;sunshield;bus;truss
+    stress_role: localized benchmark proxy anomaly
+    reference_motivation: benchmark proxy only and not a real JWST failure claim
+    benchmark_role: Team 2 anomaly data and Team 3 stress evaluation hook
+    enabled_by_default: false
+    training_tuning_allowed: false
