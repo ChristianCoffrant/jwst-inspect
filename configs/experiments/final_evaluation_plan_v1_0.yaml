@@ -1,0 +1,68 @@
+version: 1.0.0
+experiment_id: final_evaluation_plan_v1_0
+owner: team3_autonomous_inspection
+status: frozen_week8_final_evaluation_plan
+episode_schema: contracts/episode_schema.yaml
+metrics_schema: contracts/metrics_schema.yaml
+scene_release_candidate: validation/scene_rc/week7_release_candidate.yaml
+dev_evaluation_suite: configs/experiments/dev_evaluation_suite_v0_2.yaml
+stress_evaluation: configs/experiments/stress_evaluation_v0_1.yaml
+r2p_evaluation: configs/experiments/r2p_evaluation_v0_1.yaml
+vast_template: configs/vast/x090_template.yaml
+official_tasks:
+  - approach_hold_standoff
+  - sunshield_survey
+  - mirror_inspection
+deferred_tasks:
+  anomaly_reacquisition: target_region_contract_pending
+official_policies:
+  - scripted_baseline
+  - learned_state_bc_v0_1
+non_final_dev_seed_policy:
+  allowed_seed_set:
+    - 1001
+    - 1002
+    - 1007
+  final_heldout_seed_access_allowed: false
+  final_seed_tuning_allowed: false
+renderer_pairs:
+  - pair_id: approach_hold_standoff_proxy_pair
+    task_name: approach_hold_standoff
+    rasterized_renderer_status: local_proxy
+    path_traced_renderer_status: proxy_path_traced_until_vast_logs
+  - pair_id: sunshield_survey_proxy_pair
+    task_name: sunshield_survey
+    rasterized_renderer_status: local_proxy
+    path_traced_renderer_status: proxy_path_traced_until_vast_logs
+  - pair_id: mirror_inspection_proxy_pair
+    task_name: mirror_inspection
+    rasterized_renderer_status: local_proxy
+    path_traced_renderer_status: proxy_path_traced_until_vast_logs
+report_table:
+  required_columns:
+    - task_name
+    - policy_id
+    - renderer_pair_id
+    - raster_run_id
+    - path_traced_run_id
+    - raster_renderer_status
+    - path_traced_renderer_status
+    - raster_normalized_score
+    - path_traced_normalized_score
+    - r2p_gap
+    - safety_violation_rate
+    - failure_mode
+    - runtime_minutes
+    - cost_usd
+    - registry_status
+    - artifact_sync_status
+guardrails:
+  metric_weight_changes_after_freeze_allowed: false
+  safety_metrics_disable_allowed: false
+  final_heldout_seed_access_allowed: false
+  unpaired_renderer_comparison_allowed: false
+  ad_hoc_notebook_results_allowed: false
+  dropped_poor_results_allowed: false
+  official_gpu_run_requires_registry_metadata: true
+  official_gpu_run_requires_synced_artifacts: true
+  generated_outputs_committed: false

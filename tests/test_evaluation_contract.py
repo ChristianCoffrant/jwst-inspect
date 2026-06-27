@@ -26,8 +26,8 @@ class EvaluationContractTests(unittest.TestCase):
         self.assertEqual(report["status"], "passed")
         self.assertTrue(all(report["ship_gates"].values()))
         self.assertTrue(all(report["guardrails"].values()))
-        self.assertEqual(report["episode_schema_version"], "0.2.0")
-        self.assertEqual(report["metrics_schema_version"], "0.2.0")
+        self.assertEqual(report["episode_schema_version"], "1.0.0")
+        self.assertEqual(report["metrics_schema_version"], "1.0.0")
 
     def test_metric_weights_match_runtime_and_sum_to_one(self):
         metrics_schema = load_contract_yaml(ROOT / "contracts" / "metrics_schema.yaml")

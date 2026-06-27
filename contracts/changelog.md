@@ -1,5 +1,12 @@
 # Contract Changelog
 
+## 1.0.0
+
+- Froze Workstream 3 Week 8 final evaluation contracts with the final task set `approach_hold_standoff`, `sunshield_survey`, and `mirror_inspection`.
+- Kept normalized-score weights unchanged while promoting the score contract to version 1.0.0.
+- Locked the official final policy list to `scripted_baseline` and `learned_state_bc_v0_1`; anomaly reacquisition remains deferred until its target-region contract exists.
+- Added final-evaluation guardrails for paired renderer comparisons, safety metrics, path-traced config lock, and official GPU metadata requirements.
+
 ## 0.2.1
 
 - Added Workstream 1 Week 7 downstream hardening metadata with scene RC tag `scene-rc-v0.2.1`, downstream triage, release-candidate invariant checks, standard-view performance profile blockers, and validator guardrails for zero unresolved blocking downstream issues, zero frozen-interface renames, zero safety shrinkage, zero completed GPU profile rows without registry metadata, and continued public-reference training/tuning prohibition.

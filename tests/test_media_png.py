@@ -1,10 +1,15 @@
 from __future__ import annotations
 
 import struct
+import sys
 import tempfile
 import unittest
 import zlib
 from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
 
 from jwst_inspect.data.media import PNG_SIGNATURE, read_png_grayscale_values, read_png_rgb_values
 

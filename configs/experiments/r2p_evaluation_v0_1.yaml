@@ -1,0 +1,53 @@
+version: 0.1.0
+experiment_id: r2p_evaluation_v0_1
+owner: team3_autonomous_inspection
+status: week8_r2p_proxy_report
+final_evaluation_plan: configs/experiments/final_evaluation_plan_v1_0.yaml
+episode_schema: contracts/episode_schema.yaml
+metrics_schema: contracts/metrics_schema.yaml
+stress_evaluation: configs/experiments/stress_evaluation_v0_1.yaml
+output_dir: runs/r2p_evaluation
+r2p_inputs:
+  stress_report_output_dir: runs/r2p_evaluation/stress_source
+  path_traced_proxy_source: deterministic_local_proxy_degradation
+  official_gpu_results_allowed_without_registry: false
+renderer_pair_policy:
+  matched_episode_required: true
+  proxy_path_traced_rows_allowed: true
+  proxy_path_traced_rows_are_official_gpu_evidence: false
+  path_traced_configs_locked: true
+policies:
+  scripted_baseline:
+    tasks:
+      - approach_hold_standoff
+      - sunshield_survey
+      - mirror_inspection
+  learned_state_bc_v0_1:
+    tasks:
+      - approach_hold_standoff
+      - sunshield_survey
+      - mirror_inspection
+    unsupported_task_behavior:
+      mirror_inspection: report_abort_failure_row
+expected_r2p_rows: 6
+failure_taxonomy:
+  - none
+  - metric_threshold_miss
+  - policy_task_not_trained
+  - renderer_proxy_degradation
+  - keepout_violation
+  - collision
+  - abort
+runtime_cost_defaults:
+  local_proxy_runtime_minutes: 0.0
+  local_proxy_cost_usd: 0.0
+guardrails:
+  metric_weight_changes_after_freeze_allowed: false
+  safety_metrics_disable_allowed: false
+  final_heldout_seed_access_allowed: false
+  unpaired_renderer_comparison_allowed: false
+  dropped_poor_results_allowed: false
+  ad_hoc_notebook_results_allowed: false
+  official_gpu_run_requires_registry_metadata: true
+  official_gpu_run_requires_synced_artifacts: true
+  generated_outputs_committed: false

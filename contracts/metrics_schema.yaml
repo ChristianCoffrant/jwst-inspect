@@ -1,11 +1,11 @@
-version: 0.2.0
+version: 1.0.0
 owner: team3_autonomous_inspection
-status: frozen_week6_evaluation_contract_0_2
+status: frozen_week8_final_evaluation_contract_1_0
 contract_freeze:
-  week: 6
+  week: 8
   freeze_date: 2026-06-27
-  gate: metric_formula_0_2
-  change_policy: weight_changes_require_integration_council_approval_and_ablation
+  gate: final_metric_formula_1_0
+  change_policy: post_freeze_weight_changes_require_integration_council_approval_and_ablation
 primary_metrics:
   - task_success
   - surface_coverage
@@ -39,7 +39,7 @@ metric_definitions:
   abort_rate: fraction of steps with abort command or abort termination
   r2p_gap: normalized_score_rasterized_eval minus normalized_score_path_traced_eval
 normalized_score:
-  score_version: 0.2.0
+  score_version: 1.0.0
   formula: task_success_weight * task_success + coverage_weight * surface_coverage - standoff_error_weight * min(standoff_error_mean / 10, 1) - safety_violation_weight * safety_violation_rate - abort_weight * abort_rate
   task_success_weight: 0.35
   coverage_weight: 0.30
@@ -56,6 +56,14 @@ dev_suite_required_metrics:
   - safety_violation_rate
   - abort_rate
   - normalized_score
+final_evaluation_required_metrics:
+  - task_success
+  - surface_coverage
+  - standoff_error_mean
+  - safety_violation_rate
+  - abort_rate
+  - normalized_score
+  - r2p_gap
 guardrails:
   unsafe_coverage_counts_as_success: false
   unsafe_coverage_is_excluded_from_surface_coverage: true
@@ -69,3 +77,7 @@ guardrails:
   official_gpu_run_without_registry_metadata_allowed: false
   unknown_latency_or_noise_profile_allowed: false
   default_profile_hooks_change_metrics_allowed: false
+  safety_metrics_disable_allowed: false
+  unpaired_renderer_comparison_allowed: false
+  ad_hoc_notebook_results_allowed: false
+  dropped_poor_results_allowed: false

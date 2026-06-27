@@ -1,11 +1,11 @@
-version: 0.2.0
+version: 1.0.0
 owner: team3_autonomous_inspection
-status: frozen_week6_evaluation_contract_0_2
+status: frozen_week8_final_evaluation_contract_1_0
 contract_freeze:
-  week: 6
+  week: 8
   freeze_date: 2026-06-27
-  gate: evaluation_contract_0_2
-  change_policy: metric_or_task_scope_changes_require_integration_council_approval_and_ablation
+  gate: final_evaluation_contract_1_0
+  change_policy: post_freeze_changes_require_integration_council_bug_or_ablation_record
 episode_fields:
   - episode_id
   - seed
@@ -28,6 +28,12 @@ official_task_list:
     - sunshield_survey
   planned_week7:
     - mirror_inspection
+    - anomaly_reacquisition
+  final_evaluation_v1_0:
+    - approach_hold_standoff
+    - sunshield_survey
+    - mirror_inspection
+  deferred_pending_contract:
     - anomaly_reacquisition
 tasks:
   approach_hold_standoff:
@@ -55,6 +61,9 @@ tasks:
     primary_goal: reacquire a flagged anomaly region if provided by data pipeline
 baseline_policy_list:
   official_dev_suite:
+    - scripted_baseline
+    - learned_state_bc_v0_1
+  official_final_suite:
     - scripted_baseline
     - learned_state_bc_v0_1
   exploratory_only:
@@ -117,7 +126,7 @@ local_vs_vast:
     - schema validation
     - toy rollout JSON scoring
     - metric unit tests
-    - R2P placeholder report generation
+    - R2P proxy report generation
   vast_ai_x090_required:
     - Isaac Sim scene load
     - Isaac Lab rollout in official scene
@@ -141,3 +150,9 @@ official_run_metadata:
     - actuation_delay_profile
     - artifact_sync_status
     - status
+final_evaluation_policy:
+  final_task_set_locked: true
+  final_policy_list_locked: true
+  final_path_traced_configs_locked: true
+  safety_metrics_disable_allowed: false
+  final_heldout_seed_access_allowed_before_gate5: false

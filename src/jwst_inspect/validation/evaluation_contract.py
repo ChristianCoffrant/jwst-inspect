@@ -9,7 +9,12 @@ from jwst_inspect.evaluation.r2p_gap import DEFAULT_WEIGHTS
 
 
 REQUIRED_SCHEMA_VERSION = "0.2.0"
-FREEZE_STATUS = "frozen_week6_evaluation_contract_0_2"
+ACCEPTED_SCHEMA_VERSIONS = ("0.2.0", "1.0.0")
+ACCEPTED_FREEZE_STATUSES = (
+    "frozen_week6_evaluation_contract_0_2",
+    "frozen_week8_final_evaluation_contract_1_0",
+)
+VAST_TEMPLATE_VERSION = "0.2.0"
 REQUIRED_TASKS = ("approach_hold_standoff", "sunshield_survey")
 REQUIRED_BASELINES = ("scripted_baseline", "learned_state_bc_v0_1")
 REQUIRED_PROFILE_FIELDS = ("sensor_noise_profile", "latency_profile", "actuation_delay_profile")
@@ -168,11 +173,11 @@ def validate_evaluation_contract(
         ship_gates,
         errors,
         "evaluation_contract_0_2_frozen",
-        episode_schema.get("version") == REQUIRED_SCHEMA_VERSION
-        and metrics_schema.get("version") == REQUIRED_SCHEMA_VERSION
-        and episode_schema.get("status") == FREEZE_STATUS
-        and metrics_schema.get("status") == FREEZE_STATUS,
-        "episode and metrics schemas must be frozen at version 0.2.0",
+        episode_schema.get("version") in ACCEPTED_SCHEMA_VERSIONS
+        and metrics_schema.get("version") in ACCEPTED_SCHEMA_VERSIONS
+        and episode_schema.get("status") in ACCEPTED_FREEZE_STATUSES
+        and metrics_schema.get("status") in ACCEPTED_FREEZE_STATUSES,
+        "episode and metrics schemas must be frozen at version 0.2.0 or a frozen successor",
     )
     _require(
         ship_gates,
@@ -205,7 +210,7 @@ def validate_evaluation_contract(
         ship_gates,
         errors,
         "vast_template_metadata_validated",
-        vast_template.get("version") == REQUIRED_SCHEMA_VERSION
+        vast_template.get("version") == VAST_TEMPLATE_VERSION
         and vast_official.get("launch_requires_registry_metadata") is True
         and _is_subset(REQUIRED_METADATA_FIELDS, vast_official.get("required_metadata_fields")),
         "Vast template must declare required official-run metadata",
