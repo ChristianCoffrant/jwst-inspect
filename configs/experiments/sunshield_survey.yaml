@@ -1,0 +1,30 @@
+version: 0.1.0
+experiment_id: sunshield_survey_baseline_v0_1
+scene_contract: contracts/scene_contract.yaml
+episode_schema: contracts/episode_schema.yaml
+metrics_schema: contracts/metrics_schema.yaml
+episodes: configs/episodes/dev_episodes.yaml
+policy: configs/policies/scripted_baseline.yaml
+coverage_surface: configs/coverage/coverage_surfaces.yaml
+output_dir: runs/sunshield_survey
+required_episode_id: dev_sunshield_0001
+reset_distribution:
+  seed: 1002
+  reset_count: 3
+  radius_m: 75.0
+  radial_jitter_m: 2.0
+  angle_start_deg: -18.0
+  angle_end_deg: 18.0
+  z_offsets_m: [-1.5, 0.0, 1.5]
+safety:
+  keepout_radius_m: 10.0
+  collision_radius_m: 5.0
+  source: proxy_defaults_from_week2_until_team1_geometric_radii_are_machine_readable
+ship_gates:
+  coverage_surfaces_available_for_policy_metrics: true
+  scripted_survey_baseline_0_1_complete: true
+guardrails:
+  do_not_shrink_safety_zones_or_coverage_regions_to_improve_scores: true
+  unsafe_coverage_excluded_from_surface_coverage: true
+  metrics_table_generated_by_script: true
+  no_gpu_result_without_synced_logs: true

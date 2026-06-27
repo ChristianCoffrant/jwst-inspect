@@ -6,3 +6,12 @@ parameters:
   max_relative_velocity_mps: 0.5
   abort_distance_m: 8.0
   slow_zone_m: 5.0
+survey_parameters:
+  target_standoff_m: 45.0
+  standoff_tolerance_m: 4.0
+  max_relative_velocity_mps: 0.5
+  abort_distance_m: 8.0
+  slow_zone_m: 6.0
+  survey_patch_goal: 18
+  survey_hold_steps: 3
+  sweep_speed_mps: 0.3
