@@ -6,13 +6,19 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from jwst_inspect.validation.scene import (
+    validate_anomaly_regions,
     validate_component_mapping,
     validate_coverage_surfaces,
+    validate_lighting_variant_catalog,
+    validate_material_variant_catalog,
     validate_render_manifest,
     validate_scene_contract,
+    validate_sensor_frame_config,
     validate_sparse_keypoint_template,
     validate_source_manifest,
     validate_usd_proxy_layers,
+    validate_week5_reports,
+    validate_week5_stress_matrix,
 )
 
 
@@ -40,6 +46,27 @@ class SceneValidationTests(unittest.TestCase):
             ),
             [],
         )
+
+    def test_week5_material_catalog_has_required_stress_variants(self):
+        self.assertEqual(validate_material_variant_catalog(ROOT / "configs" / "materials" / "material_variants.yaml"), [])
+
+    def test_week5_lighting_catalog_has_required_stress_variants(self):
+        self.assertEqual(validate_lighting_variant_catalog(ROOT / "configs" / "lighting" / "lighting_variants.yaml"), [])
+
+    def test_week5_stress_matrix_supports_team2_and_team3(self):
+        self.assertEqual(validate_week5_stress_matrix(ROOT / "configs" / "renderers" / "week5_material_stress.yaml"), [])
+
+    def test_week5_anomaly_regions_are_proxy_only(self):
+        self.assertEqual(validate_anomaly_regions(ROOT / "configs" / "anomalies" / "week5_anomaly_regions.yaml"), [])
+
+    def test_week5_sensor_frame_config_matches_frozen_paths(self):
+        self.assertEqual(
+            validate_sensor_frame_config(ROOT / "configs" / "sensors" / "inspector_sensor_frames.yaml", ROOT),
+            [],
+        )
+
+    def test_week5_reports_record_guardrail_metrics(self):
+        self.assertEqual(validate_week5_reports(ROOT), [])
 
     def test_proxy_usd_layers_have_required_contract_tokens(self):
         self.assertEqual(validate_usd_proxy_layers(ROOT), [])

@@ -12,6 +12,8 @@ Week 3 fixed seed: `31003`.
 
 Week 4 coverage surface map: `configs/coverage/coverage_surfaces.yaml`.
 
+Week 5 material and lighting catalogs: `configs/materials/material_variants.yaml` and `configs/lighting/lighting_variants.yaml`.
+
 This is a proxy scene for contract validation and downstream planning. It is not a flight-accurate JWST model and should not be presented as one.
 
 Selected external source asset: `jwst_nasa_glb_2025` in `assets/source_manifest.csv`.
@@ -73,8 +75,11 @@ Use:
 - label IDs from `contracts/scene_contract.yaml`
 - RGB/depth camera paths
 - material variant names
+- lighting variant names
 - camera IDs from `configs/renderers/thin_slice_validation.yaml`
 - Week 4 validation render pack from `configs/renderers/week4_validation_renders.yaml`
+- Week 5 stress matrix from `configs/renderers/week5_material_stress.yaml`
+- Week 5 anomaly regions from `configs/anomalies/week5_anomaly_regions.yaml`
 - sparse public-reference annotation candidates from `validation/annotations/sparse_keypoints/week4_keypoints_template.csv`
 - scene tag `scene-proxy-thin-slice-v0.1` for the first 100-frame thin-slice sample
 - `validation/reference_manifest.csv` only for validation and reporting, not training
@@ -85,6 +90,7 @@ Do not:
 - use public JWST references in training or tuning
 - treat the proxy scene as final visual fidelity
 - train on the selected NASA GLB or public reference imagery
+- tune material or lighting values to improve baseline perception results
 
 ## Workstream 3 Interface
 
@@ -94,6 +100,8 @@ Use:
 - coverage patch IDs from `configs/coverage/coverage_surfaces.yaml`
 - episode aliases from `usd/layers/tasks.usd`
 - safety and collision proxy paths
+- sensor-frame config from `configs/sensors/inspector_sensor_frames.yaml`
+- high-glare stress combo from `configs/renderers/week5_material_stress.yaml`
 - standoff metadata in `contracts/scene_contract.yaml`
 - standoff metadata in `usd/layers/tasks.usd`
 - toy local smoke test as contract health signal only
@@ -105,6 +113,7 @@ Do not:
 - change task-region IDs without a contract changelog entry
 - resize or remove coverage cells after policy work begins
 - rename coverage patches used by rollout logs
+- shrink collision proxies or keepout volumes to improve policy scores
 
 ## Week 2 Freeze Rules
 
@@ -135,3 +144,13 @@ The local smoke test is not an Isaac Sim result. It verifies contracts, manifest
 `configs/coverage/coverage_surfaces.yaml` declares 16 mirror coverage patches and 24 sunshield coverage patches. The patch names match the rollout `coverage_patch` field consumed by Workstream 3 metrics.
 
 `validation/render_manifest.csv` now includes Week 4 paired rasterized and path-traced rows under `validation/renders/week4/` for `mirror_inspection_fixed`, `sunshield_survey_fixed`, and `approach_standoff_overview`. These rows remain `blocked_vast_required`; no local placeholder render should be treated as a completed artifact.
+
+## Week 5 Material, Lighting, and Sensor Status
+
+Required material variants are `nominal`, `high_glare`, `degraded`, and `anomaly_test`.
+
+Required lighting variants are `nominal_sun_key`, `high_glare_edge`, `low_light_cold_side`, and `mixed_stress`.
+
+`validation/render_manifest.csv` includes 24 Week 5 stress rows under `validation/renders/week5/`: four material/lighting combinations, three fixed cameras, and two renderer modes. Rows remain `blocked_vast_required` until a real Isaac Sim or Omniverse RTX run records artifacts and run metadata.
+
+`validation/reports/week5_collision_proxy_report.md` records that the current bus and sunshield proxies do not shrink safety boundaries. `configs/sensors/inspector_sensor_frames.yaml` freezes the RGB, depth, and IMU sensor frame assumptions for downstream smoke tests.

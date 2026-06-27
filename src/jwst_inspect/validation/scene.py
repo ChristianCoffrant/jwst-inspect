@@ -77,6 +77,13 @@ VALID_RENDER_STATUS = {"planned", "blocked_vast_required", "completed"}
 
 COVERAGE_SURFACE_CONFIG = Path("configs/coverage/coverage_surfaces.yaml")
 SPARSE_KEYPOINT_TEMPLATE = Path("validation/annotations/sparse_keypoints/week4_keypoints_template.csv")
+MATERIAL_VARIANT_CONFIG = Path("configs/materials/material_variants.yaml")
+LIGHTING_VARIANT_CONFIG = Path("configs/lighting/lighting_variants.yaml")
+WEEK5_RENDER_CONFIG = Path("configs/renderers/week5_material_stress.yaml")
+WEEK5_ANOMALY_CONFIG = Path("configs/anomalies/week5_anomaly_regions.yaml")
+WEEK5_SENSOR_FRAME_CONFIG = Path("configs/sensors/inspector_sensor_frames.yaml")
+WEEK5_COLLISION_PROXY_REPORT = Path("validation/reports/week5_collision_proxy_report.md")
+WEEK5_MATERIAL_STRESS_REPORT = Path("validation/reports/week5_material_stress_report.md")
 
 REQUIRED_COVERAGE_COLUMNS = (
     "coverage_patch",
@@ -118,6 +125,83 @@ VALID_SPARSE_STATUS = {"planned", "in_progress", "complete", "blocked"}
 SPARSE_ANNOTATION_MIN = 10
 SPARSE_ANNOTATION_MAX = 20
 
+REQUIRED_MATERIAL_VARIANTS = {"nominal", "high_glare", "degraded", "anomaly_test"}
+REQUIRED_LIGHTING_VARIANTS = {"nominal_sun_key", "high_glare_edge", "low_light_cold_side", "mixed_stress"}
+
+REQUIRED_MATERIAL_COLUMNS = (
+    "variant_id",
+    "usd_token",
+    "target_components",
+    "stress_role",
+    "reference_motivation",
+    "benchmark_role",
+    "enabled_by_default",
+    "training_tuning_allowed",
+)
+
+REQUIRED_LIGHTING_COLUMNS = (
+    "variant_id",
+    "usd_token",
+    "stress_role",
+    "intensity_class",
+    "benchmark_role",
+    "enabled_by_default",
+    "training_tuning_allowed",
+)
+
+WEEK5_REQUIRED_STRESS_COMBOS = {
+    ("nominal", "nominal_sun_key"),
+    ("high_glare", "high_glare_edge"),
+    ("degraded", "low_light_cold_side"),
+    ("anomaly_test", "mixed_stress"),
+}
+
+REQUIRED_STRESS_MATRIX_COLUMNS = (
+    "combo_id",
+    "material_variant",
+    "lighting_variant",
+    "required_cameras",
+    "required_renderer_modes",
+    "team2_dataset_variant",
+    "team3_episode_variant",
+    "status",
+)
+
+REQUIRED_ANOMALY_COLUMNS = (
+    "anomaly_id",
+    "task_region_id",
+    "target_prim",
+    "coverage_patch",
+    "material_variant",
+    "enabled_by_default",
+    "benchmark_proxy_only",
+    "training_tuning_allowed",
+    "real_failure_claim",
+)
+
+REQUIRED_SENSOR_COLUMNS = (
+    "sensor_id",
+    "sensor_path",
+    "sensor_role",
+    "frame_convention",
+    "focal_length_mm",
+    "horizontal_aperture_mm",
+    "vertical_aperture_mm",
+    "transform_policy",
+    "aligned_to",
+)
+
+REQUIRED_SENSOR_PATHS = {
+    "rgb_camera": "/World/Inspector/Sensors/RGBCamera",
+    "depth_camera": "/World/Inspector/Sensors/DepthCamera",
+    "imu_frame": "/World/Inspector/Sensors/IMUFrame",
+}
+
+REQUIRED_COLLISION_PROXY_PATHS = {
+    "/World/Safety/CollisionProxies/JWSTBusProxy",
+    "/World/Safety/CollisionProxies/SunshieldProxy",
+}
+
 REQUIRED_SCENE_TOKENS = (
     "status: frozen_week2_contract_0_1",
     "contract_freeze:",
@@ -134,6 +218,7 @@ REQUIRED_SCENE_TOKENS = (
     "thin_slice:",
     "coverage_surfaces:",
     "sparse_annotations:",
+    "week5_stressors:",
     "ship_gate:",
     "downstream_handoff:",
 )
@@ -218,6 +303,7 @@ USD_REQUIRED_TOKENS = {
         "nominal_sun_key",
         "high_glare_edge",
         "low_light_cold_side",
+        "mixed_stress",
     ),
 }
 
@@ -266,6 +352,10 @@ def _parse_simple_yaml_list(path: Path, list_key: str) -> list[dict[str, str]]:
     if current is not None:
         rows.append(current)
     return rows
+
+
+def _semicolon_set(value: str) -> set[str]:
+    return {item.strip() for item in value.split(";") if item.strip()}
 
 
 def _section_text(text: str, section_name: str) -> str:
@@ -377,6 +467,11 @@ def validate_render_manifest(path: Path | str) -> list[str]:
     errors: list[str] = []
     paired: dict[str, set[str]] = {camera_id: set() for camera_id in THIN_SLICE_CAMERA_IDS}
     week4_paired: dict[str, set[str]] = {camera_id: set() for camera_id in THIN_SLICE_CAMERA_IDS}
+    week5_paired: dict[tuple[str, str, str], set[str]] = {
+        (material_variant, lighting_variant, camera_id): set()
+        for material_variant, lighting_variant in WEEK5_REQUIRED_STRESS_COMBOS
+        for camera_id in THIN_SLICE_CAMERA_IDS
+    }
     seen_ids: set[str] = set()
     with manifest_path.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -411,10 +506,18 @@ def validate_render_manifest(path: Path | str) -> list[str]:
                 paired[camera_id].add(renderer_mode)
 
             output_path = row.get("expected_output_path", "").strip()
-            if not output_path.startswith(("validation/renders/week3/", "validation/renders/week4/")):
-                errors.append(f"{manifest_path}:{index}: expected_output_path must be under validation/renders/week3/ or validation/renders/week4/")
+            if not output_path.startswith(("validation/renders/week3/", "validation/renders/week4/", "validation/renders/week5/")):
+                errors.append(f"{manifest_path}:{index}: expected_output_path must be under validation/renders/week3/, validation/renders/week4/, or validation/renders/week5/")
             elif output_path.startswith("validation/renders/week4/") and camera_id in week4_paired and renderer_mode in THIN_SLICE_RENDERER_MODES:
                 week4_paired[camera_id].add(renderer_mode)
+            elif output_path.startswith("validation/renders/week5/") and renderer_mode in THIN_SLICE_RENDERER_MODES:
+                material_variant = row.get("material_variant", "").strip()
+                lighting_variant = row.get("lighting_variant", "").strip()
+                stress_key = (material_variant, lighting_variant, camera_id)
+                if (material_variant, lighting_variant) not in WEEK5_REQUIRED_STRESS_COMBOS:
+                    errors.append(f"{manifest_path}:{index}: invalid Week 5 material/lighting combo {(material_variant, lighting_variant)!r}")
+                elif camera_id in THIN_SLICE_CAMERA_IDS:
+                    week5_paired[stress_key].add(renderer_mode)
 
             status = row.get("status", "").strip()
             if status not in VALID_RENDER_STATUS:
@@ -429,6 +532,13 @@ def validate_render_manifest(path: Path | str) -> list[str]:
     for camera_id, modes in week4_paired.items():
         if modes != THIN_SLICE_RENDERER_MODES:
             errors.append(f"{manifest_path}: Week 4 camera {camera_id!r} must have paired rasterized and path_traced rows")
+
+    for (material_variant, lighting_variant, camera_id), modes in week5_paired.items():
+        if modes != THIN_SLICE_RENDERER_MODES:
+            errors.append(
+                f"{manifest_path}: Week 5 combo {(material_variant, lighting_variant)!r} camera {camera_id!r} "
+                "must have paired rasterized and path_traced rows"
+            )
 
     return errors
 
@@ -566,6 +676,273 @@ def validate_sparse_keypoint_template(path: Path | str, reference_manifest_path:
     return errors
 
 
+def _validate_variant_catalog(
+    path: Path | str,
+    list_key: str,
+    required_ids: set[str],
+    required_columns: tuple[str, ...],
+    catalog_name: str,
+) -> list[str]:
+    catalog_path = Path(path)
+    if not catalog_path.exists():
+        return [f"Missing {catalog_name}: {catalog_path}"]
+
+    errors: list[str] = []
+    rows = _parse_simple_yaml_list(catalog_path, list_key)
+    if not rows:
+        return [f"{catalog_path}: no {list_key} rows found"]
+
+    seen_ids: set[str] = set()
+    for index, row in enumerate(rows, start=1):
+        missing = [column for column in required_columns if column not in row]
+        if missing:
+            errors.append(f"{catalog_path}: row {index} missing columns {missing}")
+            continue
+        variant_id = row["variant_id"].strip()
+        if variant_id in seen_ids:
+            errors.append(f"{catalog_path}: duplicate variant_id {variant_id!r}")
+        seen_ids.add(variant_id)
+        if variant_id not in required_ids:
+            errors.append(f"{catalog_path}: row {index} unexpected variant_id {variant_id!r}")
+        if row.get("training_tuning_allowed", "").strip().lower() != "false":
+            errors.append(f"{catalog_path}: row {index} must set training_tuning_allowed=false")
+        for column in required_columns:
+            if row.get(column, "").strip() == "":
+                errors.append(f"{catalog_path}: row {index} empty required field {column}")
+
+    missing_ids = sorted(required_ids - seen_ids)
+    if missing_ids:
+        errors.append(f"{catalog_path}: missing required variant IDs {missing_ids}")
+    return errors
+
+
+def validate_material_variant_catalog(path: Path | str) -> list[str]:
+    return _validate_variant_catalog(
+        path,
+        "material_variants",
+        REQUIRED_MATERIAL_VARIANTS,
+        REQUIRED_MATERIAL_COLUMNS,
+        "material variant catalog",
+    )
+
+
+def validate_lighting_variant_catalog(path: Path | str) -> list[str]:
+    return _validate_variant_catalog(
+        path,
+        "lighting_variants",
+        REQUIRED_LIGHTING_VARIANTS,
+        REQUIRED_LIGHTING_COLUMNS,
+        "lighting variant catalog",
+    )
+
+
+def validate_week5_stress_matrix(path: Path | str) -> list[str]:
+    config_path = Path(path)
+    if not config_path.exists():
+        return [f"Missing Week 5 stress matrix config: {config_path}"]
+
+    errors: list[str] = []
+    rows = _parse_simple_yaml_list(config_path, "stress_matrix")
+    if not rows:
+        return [f"{config_path}: no stress_matrix rows found"]
+
+    seen_combos: set[tuple[str, str]] = set()
+    team2_combo_count = 0
+    team3_high_glare_count = 0
+    for index, row in enumerate(rows, start=1):
+        missing = [column for column in REQUIRED_STRESS_MATRIX_COLUMNS if column not in row]
+        if missing:
+            errors.append(f"{config_path}: row {index} missing columns {missing}")
+            continue
+
+        material_variant = row["material_variant"].strip()
+        lighting_variant = row["lighting_variant"].strip()
+        combo = (material_variant, lighting_variant)
+        if combo in seen_combos:
+            errors.append(f"{config_path}: duplicate material/lighting combo {combo!r}")
+        seen_combos.add(combo)
+        if combo not in WEEK5_REQUIRED_STRESS_COMBOS:
+            errors.append(f"{config_path}: row {index} unexpected material/lighting combo {combo!r}")
+
+        cameras = _semicolon_set(row["required_cameras"])
+        if cameras != THIN_SLICE_CAMERA_IDS:
+            errors.append(f"{config_path}: row {index} required_cameras must match fixed thin-slice cameras")
+        modes = _semicolon_set(row["required_renderer_modes"])
+        if modes != THIN_SLICE_RENDERER_MODES:
+            errors.append(f"{config_path}: row {index} required_renderer_modes must be rasterized and path_traced")
+
+        status = row["status"].strip()
+        if status not in VALID_RENDER_STATUS:
+            errors.append(f"{config_path}: row {index} invalid status {status!r}")
+
+        if row["team2_dataset_variant"].strip().lower() == "true":
+            team2_combo_count += 1
+        if material_variant == "high_glare" and lighting_variant == "high_glare_edge" and row["team3_episode_variant"].strip().lower() == "true":
+            team3_high_glare_count += 1
+
+    missing_combos = sorted(WEEK5_REQUIRED_STRESS_COMBOS - seen_combos)
+    if missing_combos:
+        errors.append(f"{config_path}: missing required Week 5 stress combos {missing_combos}")
+    if team2_combo_count < 2:
+        errors.append(f"{config_path}: expected at least 2 Team 2 dataset variant combos, found {team2_combo_count}")
+    if team3_high_glare_count < 1:
+        errors.append(f"{config_path}: expected at least 1 Team 3 high-glare episode combo")
+
+    return errors
+
+
+def validate_anomaly_regions(path: Path | str) -> list[str]:
+    anomaly_path = Path(path)
+    if not anomaly_path.exists():
+        return [f"Missing Week 5 anomaly region config: {anomaly_path}"]
+
+    errors: list[str] = []
+    rows = _parse_simple_yaml_list(anomaly_path, "anomaly_regions")
+    if not rows:
+        return [f"{anomaly_path}: no anomaly_regions rows found"]
+
+    seen_ids: set[str] = set()
+    for index, row in enumerate(rows, start=1):
+        missing = [column for column in REQUIRED_ANOMALY_COLUMNS if column not in row]
+        if missing:
+            errors.append(f"{anomaly_path}: row {index} missing columns {missing}")
+            continue
+
+        anomaly_id = row["anomaly_id"].strip()
+        if anomaly_id in seen_ids:
+            errors.append(f"{anomaly_path}: duplicate anomaly_id {anomaly_id!r}")
+        seen_ids.add(anomaly_id)
+
+        task_region_id = row["task_region_id"].strip()
+        if task_region_id not in EXPECTED_COVERAGE_PATCHES:
+            errors.append(f"{anomaly_path}: row {index} invalid task_region_id {task_region_id!r}")
+            continue
+
+        coverage_patch = row["coverage_patch"].strip()
+        if coverage_patch not in EXPECTED_COVERAGE_PATCHES[task_region_id]:
+            errors.append(f"{anomaly_path}: row {index} coverage_patch {coverage_patch!r} is not valid for {task_region_id!r}")
+        if not row["target_prim"].strip().startswith("/World/JWST/"):
+            errors.append(f"{anomaly_path}: row {index} target_prim must be an absolute /World/JWST path")
+        if row["material_variant"].strip() != "anomaly_test":
+            errors.append(f"{anomaly_path}: row {index} material_variant must be anomaly_test")
+        if row["enabled_by_default"].strip().lower() != "false":
+            errors.append(f"{anomaly_path}: row {index} must set enabled_by_default=false")
+        if row["benchmark_proxy_only"].strip().lower() != "true":
+            errors.append(f"{anomaly_path}: row {index} must set benchmark_proxy_only=true")
+        if row["training_tuning_allowed"].strip().lower() != "false":
+            errors.append(f"{anomaly_path}: row {index} must set training_tuning_allowed=false")
+        if row["real_failure_claim"].strip().lower() != "false":
+            errors.append(f"{anomaly_path}: row {index} must set real_failure_claim=false")
+
+    if len(rows) < 4:
+        errors.append(f"{anomaly_path}: expected at least 4 anomaly proxy regions, found {len(rows)}")
+
+    return errors
+
+
+def validate_sensor_frame_config(path: Path | str, root: Path | str = ".") -> list[str]:
+    sensor_path = Path(path)
+    if not sensor_path.exists():
+        return [f"Missing Week 5 sensor frame config: {sensor_path}"]
+
+    root_path = Path(root)
+    contract_text = _read_text(root_path / "contracts" / "scene_contract.yaml")
+    usd_text = _read_text(root_path / "usd" / "layers" / "sensors.usd")
+    errors: list[str] = []
+    rows = _parse_simple_yaml_list(sensor_path, "sensor_frames")
+    if not rows:
+        return [f"{sensor_path}: no sensor_frames rows found"]
+
+    rows_by_id: dict[str, dict[str, str]] = {}
+    for index, row in enumerate(rows, start=1):
+        missing = [column for column in REQUIRED_SENSOR_COLUMNS if column not in row]
+        if missing:
+            errors.append(f"{sensor_path}: row {index} missing columns {missing}")
+            continue
+
+        sensor_id = row["sensor_id"].strip()
+        if sensor_id in rows_by_id:
+            errors.append(f"{sensor_path}: duplicate sensor_id {sensor_id!r}")
+        rows_by_id[sensor_id] = row
+
+        expected_path = REQUIRED_SENSOR_PATHS.get(sensor_id)
+        actual_path = row["sensor_path"].strip()
+        if expected_path is None:
+            errors.append(f"{sensor_path}: row {index} unexpected sensor_id {sensor_id!r}")
+        elif actual_path != expected_path:
+            errors.append(f"{sensor_path}: row {index} expected sensor_path {expected_path!r}, found {actual_path!r}")
+        if actual_path not in contract_text:
+            errors.append(f"{sensor_path}: row {index} sensor_path {actual_path!r} missing from scene contract")
+        prim_name = actual_path.rsplit("/", 1)[-1]
+        if f'"{prim_name}"' not in usd_text:
+            errors.append(f"{sensor_path}: row {index} sensor prim {prim_name!r} missing from sensors.usd")
+        if row["frame_convention"].strip() != "inspector_body_frame_forward_y":
+            errors.append(f"{sensor_path}: row {index} invalid frame_convention {row['frame_convention']!r}")
+        for column in ("focal_length_mm", "horizontal_aperture_mm", "vertical_aperture_mm"):
+            try:
+                float(row[column].strip())
+            except ValueError:
+                errors.append(f"{sensor_path}: row {index} {column} must be numeric")
+
+    missing_sensors = sorted(set(REQUIRED_SENSOR_PATHS) - set(rows_by_id))
+    if missing_sensors:
+        errors.append(f"{sensor_path}: missing required sensor IDs {missing_sensors}")
+
+    rgb = rows_by_id.get("rgb_camera")
+    depth = rows_by_id.get("depth_camera")
+    if rgb and depth:
+        for column in ("focal_length_mm", "horizontal_aperture_mm", "vertical_aperture_mm"):
+            if rgb.get(column, "").strip() != depth.get(column, "").strip():
+                errors.append(f"{sensor_path}: RGB and depth cameras must match {column}")
+
+    return errors
+
+
+def validate_week5_reports(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    collision_path = root_path / WEEK5_COLLISION_PROXY_REPORT
+    material_path = root_path / WEEK5_MATERIAL_STRESS_REPORT
+    errors: list[str] = []
+
+    if not collision_path.exists():
+        errors.append(f"Missing Week 5 collision proxy report: {collision_path}")
+    else:
+        collision_text = _read_text(collision_path)
+        for proxy_path in REQUIRED_COLLISION_PROXY_PATHS:
+            if proxy_path not in collision_text:
+                errors.append(f"{collision_path}: missing proxy path {proxy_path}")
+        for token in (
+            "collision_proxy_shrinkage_count: 0",
+            "safety_path_renames: 0",
+            "task_region_id_renames: 0",
+            "shrinks_existing_safety_boundary: false",
+            "declared_tolerance_m:",
+        ):
+            if token not in collision_text:
+                errors.append(f"{collision_path}: missing guardrail token {token!r}")
+
+    if not material_path.exists():
+        errors.append(f"Missing Week 5 material stress report: {material_path}")
+    else:
+        material_text = _read_text(material_path)
+        for variant in REQUIRED_MATERIAL_VARIANTS:
+            if variant not in material_text:
+                errors.append(f"{material_path}: missing material variant {variant!r}")
+        for lighting in REQUIRED_LIGHTING_VARIANTS:
+            if lighting not in material_text:
+                errors.append(f"{material_path}: missing lighting variant {lighting!r}")
+        for token in (
+            "held_out_reference_tuning_count: 0",
+            "public_reference_training_use_count: 0",
+            "training_tuning_allowed: false",
+            "do_not_tune_to_perception: true",
+        ):
+            if token not in material_text:
+                errors.append(f"{material_path}: missing guardrail token {token!r}")
+
+    return errors
+
+
 def validate_scene_contract(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     contract_path = root_path / "contracts" / "scene_contract.yaml"
@@ -617,6 +994,13 @@ def validate_scene_contract(root: Path | str = ".") -> list[str]:
         "excluded_cells_without_reason_allowed: false",
         "sparse_keypoint_template: validation/annotations/sparse_keypoints/week4_keypoints_template.csv",
         "week4_validation_renders_and_coverage",
+        "variant_catalog: configs/materials/material_variants.yaml",
+        "variant_catalog: configs/lighting/lighting_variants.yaml",
+        "renderer_stress_config: configs/renderers/week5_material_stress.yaml",
+        "anomaly_regions: configs/anomalies/week5_anomaly_regions.yaml",
+        "sensor_frame_config: configs/sensors/inspector_sensor_frames.yaml",
+        "collision_proxy_shrinkage_allowed: false",
+        "week5_material_lighting_anomaly_safety_sensor_gate",
     ):
         if guardrail not in text:
             errors.append(f"{contract_path}: missing guardrail {guardrail!r}")
@@ -680,5 +1064,11 @@ def validate_scene_package(root: Path | str = ".") -> list[str]:
             root_path / "validation" / "reference_manifest.csv",
         )
     )
+    errors.extend(validate_material_variant_catalog(root_path / MATERIAL_VARIANT_CONFIG))
+    errors.extend(validate_lighting_variant_catalog(root_path / LIGHTING_VARIANT_CONFIG))
+    errors.extend(validate_week5_stress_matrix(root_path / WEEK5_RENDER_CONFIG))
+    errors.extend(validate_anomaly_regions(root_path / WEEK5_ANOMALY_CONFIG))
+    errors.extend(validate_sensor_frame_config(root_path / WEEK5_SENSOR_FRAME_CONFIG, root_path))
+    errors.extend(validate_week5_reports(root_path))
     errors.extend(validate_usd_proxy_layers(root_path))
     return errors

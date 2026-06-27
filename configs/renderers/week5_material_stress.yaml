@@ -1,0 +1,42 @@
+version: 0.1.0
+scene_tag: scene-proxy-thin-slice-v0.1
+seed: 31003
+source_camera_config: configs/renderers/thin_slice_validation.yaml
+render_manifest: validation/render_manifest.csv
+guardrails:
+  generated_outputs_tracked_in_git: false
+  completed_rows_require_run_metadata: true
+  high_glare_and_degraded_required_even_if_performance_drops: true
+stress_matrix:
+  - combo_id: nominal_clean
+    material_variant: nominal
+    lighting_variant: nominal_sun_key
+    required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
+    required_renderer_modes: rasterized;path_traced
+    team2_dataset_variant: true
+    team3_episode_variant: false
+    status: blocked_vast_required
+  - combo_id: high_glare_edge
+    material_variant: high_glare
+    lighting_variant: high_glare_edge
+    required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
+    required_renderer_modes: rasterized;path_traced
+    team2_dataset_variant: true
+    team3_episode_variant: true
+    status: blocked_vast_required
+  - combo_id: degraded_low_light
+    material_variant: degraded
+    lighting_variant: low_light_cold_side
+    required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
+    required_renderer_modes: rasterized;path_traced
+    team2_dataset_variant: false
+    team3_episode_variant: false
+    status: blocked_vast_required
+  - combo_id: anomaly_mixed_stress
+    material_variant: anomaly_test
+    lighting_variant: mixed_stress
+    required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
+    required_renderer_modes: rasterized;path_traced
+    team2_dataset_variant: false
+    team3_episode_variant: false
+    status: blocked_vast_required

@@ -1,0 +1,45 @@
+version: 0.1.0
+scene_tag: scene-proxy-thin-slice-v0.1
+owner: team1_material_lighting_lead
+guardrails:
+  benchmark_proxy_only: true
+  real_jwst_failure_claims_allowed: false
+  enabled_by_default: false
+  training_tuning_allowed: false
+anomaly_regions:
+  - anomaly_id: anomaly_primary_mirror_glint_patch_v0
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    coverage_patch: mirror_cell_04
+    material_variant: anomaly_test
+    enabled_by_default: false
+    benchmark_proxy_only: true
+    training_tuning_allowed: false
+    real_failure_claim: false
+  - anomaly_id: anomaly_secondary_mirror_glint_patch_v0
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/SecondaryMirror
+    coverage_patch: mirror_cell_13
+    material_variant: anomaly_test
+    enabled_by_default: false
+    benchmark_proxy_only: true
+    training_tuning_allowed: false
+    real_failure_claim: false
+  - anomaly_id: anomaly_sunshield_edge_contrast_v0
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/EdgeBand
+    coverage_patch: sunshield_cell_21
+    material_variant: anomaly_test
+    enabled_by_default: false
+    benchmark_proxy_only: true
+    training_tuning_allowed: false
+    real_failure_claim: false
+  - anomaly_id: anomaly_sunshield_outer_contrast_v0
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    coverage_patch: sunshield_cell_09
+    material_variant: anomaly_test
+    enabled_by_default: false
+    benchmark_proxy_only: true
+    training_tuning_allowed: false
+    real_failure_claim: false
