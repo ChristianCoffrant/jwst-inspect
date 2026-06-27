@@ -94,6 +94,13 @@ from jwst_inspect.perception.week9_final import (
     write_week9_final_perception_report,
     write_week9_final_perception_request_pack,
 )
+from jwst_inspect.perception.week10_lock import (
+    WEEK10_LOCK_ID,
+    build_week10_final_perception_table,
+    build_week10_sample_package_manifest,
+    validate_week10_final_perception_config,
+    validate_week10_final_perception_lock,
+)
 from jwst_inspect.validation.dataset import (
     validate_sample_dataset,
     validate_week5_anomaly_dataset,
@@ -1034,6 +1041,45 @@ class Week9FinalPerceptionRunTests(unittest.TestCase):
         self.assertTrue(errors)
         self.assertEqual(report["status"], "failed")
         self.assertTrue(any("missing from compute/gpu_run_registry.csv" in error for error in errors), errors)
+
+
+class Week10FinalPerceptionLockTests(unittest.TestCase):
+    def test_week10_final_perception_config_passes_guardrails(self):
+        self.assertEqual(validate_week10_final_perception_config(ROOT), [])
+
+    def test_week10_final_perception_lock_passes_ship_gates(self):
+        errors, report = validate_week10_final_perception_lock(ROOT)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["lock_id"], WEEK10_LOCK_ID)
+        self.assertEqual(report["guardrails"]["final_test_training_use"], 0)
+        self.assertEqual(report["guardrails"]["final_test_tuning_use"], 0)
+        self.assertEqual(report["guardrails"]["final_test_path_traced_rgb_artifact_count"], WEEK8_FINAL_TEST_FRAME_COUNT)
+        self.assertEqual(report["guardrails"]["blank_or_corrupt_final_test_frames"], 0)
+        self.assertEqual(report["guardrails"]["generated_large_media_committed_count"], 0)
+        self.assertTrue(report["guardrails"]["failed_results_remain_reported"])
+
+    def test_week10_perception_table_regenerates_from_week9_report(self):
+        table = build_week10_final_perception_table(ROOT)
+        table_path = ROOT / "validation" / "reports" / "week10_final_perception_table.json"
+        committed_table = json.loads(table_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(committed_table, table)
+        self.assertEqual(table["rows"][0]["condition"], "validation_rasterized")
+        self.assertEqual(table["rows"][1]["condition"], "final_test_path_traced")
+        self.assertEqual(table["rows"][2]["condition"], "validation_minus_final_test_gap")
+        self.assertEqual(table["rows"][1]["anomaly_f1"], 0.0)
+
+    def test_week10_sample_package_keeps_generated_media_untracked(self):
+        sample_package = build_week10_sample_package_manifest(ROOT)
+        sample_path = ROOT / "validation" / "final_test" / "week10_final_sample_dataset_package.json"
+        committed_sample_package = json.loads(sample_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(committed_sample_package, sample_package)
+        self.assertFalse(sample_package["generated_dataset_references"]["week8_final_train_validation"]["tracked_in_git"])
+        self.assertFalse(sample_package["generated_dataset_references"]["week9_final_test_path_traced"]["tracked_in_git"])
+        self.assertEqual(sample_package["artifact_policy"]["tracked_generated_media_count"], 0)
 
 
 if __name__ == "__main__":

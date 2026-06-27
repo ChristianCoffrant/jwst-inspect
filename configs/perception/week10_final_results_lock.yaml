@@ -1,0 +1,57 @@
+version: 1.0.0
+lock_id: week10-final-perception-lock-v1.0.0
+results_status: final_locked
+dataset_tag: week8-final-data-v1.0.0
+scene_tag: scene-final-v1.0.0
+final_scene_version_identifier: scene-final-v1.0.0+week10-lock
+schema_version: 1.0.0
+baseline_type: dependency_free_rgb_heuristic
+week9_run_id: week9-final-perception-run1-v1.0.0
+week9_analysis_id: week9_final_perception_run1_rgb_analysis_v1_0_0
+final_test_definition_id: week8-final-perception-test-v1.0.0
+final_test_definition_path: validation/final_test/week8_final_perception_test_definition.json
+week9_request_pack_path: validation/final_test/week9_final_perception_run1_path_traced_requests.json
+week9_run_manifest_path: validation/final_test/week9_final_perception_run1_manifest.json
+week9_report_path: validation/reports/week9_final_perception_run1_report.json
+week9_failure_examples_path: validation/reports/week9_final_perception_run1_failures.json
+week9_plot_data_path: validation/reports/week9_final_perception_run1_plot_data.json
+week9_metrics_plot_path: validation/reports/week9_final_perception_run1_metrics.svg
+week8_dataset_report_path: validation/reports/week8_final_dataset_report.json
+week8_final_test_report_path: validation/reports/week8_final_test_definition_report.json
+week8_validation_perception_report_path: validation/reports/week8_validation_perception_report.json
+week10_scene_package_path: validation/scene_final/week10_final_scene_package.yaml
+tracked_sample_manifest_path: datasets/sample/dataset_manifest.json
+results_lock_path: validation/reports/week10_final_perception_results_lock.json
+results_table_path: validation/reports/week10_final_perception_table.json
+sample_package_manifest_path: validation/final_test/week10_final_sample_dataset_package.json
+data_card_path: docs/data_card.md
+execution_doc_path: docs/workstream2_week10_execution.md
+regeneration_commands:
+  - python scripts/validate_week8_final_dataset.py
+  - python scripts/validate_week8_final_test_definition.py
+  - python scripts/validate_week9_final_perception_requests.py
+  - python scripts/validate_week9_final_perception_run1.py
+  - python scripts/evaluate_week9_final_perception_run1.py
+  - python scripts/write_week10_final_perception_lock.py
+  - python scripts/validate_week10_final_perception_lock.py
+guardrails:
+  final_test_training_use_allowed: false
+  final_test_tuning_use_allowed: false
+  final_test_tuning_driven_config_changes_max: 0
+  public_reference_images_used_for_training_allowed: false
+  heldout_reference_used_for_tuning_allowed: false
+  final_test_path_traced_rgb_artifact_count_required: 120
+  blank_or_corrupt_final_test_frames_max: 0
+  metadata_completeness_required: 1.0
+  media_completeness_required: 1.0
+  seed_leakage_count_required: 0
+  frame_id_leakage_count_required: 0
+  generated_large_media_committed_count_required: 0
+  high_glare_false_alarm_rate_max: 0.25
+  per_class_metrics_required: true
+  per_condition_metrics_required: true
+  failure_examples_must_trace_to_frame_id: true
+  plots_tables_regenerate_from_stored_artifacts: true
+  failed_results_must_remain_reported: true
+  max_optional_week10_gpu_spend_usd: 5.0
+  optional_week10_gpu_rerun_requires_x090: true

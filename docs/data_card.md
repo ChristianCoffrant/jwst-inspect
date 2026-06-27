@@ -52,6 +52,16 @@ estimated spend of about `$0.08` under the `$5` cap. The committed artifacts are
 request metadata, the run manifest, final perception report, failure examples,
 and plot metadata; final-test media remains untracked.
 
+The Week 10 final results lock does not introduce new final-test tuning or a new
+dataset tag. It freezes the Team 2 final package as
+`week10-final-perception-lock-v1.0.0`, using the Week 8 final dataset, the Week
+9 path-traced final-test run, and Workstream 1's
+`scene-final-v1.0.0+week10-lock` scene package. The Week 10 artifacts are the
+final perception lock, final perception table, sample dataset package manifest,
+data card, and execution note. They preserve the Week 9 finding that the
+dependency-free RGB heuristic has zero final-test anomaly recall/F1 under
+path-traced imagery.
+
 Future rendered samples will be generated from the JWST-Inspect benchmark scene.
 Public JWST images are reference validation material only and are excluded from
 official training data.
@@ -100,6 +110,11 @@ true anomalies, 40 paired no-anomaly counterparts, and 40 high-glare
 no-anomaly controls. The final-test definition has 0 generated media files, 0
 training/tuning exposure, 0 seed overlap with train/validation, and 0 frame ID
 overlap with train/validation.
+
+The Week 10 final sample package keeps tracked public sample media limited to
+the tiny schema fixtures under `datasets/sample/`. The larger Week 8 and Week 9
+generated datasets remain referenced by manifests and validation reports under
+`validation/`, while their RGB/depth/mask media remains excluded from Git.
 
 ## Sample Media
 
@@ -212,6 +227,24 @@ media files, 0 seed/frame overlap with train/validation, and 0 training/tuning
 exposure. The Week 8 validation perception report evaluates validation only;
 it does not evaluate `final_test`.
 
+## Week 10 Final Results Lock
+
+Week 10 locks Team 2's final synthetic data and perception benchmark evidence
+without changing the frozen dataset, final-test definition, or Week 9 final
+perception baseline. The lock is recorded in
+`validation/reports/week10_final_perception_results_lock.json`, with the
+regenerated table in `validation/reports/week10_final_perception_table.json`
+and the sample package manifest in
+`validation/final_test/week10_final_sample_dataset_package.json`.
+
+The final locked result keeps the renderer-separated metrics visible:
+validation rasterized semantic mIoU is about `0.2710`, final-test path-traced
+semantic mIoU is about `0.0163`, validation anomaly F1 is `1.0`, and final-test
+anomaly F1 is `0.0`. The high-glare false-alarm rate remains `0.0` on the
+final-test controls. This is documented as a final perception transfer failure
+of the baseline, not as a dataset redesign request and not as a reason to tune
+on final-test labels.
+
 ## Metadata
 
 Every frame must include:
@@ -242,4 +275,6 @@ for stressor bookkeeping and evaluation reporting. Week 6 and Week 7 combine
 local contract proxy labels with synced x090/Isaac path-traced RGB dev-test
 subsets. Week 8 freezes the final train/validation contract and locks final-test
 metadata, but does not expose final-test media or claim final-test performance.
+Week 10 locks the final Team 2 evidence package and preserves the Week 9
+path-traced final-test failure as reported benchmark evidence.
 None of these artifacts are evidence of real JWST diagnosis capability.

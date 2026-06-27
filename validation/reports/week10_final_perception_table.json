@@ -1,0 +1,48 @@
+{
+  "lock_id": "week10-final-perception-lock-v1.0.0",
+  "notes": [
+    "Rows are regenerated from the stored Week 9 final perception report.",
+    "The final-test path-traced collapse is retained as a final result, not tuned away."
+  ],
+  "rows": [
+    {
+      "anomaly_f1": 1.0,
+      "anomaly_precision": 1.0,
+      "anomaly_recall": 1.0,
+      "condition": "validation_rasterized",
+      "high_glare_false_alarm_rate": 0.0,
+      "renderer_mode": "rasterized",
+      "semantic_miou": 0.2710119654580008,
+      "semantic_pixel_accuracy": 0.3834683641975309,
+      "split": "validation",
+      "support_frames": 120
+    },
+    {
+      "anomaly_f1": 0.0,
+      "anomaly_precision": 0.0,
+      "anomaly_recall": 0.0,
+      "condition": "final_test_path_traced",
+      "high_glare_false_alarm_rate": 0.0,
+      "renderer_mode": "path_traced",
+      "semantic_miou": 0.01629893599285529,
+      "semantic_pixel_accuracy": 0.09513888888888888,
+      "split": "final_test",
+      "support_frames": 120
+    },
+    {
+      "anomaly_f1": 1.0,
+      "anomaly_precision": null,
+      "anomaly_recall": 1.0,
+      "condition": "validation_minus_final_test_gap",
+      "high_glare_false_alarm_rate": 0.0,
+      "renderer_mode": "rasterized_minus_path_traced",
+      "semantic_miou": 0.2547130294651455,
+      "semantic_pixel_accuracy": 0.288329475308642,
+      "split": "validation_minus_final_test",
+      "support_frames": null
+    }
+  ],
+  "source_report": "validation/reports/week9_final_perception_run1_report.json",
+  "source_report_sha256": "e02ea611eded38073cb91d4997ce45fe9a95aca75d8a5f55f050a5847d6dbf20",
+  "table_id": "week10_final_perception_table_v1_0_0"
+}

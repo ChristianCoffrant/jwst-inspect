@@ -1,0 +1,43 @@
+{
+  "artifact_policy": {
+    "allowed_tracked_generated_paths": [
+      "datasets/generated/README.md"
+    ],
+    "large_generated_media_tracked_in_git": false,
+    "tracked_generated_media_count": 0
+  },
+  "dataset_tag": "week8-final-data-v1.0.0",
+  "generated_dataset_references": {
+    "week8_final_train_validation": {
+      "path": "datasets/generated/week8_final_dataset",
+      "regeneration_command": "python scripts/generate_week8_final_dataset.py",
+      "tracked_in_git": false,
+      "validation_report": "validation/reports/week8_final_dataset_report.json"
+    },
+    "week9_final_test_path_traced": {
+      "path": "datasets/generated/week9_final_perception_run1",
+      "request_pack": "validation/final_test/week9_final_perception_run1_path_traced_requests.json",
+      "run_manifest": "validation/final_test/week9_final_perception_run1_manifest.json",
+      "tracked_in_git": false,
+      "validation_command": "python scripts/validate_week9_final_perception_run1.py"
+    }
+  },
+  "lock_id": "week10-final-perception-lock-v1.0.0",
+  "package_id": "week10-final-sample-dataset-package-v1.0.0",
+  "schema_version": "1.0.0",
+  "tracked_sample_frame_count": 24,
+  "tracked_sample_manifest": "datasets/sample/dataset_manifest.json",
+  "tracked_sample_manifest_sha256": "6141346151bfe032a696a8333dc5985c42e71da350fc1790dda73050f7558322",
+  "tracked_sample_media_status_counts": {
+    "tiny_placeholder_media": 24
+  },
+  "tracked_sample_renderer_counts": {
+    "path_traced": 2,
+    "rasterized": 22
+  },
+  "tracked_sample_split_counts": {
+    "dev_test": 4,
+    "train": 16,
+    "validation": 4
+  }
+}

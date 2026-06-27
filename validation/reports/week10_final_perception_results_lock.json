@@ -1,0 +1,119 @@
+{
+  "baseline_type": "dependency_free_rgb_heuristic",
+  "dataset_tag": "week8-final-data-v1.0.0",
+  "errors": [],
+  "failure_selection": {
+    "bucket_counts": {
+      "anomaly_type_mismatch": 0,
+      "highest_confidence_false_negative": 8,
+      "highest_confidence_false_positive": 0,
+      "worst_semantic_iou": 8
+    },
+    "empty_bucket_explanations": {
+      "anomaly_type_mismatch": "no examples observed under the deterministic rule",
+      "highest_confidence_false_positive": "no examples observed under the deterministic rule"
+    },
+    "failure_examples_path": "validation/reports/week9_final_perception_run1_failures.json",
+    "selection_rule": "Deterministic failure triage: highest-confidence false positives, highest-confidence false negatives, anomaly type mismatches, then lowest frame mIoU; ties sort by frame_id."
+  },
+  "final_inputs": {
+    "final_test_definition_id": "week8-final-perception-test-v1.0.0",
+    "final_test_definition_path": "validation/final_test/week8_final_perception_test_definition.json",
+    "gpu_run_id": "vast_week9_team2_20260627_42889311",
+    "request_pack_path": "validation/final_test/week9_final_perception_run1_path_traced_requests.json",
+    "week9_analysis_id": "week9_final_perception_run1_rgb_analysis_v1_0_0",
+    "week9_run_id": "week9-final-perception-run1-v1.0.0"
+  },
+  "final_scene_version_identifier": "scene-final-v1.0.0+week10-lock",
+  "guardrails": {
+    "blank_or_corrupt_final_test_frames": 0,
+    "failed_results_remain_reported": true,
+    "failure_examples_trace_to_frame_id": true,
+    "final_test_path_traced_rgb_artifact_count": 120,
+    "final_test_training_use": 0,
+    "final_test_tuning_driven_config_changes": 0,
+    "final_test_tuning_use": 0,
+    "frame_id_leakage_count": 0,
+    "generated_large_media_committed_count": 0,
+    "heldout_reference_tuning_use": 0,
+    "high_glare_false_alarm_rate": 0.0,
+    "media_completeness": 1.0,
+    "metadata_completeness": 1.0,
+    "per_class_metrics_reported": true,
+    "per_condition_metrics_reported": true,
+    "plots_tables_regenerate_from_stored_artifacts": true,
+    "public_reference_training_use": 0,
+    "seed_leakage_count": 0,
+    "vast_spend_usd_max": 5.0,
+    "vast_spend_usd_total": 0.076
+  },
+  "lock_id": "week10-final-perception-lock-v1.0.0",
+  "metric_summary": {
+    "final_test_path_traced": {
+      "anomaly_f1": 0.0,
+      "anomaly_recall": 0.0,
+      "high_glare_false_alarm_rate": 0.0,
+      "semantic_miou": 0.01629893599285529,
+      "semantic_pixel_accuracy": 0.09513888888888888
+    },
+    "validation_rasterized": {
+      "anomaly_f1": 1.0,
+      "anomaly_recall": 1.0,
+      "high_glare_false_alarm_rate": 0.0,
+      "semantic_miou": 0.2710119654580008,
+      "semantic_pixel_accuracy": 0.3834683641975309
+    },
+    "validation_to_final_test_gap": {
+      "anomaly_f1_validation_minus_final_test": 1.0,
+      "anomaly_recall_validation_minus_final_test": 1.0,
+      "semantic_miou_validation_minus_final_test": 0.2547130294651455,
+      "semantic_pixel_accuracy_validation_minus_final_test": 0.288329475308642
+    }
+  },
+  "plot_artifacts": {
+    "metrics_plot_path": "validation/reports/week9_final_perception_run1_metrics.svg",
+    "plot_data_path": "validation/reports/week9_final_perception_run1_plot_data.json"
+  },
+  "regeneration_commands": [
+    "python scripts/validate_week8_final_dataset.py",
+    "python scripts/validate_week8_final_test_definition.py",
+    "python scripts/validate_week9_final_perception_requests.py",
+    "python scripts/validate_week9_final_perception_run1.py",
+    "python scripts/evaluate_week9_final_perception_run1.py",
+    "python scripts/write_week10_final_perception_lock.py",
+    "python scripts/validate_week10_final_perception_lock.py"
+  ],
+  "result_interpretation": {
+    "action": "Retain as final benchmark evidence; do not tune on final-test labels.",
+    "classification": "final_path_traced_perception_regression",
+    "summary": "The dependency-free RGB heuristic retains zero high-glare false alarms but misses all 40 final-test anomalies under path-traced final imagery."
+  },
+  "results_status": "final_locked",
+  "sample_package_manifest": "validation/final_test/week10_final_sample_dataset_package.json",
+  "scene_tag": "scene-final-v1.0.0",
+  "schema_version": "1.0.0",
+  "source_artifacts": {
+    "config": {
+      "path": "configs/perception/week10_final_results_lock.yaml",
+      "sha256": "0050db2333886eca0b64ea18d35283c206d9c2d8003e3ce7f6d1e7d17d21b68a"
+    },
+    "week10_scene_package": {
+      "path": "validation/scene_final/week10_final_scene_package.yaml",
+      "sha256": "a2523f921b99c5866bd49b8a88fb335e45b6b7f0234eb25ce42e8e7a0cb39f76"
+    },
+    "week9_failures": {
+      "path": "validation/reports/week9_final_perception_run1_failures.json",
+      "sha256": "323e471495b89b305ea2d342df7f9b28d3fa09d04d8040991d813b376d9afa4c"
+    },
+    "week9_report": {
+      "path": "validation/reports/week9_final_perception_run1_report.json",
+      "sha256": "e02ea611eded38073cb91d4997ce45fe9a95aca75d8a5f55f050a5847d6dbf20"
+    },
+    "week9_run_manifest": {
+      "path": "validation/final_test/week9_final_perception_run1_manifest.json",
+      "sha256": "0b7492983b18672ae766b5b7b142460810e5e325a08f2d5b9224072d344a91cd"
+    }
+  },
+  "status": "passed",
+  "table_artifact": "validation/reports/week10_final_perception_table.json"
+}
