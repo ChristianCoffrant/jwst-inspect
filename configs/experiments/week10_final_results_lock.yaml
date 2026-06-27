@@ -1,0 +1,109 @@
+version: 0.1.0
+experiment_id: week10_final_results_lock
+owner: team3_autonomous_inspection
+status: completed_real_vast_isaac_policy_flight
+final_evaluation_plan: configs/experiments/final_evaluation_plan_v1_0.yaml
+week10_scene_package: validation/scene_final/week10_final_scene_package.yaml
+week9_scripted_reference: configs/experiments/week9_final_evaluation_run1.yaml
+learned_baseline_config: configs/experiments/learned_baseline.yaml
+vast_template: configs/vast/x090_template.yaml
+gpu_run_registry: compute/gpu_run_registry.csv
+cost_log: compute/cost_log.csv
+output_dir: runs/week10_final_results_lock
+max_spend_usd: 20.0
+scene_tag: scene-final-v1.0.0
+dataset_tag: week8-final-data-v1.0.0
+isaac_stage: usd/jwst_inspect_root.usd
+official_tasks:
+  - approach_hold_standoff
+  - sunshield_survey
+  - mirror_inspection
+evaluation_conditions:
+  - condition_id: nominal_clean
+    material_variant: nominal
+    lighting_variant: nominal_sun_key
+    nuisance_condition: clean
+    seed_offset: 0
+  - condition_id: high_glare_edge
+    material_variant: high_glare
+    lighting_variant: high_glare_edge
+    nuisance_condition: high_glare_proxy
+    seed_offset: 101
+  - condition_id: degraded_low_light
+    material_variant: degraded
+    lighting_variant: low_light_cold_side
+    nuisance_condition: low_light_proxy
+    seed_offset: 202
+  - condition_id: anomaly_mixed_stress
+    material_variant: anomaly_test
+    lighting_variant: mixed_stress
+    nuisance_condition: anomaly_stress_proxy
+    seed_offset: 303
+renderer_modes:
+  - rasterized
+  - path_traced
+required_policies:
+  - scripted_baseline
+  - learned_state_bc_v0_1
+learned_policy_support:
+  learned_state_bc_v0_1:
+    supported_tasks:
+      - approach_hold_standoff
+      - sunshield_survey
+    unsupported_tasks:
+      mirror_inspection: policy_task_not_trained
+expected_policy_rows: 48
+expected_r2p_rows: 24
+isaac_rollout:
+  run_id: week10_team3_final_policy_isaac_42896511_20260627
+  execution_status: completed
+  actual_paid_instance_launched: true
+  instance_id: 42896511
+  registry_status: official
+  artifact_sync_status: synced
+  start_time_utc: 2026-06-27T19:48:43Z
+  end_time_utc: 2026-06-27T20:06:59Z
+  runtime_minutes: 18.27
+  cost_usd: 0.143
+  gpu_model: NVIDIA GeForce RTX 4090
+  gpu_vram_gb: 24
+  driver_version: 595.71.05
+  scene_loaded: true
+  active_vast_instances_after_run: 0
+  isaac_runner: isaac_env/scripts/run_week10_policy_rollout.py
+  output_subdir: isaac_rollout
+  evidence_tier: real_isaac_vast
+  render_capture_enabled: false
+  render_capture_status: skipped_viewport_capture_after_host_rtx_startup_crash
+  completed_rollout_rows: 40
+  documented_unsupported_rows: 8
+rendering:
+  width_px: 192
+  height_px: 144
+  rasterized_samples_per_pixel: 1
+  path_traced_samples_per_pixel: 16
+failure_taxonomy:
+  - none
+  - isaac_policy_runner_missing
+  - isaac_runtime_error
+  - policy_task_not_trained
+  - metric_threshold_miss
+  - renderer_transfer_degradation
+  - safety_violation
+  - budget_stop
+  - artifact_sync_failure
+  - config_contract_mismatch
+guardrails:
+  metric_weight_changes_after_freeze_allowed: false
+  safety_metrics_disable_allowed: false
+  final_heldout_seed_access_allowed: false
+  final_heldout_seed_tuning_allowed: false
+  unpaired_renderer_comparison_allowed: false
+  dropped_result_rows_allowed: false
+  undocumented_failures_allowed: false
+  manual_metrics_edit_allowed: false
+  ad_hoc_notebook_results_allowed: false
+  generated_large_artifacts_committed: false
+  official_gpu_run_requires_registry_metadata: true
+  official_gpu_run_requires_synced_artifacts: true
+  optional_vision_policy_can_replace_core_baselines: false
