@@ -25,8 +25,11 @@ The shared research goal is to measure renderer-to-policy transfer: whether insp
 - Workstream 1 Week 9 execution log: `docs/workstream1_week9_execution.md`
 - Workstream 1 Week 10 execution log: `docs/workstream1_week10_execution.md`
 - Workstream 1 Week 11 execution log: `docs/workstream1_week11_execution.md`
+- Workstream 1 Week 12 execution log: `docs/workstream1_week12_execution.md`
 - Workstream 1 paper scene section: `docs/paper_scene_section.md`
 - Workstream 1 benchmark card scene section: `docs/benchmark_card_scene_section.md`
+- Workstream 1 clean-checkout rehearsal: `docs/scene_clean_checkout_rehearsal.md`
+- Workstream 1 defense talking points: `docs/defense_scene_talking_points.md`
 - Workstream 2 Week 1 execution log: `docs/workstream2_week1_execution.md`
 - Workstream 2 Week 2 execution log: `docs/workstream2_week2_execution.md`
 - Workstream 2 Week 6 execution log: `docs/workstream2_week6_execution.md`
@@ -55,16 +58,20 @@ The scaffold intentionally avoids committing large datasets, generated renders, 
 
 ## Current Workstream 1 Gate
 
-The Week 11 Digital Twin and Asset Benchmark gate packages final scene tag
-`scene-final-v1.0.0` as a paper-ready, reproducible benchmark artifact. The
-release keeps the Week 10 final scene lock intact, adds paper and benchmark-card
-scene sections, records a final figure manifest, and audits public-reference
-and held-out-reference use without changing scene geometry, labels, task
-regions, safety regions, camera frames, material variants, or lighting variants.
+The Week 12 Digital Twin and Asset Benchmark gate freezes final scene tag
+`scene-final-v1.0.0` as the defense-ready Workstream 1 scene artifact. The
+release keeps the Week 10 final scene lock and Week 11 paper package intact,
+adds a final release manifest, clean-checkout rehearsal, final provenance
+appendix, and defense talking points, and preserves zero scene-changing
+guardrail metrics.
+
+The previous Week 11 Digital Twin package remains the paper-ready
+reproducibility package referenced by the Week 12 final release manifest.
 
 Run:
 
 ```bash
+python scripts/validate_week12_final_scene_release.py
 python scripts/validate_week11_scene_release.py
 python scripts/validate_week10_scene_lock.py
 python scripts/validate_contracts.py

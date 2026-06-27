@@ -117,6 +117,11 @@ WEEK11_BENCHMARK_CARD_SCENE_SECTION = Path("docs/benchmark_card_scene_section.md
 WEEK11_FINAL_FIGURE_MANIFEST = Path("validation/reports/week11_final_figure_manifest.yaml")
 WEEK11_EXTERNAL_REFERENCE_AUDIT = Path("validation/reports/week11_external_reference_audit.md")
 WEEK11_EXECUTION_LOG = Path("docs/workstream1_week11_execution.md")
+WEEK12_FINAL_SCENE_RELEASE = Path("validation/scene_final/week12_final_scene_release.yaml")
+WEEK12_CLEAN_CHECKOUT_REHEARSAL = Path("docs/scene_clean_checkout_rehearsal.md")
+WEEK12_DEFENSE_TALKING_POINTS = Path("docs/defense_scene_talking_points.md")
+WEEK12_FINAL_PROVENANCE_APPENDIX = Path("validation/reports/week12_final_provenance_appendix.md")
+WEEK12_EXECUTION_LOG = Path("docs/workstream1_week12_execution.md")
 
 REQUIRED_COVERAGE_COLUMNS = (
     "coverage_patch",
@@ -304,6 +309,37 @@ REQUIRED_WEEK11_GUARDRAILS = (
     "untraceable_final_figures",
     "generated_or_large_artifacts_committed",
     "fabricated_gpu_render_outputs",
+)
+
+REQUIRED_WEEK12_RELEASE_DOCS = {
+    "docs/scene_clean_checkout_rehearsal.md",
+    "docs/defense_scene_talking_points.md",
+    "validation/reports/week12_final_provenance_appendix.md",
+    "docs/workstream1_week12_execution.md",
+}
+
+REQUIRED_WEEK12_GUARDRAILS = (
+    "label_id_renames",
+    "task_region_id_renames",
+    "safety_path_renames",
+    "safety_boundary_shrink_count",
+    "camera_frame_renames",
+    "material_variant_renames",
+    "lighting_variant_renames",
+    "scene_geometry_changes",
+    "coverage_region_changes_for_metric_improvement",
+    "metric_definition_changes",
+    "public_reference_training_use_count",
+    "heldout_reference_tuning_count",
+    "undocumented_external_assets",
+    "unsupported_realism_claims",
+    "untraceable_final_claims",
+    "untraceable_final_figures",
+    "generated_or_large_artifacts_committed",
+    "fabricated_gpu_render_outputs",
+    "new_headline_results_after_release_freeze",
+    "last_minute_scene_changes_without_impact_assessment",
+    "clean_checkout_blockers",
 )
 VALID_WEEK8_RENDER_GATE_STATUS = {"pending_gpu_run", "passed"}
 VALID_WEEK9_EVALUATION_GATE_STATUS = {"pending_gpu_run", "passed"}
@@ -2680,6 +2716,118 @@ def validate_week11_scene_release(root: Path | str = ".") -> list[str]:
     return errors
 
 
+def validate_week12_documentation(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    errors: list[str] = []
+    token_requirements = {
+        Path("README.md"): (
+            "week 12 digital twin",
+            "scene-final-v1.0.0",
+            "python scripts/validate_week12_final_scene_release.py",
+            "docs/defense_scene_talking_points.md",
+        ),
+        WEEK12_CLEAN_CHECKOUT_REHEARSAL: (
+            "clean-checkout commands",
+            "scene load instructions",
+            "usd/jwst_inspect_root.usd",
+            "clean-checkout blockers: 0",
+            "no new gpu spend",
+        ),
+        WEEK12_DEFENSE_TALKING_POINTS: (
+            "thirty-second summary",
+            "why a proxy scene is acceptable",
+            "realism and limitation answers",
+            "provenance answers",
+            "guardrail answers",
+            "new gpu spend: 0 usd",
+        ),
+        WEEK12_FINAL_PROVENANCE_APPENDIX: (
+            "final claim traceability",
+            "public references are excluded from training",
+            "untraceable final claims: 0",
+            "scene-final-v1.0.0",
+            "known limitations",
+        ),
+        WEEK12_EXECUTION_LOG: (
+            "iteration 1: latest-master baseline",
+            "ship gates",
+            "guardrail metrics",
+            "python scripts/validate_week12_final_scene_release.py",
+        ),
+    }
+    for rel_path, tokens in token_requirements.items():
+        errors.extend(_text_contains_tokens(root_path / rel_path, tokens))
+    return errors
+
+
+def validate_week12_final_release_manifest(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    manifest_path = root_path / WEEK12_FINAL_SCENE_RELEASE
+    if not manifest_path.exists():
+        return [f"Missing Week 12 final scene release manifest: {manifest_path}"]
+
+    errors: list[str] = []
+    manifest = load_contract_yaml(manifest_path)
+    for key, expected in (
+        ("version", "1.0.0"),
+        ("gate_status", "passed"),
+        ("final_release_id", "workstream1-week12-final-scene-release-v1.0.0"),
+        ("scene_final_tag", FINAL_SCENE_TAG),
+        ("scene_mutation_policy", "frozen_no_scene_changes"),
+        ("base_scene_package", WEEK10_FINAL_SCENE_PACKAGE.as_posix()),
+        ("week11_release_checklist", WEEK11_SCENE_RELEASE_CHECKLIST.as_posix()),
+        ("clean_checkout_rehearsal", WEEK12_CLEAN_CHECKOUT_REHEARSAL.as_posix()),
+        ("final_provenance_appendix", WEEK12_FINAL_PROVENANCE_APPENDIX.as_posix()),
+        ("defense_talking_points", WEEK12_DEFENSE_TALKING_POINTS.as_posix()),
+        ("week12_execution_log", WEEK12_EXECUTION_LOG.as_posix()),
+        ("readme", "README.md"),
+    ):
+        if manifest.get(key) != expected:
+            errors.append(f"{manifest_path}: {key} must be {expected!r}")
+
+    if float(manifest.get("new_gpu_spend_usd", -1)) != 0:
+        errors.append(f"{manifest_path}: new_gpu_spend_usd must be 0")
+
+    release_docs = {
+        str(_as_mapping(row).get("path", "")).strip()
+        for row in _as_list(manifest.get("release_docs"))
+    }
+    if release_docs != REQUIRED_WEEK12_RELEASE_DOCS:
+        missing = sorted(REQUIRED_WEEK12_RELEASE_DOCS - release_docs)
+        extra = sorted(release_docs - REQUIRED_WEEK12_RELEASE_DOCS)
+        errors.append(f"{manifest_path}: release_docs mismatch; missing={missing}, extra={extra}")
+    for rel_path in REQUIRED_WEEK12_RELEASE_DOCS:
+        if not (root_path / rel_path).exists():
+            errors.append(f"{manifest_path}: missing release doc {rel_path}")
+
+    ship_gates = _as_mapping(manifest.get("ship_gates"))
+    for gate, status in ship_gates.items():
+        if status != "passed":
+            errors.append(f"{manifest_path}: ship_gates.{gate} must be passed")
+    if not ship_gates:
+        errors.append(f"{manifest_path}: ship_gates must not be empty")
+
+    guardrails = _as_mapping(manifest.get("guardrail_metrics"))
+    for key in REQUIRED_WEEK12_GUARDRAILS:
+        if int(guardrails.get(key, -1)) != 0:
+            errors.append(f"{manifest_path}: guardrail_metrics.{key} must be 0")
+
+    commands = [str(item) for item in _as_list(manifest.get("validation_commands"))]
+    if "python scripts/validate_week12_final_scene_release.py" not in commands:
+        errors.append(f"{manifest_path}: validation_commands must include the Week 12 validator")
+
+    return errors
+
+
+def validate_week12_final_scene_release(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    errors: list[str] = []
+    errors.extend(validate_week11_scene_release(root_path))
+    errors.extend(validate_week12_final_release_manifest(root_path))
+    errors.extend(validate_week12_documentation(root_path))
+    return errors
+
+
 def validate_scene_contract(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     contract_path = root_path / "contracts" / "scene_contract.yaml"
@@ -2846,5 +2994,6 @@ def validate_scene_package(root: Path | str = ".") -> list[str]:
     errors.extend(validate_week9_reports(root_path))
     errors.extend(validate_week10_scene_lock(root_path))
     errors.extend(validate_week11_scene_release(root_path))
+    errors.extend(validate_week12_final_scene_release(root_path))
     errors.extend(validate_usd_proxy_layers(root_path))
     return errors

@@ -42,6 +42,9 @@ from jwst_inspect.validation.scene import (
     validate_week11_figure_manifest,
     validate_week11_release_checklist,
     validate_week11_scene_release,
+    validate_week12_documentation,
+    validate_week12_final_release_manifest,
+    validate_week12_final_scene_release,
 )
 
 
@@ -168,6 +171,15 @@ class SceneValidationTests(unittest.TestCase):
 
     def test_week11_scene_release_aggregate_passes(self):
         self.assertEqual(validate_week11_scene_release(ROOT), [])
+
+    def test_week12_final_release_manifest_records_freeze_gate(self):
+        self.assertEqual(validate_week12_final_release_manifest(ROOT), [])
+
+    def test_week12_documentation_is_defense_ready(self):
+        self.assertEqual(validate_week12_documentation(ROOT), [])
+
+    def test_week12_final_scene_release_aggregate_passes(self):
+        self.assertEqual(validate_week12_final_scene_release(ROOT), [])
 
     def test_proxy_usd_layers_have_required_contract_tokens(self):
         self.assertEqual(validate_usd_proxy_layers(ROOT), [])

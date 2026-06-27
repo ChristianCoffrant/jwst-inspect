@@ -1,0 +1,68 @@
+version: 1.0.0
+gate_status: passed
+final_release_id: workstream1-week12-final-scene-release-v1.0.0
+scene_final_tag: scene-final-v1.0.0
+scene_mutation_policy: frozen_no_scene_changes
+base_scene_package: validation/scene_final/week10_final_scene_package.yaml
+week11_release_checklist: validation/scene_final/week11_scene_release_checklist.yaml
+clean_checkout_rehearsal: docs/scene_clean_checkout_rehearsal.md
+final_provenance_appendix: validation/reports/week12_final_provenance_appendix.md
+defense_talking_points: docs/defense_scene_talking_points.md
+week12_execution_log: docs/workstream1_week12_execution.md
+readme: README.md
+new_gpu_spend_usd: 0
+release_docs:
+  - path: docs/scene_clean_checkout_rehearsal.md
+    role: clean_checkout_rehearsal
+  - path: docs/defense_scene_talking_points.md
+    role: defense_talking_points
+  - path: validation/reports/week12_final_provenance_appendix.md
+    role: final_provenance_appendix
+  - path: docs/workstream1_week12_execution.md
+    role: execution_log
+ship_gates:
+  week10_scene_lock_still_passes: passed
+  week11_scene_release_still_passes: passed
+  final_scene_release_manifest_complete: passed
+  clean_checkout_rehearsal_documented: passed
+  scene_load_instructions_documented: passed
+  final_provenance_appendix_complete: passed
+  defense_talking_points_complete: passed
+  no_undocumented_external_assets: passed
+  all_final_scene_claims_traceable: passed
+  readme_points_to_week12_release: passed
+  generated_media_committed: passed
+  release_validator_passes: passed
+guardrail_metrics:
+  label_id_renames: 0
+  task_region_id_renames: 0
+  safety_path_renames: 0
+  safety_boundary_shrink_count: 0
+  camera_frame_renames: 0
+  material_variant_renames: 0
+  lighting_variant_renames: 0
+  scene_geometry_changes: 0
+  coverage_region_changes_for_metric_improvement: 0
+  metric_definition_changes: 0
+  public_reference_training_use_count: 0
+  heldout_reference_tuning_count: 0
+  undocumented_external_assets: 0
+  unsupported_realism_claims: 0
+  untraceable_final_claims: 0
+  untraceable_final_figures: 0
+  generated_or_large_artifacts_committed: 0
+  fabricated_gpu_render_outputs: 0
+  new_headline_results_after_release_freeze: 0
+  last_minute_scene_changes_without_impact_assessment: 0
+  clean_checkout_blockers: 0
+validation_commands:
+  - python scripts/validate_week12_final_scene_release.py
+  - python scripts/validate_week11_scene_release.py
+  - python scripts/validate_week10_scene_lock.py
+  - python scripts/validate_scene.py
+  - python scripts/validate_contracts.py
+  - python scripts/validate_reference_manifest.py
+  - python scripts/validate_run_registry.py
+  - python scripts/validate_dataset.py
+  - python scripts/e2e_local_smoke.py
+  - python -m unittest discover -s tests
