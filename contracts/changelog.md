@@ -1,5 +1,11 @@
 # Contract Changelog
 
+## 0.2.0
+
+- Froze Workstream 3 evaluation contracts for Week 6 with official dev-suite tasks, baselines, profile hooks, held-out seed policy, and run metadata requirements.
+- Froze normalized-score weights for the Week 6 dev suite and required integration-council approval plus ablation evidence for later changes.
+- Added Vast.ai X090 official-evaluation metadata and storage-sync guardrails for future GPU-backed runs.
+
 ## 0.1.0
 
 - Initial scene, dataset, episode, and metrics contract stubs.

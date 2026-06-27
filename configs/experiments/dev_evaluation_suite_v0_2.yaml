@@ -1,0 +1,63 @@
+version: 0.2.0
+experiment_id: dev_evaluation_suite_v0_2
+owner: team3_autonomous_inspection
+status: frozen_week6_dev_suite
+episode_schema: contracts/episode_schema.yaml
+metrics_schema: contracts/metrics_schema.yaml
+vast_template: configs/vast/x090_template.yaml
+output_dir: runs/dev_evaluation_suite
+suite:
+  tasks:
+    - approach_hold_standoff
+    - sunshield_survey
+  baselines:
+    - scripted_baseline
+    - learned_state_bc_v0_1
+  configs:
+    thin_slice: configs/experiments/thin_slice.yaml
+    sunshield_survey: configs/experiments/sunshield_survey.yaml
+    learned_baseline: configs/experiments/learned_baseline.yaml
+  profile_defaults:
+    sensor_noise_profile: none
+    latency_profile: none
+    actuation_delay_profile: none
+  allowed_profiles:
+    sensor_noise_profile:
+      - none
+      - low_noise_proxy
+    latency_profile:
+      - none
+      - fixed_latency_proxy
+    actuation_delay_profile:
+      - none
+      - fixed_actuation_delay_proxy
+held_out_seed_policy:
+  final_test_owner: integration_council
+  dev_suite_seed_visibility: allowed
+  final_seed_visibility_before_freeze: prohibited
+  final_seed_tuning_allowed: false
+official_run_metadata:
+  required_fields:
+    - run_id
+    - owner
+    - team
+    - git_commit
+    - episode_schema_version
+    - metrics_schema_version
+    - config_hash
+    - policy_id
+    - baseline_policy_id
+    - episode_id
+    - renderer_mode
+    - sensor_noise_profile
+    - latency_profile
+    - actuation_delay_profile
+    - artifact_sync_status
+    - status
+guardrails:
+  metric_weight_changes_after_freeze_allowed: false
+  manual_metrics_table_edits_allowed: false
+  official_gpu_run_requires_registry_metadata: true
+  default_profiles_must_reproduce_existing_metrics: true
+  generated_outputs_committed: false
+  unknown_latency_or_noise_profile_allowed: false

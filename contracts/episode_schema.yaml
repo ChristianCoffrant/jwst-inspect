@@ -1,6 +1,11 @@
-version: 0.1.0
+version: 0.2.0
 owner: team3_autonomous_inspection
-status: draft_week1_gate
+status: frozen_week6_evaluation_contract_0_2
+contract_freeze:
+  week: 6
+  freeze_date: 2026-06-27
+  gate: evaluation_contract_0_2
+  change_policy: metric_or_task_scope_changes_require_integration_council_approval_and_ablation
 episode_fields:
   - episode_id
   - seed
@@ -13,9 +18,17 @@ episode_fields:
   - lighting_condition
   - sensor_noise_profile
   - latency_profile
+  - actuation_delay_profile
   - policy_id
   - coverage_cell_count
   - success_criteria
+official_task_list:
+  dev_suite_v0_2:
+    - approach_hold_standoff
+    - sunshield_survey
+  planned_week7:
+    - mirror_inspection
+    - anomaly_reacquisition
 tasks:
   approach_hold_standoff:
     required_week: 1
@@ -40,6 +53,33 @@ tasks:
     required_week: 7
     target_region: pending_team1_team2_contract
     primary_goal: reacquire a flagged anomaly region if provided by data pipeline
+baseline_policy_list:
+  official_dev_suite:
+    - scripted_baseline
+    - learned_state_bc_v0_1
+  exploratory_only:
+    - manual_debug_policy
+held_out_seed_policy:
+  final_test_owner: integration_council
+  dev_suite_seed_visibility: allowed
+  final_seed_visibility_before_freeze: prohibited
+  final_seed_tuning_allowed: false
+profile_hooks:
+  sensor_noise_profile:
+    default: none
+    allowed:
+      - none
+      - low_noise_proxy
+  latency_profile:
+    default: none
+    allowed:
+      - none
+      - fixed_latency_proxy
+  actuation_delay_profile:
+    default: none
+    allowed:
+      - none
+      - fixed_actuation_delay_proxy
 observation_space:
   week1_required_low_dimensional_state:
     - relative_position_m
@@ -83,3 +123,21 @@ local_vs_vast:
     - Isaac Lab rollout in official scene
     - RTX rasterized render validation
     - path-traced evaluation
+official_run_metadata:
+  required_fields:
+    - run_id
+    - owner
+    - team
+    - git_commit
+    - episode_schema_version
+    - metrics_schema_version
+    - config_hash
+    - policy_id
+    - baseline_policy_id
+    - episode_id
+    - renderer_mode
+    - sensor_noise_profile
+    - latency_profile
+    - actuation_delay_profile
+    - artifact_sync_status
+    - status

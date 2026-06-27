@@ -1,4 +1,4 @@
-version: 0.1.0
+version: 0.2.0
 preferred_gpus:
   - RTX 5090
   - RTX 4090
@@ -11,4 +11,37 @@ usage:
   interactive_debug: on_demand_or_high_reliability
   batch_checkpointed: interruptible_allowed
   final_runs: on_demand_or_high_reliability
+official_evaluation:
+  template_id: vast_x090_eval_template_v0_2
+  contract_version: 0.2.0
+  launch_requires_registry_metadata: true
+  required_metadata_fields:
+    - run_id
+    - owner
+    - team
+    - git_commit
+    - episode_schema_version
+    - metrics_schema_version
+    - config_hash
+    - policy_id
+    - baseline_policy_id
+    - episode_id
+    - renderer_mode
+    - sensor_noise_profile
+    - latency_profile
+    - actuation_delay_profile
+    - artifact_sync_status
+    - status
+  storage_sync:
+    plan: compute/storage_sync_plan.md
+    artifact_sync_status_required: true
+    minimum_artifacts:
+      - metrics_table
+      - rollout_logs
+      - run_metadata
+      - stdout_stderr
+  guardrails:
+    official_run_without_registry_metadata_allowed: false
+    failed_runs_must_be_logged: true
+    checkpoint_resume_required_for_training: true
 
