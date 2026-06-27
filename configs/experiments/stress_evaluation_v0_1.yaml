@@ -1,0 +1,117 @@
+version: 0.1.0
+experiment_id: stress_evaluation_v0_1
+owner: team3_autonomous_inspection
+status: week7_stress_candidate
+episode_schema: contracts/episode_schema.yaml
+metrics_schema: contracts/metrics_schema.yaml
+dev_evaluation_suite: configs/experiments/dev_evaluation_suite_v0_2.yaml
+thin_slice_config: configs/experiments/thin_slice.yaml
+sunshield_survey_config: configs/experiments/sunshield_survey.yaml
+learned_baseline_config: configs/experiments/learned_baseline.yaml
+coverage_surface: configs/coverage/coverage_surfaces.yaml
+vast_template: configs/vast/x090_template.yaml
+output_dir: runs/stress_evaluation
+stress_profiles:
+  - profile_id: noop_control
+    sensor_noise_profile: none
+    latency_profile: none
+    actuation_delay_profile: none
+    observation_noise_m: 0.0
+    latency_steps: 0
+    actuation_delay_alpha: 1.0
+    coverage_dropout_period: 0
+    nuisance_condition: clean
+    material_variant: nominal
+    estimated_cost_usd_per_episode: 0.0
+  - profile_id: low_noise_proxy
+    sensor_noise_profile: low_noise_proxy
+    latency_profile: none
+    actuation_delay_profile: none
+    observation_noise_m: 0.35
+    latency_steps: 0
+    actuation_delay_alpha: 1.0
+    coverage_dropout_period: 6
+    nuisance_condition: sensor_noise_proxy
+    material_variant: nominal
+    estimated_cost_usd_per_episode: 0.0
+  - profile_id: fixed_latency_proxy
+    sensor_noise_profile: none
+    latency_profile: fixed_latency_proxy
+    actuation_delay_profile: none
+    observation_noise_m: 0.0
+    latency_steps: 1
+    actuation_delay_alpha: 1.0
+    coverage_dropout_period: 0
+    nuisance_condition: fixed_latency_proxy
+    material_variant: nominal
+    estimated_cost_usd_per_episode: 0.0
+  - profile_id: fixed_actuation_delay_proxy
+    sensor_noise_profile: none
+    latency_profile: none
+    actuation_delay_profile: fixed_actuation_delay_proxy
+    observation_noise_m: 0.0
+    latency_steps: 0
+    actuation_delay_alpha: 0.55
+    coverage_dropout_period: 0
+    nuisance_condition: fixed_actuation_delay_proxy
+    material_variant: nominal
+    estimated_cost_usd_per_episode: 0.0
+  - profile_id: combined_proxy
+    sensor_noise_profile: low_noise_proxy
+    latency_profile: fixed_latency_proxy
+    actuation_delay_profile: fixed_actuation_delay_proxy
+    observation_noise_m: 0.35
+    latency_steps: 1
+    actuation_delay_alpha: 0.55
+    coverage_dropout_period: 5
+    nuisance_condition: combined_noise_latency_delay_proxy
+    material_variant: high_glare
+    estimated_cost_usd_per_episode: 0.0
+suite:
+  scripted_tasks:
+    - approach_hold_standoff
+    - sunshield_survey
+    - mirror_inspection
+  learned_candidate_tasks:
+    - approach_hold_standoff
+    - sunshield_survey
+  learned_candidate_profiles:
+    - noop_control
+    - combined_proxy
+  expected_scripted_metric_rows: 25
+  expected_learned_candidate_rows: 4
+mirror_inspection:
+  episode_id: dev_mirror_0001
+  seed: 1007
+  task_name: mirror_inspection
+  target_region: mirror_inspection_v0
+  renderer_mode: rasterized
+  nuisance_condition: high_glare_proxy
+  material_variant: high_glare
+  target_standoff_m: 40.0
+  standoff_tolerance_m: 3.0
+  max_relative_velocity_mps: 0.5
+  coverage_cell_count: 16
+  survey_patch_goal: 12
+  survey_hold_steps: 3
+  reset_distribution:
+    seed: 1007
+    reset_count: 1
+    radius_m: 70.0
+    radial_jitter_m: 0.0
+    angle_start_deg: 8.0
+    angle_end_deg: 8.0
+    z_offsets_m: [0.0]
+cost_tracking:
+  execution_plane: local_proxy
+  gpu_required: false
+  estimated_gpu_hours: 0.0
+  cost_per_local_episode_usd: 0.0
+guardrails:
+  metric_weight_changes_after_freeze_allowed: false
+  manual_metrics_table_edits_allowed: false
+  dropped_stress_cases_allowed: false
+  generated_outputs_committed: false
+  official_gpu_run_requires_registry_metadata: true
+  learned_policy_stress_tuning_allowed: false
+  stress_cases_can_be_removed_for_bad_scores: false

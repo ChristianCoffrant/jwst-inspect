@@ -18,6 +18,7 @@ from jwst_inspect.policy.proxy_env import (
     ScriptedApproachConfig,
     rollout_episode,
 )
+from jwst_inspect.policy.stress import blend_velocity, latency_select, stressed_observation
 from jwst_inspect.policy.state_features import (
     FEATURE_NAMES,
     FEATURE_SCHEMA_VERSION,
@@ -95,6 +96,9 @@ def _approach_env_config(episode: dict[str, Any], policy: ScriptedApproachConfig
         renderer_mode=str(episode.get("renderer_mode", "rasterized")),
         nuisance_condition=str(episode.get("nuisance_condition", "clean")),
         material_variant=str(episode.get("material_variant", "nominal")),
+        sensor_noise_profile=str(episode.get("sensor_noise_profile", "none")),
+        latency_profile=str(episode.get("latency_profile", "none")),
+        actuation_delay_profile=str(episode.get("actuation_delay_profile", "none")),
         policy_id=policy.policy_id,
         initial_position_m=_as_vector3(initial.get("position_m"), (60.0, 0.0, 0.0)),
         initial_velocity_mps=_as_vector3(initial.get("relative_velocity_mps"), (0.0, 0.0, 0.0)),
@@ -441,31 +445,63 @@ def rollout_learned_approach(
 ) -> dict[str, Any]:
     env = ProxyApproachEnvironment(env_config)
     samples: list[dict[str, Any]] = []
+    observation_history: list[dict[str, Any]] = []
+    action_history: list[ProxyAction] = []
+    previous_applied_velocity: tuple[float, float, float] = (0.0, 0.0, 0.0)
     env.reset()
     while not env.state.terminated:
-        observation = env.observe()
+        observation = stressed_observation(
+            env.observe(),
+            seed=env_config.seed,
+            step=env.state.step,
+            profile_id=env_config.stress_profile_id,
+            observation_noise_m=env_config.observation_noise_m,
+        )
+        observation_history.append(observation)
+        policy_observation = latency_select(observation_history, env_config.latency_steps)
+        observed_position = tuple(float(value) for value in policy_observation["relative_position_m"])
         features = feature_vector(
             task_name=env_config.task_name,
             step=env.state.step,
-            position_m=env.state.position_m,
-            standoff_error_m=float(observation["standoff_error_m"]),
-            distance_to_keepout_m=float(observation["distance_to_keepout_m"]),
-            relative_speed_mps=float(observation["relative_speed_mps"]),
+            position_m=observed_position,
+            standoff_error_m=float(policy_observation["standoff_error_m"]),
+            distance_to_keepout_m=float(policy_observation["distance_to_keepout_m"]),
+            relative_speed_mps=float(policy_observation["relative_speed_mps"]),
             coverage_progress=0.0,
         )
         action = policy.predict_action(env_config.task_name, features)
+        commanded_action = ProxyAction(
+            desired_velocity_mps=tuple(float(value) for value in action["desired_velocity_mps"]),
+            abort=bool(action.get("abort", False)),
+            mode=f"learned_bc_{action.get('mode', 'state')}",
+        )
+        action_history.append(commanded_action)
+        delayed_action = latency_select(action_history, env_config.latency_steps)
+        applied_velocity = blend_velocity(
+            previous_applied_velocity,
+            delayed_action.desired_velocity_mps,
+            env_config.actuation_delay_alpha,
+        )
         sample = env.step(
             ProxyAction(
-                desired_velocity_mps=tuple(float(value) for value in action["desired_velocity_mps"]),
-                abort=bool(action.get("abort", False)),
-                mode=f"learned_bc_{action.get('mode', 'state')}",
+                desired_velocity_mps=applied_velocity,
+                abort=delayed_action.abort,
+                mode=delayed_action.mode,
             )
         )
+        previous_applied_velocity = tuple(float(value) for value in sample["action"]["applied_velocity_mps"])
+        sample["action"]["commanded_velocity_mps"] = list(commanded_action.desired_velocity_mps)
+        sample["action"]["latency_steps"] = env_config.latency_steps
+        sample["action"]["actuation_delay_alpha"] = env_config.actuation_delay_alpha
         sample["episode_id"] = env_config.episode_id
         sample["frame_id"] = f"{env_config.episode_id}_{env_config.renderer_mode}_{sample['step']:04d}"
         sample["target_region"] = env_config.target_region
         sample["renderer_mode"] = env_config.renderer_mode
         sample["learned_policy_source"] = policy.checkpoint["checkpoint_hash"]
+        sample["stress_profile_id"] = env_config.stress_profile_id
+        sample["sensor_noise_profile"] = env_config.sensor_noise_profile
+        sample["latency_profile"] = env_config.latency_profile
+        sample["actuation_delay_profile"] = env_config.actuation_delay_profile
         samples.append(sample)
     return {
         "schema_version": "0.1.0",
@@ -480,6 +516,8 @@ def rollout_learned_approach(
             "lighting_condition": env_config.lighting_condition,
             "sensor_noise_profile": env_config.sensor_noise_profile,
             "latency_profile": env_config.latency_profile,
+            "actuation_delay_profile": env_config.actuation_delay_profile,
+            "stress_profile_id": env_config.stress_profile_id,
             "policy_id": policy.policy_id,
             "coverage_cell_count": env_config.coverage_cell_count,
             "initial_state": {

@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from math import sqrt
 from typing import Any
 
+from jwst_inspect.policy.stress import blend_velocity, latency_select, stressed_observation
+
 
 Vector3 = tuple[float, float, float]
 
@@ -20,6 +22,11 @@ class ProxyEnvironmentConfig:
     lighting_condition: str = "nominal_sun_key"
     sensor_noise_profile: str = "none"
     latency_profile: str = "none"
+    actuation_delay_profile: str = "none"
+    stress_profile_id: str = "noop_control"
+    observation_noise_m: float = 0.0
+    latency_steps: int = 0
+    actuation_delay_alpha: float = 1.0
     policy_id: str = "scripted_baseline"
     initial_position_m: Vector3 = (60.0, 0.0, 0.0)
     initial_velocity_mps: Vector3 = (0.0, 0.0, 0.0)
@@ -235,12 +242,39 @@ def rollout_episode(
 ) -> dict[str, Any]:
     env = ProxyApproachEnvironment(env_config)
     samples: list[dict[str, Any]] = []
+    observation_history: list[dict[str, Any]] = []
+    action_history: list[ProxyAction] = []
+    previous_applied_velocity: Vector3 = (0.0, 0.0, 0.0)
     env.reset()
 
     while not env.state.terminated:
-        observation = env.observe()
-        action = scripted_approach_action(observation, env_config, policy_config)
+        observation = stressed_observation(
+            env.observe(),
+            seed=env_config.seed,
+            step=env.state.step,
+            profile_id=env_config.stress_profile_id,
+            observation_noise_m=env_config.observation_noise_m,
+        )
+        observation_history.append(observation)
+        policy_observation = latency_select(observation_history, env_config.latency_steps)
+        commanded_action = scripted_approach_action(policy_observation, env_config, policy_config)
+        action_history.append(commanded_action)
+        delayed_action = latency_select(action_history, env_config.latency_steps)
+        applied_velocity = blend_velocity(
+            previous_applied_velocity,
+            delayed_action.desired_velocity_mps,
+            env_config.actuation_delay_alpha,
+        )
+        action = ProxyAction(applied_velocity, abort=delayed_action.abort, mode=delayed_action.mode)
         sample = env.step(action)
+        previous_applied_velocity = tuple(float(value) for value in sample["action"]["applied_velocity_mps"])
+        sample["action"]["commanded_velocity_mps"] = list(commanded_action.desired_velocity_mps)
+        sample["action"]["latency_steps"] = env_config.latency_steps
+        sample["action"]["actuation_delay_alpha"] = env_config.actuation_delay_alpha
+        sample["stress_profile_id"] = env_config.stress_profile_id
+        sample["sensor_noise_profile"] = env_config.sensor_noise_profile
+        sample["latency_profile"] = env_config.latency_profile
+        sample["actuation_delay_profile"] = env_config.actuation_delay_profile
         sample["episode_id"] = env_config.episode_id
         sample["frame_id"] = f"{env_config.episode_id}_{env_config.renderer_mode}_{sample['step']:04d}"
         sample["target_region"] = env_config.target_region
@@ -260,6 +294,8 @@ def rollout_episode(
             "lighting_condition": env_config.lighting_condition,
             "sensor_noise_profile": env_config.sensor_noise_profile,
             "latency_profile": env_config.latency_profile,
+            "actuation_delay_profile": env_config.actuation_delay_profile,
+            "stress_profile_id": env_config.stress_profile_id,
             "policy_id": policy_config.policy_id,
             "coverage_cell_count": env_config.coverage_cell_count,
             "initial_state": {

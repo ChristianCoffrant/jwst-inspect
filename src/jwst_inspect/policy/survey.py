@@ -52,6 +52,12 @@ class SunshieldSurveyConfig:
     lighting_condition: str = "nominal_sun_key"
     sensor_noise_profile: str = "none"
     latency_profile: str = "none"
+    actuation_delay_profile: str = "none"
+    stress_profile_id: str = "noop_control"
+    observation_noise_m: float = 0.0
+    latency_steps: int = 0
+    actuation_delay_alpha: float = 1.0
+    coverage_dropout_period: int = 0
     policy_id: str = "scripted_baseline"
     target_position_m: Vector3 = (0.0, 0.0, 0.0)
     target_standoff_m: float = 45.0
@@ -216,6 +222,7 @@ def _sample(
         "standoff_error_m": radius - config.target_standoff_m,
         "distance_to_keepout_m": radius - config.keepout_radius_m,
         "coverage_patch": coverage_patch,
+        "reported_coverage_patch": coverage_patch,
         "coverage_patch_source": config.coverage_surface_source if coverage_patch else "",
         "coverage_patch_revisit": coverage_patch in visited if coverage_patch else False,
         "action": {
@@ -223,6 +230,8 @@ def _sample(
             "applied_velocity_mps": list(velocity_mps),
             "abort": False,
             "mode": mode,
+            "latency_steps": config.latency_steps,
+            "actuation_delay_alpha": config.actuation_delay_alpha,
         },
         "reward": 1.0 if coverage_patch and coverage_patch not in visited else 0.0,
         "keepout_violation": keepout_violation,
@@ -234,6 +243,10 @@ def _sample(
         "frame_id": f"{config.episode_id}_{config.renderer_mode}_{step:04d}",
         "target_region": config.target_region,
         "renderer_mode": config.renderer_mode,
+        "stress_profile_id": config.stress_profile_id,
+        "sensor_noise_profile": config.sensor_noise_profile,
+        "latency_profile": config.latency_profile,
+        "actuation_delay_profile": config.actuation_delay_profile,
     }
 
 
@@ -272,7 +285,7 @@ def rollout_sunshield_survey(
             and len(samples) < config.max_steps
         ):
             direction = _unit(_vec_scale(position, -1.0))
-            velocity = _vec_scale(direction, config.max_relative_velocity_mps)
+            velocity = _vec_scale(direction, config.max_relative_velocity_mps * config.actuation_delay_alpha)
             position = _vec_add(position, _vec_scale(velocity, config.timestep_s))
             radius = _norm(_vec_sub(position, config.target_position_m))
             termination = _termination_reason(radius, config)
@@ -294,10 +307,35 @@ def rollout_sunshield_survey(
                 break
 
         if not samples or not samples[-1].get("terminated"):
-            for patch in coverage_patches[: config.survey_patch_goal]:
+            for _ in range(max(config.latency_steps, 0)):
+                position = _vec_add(position, _vec_scale(velocity, config.timestep_s))
+                radius = _norm(_vec_sub(position, config.target_position_m))
+                termination = _termination_reason(radius, config)
+                samples.append(
+                    _sample(
+                        config=config,
+                        step=step,
+                        time_s=time_s,
+                        position_m=position,
+                        velocity_mps=velocity,
+                        mode="latency_overrun",
+                        terminated=termination is not None,
+                        termination_reason=termination,
+                    )
+                )
+                step += 1
+                time_s += config.timestep_s
+                if termination:
+                    break
+
+        if not samples or not samples[-1].get("terminated"):
+            for patch_index, patch in enumerate(coverage_patches[: config.survey_patch_goal], start=1):
                 position = _survey_position_for_patch(patch, config)
                 velocity = (0.0, config.sweep_speed_mps, 0.0)
                 termination = _termination_reason(_norm(_vec_sub(position, config.target_position_m)), config)
+                coverage_patch = patch.patch_id
+                if config.coverage_dropout_period > 0 and patch_index % config.coverage_dropout_period == 0:
+                    coverage_patch = ""
                 samples.append(
                     _sample(
                         config=config,
@@ -306,13 +344,14 @@ def rollout_sunshield_survey(
                         position_m=position,
                         velocity_mps=velocity,
                         mode="sunshield_sweep",
-                        coverage_patch=patch.patch_id,
+                        coverage_patch=coverage_patch,
                         visited_patches=visited,
                         terminated=termination is not None,
                         termination_reason=termination,
                     )
                 )
-                visited.add(patch.patch_id)
+                if coverage_patch:
+                    visited.add(coverage_patch)
                 step += 1
                 time_s += config.timestep_s
                 if termination or len(samples) >= config.max_steps:
@@ -349,6 +388,8 @@ def rollout_sunshield_survey(
             "lighting_condition": config.lighting_condition,
             "sensor_noise_profile": config.sensor_noise_profile,
             "latency_profile": config.latency_profile,
+            "actuation_delay_profile": config.actuation_delay_profile,
+            "stress_profile_id": config.stress_profile_id,
             "policy_id": config.policy_id,
             "coverage_cell_count": config.coverage_cell_count,
             "coverage_surface": {
