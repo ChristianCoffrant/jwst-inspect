@@ -4,18 +4,22 @@
 
 JWST-Inspect synthetic sample dataset.
 
-Current version: `0.1.0` Week 3 episode-linked thin-slice sample.
+Current version: `0.1.0` Week 4 bounded domain-randomized rasterized pilot.
 
 ## Data Sources
 
 The Week 2 sample is generated from deterministic local samplers and the frozen
 dataset schema v0.1. The Week 3 sample adds 100 deterministic episode-linked
-frames generated from `configs/episodes/dev_episodes.yaml`.
+frames generated from `configs/episodes/dev_episodes.yaml`. The Week 4 pilot
+adds 600 deterministic rasterized proxy frames generated from
+`replicator/randomization.yaml`.
 
-Both tracked samples include tiny placeholder RGB, depth, semantic mask, and
-instance mask files so validators can check media paths, dimensions, label IDs,
-episode metadata, and rollout joinability. They are not Isaac Sim or Omniverse
-Replicator rendered data yet.
+The Week 2 and Week 3 tracked samples include tiny placeholder RGB, depth,
+semantic mask, and instance mask files so validators can check media paths,
+dimensions, label IDs, episode metadata, and rollout joinability. The Week 4
+pilot is generated under `datasets/generated/` and is excluded from git; its
+tracked evidence is the randomization config, validation report, and contact
+sheet.
 
 Future rendered samples will be generated from the JWST-Inspect benchmark scene.
 Public JWST images are reference validation material only and are excluded from
@@ -30,8 +34,9 @@ official training data.
 
 The Week 2 sample includes `train`, `validation`, and `dev_test` records. The
 Week 3 episode-linked thin slice uses `dev_test` records because it is a local
-integration artifact, not perception training data. The `final_test` split
-remains unpopulated and held out.
+integration artifact, not perception training data. The Week 4 pilot uses 500
+randomized `train` frames and 100 clean fixed `validation` frames. The
+`final_test` split remains unpopulated and held out.
 
 ## Sample Media
 
@@ -57,6 +62,20 @@ Week 3 episode rollout frames additionally include:
 These fields make the data joinable to rollout-style records by `episode_id`
 and `frame_index`.
 
+## Domain Randomization Metadata
+
+Week 4 randomized frames additionally include:
+
+- `randomization_config_id`
+- `randomization_config_version`
+- `randomization_profile`
+- `randomization_factors`
+
+The active factors are viewpoint, lighting, exposure, background, and material.
+Every factor value is recorded per frame. Clean validation frames keep
+randomization disabled while still recording the fixed values used for the
+validation subset.
+
 ## Metadata
 
 Every frame must include:
@@ -80,5 +99,6 @@ Every frame must include:
 ## Known Limitations
 
 Synthetic anomalies are benchmark stressors, not claims about real JWST faults.
-Week 2 and Week 3 placeholder samples are contract-validation artifacts, not
-perception training data and not evidence of renderer quality.
+Week 2 and Week 3 placeholder samples are contract-validation artifacts. The
+Week 4 pilot is a local rasterized proxy for data-interface and guardrail
+validation, not evidence of final renderer fidelity.

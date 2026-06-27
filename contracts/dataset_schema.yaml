@@ -46,9 +46,11 @@ media_policy:
   week1_sample_media_required: false
   week2_sample_media_required: true
   week3_episode_sample_required: true
+  week4_randomized_pilot_required: true
   large_generated_outputs_in_git: prohibited
   missing_media_status: metadata_only_placeholder
   placeholder_media_status: tiny_placeholder_media
+  generated_media_status: rasterized_synthetic_pilot
   placeholder_media_purpose: schema_validation_only_not_replicator_output
   placeholder_formats:
     rgb: png_rgb_8bit
@@ -59,6 +61,9 @@ media_policy:
     min: 10
     max: 50
   week3_episode_frame_count: 100
+  week4_randomized_pilot_frame_count: 600
+  week4_randomized_train_frame_count: 500
+  week4_clean_validation_frame_count: 100
   max_corrupt_or_blank_frame_fraction: 0.05
 metadata_fields:
   - frame_id
@@ -85,6 +90,10 @@ metadata_fields:
   - exposure_setting
   - outputs
   - media_status
+  - randomization_config_id
+  - randomization_config_version
+  - randomization_profile
+  - randomization_factors
 metadata_schema:
   frame_id:
     type: string
@@ -113,6 +122,7 @@ metadata_schema:
     values:
       - static_sample
       - episode_rollout
+      - static_randomized
     required_for_week3_episode_dataset: true
   policy_id:
     type: string
@@ -177,6 +187,28 @@ metadata_schema:
       - semantic_mask
       - instance_mask
       - metadata
+  randomization_config_id:
+    type: string
+    required_for_generation_mode: static_randomized
+    source: replicator/randomization.yaml
+  randomization_config_version:
+    type: string
+    required_for_generation_mode: static_randomized
+  randomization_profile:
+    type: enum
+    values:
+      - train_randomized_v0_1
+      - clean_validation_v0_1
+    required_for_generation_mode: static_randomized
+  randomization_factors:
+    type: mapping
+    required_for_generation_mode: static_randomized
+    required_keys:
+      - camera
+      - lighting
+      - exposure
+      - background
+      - material
 camera_sampling:
   modes:
     uniform_standoff:
@@ -193,6 +225,14 @@ guardrails:
   sample_media_completeness_required: 1.0
   week3_episode_frame_count_required: 100
   week3_episode_metadata_completeness_required: 1.0
+  week4_randomized_pilot_frame_count_required: 600
+  week4_randomized_train_frame_count_required: 500
+  week4_clean_validation_frame_count_required: 100
+  week4_randomization_metadata_completeness_required: 1.0
+  week4_duplicate_view_rate_max: 0.05
+  week4_validation_all_scene_labels_required: true
+  week4_config_version_required_in_metadata: true
+  week4_bounded_randomization_ranges_required: true
   week3_rollout_join_key:
     - episode_id
     - frame_index
@@ -202,8 +242,10 @@ guardrails:
   public_reference_images_in_training: prohibited
   train_validation_test_episode_leakage: prohibited_unless_paired_renderer_comparison
   static_and_episode_frames_must_be_distinguished_by_generation_mode: true
+  randomized_frames_must_be_distinguished_by_generation_mode: true
   renderer_metrics_must_be_separate: true
   anomaly_false_alarm_reporting_required_for_high_glare: true
+  clean_validation_subset_must_remain_unrandomized: true
 reference_image_policy:
   official_training_use: prohibited
   validation_use: allowed_with_manifest
@@ -216,6 +258,9 @@ validation:
     - python scripts/generate_week3_dataset.py
     - python scripts/validate_week3_dataset.py
     - python scripts/create_week3_contact_sheet.py
+    - python scripts/generate_week4_pilot_dataset.py
+    - python scripts/validate_week4_dataset.py
+    - python scripts/create_week4_contact_sheet.py
     - python scripts/e2e_local_smoke.py
     - pytest
 downstream_handoff:

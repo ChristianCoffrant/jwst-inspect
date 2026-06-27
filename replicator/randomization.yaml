@@ -1,11 +1,100 @@
 version: 0.1.0
-randomization:
-  lighting:
-    enabled: false
-  camera_pose:
-    enabled: false
-  material_variant:
-    enabled: false
-  sensor_noise:
-    enabled: false
-
+randomization_config_id: week4_domain_randomization_v0_1
+status: active_week4_beta
+owner: team2_synthetic_data_perception
+purpose: Week 4 bounded domain randomization pilot for rasterized JWST-Inspect perception data.
+renderer_mode: rasterized
+frame_count: 600
+splits:
+  train:
+    frame_count: 500
+    profile: train_randomized_v0_1
+    randomization_enabled: true
+    seed_start: 440000
+  validation:
+    frame_count: 100
+    profile: clean_validation_v0_1
+    randomization_enabled: false
+    seed_start: 540000
+source_policy:
+  public_reference_images_training_use: prohibited
+  synthetic_backgrounds_only: true
+  generated_outputs_in_git: prohibited
+active_factors:
+  - viewpoint
+  - lighting
+  - exposure
+  - background
+  - material
+target_regions:
+  - approach_hold_standoff
+  - mirror_inspection
+  - sunshield_survey
+viewpoint:
+  azimuth_deg:
+    min: 0.0
+    max: 360.0
+  elevation_deg:
+    min: -18.0
+    max: 18.0
+  radius_jitter_m:
+    min: -4.0
+    max: 4.0
+  roll_deg:
+    min: -3.0
+    max: 3.0
+lighting:
+  intensity_scale:
+    min: 0.55
+    max: 1.45
+  variants:
+    - name: nominal_sun_key
+      weight: 0.50
+    - name: high_glare_edge
+      weight: 0.30
+    - name: low_light_cold_side
+      weight: 0.20
+exposure:
+  ev_compensation:
+    min: -1.5
+    max: 1.5
+  gain:
+    min: 0.70
+    max: 1.35
+background:
+  source: procedural_synthetic
+  variants:
+    - name: black
+      weight: 0.30
+    - name: sparse_starfield
+      weight: 0.30
+    - name: dense_starfield
+      weight: 0.25
+    - name: sun_glint_proxy
+      weight: 0.15
+material:
+  variants:
+    - name: nominal
+      weight: 0.45
+    - name: high_glare
+      weight: 0.35
+    - name: degraded
+      weight: 0.20
+clean_validation:
+  profile: clean_validation_v0_1
+  randomization_enabled: false
+  material_variant: nominal
+  lighting_condition: nominal_sun_key
+  background_variant: black
+  exposure_ev_compensation: 0.0
+  gain: 1.0
+  intensity_scale: 1.0
+guardrails:
+  duplicate_view_rate_max: 0.05
+  corrupt_or_blank_frame_fraction_max: 0.05
+  metadata_completeness_required: 1.0
+  randomization_metadata_completeness_required: 1.0
+  validation_all_scene_labels_required: true
+  bounded_ranges_required: true
+  train_validation_seed_overlap_allowed: false
+  public_reference_images_in_training: prohibited

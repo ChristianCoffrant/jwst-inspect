@@ -1,0 +1,95 @@
+{
+  "class_coverage": {
+    "train": {
+      "missing_label_ids": [],
+      "per_class_pixel_counts": {
+        "0": 27768,
+        "1": 17520,
+        "2": 17520,
+        "3": 17460,
+        "4": 17472,
+        "5": 27768,
+        "6": 7212,
+        "7": 27756,
+        "8": 27768,
+        "9": 27756
+      }
+    },
+    "validation": {
+      "missing_label_ids": [],
+      "per_class_pixel_counts": {
+        "0": 4320,
+        "1": 4320,
+        "2": 4320,
+        "3": 4320,
+        "4": 4320,
+        "5": 4320,
+        "6": 4320,
+        "7": 4320,
+        "8": 4320,
+        "9": 4320
+      }
+    }
+  },
+  "corrupt_or_blank_fraction": 0.0,
+  "corrupt_or_blank_frame_count": 0,
+  "dataset_phase": "week4_randomized_pilot",
+  "duplicate_view_count": 0,
+  "duplicate_view_rate": 0.0,
+  "duplicate_view_rate_max": 0.05,
+  "errors": [],
+  "expected_frame_count": 600,
+  "frame_count": 600,
+  "generation_mode": "static_randomized",
+  "guardrails": {
+    "bounded_randomization_config": true,
+    "clean_validation_unrandomized": true,
+    "public_reference_images_used_for_training": false,
+    "reference_comparison_scope": "category_sanity_only",
+    "renderer_metrics_separate": true,
+    "validation_all_scene_labels_required": true
+  },
+  "manifest_path": "datasets/generated/week4_randomized_pilot/dataset_manifest.json",
+  "max_corrupt_or_blank_fraction": 0.05,
+  "media_completeness": 1.0,
+  "metadata_completeness": 1.0,
+  "profile_counts": {
+    "clean_validation_v0_1": 100,
+    "train_randomized_v0_1": 500
+  },
+  "randomization_config_id": "week4_domain_randomization_v0_1",
+  "randomization_config_version": "0.1.0",
+  "randomization_distributions": {
+    "background_counts": {
+      "black": 240,
+      "dense_starfield": 125,
+      "sparse_starfield": 165,
+      "sun_glint_proxy": 70
+    },
+    "lighting_counts": {
+      "high_glare_edge": 159,
+      "low_light_cold_side": 96,
+      "nominal_sun_key": 345
+    },
+    "material_counts": {
+      "degraded": 106,
+      "high_glare": 156,
+      "nominal": 338
+    },
+    "target_region_counts": {
+      "approach_hold_standoff": 201,
+      "mirror_inspection": 200,
+      "sunshield_survey": 199
+    }
+  },
+  "randomization_metadata_completeness": 1.0,
+  "renderer_counts": {
+    "rasterized": 600
+  },
+  "seed_overlap_count": 0,
+  "split_counts": {
+    "train": 500,
+    "validation": 100
+  },
+  "status": "passed"
+}

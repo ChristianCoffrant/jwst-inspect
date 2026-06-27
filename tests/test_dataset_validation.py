@@ -17,8 +17,19 @@ from jwst_inspect.data.week3_episode_dataset import (
     write_week3_contact_sheet,
     write_week3_episode_dataset,
 )
+from jwst_inspect.data.week4_randomized_dataset import (
+    WEEK4_DATASET_DIR,
+    WEEK4_FRAME_COUNT,
+    WEEK4_TRAIN_FRAME_COUNT,
+    WEEK4_VALIDATION_FRAME_COUNT,
+    write_week4_contact_sheet,
+    write_week4_randomized_dataset,
+)
 from jwst_inspect.validation.dataset import (
     validate_sample_dataset,
+    validate_week4_randomized_dataset,
+    validate_week4_randomized_dataset_with_report,
+    validate_week4_randomization_config,
     validate_week3_episode_dataset,
     validate_week3_episode_dataset_with_report,
 )
@@ -177,6 +188,108 @@ class DatasetValidationTests(unittest.TestCase):
             sample_copy = Path(tmpdir) / "week3_episode"
             shutil.copytree(ROOT / "datasets" / "sample" / "week3_episode", sample_copy)
             contact_sheet = write_week3_contact_sheet(ROOT, sample_copy, sample_copy / "contact_sheet_regenerated.png")
+
+            self.assertTrue(contact_sheet.exists())
+            self.assertGreater(contact_sheet.stat().st_size, 0)
+
+
+class Week4RandomizationValidationTests(unittest.TestCase):
+    _tmpdir = None
+    dataset_dir: Path
+
+    @classmethod
+    def setUpClass(cls):
+        generated_dataset = ROOT / WEEK4_DATASET_DIR
+        if (generated_dataset / "dataset_manifest.json").exists():
+            cls.dataset_dir = generated_dataset
+            return
+        cls._tmpdir = tempfile.TemporaryDirectory()
+        cls.dataset_dir = Path(cls._tmpdir.name) / "week4_randomized_pilot"
+        write_week4_randomized_dataset(ROOT, cls.dataset_dir)
+
+    @classmethod
+    def tearDownClass(cls):
+        if cls._tmpdir is not None:
+            cls._tmpdir.cleanup()
+
+    def _metadata_paths(self) -> list[Path]:
+        manifest = json.loads((self.dataset_dir / "dataset_manifest.json").read_text(encoding="utf-8"))
+        return [self.dataset_dir / frame["metadata_path"] for frame in manifest["frames"]]
+
+    def test_week4_randomization_config_passes_guardrails(self):
+        self.assertEqual(validate_week4_randomization_config(ROOT), [])
+
+    def test_week4_randomized_dataset_passes_ship_gates(self):
+        errors, report = validate_week4_randomized_dataset_with_report(ROOT, self.dataset_dir)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["frame_count"], WEEK4_FRAME_COUNT)
+        self.assertEqual(report["split_counts"]["train"], WEEK4_TRAIN_FRAME_COUNT)
+        self.assertEqual(report["split_counts"]["validation"], WEEK4_VALIDATION_FRAME_COUNT)
+        self.assertEqual(report["metadata_completeness"], 1.0)
+        self.assertEqual(report["randomization_metadata_completeness"], 1.0)
+        self.assertEqual(report["media_completeness"], 1.0)
+        self.assertLessEqual(report["duplicate_view_rate"], report["duplicate_view_rate_max"])
+        self.assertEqual(report["class_coverage"]["validation"]["missing_label_ids"], [])
+        self.assertEqual(report["seed_overlap_count"], 0)
+
+    def test_week4_missing_randomization_factors_fails(self):
+        metadata_path = self._metadata_paths()[0]
+        original = metadata_path.read_text(encoding="utf-8")
+        try:
+            metadata = json.loads(original)
+            metadata.pop("randomization_factors")
+            metadata_path.write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            errors = validate_week4_randomized_dataset(ROOT, self.dataset_dir)
+            self.assertTrue(any("randomization_factors" in error for error in errors), errors)
+        finally:
+            metadata_path.write_text(original, encoding="utf-8")
+
+    def test_week4_public_reference_source_fails(self):
+        metadata_path = self._metadata_paths()[0]
+        original = metadata_path.read_text(encoding="utf-8")
+        try:
+            metadata = json.loads(original)
+            metadata["randomization_factors"]["background"]["source"] = "https://example.com/nasa_jwst_reference.png"
+            metadata_path.write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            errors = validate_week4_randomized_dataset(ROOT, self.dataset_dir)
+            self.assertTrue(any("public reference" in error for error in errors), errors)
+        finally:
+            metadata_path.write_text(original, encoding="utf-8")
+
+    def test_week4_duplicate_view_rate_fails_above_threshold(self):
+        metadata_paths = self._metadata_paths()[:40]
+        originals = {path: path.read_text(encoding="utf-8") for path in metadata_paths}
+        duplicate_camera = {
+            "azimuth_deg": 12.0,
+            "elevation_deg": 0.0,
+            "radius_jitter_m": 0.0,
+            "radius_m": 35.0,
+            "roll_deg": 0.0,
+        }
+        try:
+            for path, original in originals.items():
+                metadata = json.loads(original)
+                metadata["target_region"] = "approach_hold_standoff"
+                metadata["randomization_factors"]["camera"] = duplicate_camera
+                path.write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            errors = validate_week4_randomized_dataset(ROOT, self.dataset_dir)
+            self.assertTrue(any("duplicate/near-duplicate view rate" in error for error in errors), errors)
+        finally:
+            for path, original in originals.items():
+                path.write_text(original, encoding="utf-8")
+
+    def test_week4_contact_sheet_can_be_regenerated(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            contact_sheet = write_week4_contact_sheet(
+                ROOT,
+                self.dataset_dir,
+                Path(tmpdir) / "week4_contact_sheet.png",
+            )
 
             self.assertTrue(contact_sheet.exists())
             self.assertGreater(contact_sheet.stat().st_size, 0)

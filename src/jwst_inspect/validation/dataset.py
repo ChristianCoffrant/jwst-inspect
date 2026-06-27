@@ -23,6 +23,20 @@ from jwst_inspect.data.week3_episode_dataset import (
     WEEK3_FRAME_COUNT,
     WEEK3_GENERATION_MODE,
 )
+from jwst_inspect.data.week4_randomized_dataset import (
+    WEEK4_DATASET_DIR,
+    WEEK4_FRAME_COUNT,
+    WEEK4_GENERATION_MODE,
+    WEEK4_MEDIA_STATUS,
+    WEEK4_RANDOMIZATION_CONFIG,
+    WEEK4_RANDOMIZATION_CONFIG_ID,
+    WEEK4_RANDOMIZATION_CONFIG_VERSION,
+    WEEK4_TRAIN_FRAME_COUNT,
+    WEEK4_TRAIN_PROFILE,
+    WEEK4_VALIDATION_FRAME_COUNT,
+    WEEK4_VALIDATION_PROFILE,
+    validate_week4_randomization_config,
+)
 
 
 WEEK3_REQUIRED_METADATA_FIELDS: tuple[str, ...] = (
@@ -30,6 +44,17 @@ WEEK3_REQUIRED_METADATA_FIELDS: tuple[str, ...] = (
     "frame_index",
     "policy_id",
     "task_id",
+)
+
+WEEK4_REQUIRED_METADATA_FIELDS: tuple[str, ...] = (
+    "generation_mode",
+    "frame_index",
+    "policy_id",
+    "task_id",
+    "randomization_config_id",
+    "randomization_config_version",
+    "randomization_profile",
+    "randomization_factors",
 )
 
 
@@ -245,8 +270,16 @@ def _validate_metadata_file(
 
     if not isinstance(metadata.get("seed"), int):
         errors.append(f"{frame_id}: seed must be an integer")
-    if metadata.get("media_status") != schema.get("media_policy", {}).get("placeholder_media_status"):
-        errors.append(f"{frame_id}: media_status must declare the Week 2 tiny placeholder media")
+    media_policy = schema.get("media_policy", {})
+    allowed_media_statuses = {
+        media_policy.get("placeholder_media_status"),
+        media_policy.get("generated_media_status"),
+    }
+    allowed_media_statuses.discard(None)
+    if metadata.get("media_status") not in allowed_media_statuses:
+        errors.append(
+            f"{frame_id}: media_status must be one of {sorted(str(value) for value in allowed_media_statuses)!r}"
+        )
 
     return metadata, errors
 
@@ -744,6 +777,510 @@ def write_week3_validation_report(
     return output_path, errors
 
 
+def _is_blank_week4_media(dataset_path: Path, metadata: dict[str, Any]) -> bool:
+    outputs = metadata["outputs"]
+    rgb_values = read_png_rgb_values(dataset_path / outputs["rgb"])
+    semantic_values = read_png_grayscale_values(dataset_path / outputs["semantic_mask"])
+    instance_values = read_png_grayscale_values(dataset_path / outputs["instance_mask"])
+    return (
+        len(set(rgb_values)) <= 1
+        or len(set(semantic_values)) <= 1
+        or len(set(instance_values)) <= 1
+    )
+
+
+def _contains_public_reference(value: Any) -> bool:
+    if isinstance(value, dict):
+        return any(_contains_public_reference(child) for child in value.values())
+    if isinstance(value, list):
+        return any(_contains_public_reference(child) for child in value)
+    if not isinstance(value, str):
+        return False
+    lowered = value.lower()
+    return (
+        lowered.startswith("http://")
+        or lowered.startswith("https://")
+        or "nasa" in lowered
+        or "reference" in lowered
+        or lowered.endswith((".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff"))
+    )
+
+
+def _range_contains(config: dict[str, Any], path: tuple[str, str], value: Any) -> bool:
+    if not isinstance(value, (int, float)):
+        return False
+    section = config.get(path[0])
+    if not isinstance(section, dict):
+        return False
+    bounds = section.get(path[1])
+    if not isinstance(bounds, dict):
+        return False
+    low = bounds.get("min")
+    high = bounds.get("max")
+    if not isinstance(low, (int, float)) or not isinstance(high, (int, float)):
+        return False
+    return float(low) <= float(value) <= float(high)
+
+
+def _factor_mapping(factors: dict[str, Any], key: str, frame_id: str) -> tuple[dict[str, Any] | None, list[str]]:
+    value = factors.get(key)
+    if not isinstance(value, dict):
+        return None, [f"{frame_id}: randomization_factors.{key} must be a mapping"]
+    return value, []
+
+
+def _validate_week4_randomization_factors(
+    metadata: dict[str, Any],
+    config: dict[str, Any],
+) -> list[str]:
+    frame_id = str(metadata.get("frame_id"))
+    split = str(metadata.get("split"))
+    errors: list[str] = []
+    factors = metadata.get("randomization_factors")
+    if not isinstance(factors, dict):
+        return [f"{frame_id}: randomization_factors must be a mapping"]
+
+    expected_sections = ("camera", "lighting", "exposure", "background", "material")
+    for section_name in expected_sections:
+        if section_name not in factors:
+            errors.append(f"{frame_id}: randomization_factors missing {section_name!r}")
+
+    if not isinstance(factors.get("enabled"), bool):
+        errors.append(f"{frame_id}: randomization_factors.enabled must be boolean")
+    elif split == "train" and factors["enabled"] is not True:
+        errors.append(f"{frame_id}: train randomization_factors.enabled must be true")
+    elif split == "validation" and factors["enabled"] is not False:
+        errors.append(f"{frame_id}: validation randomization_factors.enabled must be false")
+
+    camera, camera_errors = _factor_mapping(factors, "camera", frame_id)
+    errors.extend(camera_errors)
+    if camera is not None:
+        camera_ranges = {
+            "radius_jitter_m": ("viewpoint", "radius_jitter_m"),
+            "azimuth_deg": ("viewpoint", "azimuth_deg"),
+            "elevation_deg": ("viewpoint", "elevation_deg"),
+            "roll_deg": ("viewpoint", "roll_deg"),
+        }
+        for camera_key, config_path in camera_ranges.items():
+            if not _range_contains(config, config_path, camera.get(camera_key)):
+                errors.append(f"{frame_id}: camera.{camera_key} is outside configured bounds")
+        if not isinstance(camera.get("radius_m"), (int, float)) or float(camera["radius_m"]) <= 0.0:
+            errors.append(f"{frame_id}: camera.radius_m must be positive")
+
+    lighting, lighting_errors = _factor_mapping(factors, "lighting", frame_id)
+    errors.extend(lighting_errors)
+    if lighting is not None:
+        if lighting.get("variant") != metadata.get("lighting_condition"):
+            errors.append(f"{frame_id}: lighting.variant must match lighting_condition")
+        if not _range_contains(config, ("lighting", "intensity_scale"), lighting.get("intensity_scale")):
+            errors.append(f"{frame_id}: lighting.intensity_scale is outside configured bounds")
+
+    exposure, exposure_errors = _factor_mapping(factors, "exposure", frame_id)
+    errors.extend(exposure_errors)
+    if exposure is not None:
+        if not _range_contains(config, ("exposure", "ev_compensation"), exposure.get("ev_compensation")):
+            errors.append(f"{frame_id}: exposure.ev_compensation is outside configured bounds")
+        if not _range_contains(config, ("exposure", "gain"), exposure.get("gain")):
+            errors.append(f"{frame_id}: exposure.gain is outside configured bounds")
+
+    background, background_errors = _factor_mapping(factors, "background", frame_id)
+    errors.extend(background_errors)
+    if background is not None:
+        if background.get("source") != "procedural_synthetic":
+            errors.append(f"{frame_id}: background.source must be procedural_synthetic")
+        if not isinstance(background.get("variant"), str) or not background["variant"]:
+            errors.append(f"{frame_id}: background.variant must be a non-empty string")
+
+    material, material_errors = _factor_mapping(factors, "material", frame_id)
+    errors.extend(material_errors)
+    if material is not None and material.get("variant") != metadata.get("material_variant"):
+        errors.append(f"{frame_id}: material.variant must match material_variant")
+
+    if _contains_public_reference(factors):
+        errors.append(f"{frame_id}: randomization_factors must not contain public reference image paths or URLs")
+
+    if split == "validation":
+        clean_validation = config.get("clean_validation", {})
+        if not isinstance(clean_validation, dict):
+            errors.append(f"{frame_id}: clean_validation config is unavailable")
+        else:
+            if metadata.get("randomization_profile") != clean_validation.get("profile"):
+                errors.append(f"{frame_id}: validation randomization_profile must match clean_validation profile")
+            if metadata.get("material_variant") != clean_validation.get("material_variant"):
+                errors.append(f"{frame_id}: validation material_variant must remain clean/fixed")
+            if metadata.get("lighting_condition") != clean_validation.get("lighting_condition"):
+                errors.append(f"{frame_id}: validation lighting_condition must remain clean/fixed")
+            if background is not None and background.get("variant") != clean_validation.get("background_variant"):
+                errors.append(f"{frame_id}: validation background.variant must remain clean/fixed")
+            if exposure is not None:
+                if exposure.get("ev_compensation") != clean_validation.get("exposure_ev_compensation"):
+                    errors.append(f"{frame_id}: validation exposure.ev_compensation must remain clean/fixed")
+                if exposure.get("gain") != clean_validation.get("gain"):
+                    errors.append(f"{frame_id}: validation exposure.gain must remain clean/fixed")
+            if lighting is not None and lighting.get("intensity_scale") != clean_validation.get("intensity_scale"):
+                errors.append(f"{frame_id}: validation lighting.intensity_scale must remain clean/fixed")
+
+    return errors
+
+
+def _week4_view_key(metadata: dict[str, Any]) -> tuple[Any, ...]:
+    factors = metadata.get("randomization_factors", {})
+    camera = factors.get("camera", {}) if isinstance(factors, dict) else {}
+    return (
+        metadata.get("split"),
+        metadata.get("target_region"),
+        round(float(camera.get("azimuth_deg", 0.0)) / 2.0),
+        round(float(camera.get("elevation_deg", 0.0)) / 2.0),
+        round(float(camera.get("radius_m", 0.0)) * 2.0) / 2.0,
+    )
+
+
+def _counter_to_json(counter: Counter[Any]) -> dict[str, int]:
+    return {str(key): int(value) for key, value in sorted(counter.items(), key=lambda item: str(item[0]))}
+
+
+def validate_week4_randomized_dataset_with_report(
+    root: Path | str = ".",
+    dataset_dir: Path | str | None = None,
+) -> tuple[list[str], dict[str, Any]]:
+    root_path = Path(root)
+    sample_path = Path(dataset_dir) if dataset_dir is not None else root_path / WEEK4_DATASET_DIR
+    manifest_path = sample_path / "dataset_manifest.json"
+    errors: list[str] = []
+
+    try:
+        schema = load_contract_yaml(root_path / "contracts" / "dataset_schema.yaml")
+    except Exception as exc:
+        return [f"contracts/dataset_schema.yaml: cannot parse schema: {exc}"], {
+            "status": "failed",
+            "errors": [str(exc)],
+        }
+
+    try:
+        randomization_config = load_contract_yaml(root_path / WEEK4_RANDOMIZATION_CONFIG)
+    except Exception as exc:
+        randomization_config = {}
+        errors.append(f"{root_path / WEEK4_RANDOMIZATION_CONFIG}: cannot parse randomization config: {exc}")
+    errors.extend(validate_week4_randomization_config(root_path))
+
+    scene_labels, label_errors = _scene_labels(root_path)
+    errors.extend(label_errors)
+    all_label_ids = {int(label_id) for label_id in scene_labels}
+    task_regions, material_variants, lighting_variants, variant_errors = _scene_variants(root_path)
+    errors.extend(variant_errors)
+    anomaly_ids, anomaly_errors = _allowed_anomalies(root_path)
+    errors.extend(anomaly_errors)
+
+    manifest, manifest_errors = _load_manifest(manifest_path)
+    errors.extend(manifest_errors)
+    if manifest is None:
+        report = {
+            "status": "failed",
+            "dataset_phase": "week4_randomized_pilot",
+            "manifest_path": _relative_posix(manifest_path, root_path),
+            "errors": errors,
+        }
+        return errors, report
+
+    frames = manifest.get("frames")
+    if not isinstance(frames, list) or not frames:
+        errors.append(f"{manifest_path}: frames must be a non-empty list")
+        frames = []
+    if len(frames) != WEEK4_FRAME_COUNT:
+        errors.append(f"{manifest_path}: Week 4 randomized pilot must include exactly {WEEK4_FRAME_COUNT} frames")
+    if manifest.get("dataset_phase") != "week4_randomized_pilot":
+        errors.append(f"{manifest_path}: dataset_phase must be 'week4_randomized_pilot'")
+    if manifest.get("generation_mode") != WEEK4_GENERATION_MODE:
+        errors.append(f"{manifest_path}: generation_mode must be {WEEK4_GENERATION_MODE!r}")
+    if manifest.get("randomization_config_id") != WEEK4_RANDOMIZATION_CONFIG_ID:
+        errors.append(f"{manifest_path}: randomization_config_id must be {WEEK4_RANDOMIZATION_CONFIG_ID!r}")
+    if manifest.get("randomization_config_version") != WEEK4_RANDOMIZATION_CONFIG_VERSION:
+        errors.append(f"{manifest_path}: randomization_config_version must be {WEEK4_RANDOMIZATION_CONFIG_VERSION!r}")
+
+    split_counts: Counter[str] = Counter()
+    renderer_counts: Counter[str] = Counter()
+    profile_counts: Counter[str] = Counter()
+    target_counts: Counter[str] = Counter()
+    material_counts: Counter[str] = Counter()
+    lighting_counts: Counter[str] = Counter()
+    background_counts: Counter[str] = Counter()
+    semantic_pixel_counts: dict[str, Counter[int]] = {
+        "train": Counter(),
+        "validation": Counter(),
+    }
+    view_counts: Counter[tuple[Any, ...]] = Counter()
+    train_seeds: set[int] = set()
+    validation_seeds: set[int] = set()
+    frame_ids: set[str] = set()
+    complete_metadata_count = 0
+    complete_randomization_metadata_count = 0
+    complete_media_count = 0
+    blank_or_corrupt_count = 0
+
+    for index, frame_record in enumerate(frames):
+        if not isinstance(frame_record, dict):
+            errors.append(f"{manifest_path}: frame record {index} must be a mapping")
+            continue
+        metadata_relpath = frame_record.get("metadata_path")
+        if not isinstance(metadata_relpath, str):
+            errors.append(f"{manifest_path}: frame record {index} missing metadata_path")
+            continue
+        metadata_path = sample_path / metadata_relpath
+        if not metadata_path.exists():
+            errors.append(f"{metadata_path}: missing metadata file")
+            blank_or_corrupt_count += 1
+            continue
+
+        metadata, frame_errors = _validate_metadata_file(
+            metadata_path,
+            schema,
+            scene_labels,
+            task_regions,
+            material_variants,
+            lighting_variants,
+            anomaly_ids,
+        )
+        if metadata is None:
+            errors.extend(f"{metadata_path}: {error}" for error in frame_errors)
+            blank_or_corrupt_count += 1
+            continue
+
+        week4_metadata_errors: list[str] = []
+        for field in WEEK4_REQUIRED_METADATA_FIELDS:
+            if field not in metadata:
+                week4_metadata_errors.append(f"{metadata['frame_id']}: missing Week 4 metadata field {field!r}")
+        if metadata.get("generation_mode") != WEEK4_GENERATION_MODE:
+            week4_metadata_errors.append(
+                f"{metadata['frame_id']}: generation_mode must be {WEEK4_GENERATION_MODE!r}"
+            )
+        if metadata.get("media_status") != WEEK4_MEDIA_STATUS:
+            week4_metadata_errors.append(f"{metadata['frame_id']}: media_status must be {WEEK4_MEDIA_STATUS!r}")
+        if metadata.get("randomization_config_id") != WEEK4_RANDOMIZATION_CONFIG_ID:
+            week4_metadata_errors.append(
+                f"{metadata['frame_id']}: randomization_config_id must be {WEEK4_RANDOMIZATION_CONFIG_ID!r}"
+            )
+        if metadata.get("randomization_config_version") != WEEK4_RANDOMIZATION_CONFIG_VERSION:
+            week4_metadata_errors.append(
+                f"{metadata['frame_id']}: randomization_config_version must be {WEEK4_RANDOMIZATION_CONFIG_VERSION!r}"
+            )
+        split = str(metadata.get("split"))
+        expected_profile = WEEK4_TRAIN_PROFILE if split == "train" else WEEK4_VALIDATION_PROFILE
+        if split not in {"train", "validation"}:
+            week4_metadata_errors.append(f"{metadata['frame_id']}: split must be train or validation")
+        elif metadata.get("randomization_profile") != expected_profile:
+            week4_metadata_errors.append(
+                f"{metadata['frame_id']}: randomization_profile must be {expected_profile!r}"
+            )
+        if not isinstance(metadata.get("frame_index"), int) or metadata.get("frame_index", -1) < 0:
+            week4_metadata_errors.append(f"{metadata['frame_id']}: frame_index must be a non-negative integer")
+
+        for key in (
+            "frame_id",
+            "split",
+            "seed",
+            "generation_mode",
+            "randomization_profile",
+            "target_region",
+            "renderer_mode",
+            "material_variant",
+            "lighting_condition",
+            "media_status",
+        ):
+            week4_metadata_errors.extend(_frame_record_value(frame_record, metadata, key))
+
+        factor_errors = _validate_week4_randomization_factors(metadata, randomization_config)
+        factors = metadata.get("randomization_factors", {})
+        if isinstance(factors, dict):
+            background = factors.get("background", {})
+            if isinstance(background, dict):
+                if frame_record.get("background_variant") != background.get("variant"):
+                    factor_errors.append(
+                        f"{metadata['frame_id']}: manifest background_variant must match randomization_factors"
+                    )
+
+        errors.extend(f"{metadata_path}: {error}" for error in frame_errors)
+        errors.extend(f"{metadata_path}: {error}" for error in week4_metadata_errors)
+        errors.extend(f"{metadata_path}: {error}" for error in factor_errors)
+        if not frame_errors and not week4_metadata_errors:
+            complete_metadata_count += 1
+        if not factor_errors and all(field in metadata for field in WEEK4_REQUIRED_METADATA_FIELDS):
+            complete_randomization_metadata_count += 1
+
+        media_errors = _validate_output_media(sample_path, metadata, scene_labels)
+        media_blank = False
+        if not media_errors:
+            try:
+                media_blank = _is_blank_week4_media(sample_path, metadata)
+            except Exception as exc:
+                media_errors.append(f"{metadata['frame_id']}: cannot inspect blank/corrupt guardrail: {exc}")
+        errors.extend(f"{metadata_path}: {error}" for error in media_errors)
+        if not media_errors and not media_blank:
+            complete_media_count += 1
+        else:
+            blank_or_corrupt_count += 1
+
+        semantic_path = sample_path / metadata["outputs"]["semantic_mask"]
+        if semantic_path.exists():
+            try:
+                semantic_pixel_counts.setdefault(split, Counter()).update(read_png_grayscale_values(semantic_path))
+            except Exception:
+                pass
+
+        frame_id = str(metadata["frame_id"])
+        if frame_id in frame_ids:
+            errors.append(f"{metadata_path}: duplicated frame_id {frame_id!r}")
+        frame_ids.add(frame_id)
+        seed = metadata.get("seed")
+        if isinstance(seed, int):
+            if split == "train":
+                train_seeds.add(seed)
+            elif split == "validation":
+                validation_seeds.add(seed)
+        split_counts[split] += 1
+        renderer_counts[str(metadata.get("renderer_mode"))] += 1
+        profile_counts[str(metadata.get("randomization_profile"))] += 1
+        target_counts[str(metadata.get("target_region"))] += 1
+        material_counts[str(metadata.get("material_variant"))] += 1
+        lighting_counts[str(metadata.get("lighting_condition"))] += 1
+        if isinstance(factors, dict) and isinstance(factors.get("background"), dict):
+            background_counts[str(factors["background"].get("variant"))] += 1
+        view_counts[_week4_view_key(metadata)] += 1
+
+    if split_counts.get("train", 0) != WEEK4_TRAIN_FRAME_COUNT:
+        errors.append(f"{manifest_path}: train split must contain {WEEK4_TRAIN_FRAME_COUNT} frames")
+    if split_counts.get("validation", 0) != WEEK4_VALIDATION_FRAME_COUNT:
+        errors.append(f"{manifest_path}: validation split must contain {WEEK4_VALIDATION_FRAME_COUNT} frames")
+    if renderer_counts != Counter({"rasterized": len(frames)}):
+        errors.append(f"{manifest_path}: Week 4 pilot must report only rasterized renderer frames")
+    if profile_counts.get(WEEK4_TRAIN_PROFILE, 0) != WEEK4_TRAIN_FRAME_COUNT:
+        errors.append(f"{manifest_path}: train randomization profile count must be {WEEK4_TRAIN_FRAME_COUNT}")
+    if profile_counts.get(WEEK4_VALIDATION_PROFILE, 0) != WEEK4_VALIDATION_FRAME_COUNT:
+        errors.append(f"{manifest_path}: clean validation profile count must be {WEEK4_VALIDATION_FRAME_COUNT}")
+    seed_overlap = train_seeds & validation_seeds
+    if seed_overlap:
+        errors.append(f"{manifest_path}: train and validation seeds must not overlap: {sorted(seed_overlap)[:5]}")
+
+    frame_count = len(frames)
+    corrupt_or_blank_fraction = blank_or_corrupt_count / frame_count if frame_count else 1.0
+    if corrupt_or_blank_fraction > MAX_CORRUPT_OR_BLANK_FRACTION:
+        errors.append(
+            f"{manifest_path}: corrupt or blank frame fraction is "
+            f"{corrupt_or_blank_fraction:.3f}, expected <= {MAX_CORRUPT_OR_BLANK_FRACTION:.3f}"
+        )
+
+    duplicate_view_count = sum(count - 1 for count in view_counts.values() if count > 1)
+    duplicate_view_rate = duplicate_view_count / frame_count if frame_count else 1.0
+    duplicate_view_rate_max = 0.05
+    if duplicate_view_rate > duplicate_view_rate_max:
+        errors.append(
+            f"{manifest_path}: duplicate/near-duplicate view rate is "
+            f"{duplicate_view_rate:.3f}, expected <= {duplicate_view_rate_max:.3f}"
+        )
+
+    validation_label_ids = set(semantic_pixel_counts.get("validation", Counter()))
+    missing_validation_labels = sorted(all_label_ids - validation_label_ids)
+    if missing_validation_labels:
+        errors.append(f"{manifest_path}: validation split is missing label IDs {missing_validation_labels}")
+
+    metadata_completeness = complete_metadata_count / frame_count if frame_count else 0.0
+    randomization_metadata_completeness = (
+        complete_randomization_metadata_count / frame_count if frame_count else 0.0
+    )
+    media_completeness = complete_media_count / frame_count if frame_count else 0.0
+    if metadata_completeness < 1.0:
+        errors.append(
+            f"{manifest_path}: metadata completeness is {complete_metadata_count}/{frame_count}, expected 100%"
+        )
+    if randomization_metadata_completeness < 1.0:
+        errors.append(
+            f"{manifest_path}: randomization metadata completeness is "
+            f"{complete_randomization_metadata_count}/{frame_count}, expected 100%"
+        )
+    if media_completeness < 1.0:
+        errors.append(f"{manifest_path}: media completeness is {complete_media_count}/{frame_count}, expected 100%")
+
+    summary = manifest.get("summary")
+    if not isinstance(summary, dict):
+        errors.append(f"{manifest_path}: summary must be present")
+    else:
+        if summary.get("public_reference_images_used_for_training") is not False:
+            errors.append(f"{manifest_path}: public_reference_images_used_for_training must be false")
+        if summary.get("large_generated_outputs_committed") is not False:
+            errors.append(f"{manifest_path}: large_generated_outputs_committed must be false")
+        if summary.get("media_files") != frame_count * 4:
+            errors.append(f"{manifest_path}: summary.media_files must equal frame_count * 4")
+
+    class_coverage = {
+        split_name: {
+            "per_class_pixel_counts": _counter_to_json(counter),
+            "missing_label_ids": sorted(all_label_ids - set(counter)),
+        }
+        for split_name, counter in semantic_pixel_counts.items()
+    }
+    report = {
+        "status": "failed" if errors else "passed",
+        "dataset_phase": "week4_randomized_pilot",
+        "generation_mode": manifest.get("generation_mode"),
+        "manifest_path": _relative_posix(manifest_path, root_path),
+        "randomization_config_id": manifest.get("randomization_config_id"),
+        "randomization_config_version": manifest.get("randomization_config_version"),
+        "frame_count": frame_count,
+        "expected_frame_count": WEEK4_FRAME_COUNT,
+        "metadata_completeness": metadata_completeness,
+        "randomization_metadata_completeness": randomization_metadata_completeness,
+        "media_completeness": media_completeness,
+        "corrupt_or_blank_frame_count": blank_or_corrupt_count,
+        "corrupt_or_blank_fraction": corrupt_or_blank_fraction,
+        "max_corrupt_or_blank_fraction": MAX_CORRUPT_OR_BLANK_FRACTION,
+        "duplicate_view_count": duplicate_view_count,
+        "duplicate_view_rate": duplicate_view_rate,
+        "duplicate_view_rate_max": duplicate_view_rate_max,
+        "seed_overlap_count": len(seed_overlap),
+        "split_counts": dict(sorted(split_counts.items())),
+        "renderer_counts": dict(sorted(renderer_counts.items())),
+        "profile_counts": dict(sorted(profile_counts.items())),
+        "randomization_distributions": {
+            "target_region_counts": dict(sorted(target_counts.items())),
+            "material_counts": dict(sorted(material_counts.items())),
+            "lighting_counts": dict(sorted(lighting_counts.items())),
+            "background_counts": dict(sorted(background_counts.items())),
+        },
+        "class_coverage": class_coverage,
+        "guardrails": {
+            "public_reference_images_used_for_training": False,
+            "bounded_randomization_config": True,
+            "clean_validation_unrandomized": True,
+            "validation_all_scene_labels_required": True,
+            "renderer_metrics_separate": True,
+            "reference_comparison_scope": "category_sanity_only",
+        },
+        "errors": errors,
+    }
+    return errors, report
+
+
+def validate_week4_randomized_dataset(
+    root: Path | str = ".",
+    dataset_dir: Path | str | None = None,
+) -> list[str]:
+    errors, _ = validate_week4_randomized_dataset_with_report(root, dataset_dir)
+    return errors
+
+
+def write_week4_validation_report(
+    root: Path | str = ".",
+    dataset_dir: Path | str | None = None,
+    report_path: Path | str | None = None,
+) -> tuple[Path, list[str]]:
+    root_path = Path(root)
+    sample_path = Path(dataset_dir) if dataset_dir is not None else root_path / WEEK4_DATASET_DIR
+    errors, report = validate_week4_randomized_dataset_with_report(root_path, sample_path)
+    output_path = Path(report_path) if report_path is not None else sample_path / "validation_report.json"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return output_path, errors
+
+
 def validate_dataset_package(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     errors: list[str] = []
@@ -751,4 +1288,6 @@ def validate_dataset_package(root: Path | str = ".") -> list[str]:
     errors.extend(validate_sample_dataset(root_path))
     if (root_path / WEEK3_DATASET_DIR / "dataset_manifest.json").exists():
         errors.extend(validate_week3_episode_dataset(root_path))
+    if (root_path / WEEK4_DATASET_DIR / "dataset_manifest.json").exists():
+        errors.extend(validate_week4_randomized_dataset(root_path))
     return errors
