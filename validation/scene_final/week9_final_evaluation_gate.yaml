@@ -1,0 +1,46 @@
+version: 1.0.0
+gate_status: pending_gpu_run
+scene_final_tag: scene-final-v1.0.0
+scene_release_tag: scene-final-v1.0.0
+render_config: configs/renderers/week9_final_evaluation_support.yaml
+vast_template: configs/vast/x090_template.yaml
+vast_template_hash: 7125e3b864680d268e915aa0c32cac84
+run_registry_id: pending_week9_gpu_run
+artifact_sync_status: not_synced
+artifact_root: validation/renders/week9_final_eval/pending_week9_gpu_run
+contact_sheet_path: validation/renders/week9_final_eval/pending_week9_gpu_run/week9_final_eval_contact_sheet.png
+contact_sheet_sha256: pending_gpu_run
+required_render_count: 24
+actual_render_count: 0
+required_contact_sheet_count: 1
+actual_contact_sheet_count: 0
+generated_outputs_tracked_in_git: false
+fabricated_gpu_renders_allowed: false
+scene_bugfix_release_required: false
+scene_geometry_changes: 0
+safety_volume_changes: 0
+coverage_region_changes: 0
+metric_definition_changes: 0
+heldout_reference_tuning_count: 0
+public_reference_training_use_count: 0
+renderer_modes:
+  - rasterized
+  - path_traced
+required_cameras:
+  - mirror_inspection_fixed
+  - sunshield_survey_fixed
+  - approach_standoff_overview
+evaluation_conditions:
+  - condition_id: nominal_clean
+    material_variant: nominal
+    lighting_variant: nominal_sun_key
+  - condition_id: high_glare_edge
+    material_variant: high_glare
+    lighting_variant: high_glare_edge
+  - condition_id: degraded_low_light
+    material_variant: degraded
+    lighting_variant: low_light_cold_side
+  - condition_id: anomaly_mixed_stress
+    material_variant: anomaly_test
+    lighting_variant: mixed_stress
+artifacts: []
