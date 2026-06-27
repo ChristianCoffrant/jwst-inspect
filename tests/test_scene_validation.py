@@ -19,6 +19,10 @@ from jwst_inspect.validation.scene import (
     validate_usd_proxy_layers,
     validate_week5_reports,
     validate_week5_stress_matrix,
+    validate_week6_beta_render_config,
+    validate_week6_reference_freeze,
+    validate_week6_reports,
+    validate_week6_scene_beta_qa,
 )
 
 
@@ -67,6 +71,24 @@ class SceneValidationTests(unittest.TestCase):
 
     def test_week5_reports_record_guardrail_metrics(self):
         self.assertEqual(validate_week5_reports(ROOT), [])
+
+    def test_week6_beta_render_config_has_required_matrix(self):
+        self.assertEqual(validate_week6_beta_render_config(ROOT / "configs" / "renderers" / "week6_beta_validation.yaml"), [])
+
+    def test_week6_scene_beta_qa_inventory_passes_gate_counts(self):
+        self.assertEqual(validate_week6_scene_beta_qa(ROOT), [])
+
+    def test_week6_reference_freeze_has_dev_and_heldout_sets(self):
+        self.assertEqual(
+            validate_week6_reference_freeze(
+                ROOT / "validation" / "reference_sets" / "week6_reference_freeze.yaml",
+                ROOT / "validation" / "reference_manifest.csv",
+            ),
+            [],
+        )
+
+    def test_week6_reports_record_beta_freeze_guardrails(self):
+        self.assertEqual(validate_week6_reports(ROOT), [])
 
     def test_proxy_usd_layers_have_required_contract_tokens(self):
         self.assertEqual(validate_usd_proxy_layers(ROOT), [])

@@ -12,7 +12,13 @@ Track how the OpenUSD scene and rendered outputs compare with public JWST refere
 
 ## Held-Out Reference Set
 
-- `ref_holdout_candidate_pool`: candidate pool only. Select and freeze 5 to 10 specific spacecraft references by Week 6.
+- `ref_week6_heldout_deployment_overview`: frozen held-out reference metadata row.
+- `ref_week6_heldout_mirror_alignment`: frozen held-out reference metadata row.
+- `ref_week6_heldout_sunshield_deployment`: frozen held-out reference metadata row.
+- `ref_week6_heldout_spacecraft_cleanroom`: frozen held-out reference metadata row.
+- `ref_week6_heldout_full_spacecraft_context`: frozen held-out reference metadata row.
+
+The earlier `ref_holdout_candidate_pool` row remains as a provenance/discovery record only and is not counted as a frozen held-out reference.
 
 ## Component Presence Checklist
 
@@ -72,6 +78,23 @@ The coverage patch names are aligned to rollout `coverage_patch` values consumed
 | `configs/sensors/inspector_sensor_frames.yaml` | RGB, depth, and IMU frames | Complete metadata; frozen sensor paths preserved |
 | `configs/anomalies/week5_anomaly_regions.yaml` | Proxy anomalies tied to task regions | Complete metadata; real JWST failure claims are 0 |
 
+## Week 6 Reference Freeze Checklist
+
+| Split | Required | Frozen Rows | Status |
+| --- | ---: | ---: | --- |
+| Dev | at least 5 | 5 | Frozen |
+| Held-out | exactly 5 | 5 | Frozen |
+
+All public references remain `excluded_from_training=true`. Held-out rows must not be used for material, geometry, anomaly, perception, or policy tuning.
+
+## Week 6 Beta Render Checklist
+
+| Matrix | Scene Tag | Rows | Status |
+| --- | --- | ---: | --- |
+| `configs/renderers/week6_beta_validation.yaml` | `scene-beta-v0.2.0` | 24 | Blocked until Isaac Sim/Vast render run |
+
+The Week 6 beta rows cover four material/lighting combinations, three fixed cameras, and paired rasterized/path-traced modes.
+
 ## Mismatch Log
 
 | Date | Reference ID | Scene Version | Mismatch | Decision |
@@ -83,3 +106,5 @@ The coverage patch names are aligned to rollout `coverage_patch` values consumed
 | 2026-06-26 | Week 4 sparse annotation template | 0.1.0 Week 4 | Public reference images are validation-only. | Keep candidates excluded from training and store large annotation outputs outside Git. |
 | 2026-06-26 | Week 5 material stress matrix | `scene-proxy-thin-slice-v0.1` | Week 5 stress render artifacts are not generated locally. | Keep rows as `blocked_vast_required` until a Vast/Isaac Sim run records real artifacts. |
 | 2026-06-26 | Week 5 anomaly proxy regions | 0.1.0 Week 5 | Anomaly regions are benchmark stress proxies and not real JWST failure claims. | Keep proxy-only language and require downstream reports to preserve this distinction. |
+| 2026-06-27 | Week 6 reference freeze | 0.2.0 | Held-out references are now frozen metadata rows but images are not committed. | Keep public images outside Git and prohibit tuning against held-out references. |
+| 2026-06-27 | Week 6 beta render matrix | `scene-beta-v0.2.0` | Beta render artifacts are not generated locally. | Keep rows as `blocked_vast_required` until a Vast/Isaac Sim run records real artifacts and run metadata. |

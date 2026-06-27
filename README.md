@@ -19,6 +19,7 @@ The shared research goal is to measure renderer-to-policy transfer: whether insp
 - Workstream 1 Week 3 execution log: `docs/workstream1_week3_execution.md`
 - Workstream 1 Week 4 execution log: `docs/workstream1_week4_execution.md`
 - Workstream 1 Week 5 execution log: `docs/workstream1_week5_execution.md`
+- Workstream 1 Week 6 execution log: `docs/workstream1_week6_execution.md`
 - Workstream 2 Week 1 execution log: `docs/workstream2_week1_execution.md`
 - Workstream 2 Week 2 execution log: `docs/workstream2_week2_execution.md`
 - Workstream 3 Week 1 execution log: `docs/workstream3_week1_execution.md`
@@ -40,7 +41,7 @@ The scaffold intentionally avoids committing large datasets, generated renders, 
 
 ## Current Workstream 1 Gate
 
-The Week 5 Digital Twin and Asset Benchmark gate releases the material and lighting variant catalog 0.1, anomaly-ready proxy regions, sensor-frame validation, collision proxy report, and a blocked-on-GPU stress render matrix that preserves frozen task-region, coverage, label, and safety contracts.
+The Week 6 Digital Twin and Asset Benchmark gate freezes scene contract `0.2.0` and releases scene beta tag `scene-beta-v0.2.0` with automated QA inventory, frozen dev/held-out reference sets, and a blocked-on-GPU beta validation render set.
 
 Run:
 
@@ -49,6 +50,7 @@ python scripts/validate_contracts.py
 python scripts/validate_scene.py
 python scripts/validate_reference_manifest.py
 python scripts/validate_run_registry.py
+python scripts/validate_dataset.py
 python scripts/e2e_local_smoke.py
 python -m unittest discover -s tests
 ```

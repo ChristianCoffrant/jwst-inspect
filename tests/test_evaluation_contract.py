@@ -2,12 +2,11 @@ import sys
 import unittest
 from pathlib import Path
 
-import yaml
-
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from jwst_inspect.contracts import load_contract_yaml
 from jwst_inspect.evaluation.r2p_gap import DEFAULT_WEIGHTS
 from jwst_inspect.validation.evaluation_contract import (
     REQUIRED_METADATA_FIELDS,
@@ -31,15 +30,13 @@ class EvaluationContractTests(unittest.TestCase):
         self.assertEqual(report["metrics_schema_version"], "0.2.0")
 
     def test_metric_weights_match_runtime_and_sum_to_one(self):
-        with (ROOT / "contracts" / "metrics_schema.yaml").open(encoding="utf-8") as handle:
-            metrics_schema = yaml.safe_load(handle)
+        metrics_schema = load_contract_yaml(ROOT / "contracts" / "metrics_schema.yaml")
         weights = schema_weight_map(metrics_schema)
         self.assertEqual(weights, DEFAULT_WEIGHTS)
         self.assertAlmostEqual(sum(weights.values()), 1.0)
 
     def test_unknown_profile_names_are_rejected(self):
-        with self.config_path.open(encoding="utf-8") as handle:
-            config = yaml.safe_load(handle)
+        config = load_contract_yaml(self.config_path)
         errors = validate_profile_selection(
             config,
             {

@@ -14,7 +14,7 @@ Not a flight-certified JWST simulator. Not a real anomaly diagnosis system.
 
 ## Version
 
-0.1.0 Week 5 material and lighting stress catalog support.
+0.2.0 Week 6 scene beta contract freeze.
 
 ## Scene Scope
 
@@ -25,6 +25,8 @@ Week 3 adds the scene tag `scene-proxy-thin-slice-v0.1`, fixed seed `31003`, fix
 Week 4 adds `configs/coverage/coverage_surfaces.yaml` as the authoritative surface map for mirror and sunshield coverage patches, `configs/renderers/week4_validation_renders.yaml` as the validation render-pack request, and `validation/annotations/sparse_keypoints/week4_keypoints_template.csv` as the sparse public-reference annotation staging template.
 
 Week 5 adds `configs/materials/material_variants.yaml`, `configs/lighting/lighting_variants.yaml`, `configs/renderers/week5_material_stress.yaml`, `configs/anomalies/week5_anomaly_regions.yaml`, and `configs/sensors/inspector_sensor_frames.yaml`. These files define switchable benchmark stressors and sensor assumptions without claiming physical JWST fidelity.
+
+Week 6 freezes scene contract `0.2.0` and scene beta tag `scene-beta-v0.2.0`. It adds automated scene QA metadata, frozen dev and held-out reference sets, and a beta validation render matrix under `validation/renders/week6_beta/`.
 
 It does not claim geometric or radiometric fidelity to JWST. The selected public NASA JWST GLB source is recorded for later conversion, but the current benchmark scene remains a proxy fallback until imported geometry can be mapped without breaking the contract.
 
@@ -44,3 +46,5 @@ Public JWST references are tracked for validation and reporting only and are exc
 - High-glare and degraded variants remain required even if they hurt perception or policy results.
 - Anomaly regions are benchmark proxies only and must not be described as real JWST failure modes.
 - Material and lighting values must not be tuned to held-out references or to make perception easier.
+- After the Week 6 freeze, breaking scene-contract or reference-set changes require integration council approval.
+- Held-out references are excluded from training and tuning; final audits must not feed changes back into the beta scene.

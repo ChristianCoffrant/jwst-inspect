@@ -2,7 +2,7 @@
 
 ## Artifact Version
 
-Scene contract: `contracts/scene_contract.yaml` version `0.1.0`, frozen Week 2 contract.
+Scene contract: `contracts/scene_contract.yaml` version `0.2.0`, frozen Week 6 beta contract.
 
 Proxy root scene: `usd/jwst_inspect_root.usd`.
 
@@ -13,6 +13,12 @@ Week 3 fixed seed: `31003`.
 Week 4 coverage surface map: `configs/coverage/coverage_surfaces.yaml`.
 
 Week 5 material and lighting catalogs: `configs/materials/material_variants.yaml` and `configs/lighting/lighting_variants.yaml`.
+
+Week 6 beta scene tag: `scene-beta-v0.2.0`.
+
+Week 6 compatibility alias: `scene-proxy-thin-slice-v0.1`.
+
+Week 6 reference freeze: `validation/reference_sets/week6_reference_freeze.yaml`.
 
 This is a proxy scene for contract validation and downstream planning. It is not a flight-accurate JWST model and should not be presented as one.
 
@@ -80,8 +86,10 @@ Use:
 - Week 4 validation render pack from `configs/renderers/week4_validation_renders.yaml`
 - Week 5 stress matrix from `configs/renderers/week5_material_stress.yaml`
 - Week 5 anomaly regions from `configs/anomalies/week5_anomaly_regions.yaml`
+- Week 6 beta render config from `configs/renderers/week6_beta_validation.yaml`
+- Week 6 frozen reference sets from `validation/reference_sets/week6_reference_freeze.yaml`
 - sparse public-reference annotation candidates from `validation/annotations/sparse_keypoints/week4_keypoints_template.csv`
-- scene tag `scene-proxy-thin-slice-v0.1` for the first 100-frame thin-slice sample
+- scene tag `scene-beta-v0.2.0` for beta scene references; `scene-proxy-thin-slice-v0.1` remains a compatibility alias
 - `validation/reference_manifest.csv` only for validation and reporting, not training
 
 Do not:
@@ -102,6 +110,7 @@ Use:
 - safety and collision proxy paths
 - sensor-frame config from `configs/sensors/inspector_sensor_frames.yaml`
 - high-glare stress combo from `configs/renderers/week5_material_stress.yaml`
+- beta scene tag `scene-beta-v0.2.0`
 - standoff metadata in `contracts/scene_contract.yaml`
 - standoff metadata in `usd/layers/tasks.usd`
 - toy local smoke test as contract health signal only
@@ -115,20 +124,25 @@ Do not:
 - rename coverage patches used by rollout logs
 - shrink collision proxies or keepout volumes to improve policy scores
 
-## Week 2 Freeze Rules
+## Week 6 Freeze Rules
 
-- Label IDs 0 through 9 are frozen until the contract 0.2 review.
-- Task-region IDs are frozen after Week 2.
-- Existing safety paths are frozen after Week 2.
+- Label IDs 0 through 9 are frozen after the contract 0.2 beta freeze.
+- Task-region IDs are frozen after Week 6.
+- Existing safety paths are frozen after Week 6.
+- Frozen dev and held-out reference-set changes require integration council approval.
 - Imported JWST geometry must be mapped into the frozen contract paths or wrapped under them.
-- Breaking changes require `contracts/changelog.md` plus integration review.
+- Breaking changes require `contracts/changelog.md` plus integration council approval.
 
 ## Validation
 
 Run:
 
 ```bash
+python scripts/validate_contracts.py
 python scripts/validate_scene.py
+python scripts/validate_reference_manifest.py
+python scripts/validate_run_registry.py
+python scripts/validate_dataset.py
 python scripts/e2e_local_smoke.py
 python -m unittest discover -s tests
 ```
@@ -154,3 +168,11 @@ Required lighting variants are `nominal_sun_key`, `high_glare_edge`, `low_light_
 `validation/render_manifest.csv` includes 24 Week 5 stress rows under `validation/renders/week5/`: four material/lighting combinations, three fixed cameras, and two renderer modes. Rows remain `blocked_vast_required` until a real Isaac Sim or Omniverse RTX run records artifacts and run metadata.
 
 `validation/reports/week5_collision_proxy_report.md` records that the current bus and sunshield proxies do not shrink safety boundaries. `configs/sensors/inspector_sensor_frames.yaml` freezes the RGB, depth, and IMU sensor frame assumptions for downstream smoke tests.
+
+## Week 6 Scene Beta Status
+
+`validation/scene_beta/week6_qa_inventory.yaml` and `validation/reports/week6_scene_beta_qa_report.md` record the beta QA gate: 32 required prim paths, 10 label IDs, 9 semantic object labels, 3 task regions, 6 safety regions/proxies, 40 coverage cells, 4 material variants, 4 lighting variants, and 3 sensor frames.
+
+`validation/reference_manifest.csv` now includes 5 frozen dev references and 5 frozen held-out references. Held-out references must not be used to tune geometry, materials, lighting, perception thresholds, or policy behavior.
+
+`validation/render_manifest.csv` includes 24 Week 6 beta render rows under `validation/renders/week6_beta/`. They remain `blocked_vast_required` until a real GPU run records artifacts and `compute/gpu_run_registry.csv` metadata.

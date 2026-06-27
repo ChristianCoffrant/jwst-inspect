@@ -5,8 +5,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-import yaml
-
+from jwst_inspect.contracts import load_contract_yaml
 from jwst_inspect.evaluation.learned_baseline import evaluate_learned_baseline
 from jwst_inspect.evaluation.rollout_io import write_json_report
 from jwst_inspect.evaluation.sunshield_survey import evaluate_sunshield_survey
@@ -36,8 +35,7 @@ SUITE_COLUMNS = (
 
 
 def _load_yaml(path: Path) -> dict[str, Any]:
-    with path.open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle)
+    data = load_contract_yaml(path)
     if not isinstance(data, dict):
         raise ValueError(f"{path}: expected YAML mapping")
     return data

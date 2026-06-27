@@ -1,0 +1,53 @@
+version: 0.2.0
+scene_tag: scene-beta-v0.2.0
+compatibility_alias: scene-proxy-thin-slice-v0.1
+owner: team1_scene_qa_integration_lead
+guardrails:
+  generated_outputs_tracked_in_git: false
+  label_task_safety_path_renames: 0
+  public_reference_training_use_allowed: false
+qa_metrics:
+  - metric_id: required_prim_paths
+    required_count: 32
+    actual_count: 32
+    status: pass
+  - metric_id: contract_label_ids
+    required_count: 10
+    actual_count: 10
+    status: pass
+  - metric_id: semantic_object_labels
+    required_count: 9
+    actual_count: 9
+    status: pass
+  - metric_id: task_regions
+    required_count: 3
+    actual_count: 3
+    status: pass
+  - metric_id: safety_regions_and_collision_proxies
+    required_count: 6
+    actual_count: 6
+    status: pass
+  - metric_id: coverage_cells
+    required_count: 40
+    actual_count: 40
+    status: pass
+  - metric_id: material_variants
+    required_count: 4
+    actual_count: 4
+    status: pass
+  - metric_id: lighting_variants
+    required_count: 4
+    actual_count: 4
+    status: pass
+  - metric_id: sensor_frames
+    required_count: 3
+    actual_count: 3
+    status: pass
+  - metric_id: asset_provenance_completeness_percent
+    required_count: 90
+    actual_count: 100
+    status: pass
+  - metric_id: downstream_local_smoke_failures
+    required_count: 0
+    actual_count: 0
+    status: pass

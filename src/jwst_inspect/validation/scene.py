@@ -66,6 +66,8 @@ REQUIRED_RENDER_COLUMNS = (
 )
 
 THIN_SLICE_SCENE_TAG = "scene-proxy-thin-slice-v0.1"
+BETA_SCENE_TAG = "scene-beta-v0.2.0"
+VALID_SCENE_TAGS = {THIN_SLICE_SCENE_TAG, BETA_SCENE_TAG}
 THIN_SLICE_SEED = "31003"
 THIN_SLICE_CAMERA_IDS = {
     "mirror_inspection_fixed",
@@ -84,6 +86,11 @@ WEEK5_ANOMALY_CONFIG = Path("configs/anomalies/week5_anomaly_regions.yaml")
 WEEK5_SENSOR_FRAME_CONFIG = Path("configs/sensors/inspector_sensor_frames.yaml")
 WEEK5_COLLISION_PROXY_REPORT = Path("validation/reports/week5_collision_proxy_report.md")
 WEEK5_MATERIAL_STRESS_REPORT = Path("validation/reports/week5_material_stress_report.md")
+WEEK6_QA_INVENTORY = Path("validation/scene_beta/week6_qa_inventory.yaml")
+WEEK6_REFERENCE_FREEZE = Path("validation/reference_sets/week6_reference_freeze.yaml")
+WEEK6_BETA_RENDER_CONFIG = Path("configs/renderers/week6_beta_validation.yaml")
+WEEK6_SCENE_BETA_QA_REPORT = Path("validation/reports/week6_scene_beta_qa_report.md")
+WEEK6_VAST_SYNC_PLAN = Path("compute/week6_scene_beta_sync_plan.md")
 
 REQUIRED_COVERAGE_COLUMNS = (
     "coverage_patch",
@@ -156,6 +163,22 @@ WEEK5_REQUIRED_STRESS_COMBOS = {
     ("anomaly_test", "mixed_stress"),
 }
 
+WEEK6_REQUIRED_BETA_COMBOS = WEEK5_REQUIRED_STRESS_COMBOS
+
+REQUIRED_WEEK6_QA_METRICS = {
+    "required_prim_paths": 32,
+    "contract_label_ids": 10,
+    "semantic_object_labels": 9,
+    "task_regions": 3,
+    "safety_regions_and_collision_proxies": 6,
+    "coverage_cells": 40,
+    "material_variants": 4,
+    "lighting_variants": 4,
+    "sensor_frames": 3,
+    "asset_provenance_completeness_percent": 90,
+    "downstream_local_smoke_failures": 0,
+}
+
 REQUIRED_STRESS_MATRIX_COLUMNS = (
     "combo_id",
     "material_variant",
@@ -202,8 +225,44 @@ REQUIRED_COLLISION_PROXY_PATHS = {
     "/World/Safety/CollisionProxies/SunshieldProxy",
 }
 
+REQUIRED_BETA_PRIM_PATHS = (
+    "/World",
+    "/World/JWST",
+    "/World/JWST/Optics",
+    "/World/JWST/Optics/PrimaryMirror",
+    "/World/JWST/Optics/SecondaryMirror",
+    "/World/JWST/Sunshield",
+    "/World/JWST/Sunshield/OuterLayer",
+    "/World/JWST/Sunshield/EdgeBand",
+    "/World/JWST/Bus",
+    "/World/JWST/Antenna",
+    "/World/JWST/Truss",
+    "/World/JWST/Truss/SecondarySupportA",
+    "/World/JWST/Truss/SecondarySupportB",
+    "/World/Inspector",
+    "/World/Inspector/Body",
+    "/World/Inspector/SolarPanelLeft",
+    "/World/Inspector/SolarPanelRight",
+    "/World/Inspector/Sensors",
+    "/World/Inspector/Sensors/RGBCamera",
+    "/World/Inspector/Sensors/DepthCamera",
+    "/World/Inspector/Sensors/IMUFrame",
+    "/World/Safety",
+    "/World/Safety/Keepout",
+    "/World/Safety/StandoffShell",
+    "/World/Safety/ApproachCorridor",
+    "/World/Safety/CollisionProxies",
+    "/World/Safety/CollisionProxies/JWSTBusProxy",
+    "/World/Safety/CollisionProxies/SunshieldProxy",
+    "/World/Tasks",
+    "/World/Tasks/ApproachHoldStandoff",
+    "/World/Tasks/MirrorInspection",
+    "/World/Tasks/SunshieldSurvey",
+)
+
 REQUIRED_SCENE_TOKENS = (
-    "status: frozen_week2_contract_0_1",
+    "version: 0.2.0",
+    "status: frozen_week6_contract_0_2",
     "contract_freeze:",
     "scene_files:",
     "asset_strategy:",
@@ -215,10 +274,12 @@ REQUIRED_SCENE_TOKENS = (
     "task_guardrails:",
     "materials:",
     "validation:",
+    "scene_beta:",
     "thin_slice:",
     "coverage_surfaces:",
     "sparse_annotations:",
     "week5_stressors:",
+    "week6_reference_freeze:",
     "ship_gate:",
     "downstream_handoff:",
 )
@@ -472,6 +533,11 @@ def validate_render_manifest(path: Path | str) -> list[str]:
         for material_variant, lighting_variant in WEEK5_REQUIRED_STRESS_COMBOS
         for camera_id in THIN_SLICE_CAMERA_IDS
     }
+    week6_paired: dict[tuple[str, str, str], set[str]] = {
+        (material_variant, lighting_variant, camera_id): set()
+        for material_variant, lighting_variant in WEEK6_REQUIRED_BETA_COMBOS
+        for camera_id in THIN_SLICE_CAMERA_IDS
+    }
     seen_ids: set[str] = set()
     with manifest_path.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -488,8 +554,8 @@ def validate_render_manifest(path: Path | str) -> list[str]:
             seen_ids.add(render_id)
 
             scene_tag = row.get("scene_tag", "").strip()
-            if scene_tag != THIN_SLICE_SCENE_TAG:
-                errors.append(f"{manifest_path}:{index}: expected scene_tag {THIN_SLICE_SCENE_TAG!r}, found {scene_tag!r}")
+            if scene_tag not in VALID_SCENE_TAGS:
+                errors.append(f"{manifest_path}:{index}: expected scene_tag in {sorted(VALID_SCENE_TAGS)!r}, found {scene_tag!r}")
 
             seed = row.get("seed", "").strip()
             if seed != THIN_SLICE_SEED:
@@ -506,8 +572,8 @@ def validate_render_manifest(path: Path | str) -> list[str]:
                 paired[camera_id].add(renderer_mode)
 
             output_path = row.get("expected_output_path", "").strip()
-            if not output_path.startswith(("validation/renders/week3/", "validation/renders/week4/", "validation/renders/week5/")):
-                errors.append(f"{manifest_path}:{index}: expected_output_path must be under validation/renders/week3/, validation/renders/week4/, or validation/renders/week5/")
+            if not output_path.startswith(("validation/renders/week3/", "validation/renders/week4/", "validation/renders/week5/", "validation/renders/week6_beta/")):
+                errors.append(f"{manifest_path}:{index}: expected_output_path must be under validation/renders/week3/, validation/renders/week4/, validation/renders/week5/, or validation/renders/week6_beta/")
             elif output_path.startswith("validation/renders/week4/") and camera_id in week4_paired and renderer_mode in THIN_SLICE_RENDERER_MODES:
                 week4_paired[camera_id].add(renderer_mode)
             elif output_path.startswith("validation/renders/week5/") and renderer_mode in THIN_SLICE_RENDERER_MODES:
@@ -518,6 +584,16 @@ def validate_render_manifest(path: Path | str) -> list[str]:
                     errors.append(f"{manifest_path}:{index}: invalid Week 5 material/lighting combo {(material_variant, lighting_variant)!r}")
                 elif camera_id in THIN_SLICE_CAMERA_IDS:
                     week5_paired[stress_key].add(renderer_mode)
+            elif output_path.startswith("validation/renders/week6_beta/") and renderer_mode in THIN_SLICE_RENDERER_MODES:
+                material_variant = row.get("material_variant", "").strip()
+                lighting_variant = row.get("lighting_variant", "").strip()
+                beta_key = (material_variant, lighting_variant, camera_id)
+                if scene_tag != BETA_SCENE_TAG:
+                    errors.append(f"{manifest_path}:{index}: Week 6 beta rows must use scene_tag {BETA_SCENE_TAG!r}")
+                elif (material_variant, lighting_variant) not in WEEK6_REQUIRED_BETA_COMBOS:
+                    errors.append(f"{manifest_path}:{index}: invalid Week 6 beta material/lighting combo {(material_variant, lighting_variant)!r}")
+                elif camera_id in THIN_SLICE_CAMERA_IDS:
+                    week6_paired[beta_key].add(renderer_mode)
 
             status = row.get("status", "").strip()
             if status not in VALID_RENDER_STATUS:
@@ -537,6 +613,13 @@ def validate_render_manifest(path: Path | str) -> list[str]:
         if modes != THIN_SLICE_RENDERER_MODES:
             errors.append(
                 f"{manifest_path}: Week 5 combo {(material_variant, lighting_variant)!r} camera {camera_id!r} "
+                "must have paired rasterized and path_traced rows"
+            )
+
+    for (material_variant, lighting_variant, camera_id), modes in week6_paired.items():
+        if modes != THIN_SLICE_RENDERER_MODES:
+            errors.append(
+                f"{manifest_path}: Week 6 beta combo {(material_variant, lighting_variant)!r} camera {camera_id!r} "
                 "must have paired rasterized and path_traced rows"
             )
 
@@ -943,6 +1026,199 @@ def validate_week5_reports(root: Path | str = ".") -> list[str]:
     return errors
 
 
+def validate_week6_beta_render_config(path: Path | str) -> list[str]:
+    config_path = Path(path)
+    if not config_path.exists():
+        return [f"Missing Week 6 beta render config: {config_path}"]
+
+    errors: list[str] = []
+    rows = _parse_simple_yaml_list(config_path, "beta_render_matrix")
+    if not rows:
+        return [f"{config_path}: no beta_render_matrix rows found"]
+
+    seen_combos: set[tuple[str, str]] = set()
+    for index, row in enumerate(rows, start=1):
+        for column in ("matrix_id", "material_variant", "lighting_variant", "required_cameras", "required_renderer_modes", "status"):
+            if not row.get(column, "").strip():
+                errors.append(f"{config_path}: row {index} empty required field {column}")
+
+        material_variant = row.get("material_variant", "").strip()
+        lighting_variant = row.get("lighting_variant", "").strip()
+        combo = (material_variant, lighting_variant)
+        if combo in seen_combos:
+            errors.append(f"{config_path}: duplicate beta material/lighting combo {combo!r}")
+        seen_combos.add(combo)
+        if combo not in WEEK6_REQUIRED_BETA_COMBOS:
+            errors.append(f"{config_path}: row {index} unexpected beta material/lighting combo {combo!r}")
+
+        if _semicolon_set(row.get("required_cameras", "")) != THIN_SLICE_CAMERA_IDS:
+            errors.append(f"{config_path}: row {index} required_cameras must match fixed thin-slice cameras")
+        if _semicolon_set(row.get("required_renderer_modes", "")) != THIN_SLICE_RENDERER_MODES:
+            errors.append(f"{config_path}: row {index} required_renderer_modes must be rasterized and path_traced")
+        if row.get("status", "").strip() not in VALID_RENDER_STATUS:
+            errors.append(f"{config_path}: row {index} invalid status {row.get('status', '').strip()!r}")
+
+    missing_combos = sorted(WEEK6_REQUIRED_BETA_COMBOS - seen_combos)
+    if missing_combos:
+        errors.append(f"{config_path}: missing required Week 6 beta combos {missing_combos}")
+
+    text = _read_text(config_path)
+    for token in (
+        "scene_tag: scene-beta-v0.2.0",
+        "compatibility_alias: scene-proxy-thin-slice-v0.1",
+        "completed_rows_require_run_metadata: true",
+        "heldout_reference_tuning_allowed: false",
+    ):
+        if token not in text:
+            errors.append(f"{config_path}: missing guardrail token {token!r}")
+
+    return errors
+
+
+def validate_week6_scene_beta_qa(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    inventory_path = root_path / WEEK6_QA_INVENTORY
+    if not inventory_path.exists():
+        return [f"Missing Week 6 scene beta QA inventory: {inventory_path}"]
+
+    errors: list[str] = []
+    rows = _parse_simple_yaml_list(inventory_path, "qa_metrics")
+    if not rows:
+        return [f"{inventory_path}: no qa_metrics rows found"]
+
+    metrics: dict[str, tuple[int, int, str]] = {}
+    for index, row in enumerate(rows, start=1):
+        metric_id = row.get("metric_id", "").strip()
+        try:
+            required_count = int(row.get("required_count", "").strip())
+            actual_count = int(row.get("actual_count", "").strip())
+        except ValueError:
+            errors.append(f"{inventory_path}: row {index} required_count and actual_count must be integers")
+            continue
+        status = row.get("status", "").strip()
+        metrics[metric_id] = (required_count, actual_count, status)
+        if status != "pass":
+            errors.append(f"{inventory_path}: metric {metric_id!r} status must be pass")
+        if actual_count < required_count:
+            errors.append(f"{inventory_path}: metric {metric_id!r} actual_count {actual_count} below required_count {required_count}")
+
+    for metric_id, required_count in REQUIRED_WEEK6_QA_METRICS.items():
+        metric = metrics.get(metric_id)
+        if metric is None:
+            errors.append(f"{inventory_path}: missing required QA metric {metric_id!r}")
+            continue
+        reported_required, reported_actual, _status = metric
+        if reported_required != required_count:
+            errors.append(f"{inventory_path}: metric {metric_id!r} expected required_count {required_count}, found {reported_required}")
+        if metric_id == "downstream_local_smoke_failures" and reported_actual != 0:
+            errors.append(f"{inventory_path}: downstream_local_smoke_failures must be 0")
+
+    usd_text = "\n".join(_read_text(root_path / relative_path) for relative_path in REQUIRED_USD_FILES)
+    for prim_path in REQUIRED_BETA_PRIM_PATHS:
+        missing_components = [component for component in prim_path.split("/") if component and f'"{component}"' not in usd_text]
+        if missing_components:
+            errors.append(f"{inventory_path}: required prim path {prim_path!r} missing components {missing_components}")
+
+    return errors
+
+
+def validate_week6_reference_freeze(path: Path | str, reference_manifest_path: Path | str) -> list[str]:
+    freeze_path = Path(path)
+    if not freeze_path.exists():
+        return [f"Missing Week 6 reference freeze file: {freeze_path}"]
+    manifest_path = Path(reference_manifest_path)
+    if not manifest_path.exists():
+        return [f"Missing reference manifest: {manifest_path}"]
+
+    errors: list[str] = []
+    with manifest_path.open(newline="", encoding="utf-8") as f:
+        manifest_rows = {row.get("reference_id", "").strip(): row for row in csv.DictReader(f)}
+
+    rows = _parse_simple_yaml_list(freeze_path, "reference_sets")
+    if not rows:
+        return [f"{freeze_path}: no reference_sets rows found"]
+
+    frozen_dev: set[str] = set()
+    frozen_heldout: set[str] = set()
+    for index, row in enumerate(rows, start=1):
+        reference_id = row.get("reference_id", "").strip()
+        split = row.get("split", "").strip()
+        frozen = row.get("frozen", "").strip().lower()
+        if frozen != "true":
+            errors.append(f"{freeze_path}: row {index} frozen must be true")
+        manifest_row = manifest_rows.get(reference_id)
+        if manifest_row is None:
+            errors.append(f"{freeze_path}: row {index} unknown reference_id {reference_id!r}")
+            continue
+        if manifest_row.get("heldout_split", "").strip() != split:
+            errors.append(f"{freeze_path}: row {index} split mismatch for {reference_id!r}")
+        if manifest_row.get("annotation_status", "").strip() != "frozen":
+            errors.append(f"{freeze_path}: row {index} manifest annotation_status must be frozen for {reference_id!r}")
+        if manifest_row.get("excluded_from_training", "").strip().lower() != "true":
+            errors.append(f"{freeze_path}: row {index} reference {reference_id!r} must be excluded from training")
+        if split == "dev":
+            frozen_dev.add(reference_id)
+        elif split == "heldout":
+            frozen_heldout.add(reference_id)
+        else:
+            errors.append(f"{freeze_path}: row {index} split must be dev or heldout")
+
+    if len(frozen_dev) < 5:
+        errors.append(f"{freeze_path}: expected at least 5 frozen dev references, found {len(frozen_dev)}")
+    if len(frozen_heldout) != 5:
+        errors.append(f"{freeze_path}: expected exactly 5 frozen held-out references, found {len(frozen_heldout)}")
+
+    text = _read_text(freeze_path)
+    for token in (
+        "public_reference_training_use_allowed: false",
+        "heldout_reference_tuning_allowed: false",
+        "post_freeze_reference_changes_require_integration_council: true",
+    ):
+        if token not in text:
+            errors.append(f"{freeze_path}: missing guardrail token {token!r}")
+
+    return errors
+
+
+def validate_week6_reports(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    qa_report_path = root_path / WEEK6_SCENE_BETA_QA_REPORT
+    sync_plan_path = root_path / WEEK6_VAST_SYNC_PLAN
+    errors: list[str] = []
+
+    if not qa_report_path.exists():
+        errors.append(f"Missing Week 6 scene beta QA report: {qa_report_path}")
+    else:
+        qa_text = _read_text(qa_report_path)
+        qa_text_lower = qa_text.lower()
+        for token in (
+            "scene-beta-v0.2.0",
+            "Required prim paths | 32 | 32 | Pass",
+            "Asset provenance completeness percent | 90 | 100 | Pass",
+            "downstream local smoke failures",
+            "completed_render_rows_without_metadata: 0",
+            "heldout_reference_tuning_count: 0",
+            "generated_or_large_artifacts_committed: 0",
+        ):
+            if token.lower() not in qa_text_lower:
+                errors.append(f"{qa_report_path}: missing token {token!r}")
+
+    if not sync_plan_path.exists():
+        errors.append(f"Missing Week 6 Vast/sync plan: {sync_plan_path}")
+    else:
+        sync_text = _read_text(sync_plan_path)
+        for token in (
+            "configs/vast/x090_template.yaml",
+            "scene-beta-v0.2.0",
+            "configs/renderers/week6_beta_validation.yaml",
+            "No Week 6 render row may move to `completed`",
+        ):
+            if token not in sync_text:
+                errors.append(f"{sync_plan_path}: missing token {token!r}")
+
+    return errors
+
+
 def validate_scene_contract(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     contract_path = root_path / "contracts" / "scene_contract.yaml"
@@ -976,6 +1252,10 @@ def validate_scene_contract(root: Path | str = ".") -> list[str]:
             errors.append(f"{contract_path}: missing required path {required_path}")
 
     for guardrail in (
+        "status: frozen_week6_contract_0_2",
+        "gate: gate2_contract_freeze_0_2",
+        "breaking_change_policy: integration_council_approval_required",
+        "reference_set_change_policy: integration_council_approval_required",
         "unsafe_coverage_counts_for_score: false",
         "collision_proxy_changes_after_week6",
         "keepout_shrink_after_policy_training",
@@ -986,6 +1266,12 @@ def validate_scene_contract(root: Path | str = ".") -> list[str]:
         "large_downloads_tracked_in_git: false",
         "scene_tag: scene-proxy-thin-slice-v0.1",
         "fixed_seed: 31003",
+        "scene_tag: scene-beta-v0.2.0",
+        "compatibility_aliases:",
+        "qa_inventory: validation/scene_beta/week6_qa_inventory.yaml",
+        "reference_freeze: validation/reference_sets/week6_reference_freeze.yaml",
+        "beta_render_config: configs/renderers/week6_beta_validation.yaml",
+        "vast_sync_plan: compute/week6_scene_beta_sync_plan.md",
         "render_manifest: validation/render_manifest.csv",
         "vast_smoke:",
         "blocked_vast_required",
@@ -1001,6 +1287,8 @@ def validate_scene_contract(root: Path | str = ".") -> list[str]:
         "sensor_frame_config: configs/sensors/inspector_sensor_frames.yaml",
         "collision_proxy_shrinkage_allowed: false",
         "week5_material_lighting_anomaly_safety_sensor_gate",
+        "week6_scene_contract_0_2_beta_freeze",
+        "post_freeze_reference_changes_require_integration_council: true",
     ):
         if guardrail not in text:
             errors.append(f"{contract_path}: missing guardrail {guardrail!r}")
@@ -1070,5 +1358,9 @@ def validate_scene_package(root: Path | str = ".") -> list[str]:
     errors.extend(validate_anomaly_regions(root_path / WEEK5_ANOMALY_CONFIG))
     errors.extend(validate_sensor_frame_config(root_path / WEEK5_SENSOR_FRAME_CONFIG, root_path))
     errors.extend(validate_week5_reports(root_path))
+    errors.extend(validate_week6_beta_render_config(root_path / WEEK6_BETA_RENDER_CONFIG))
+    errors.extend(validate_week6_scene_beta_qa(root_path))
+    errors.extend(validate_week6_reference_freeze(root_path / WEEK6_REFERENCE_FREEZE, root_path / "validation" / "reference_manifest.csv"))
+    errors.extend(validate_week6_reports(root_path))
     errors.extend(validate_usd_proxy_layers(root_path))
     return errors

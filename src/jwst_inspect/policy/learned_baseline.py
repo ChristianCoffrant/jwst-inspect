@@ -8,8 +8,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
-import yaml
-
+from jwst_inspect.contracts import load_contract_yaml
 from jwst_inspect.evaluation.rollout_io import load_rollout_json, write_json_report
 from jwst_inspect.evaluation.sunshield_survey import evaluate_sunshield_survey
 from jwst_inspect.policy.proxy_env import (
@@ -44,8 +43,7 @@ class TrainingExample:
 
 
 def _load_yaml(path: Path) -> dict[str, Any]:
-    with path.open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle)
+    data = load_contract_yaml(path)
     if not isinstance(data, dict):
         raise ValueError(f"{path}: expected YAML mapping")
     return data

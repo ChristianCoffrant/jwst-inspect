@@ -1,11 +1,12 @@
-version: 0.1.0
-status: frozen_week2_contract_0_1
+version: 0.2.0
+status: frozen_week6_contract_0_2
 contract_freeze:
-  gate: gate1_contract_freeze_0_1
-  date: 2026-06-26
+  gate: gate2_contract_freeze_0_2
+  date: 2026-06-27
   owner: team1_scene_qa_integration_lead
   downstream_adaptation_window_hours: 48
-  breaking_change_policy: changelog_and_integration_review_required
+  breaking_change_policy: integration_council_approval_required
+  reference_set_change_policy: integration_council_approval_required
 units:
   meters_per_unit: 1.0
 frames:
@@ -88,7 +89,7 @@ semantic_guardrails:
   unknown_label_ids_allowed: false
   required_task_region_label_coverage_min: 0.90
   current_proxy_task_region_label_coverage: 1.00
-  label_ids_frozen_until: contract_0_2_review
+  label_ids_frozen_until: integration_council_approval
 task_guardrails:
   coverage_cell_resize_after_policy_training: prohibited_without_bug_record
   coverage_cell_removal_after_week2: requires_contract_changelog
@@ -121,7 +122,21 @@ validation:
     - python scripts/validate_scene.py
     - python scripts/validate_reference_manifest.py
     - python scripts/validate_run_registry.py
+    - python scripts/validate_dataset.py
     - python scripts/e2e_local_smoke.py
+scene_beta:
+  scene_tag: scene-beta-v0.2.0
+  compatibility_aliases:
+    - scene-proxy-thin-slice-v0.1
+  qa_inventory: validation/scene_beta/week6_qa_inventory.yaml
+  qa_report: validation/reports/week6_scene_beta_qa_report.md
+  reference_freeze: validation/reference_sets/week6_reference_freeze.yaml
+  beta_render_config: configs/renderers/week6_beta_validation.yaml
+  vast_sync_plan: compute/week6_scene_beta_sync_plan.md
+  post_freeze_guardrails:
+    breaking_scene_contract_changes_require_integration_council: true
+    reference_set_changes_require_integration_council: true
+    label_task_safety_path_renames_allowed: false
 thin_slice:
   scene_tag: scene-proxy-thin-slice-v0.1
   fixed_seed: 31003
@@ -193,6 +208,14 @@ week5_stressors:
     material_or_lighting_tuning_to_heldout_references_allowed: false
     collision_proxy_shrinkage_allowed: false
     sensor_path_renames_after_week2: prohibited_without_integration_review
+week6_reference_freeze:
+  frozen_reference_set: validation/reference_sets/week6_reference_freeze.yaml
+  frozen_dev_reference_min: 5
+  frozen_heldout_reference_count: 5
+  guardrails:
+    public_reference_training_use_allowed: false
+    heldout_reference_tuning_allowed: false
+    post_freeze_reference_changes_require_integration_council: true
 ship_gate:
   week2_contract_freeze_0_1:
     required:
@@ -239,6 +262,22 @@ ship_gate:
       - sensor_frame_validation_passes_for_rgb_depth_imu
       - label_task_region_and_coverage_patch_renames_equal_zero
       - public_reference_training_or_tuning_use_equal_zero
+      - no_large_or_generated_assets_committed
+      - all_local_validators_pass
+  week6_scene_contract_0_2_beta_freeze:
+    required:
+      - scene_contract_version_0_2_0
+      - scene_contract_status_frozen_week6_contract_0_2
+      - beta_scene_tag_declared
+      - required_prim_path_validation_32_of_32
+      - required_label_validation_10_of_10
+      - required_safety_and_task_region_validation_complete
+      - asset_provenance_completeness_at_or_above_90_percent
+      - dev_and_heldout_reference_sets_frozen
+      - week6_beta_render_manifest_has_24_rows
+      - render_rows_do_not_claim_completion_without_artifacts
+      - downstream_local_smoke_failures_equal_zero
+      - post_freeze_change_policies_declared
       - no_large_or_generated_assets_committed
       - all_local_validators_pass
 downstream_handoff:

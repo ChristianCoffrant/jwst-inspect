@@ -5,8 +5,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 from jwst_inspect.evaluation.rollout_io import load_rollout_json, score_rollout_file, write_json_report
 from jwst_inspect.policy.learned_baseline import (
     StateBCPolicy,

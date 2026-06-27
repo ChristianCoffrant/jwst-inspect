@@ -1,0 +1,39 @@
+version: 0.2.0
+freeze_id: week6_reference_freeze_0_2
+freeze_date: 2026-06-27
+owner: team1_reference_validation_lead
+guardrails:
+  public_reference_training_use_allowed: false
+  heldout_reference_tuning_allowed: false
+  post_freeze_reference_changes_require_integration_council: true
+reference_sets:
+  - reference_id: ref_week3_primary_mirror_check
+    split: dev
+    frozen: true
+  - reference_id: ref_week3_secondary_mirror_check
+    split: dev
+    frozen: true
+  - reference_id: ref_week3_sunshield_check
+    split: dev
+    frozen: true
+  - reference_id: ref_week3_bus_check
+    split: dev
+    frozen: true
+  - reference_id: ref_week3_truss_check
+    split: dev
+    frozen: true
+  - reference_id: ref_week6_heldout_deployment_overview
+    split: heldout
+    frozen: true
+  - reference_id: ref_week6_heldout_mirror_alignment
+    split: heldout
+    frozen: true
+  - reference_id: ref_week6_heldout_sunshield_deployment
+    split: heldout
+    frozen: true
+  - reference_id: ref_week6_heldout_spacecraft_cleanroom
+    split: heldout
+    frozen: true
+  - reference_id: ref_week6_heldout_full_spacecraft_context
+    split: heldout
+    frozen: true
