@@ -1,0 +1,82 @@
+version: 0.1.0
+experiment_id: week11_release_package
+owner: team3_autonomous_inspection
+status: completed_paid_visual_rerun_with_renderer_blocker
+week10_final_results_config: configs/experiments/week10_final_results_lock.yaml
+week10_output_dir: runs/week10_final_results_lock
+output_dir: runs/week11_release_package
+gpu_run_registry: compute/gpu_run_registry.csv
+cost_log: compute/cost_log.csv
+scene_tag: scene-final-v1.0.0
+dataset_tag: week8-final-data-v1.0.0
+source_run_id: week10_team3_final_policy_isaac_42896511_20260627
+max_spend_usd: 10.0
+expected_policy_rows: 48
+expected_r2p_rows: 24
+expected_visual_episode_count: 3
+selected_visual_episodes:
+  - clip_id: clip01_nominal_scripted_approach
+    episode_id: week10_nominal_clean_approach_hold_standoff_scripted_baseline_rasterized
+    task_name: approach_hold_standoff
+    condition_id: nominal_clean
+    policy_id: scripted_baseline
+    renderer_mode: rasterized
+    rationale: nominal scripted success baseline
+  - clip_id: clip02_anomaly_learned_sunshield
+    episode_id: week10_anomaly_mixed_stress_sunshield_survey_learned_state_bc_v0_1_path_traced
+    task_name: sunshield_survey
+    condition_id: anomaly_mixed_stress
+    policy_id: learned_state_bc_v0_1
+    renderer_mode: path_traced
+    rationale: learned policy high R2P and metric-threshold stress case
+  - clip_id: clip03_anomaly_scripted_mirror
+    episode_id: week10_anomaly_mixed_stress_mirror_inspection_scripted_baseline_path_traced
+    task_name: mirror_inspection
+    condition_id: anomaly_mixed_stress
+    policy_id: scripted_baseline
+    renderer_mode: path_traced
+    rationale: scripted mirror high R2P stress case
+visual_attempt:
+  run_id: week11_team3_visual_rerun_42901494_20260627
+  execution_status: failed
+  actual_paid_instance_launched: true
+  registry_status: failed_official
+  artifact_sync_status: synced
+  visual_artifact_status: blocker_documented
+  instance_id: 42901494
+  start_time_utc: 2026-06-27T20:46:55Z
+  end_time_utc: 2026-06-27T21:35:28Z
+  output_subdir: video_attempt
+  active_vast_instances_after_run: 0
+  cost_usd: 0.3911
+  runtime_minutes: 48.55
+  hourly_price_usd: 0.483333
+  gpu_model: NVIDIA GeForce RTX 4090
+  gpu_vram_gb: 24
+  driver_version: 560.35.03
+  render_runner: isaac_env/scripts/render_week11_video_episodes.py
+  render_backend: isaac_sim_viewport_capture
+  blocker_reason: Paid Isaac Sim viewport render on Vast instance 42901494 reached app ready, then crashed in gpu.foundation/scenerenderer RTX before frame capture.
+  evidence_log_path: runs/week11_release_package/evidence/vast_stdout_stderr_visual_render.log
+paper_outputs:
+  paper_policy_score_summary: paper_policy_score_summary.csv
+  paper_r2p_summary: paper_r2p_summary.csv
+  paper_failure_summary: paper_failure_summary.csv
+  claim_evidence_matrix: claim_evidence_matrix.csv
+  video_storyboard: video_storyboard.csv
+  plot_manifest: plot_manifest.json
+  release_summary: week11_release_summary.json
+guardrails:
+  metric_weight_changes_after_freeze_allowed: false
+  final_result_mutation_allowed: false
+  manual_metrics_edit_allowed: false
+  ad_hoc_notebook_results_allowed: false
+  untraced_claims_allowed: false
+  untraced_storyboard_clips_allowed: false
+  cherry_picked_unlogged_video_allowed: false
+  unsupported_learned_mirror_hidden_allowed: false
+  generated_large_artifacts_committed: false
+  official_gpu_run_requires_registry_metadata: true
+  official_gpu_run_requires_synced_artifacts: true
+  final_heldout_seed_tuning_allowed: false
+  safety_metrics_disable_allowed: false
