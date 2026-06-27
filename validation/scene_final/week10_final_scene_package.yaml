@@ -1,0 +1,117 @@
+version: 1.0.0
+gate_status: passed
+scene_final_tag: scene-final-v1.0.0
+final_scene_version_identifier: scene-final-v1.0.0+week10-lock
+source_manifest: assets/source_manifest.csv
+source_manifest_status: locked
+source_manifest_completeness_percent: 100
+total_source_rows: 6
+reviewed_source_rows: 6
+planned_source_rows: 0
+external_training_use_allowed_count: 0
+unreviewed_asset_changes: 0
+final_scene_qa_report: validation/reports/week10_final_scene_qa_report.md
+benchmark_card: docs/benchmark_card.md
+known_deviations_documented: true
+no_new_scene_geometry: true
+final_results_locked: true
+plots_tables_regenerate_from_stored_artifacts: true
+hashed_package_file_count: 23
+scene_package:
+  root_scene: usd/jwst_inspect_root.usd
+  layers:
+    - usd/layers/geometry.usd
+    - usd/layers/materials.usd
+    - usd/layers/semantics.usd
+    - usd/layers/sensors.usd
+    - usd/layers/safety_zones.usd
+    - usd/layers/tasks.usd
+    - usd/layers/lighting_variants.usd
+prior_gates:
+  week8_final_render_gate: validation/scene_final/week8_final_render_gate.yaml
+  week9_final_evaluation_gate: validation/scene_final/week9_final_evaluation_gate.yaml
+guardrail_metrics:
+  label_id_renames: 0
+  task_region_id_renames: 0
+  safety_path_renames: 0
+  safety_boundary_shrink_count: 0
+  camera_frame_renames: 0
+  material_variant_renames: 0
+  lighting_variant_renames: 0
+  scene_geometry_changes: 0
+  coverage_region_changes_for_metric_improvement: 0
+  metric_definition_changes: 0
+  public_reference_training_use_count: 0
+  heldout_reference_tuning_count: 0
+  generated_or_large_artifacts_committed: 0
+  fabricated_gpu_render_outputs: 0
+package_files:
+  - path: contracts/scene_contract.yaml
+    role: final_scene_contract
+    sha256: 649897ec70aab5a04716189104ab8e00eb840c94b85f62469f94185a2ef1a16c
+  - path: assets/source_manifest.csv
+    role: final_source_manifest
+    sha256: 214d74912d75411a6fb40f2fdf6ed2393ccdbbe486ac13abbc6e1690a1e250f9
+  - path: assets/jwst/component_mapping.csv
+    role: component_mapping
+    sha256: 8af2b70fef7e658dddc5139c2401472ea80b359759d8d7c221e71d88e75bb777
+  - path: usd/jwst_inspect_root.usd
+    role: root_usd_scene
+    sha256: edfe99357b91c44d6985ed227cd7448e9bed8622a97442c0a7c367abd4a8170d
+  - path: usd/layers/geometry.usd
+    role: usd_layer
+    sha256: 4436f82af505112832233af81c483f15b1e37cfbef954c7815450e3d66309242
+  - path: usd/layers/materials.usd
+    role: usd_layer
+    sha256: 7be3a05a8915ffb54fa8aa5718d7af65d476f4d0f771b897e34606b24a33ffbe
+  - path: usd/layers/semantics.usd
+    role: usd_layer
+    sha256: 3b61ee4159f2b286e67fd07424fe7eca696de8708736e8cf3dbdc995f41dd377
+  - path: usd/layers/sensors.usd
+    role: usd_layer
+    sha256: 3e9868b80db0b59a8f2ef5a43d13cab589dad91e9eab270a955a71a77ed978c0
+  - path: usd/layers/safety_zones.usd
+    role: usd_layer
+    sha256: a19ce78a3ba03e22f7f9abf7003753daa8c5bad6ef74dafc977acbc8a2e9ebc2
+  - path: usd/layers/tasks.usd
+    role: usd_layer
+    sha256: 1c4b0b685aacef30205fb1218fe88d3a0b13d51f21c99014129556ef801cf842
+  - path: usd/layers/lighting_variants.usd
+    role: usd_layer
+    sha256: 84e736b7370d10bac845e5d96b93fc2ba1c6a6a67fd4bee9e33086b10eb9e4cc
+  - path: configs/materials/material_variants.yaml
+    role: material_variant_catalog
+    sha256: 76f07e3d8a64dcacddf89b67004a5ba6871fe646a1faf7944fb59936bef515e0
+  - path: configs/lighting/lighting_variants.yaml
+    role: lighting_variant_catalog
+    sha256: 9d4521abc5c04114638c366fbf8e8c938ace421b59afc7d17fb9ca713f9d5f73
+  - path: configs/renderers/week8_final_validation.yaml
+    role: week8_final_render_config
+    sha256: 5c9fdefa5ddb7a6ddc2ea49e8bf94f778a94f6c01d28275590dc384c9b63b8ab
+  - path: configs/renderers/week9_final_evaluation_support.yaml
+    role: week9_final_evaluation_config
+    sha256: b8df026e26eeb260a04fa8e8b7ea70d6dcfd82f74aa7b26e0139934e10dc1ad3
+  - path: validation/scene_final/week8_scene_contract_freeze.yaml
+    role: week8_scene_freeze
+    sha256: 0b5d3cf97c9c5c316c39cefca782936a6560253bfdf4db6ed4fc3ed0843484a4
+  - path: validation/scene_final/week8_final_render_gate.yaml
+    role: week8_final_render_gate
+    sha256: d914019c0cb1c44f995ab7274bd4d756e6d0dba74c41712314637cd081a2cc6d
+  - path: validation/scene_final/week9_final_evaluation_gate.yaml
+    role: week9_final_evaluation_gate
+    sha256: d1117ca34e48465c48bf3171f1e079b85da0cd9204297e7b7016ef5ee3744c72
+  - path: validation/reports/week8_scene_final_qa_report.md
+    role: week8_scene_final_qa_report
+    sha256: 53ee08a82476b132ffc77e833cfeb32ab498206c02a33e57867ab5e34986d8bd
+  - path: validation/reports/week9_final_evaluation_support_report.md
+    role: week9_final_evaluation_support_report
+    sha256: e63874306d5ed130d64a687f6eef883befb31b6787a2f1219ce58100e0454437
+  - path: validation/reports/week10_final_scene_qa_report.md
+    role: week10_final_scene_qa_report
+    sha256: e8b3cfcaa80a6ecee61c0eff44cae5980724e9431fb1440fef90cf60c6299bd0
+  - path: validation/reports/reference_validation_report.md
+    role: reference_validation_report
+    sha256: dd739b6a9a324e659577bbee9aac568a44687d851c017c6a663fa8b08fdfb85f
+  - path: docs/benchmark_card.md
+    role: benchmark_card
+    sha256: 27650439b6d40b694fe7437cb67d8818a9da8927db445eeaa51e06ae6184ef20

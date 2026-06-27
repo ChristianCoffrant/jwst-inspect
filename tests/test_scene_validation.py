@@ -35,6 +35,9 @@ from jwst_inspect.validation.scene import (
     validate_week9_final_evaluation_config,
     validate_week9_release_notes,
     validate_week9_reports,
+    validate_week10_final_scene_package,
+    validate_week10_reports,
+    validate_week10_scene_lock,
 )
 
 
@@ -140,6 +143,15 @@ class SceneValidationTests(unittest.TestCase):
 
     def test_week9_reports_record_final_evaluation_support_guardrails(self):
         self.assertEqual(validate_week9_reports(ROOT), [])
+
+    def test_week10_final_scene_package_locks_source_and_hashes(self):
+        self.assertEqual(validate_week10_final_scene_package(ROOT), [])
+
+    def test_week10_reports_record_final_scene_lock_guardrails(self):
+        self.assertEqual(validate_week10_reports(ROOT), [])
+
+    def test_week10_scene_lock_aggregate_passes(self):
+        self.assertEqual(validate_week10_scene_lock(ROOT), [])
 
     def test_proxy_usd_layers_have_required_contract_tokens(self):
         self.assertEqual(validate_usd_proxy_layers(ROOT), [])

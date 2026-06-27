@@ -109,6 +109,8 @@ WEEK9_FINAL_EVALUATION_CONFIG = Path("configs/renderers/week9_final_evaluation_s
 WEEK9_FINAL_EVALUATION_GATE = Path("validation/scene_final/week9_final_evaluation_gate.yaml")
 WEEK9_SCENE_RELEASE_NOTES = Path("validation/scene_final/week9_scene_release_notes.md")
 WEEK9_FINAL_EVALUATION_REPORT = Path("validation/reports/week9_final_evaluation_support_report.md")
+WEEK10_FINAL_SCENE_PACKAGE = Path("validation/scene_final/week10_final_scene_package.yaml")
+WEEK10_FINAL_SCENE_QA_REPORT = Path("validation/reports/week10_final_scene_qa_report.md")
 
 REQUIRED_COVERAGE_COLUMNS = (
     "coverage_patch",
@@ -233,6 +235,32 @@ REQUIRED_WEEK8_FINAL_INVARIANTS = {
     "public_reference_training_use_count": 0,
     "heldout_reference_tuning_count": 0,
     "generated_or_large_artifacts_committed": 0,
+}
+
+REQUIRED_WEEK10_PACKAGE_FILES = {
+    "contracts/scene_contract.yaml",
+    "assets/source_manifest.csv",
+    "assets/jwst/component_mapping.csv",
+    "usd/jwst_inspect_root.usd",
+    "usd/layers/geometry.usd",
+    "usd/layers/materials.usd",
+    "usd/layers/semantics.usd",
+    "usd/layers/sensors.usd",
+    "usd/layers/safety_zones.usd",
+    "usd/layers/tasks.usd",
+    "usd/layers/lighting_variants.usd",
+    "configs/materials/material_variants.yaml",
+    "configs/lighting/lighting_variants.yaml",
+    "configs/renderers/week8_final_validation.yaml",
+    "configs/renderers/week9_final_evaluation_support.yaml",
+    "validation/scene_final/week8_scene_contract_freeze.yaml",
+    "validation/scene_final/week8_final_render_gate.yaml",
+    "validation/scene_final/week9_final_evaluation_gate.yaml",
+    "validation/reports/week8_scene_final_qa_report.md",
+    "validation/reports/week9_final_evaluation_support_report.md",
+    "validation/reports/week10_final_scene_qa_report.md",
+    "validation/reports/reference_validation_report.md",
+    "docs/benchmark_card.md",
 }
 VALID_WEEK8_RENDER_GATE_STATUS = {"pending_gpu_run", "passed"}
 VALID_WEEK9_EVALUATION_GATE_STATUS = {"pending_gpu_run", "passed"}
@@ -2178,6 +2206,209 @@ def validate_week9_evaluation_support_artifacts(root: Path | str = ".") -> list[
     return errors
 
 
+def _source_manifest_lock_counts(path: Path) -> tuple[dict[str, int], list[str]]:
+    counts = {
+        "total_source_rows": 0,
+        "reviewed_source_rows": 0,
+        "planned_source_rows": 0,
+        "external_training_use_allowed_count": 0,
+        "unreviewed_asset_changes": 0,
+    }
+    if not path.exists():
+        return counts, [f"Missing source manifest: {path}"]
+
+    with path.open(newline="", encoding="utf-8") as handle:
+        reader = csv.DictReader(handle)
+        for row in reader:
+            counts["total_source_rows"] += 1
+            if row.get("reviewer", "").strip():
+                counts["reviewed_source_rows"] += 1
+            else:
+                counts["unreviewed_asset_changes"] += 1
+            if row.get("status", "").strip() == "planned":
+                counts["planned_source_rows"] += 1
+            if row.get("source_url", "").strip().startswith("http") and row.get("training_use", "").strip() != "prohibited":
+                counts["external_training_use_allowed_count"] += 1
+
+    return counts, []
+
+
+def validate_week10_final_scene_package(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    package_path = root_path / WEEK10_FINAL_SCENE_PACKAGE
+    if not package_path.exists():
+        return [f"Missing Week 10 final scene package manifest: {package_path}"]
+
+    errors: list[str] = []
+    package = load_contract_yaml(package_path)
+    for key, expected in (
+        ("version", "1.0.0"),
+        ("gate_status", "passed"),
+        ("scene_final_tag", FINAL_SCENE_TAG),
+        ("final_scene_version_identifier", "scene-final-v1.0.0+week10-lock"),
+        ("source_manifest", "assets/source_manifest.csv"),
+        ("source_manifest_status", "locked"),
+        ("final_scene_qa_report", "validation/reports/week10_final_scene_qa_report.md"),
+        ("benchmark_card", "docs/benchmark_card.md"),
+    ):
+        if package.get(key) != expected:
+            errors.append(f"{package_path}: {key} must be {expected!r}")
+
+    for key in (
+        "known_deviations_documented",
+        "no_new_scene_geometry",
+        "final_results_locked",
+        "plots_tables_regenerate_from_stored_artifacts",
+    ):
+        if package.get(key) is not True:
+            errors.append(f"{package_path}: {key} must be true")
+
+    source_path = root_path / str(package.get("source_manifest", ""))
+    errors.extend(validate_source_manifest(source_path))
+    counts, count_errors = _source_manifest_lock_counts(source_path)
+    errors.extend(count_errors)
+    expected_counts = {
+        "source_manifest_completeness_percent": 100,
+        "reviewed_source_rows": counts["total_source_rows"],
+        "planned_source_rows": 0,
+        "external_training_use_allowed_count": 0,
+        "unreviewed_asset_changes": 0,
+    }
+    for key, expected in expected_counts.items():
+        if int(package.get(key, -1)) != expected:
+            errors.append(f"{package_path}: {key} must be {expected}")
+    if int(package.get("total_source_rows", -1)) != counts["total_source_rows"]:
+        errors.append(f"{package_path}: total_source_rows must be {counts['total_source_rows']}")
+    if int(package.get("reviewed_source_rows", -1)) != counts["reviewed_source_rows"]:
+        errors.append(f"{package_path}: reviewed_source_rows must be {counts['reviewed_source_rows']}")
+    if counts["planned_source_rows"] != 0:
+        errors.append(f"{source_path}: planned source rows remain after Week 10 lock")
+    if counts["external_training_use_allowed_count"] != 0:
+        errors.append(f"{source_path}: external source rows must remain prohibited from training")
+    if counts["unreviewed_asset_changes"] != 0:
+        errors.append(f"{source_path}: all source rows must have reviewer before Week 10 lock")
+
+    scene_package = _as_mapping(package.get("scene_package"))
+    if scene_package.get("root_scene") != "usd/jwst_inspect_root.usd":
+        errors.append(f"{package_path}: scene_package.root_scene must be usd/jwst_inspect_root.usd")
+    if set(str(path) for path in _as_list(scene_package.get("layers"))) != {
+        "usd/layers/geometry.usd",
+        "usd/layers/materials.usd",
+        "usd/layers/semantics.usd",
+        "usd/layers/sensors.usd",
+        "usd/layers/safety_zones.usd",
+        "usd/layers/tasks.usd",
+        "usd/layers/lighting_variants.usd",
+    }:
+        errors.append(f"{package_path}: scene_package.layers must list the final USD layers")
+
+    prior_gates = _as_mapping(package.get("prior_gates"))
+    for gate_key, expected_path in (
+        ("week8_final_render_gate", "validation/scene_final/week8_final_render_gate.yaml"),
+        ("week9_final_evaluation_gate", "validation/scene_final/week9_final_evaluation_gate.yaml"),
+    ):
+        if prior_gates.get(gate_key) != expected_path:
+            errors.append(f"{package_path}: prior_gates.{gate_key} must be {expected_path!r}")
+            continue
+        gate_path = root_path / expected_path
+        gate = load_contract_yaml(gate_path)
+        if gate.get("gate_status") != "passed":
+            errors.append(f"{gate_path}: gate_status must remain passed for Week 10 lock")
+        if gate.get("artifact_sync_status") != "synced":
+            errors.append(f"{gate_path}: artifact_sync_status must remain synced for Week 10 lock")
+
+    guardrails = _as_mapping(package.get("guardrail_metrics"))
+    for key in (
+        "label_id_renames",
+        "task_region_id_renames",
+        "safety_path_renames",
+        "safety_boundary_shrink_count",
+        "camera_frame_renames",
+        "material_variant_renames",
+        "lighting_variant_renames",
+        "scene_geometry_changes",
+        "coverage_region_changes_for_metric_improvement",
+        "metric_definition_changes",
+        "public_reference_training_use_count",
+        "heldout_reference_tuning_count",
+        "generated_or_large_artifacts_committed",
+        "fabricated_gpu_render_outputs",
+    ):
+        if int(guardrails.get(key, -1)) != 0:
+            errors.append(f"{package_path}: guardrail_metrics.{key} must be 0")
+
+    package_files = [_as_mapping(row) for row in _as_list(package.get("package_files"))]
+    package_file_paths = {str(row.get("path", "")).strip() for row in package_files}
+    if package_file_paths != REQUIRED_WEEK10_PACKAGE_FILES:
+        missing = sorted(REQUIRED_WEEK10_PACKAGE_FILES - package_file_paths)
+        extra = sorted(package_file_paths - REQUIRED_WEEK10_PACKAGE_FILES)
+        errors.append(f"{package_path}: package_files mismatch; missing={missing}, extra={extra}")
+    if int(package.get("hashed_package_file_count", -1)) != len(REQUIRED_WEEK10_PACKAGE_FILES):
+        errors.append(f"{package_path}: hashed_package_file_count must be {len(REQUIRED_WEEK10_PACKAGE_FILES)}")
+
+    for index, row in enumerate(package_files, start=1):
+        rel_path = str(row.get("path", "")).strip()
+        digest = str(row.get("sha256", "")).strip()
+        if len(digest) != 64:
+            errors.append(f"{package_path}: package file row {index} sha256 must be a SHA-256 hex digest")
+            continue
+        file_path = root_path / rel_path
+        if not file_path.exists():
+            errors.append(f"Missing Week 10 package file: {file_path}")
+            continue
+        if _file_sha256(file_path) != digest:
+            errors.append(f"{file_path}: SHA-256 does not match Week 10 package manifest")
+
+    return errors
+
+
+def validate_week10_reports(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    report_path = root_path / WEEK10_FINAL_SCENE_QA_REPORT
+    benchmark_path = root_path / "docs" / "benchmark_card.md"
+    errors: list[str] = []
+    if not report_path.exists():
+        errors.append(f"Missing Week 10 final scene QA report: {report_path}")
+    else:
+        report_text = _read_text(report_path).lower()
+        for token in (
+            "scene-final-v1.0.0",
+            "source manifest completeness percent",
+            "required prims present percent",
+            "known deviations from real jwst",
+            "generated or large artifacts committed",
+            "week8_final_vast_42853129_20260627",
+            "week9_final_vast_42878885_20260627",
+            "no unreviewed asset changes remain",
+        ):
+            if token.lower() not in report_text:
+                errors.append(f"{report_path}: missing token {token!r}")
+
+    if not benchmark_path.exists():
+        errors.append(f"Missing benchmark card: {benchmark_path}")
+    else:
+        benchmark_text = _read_text(benchmark_path).lower()
+        for token in (
+            "1.0.0 week 10 final scene package lock",
+            "scene-final-v1.0.0",
+            "week 10 locks the final scene package",
+            "benchmark-oriented proxy",
+            "known deviations",
+        ):
+            if token.lower() not in benchmark_text:
+                errors.append(f"{benchmark_path}: missing token {token!r}")
+
+    return errors
+
+
+def validate_week10_scene_lock(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    errors: list[str] = []
+    errors.extend(validate_week10_final_scene_package(root_path))
+    errors.extend(validate_week10_reports(root_path))
+    return errors
+
+
 def validate_scene_contract(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     contract_path = root_path / "contracts" / "scene_contract.yaml"
@@ -2342,5 +2573,6 @@ def validate_scene_package(root: Path | str = ".") -> list[str]:
     errors.extend(validate_week9_evaluation_gate(root_path))
     errors.extend(validate_week9_release_notes(root_path))
     errors.extend(validate_week9_reports(root_path))
+    errors.extend(validate_week10_scene_lock(root_path))
     errors.extend(validate_usd_proxy_layers(root_path))
     return errors

@@ -14,11 +14,11 @@ Not a flight-certified JWST simulator. Not a real anomaly diagnosis system.
 
 ## Version
 
-0.2.1 Week 7 scene release candidate metadata.
+1.0.0 Week 10 final scene package lock.
 
 ## Scene Scope
 
-The current Workstream 1 scene is a proxy OpenUSD scene for contract validation and downstream integration. It defines stable paths, labels, safety regions, task regions, sensor frames, material variant names, and explicit proxy coverage cells.
+The Workstream 1 scene is locked as `scene-final-v1.0.0` for final benchmark use. It is a benchmark-oriented proxy OpenUSD scene for contract validation, synthetic data generation, and downstream inspection-policy evaluation. It defines stable paths, labels, safety regions, task regions, sensor frames, material variant names, lighting variants, and explicit proxy coverage cells.
 
 Week 3 adds the scene tag `scene-proxy-thin-slice-v0.1`, fixed seed `31003`, fixed validation camera IDs, task aliases, and a render manifest for paired rasterized/path-traced validation attempts.
 
@@ -30,13 +30,20 @@ Week 6 freezes scene contract `0.2.0` and scene beta tag `scene-beta-v0.2.0`. It
 
 Week 7 adds scene release candidate tag `scene-rc-v0.2.1`. It records downstream triage for Team 2 and Team 3, freezes release-candidate invariants, and documents standard-view performance profile blockers without changing the Week 6 contract-facing IDs.
 
-It does not claim geometric or radiometric fidelity to JWST. The selected public NASA JWST GLB source is recorded for later conversion, but the current benchmark scene remains a proxy fallback until imported geometry can be mapped without breaking the contract.
+Week 8 freezes final scene tag `scene-final-v1.0.0`, records the final scene contract freeze, and attaches the x090-class Isaac Sim render evidence used for the final scene package.
+
+Week 9 supports final evaluation run 1 with four stress conditions, three fixed cameras, and paired rasterized/path-traced renderer modes. The synced gate evidence records 24 rendered views and one contact sheet.
+
+Week 10 locks the final scene package, source manifest, and final scene QA report. It does not introduce new geometry, labels, task regions, safety regions, material variants, or lighting variants.
+
+Known deviations from real JWST are intentional and documented for final evaluation. The scene does not claim geometric or radiometric fidelity to JWST. The selected public NASA JWST GLB source is recorded for provenance, but the final benchmark scene remains a proxy fallback because imported geometry was not component-mapped without breaking the frozen contract paths.
 
 Public JWST references are tracked for validation and reporting only and are excluded from training.
 
 ## Current Guardrails
 
-- Asset provenance is tracked in `assets/source_manifest.csv`.
+- Final scene package lock is tracked in `validation/scene_final/week10_final_scene_package.yaml`.
+- Asset provenance is tracked in `assets/source_manifest.csv`; Week 10 requires reviewed final disposition for every row.
 - Public references are tracked in `validation/reference_manifest.csv` and marked excluded from training.
 - Safety regions and task regions are declared in `contracts/scene_contract.yaml`.
 - Local contract health is checked by `python scripts/e2e_local_smoke.py`.
@@ -52,3 +59,4 @@ Public JWST references are tracked for validation and reporting only and are exc
 - Held-out references are excluded from training and tuning; final audits must not feed changes back into the beta scene.
 - Week 7 hardening cannot accept visual-fidelity work that breaks Team 2 data generation or Team 3 policy evaluation.
 - Completed GPU performance profile rows require run-registry metadata and synced artifact notes.
+- After the Week 10 final lock, scene geometry, labels, task regions, safety volumes, camera frames, material variants, and lighting variants can change only through a documented bug-fix release.
