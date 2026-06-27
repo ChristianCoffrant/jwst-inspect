@@ -1,44 +1,114 @@
 version: 0.1.0
+catalog_id: anomaly_catalog_v0_1
+status: active_week5_beta
+owner: team2_synthetic_data_perception
+description: Benchmark-only synthetic anomaly taxonomy for JWST-Inspect stress tests.
+active_week5_anomaly_ids:
+  - sunshield_tear_proxy
+  - sunshield_discoloration
+  - mirror_region_obstruction
+  - truss_occlusion_proxy
+false_alarm_control_ids:
+  - nominal_high_glare_false_alarm_control
+source_policy:
+  public_reference_exemplars_allowed: false
+  public_reference_training_use: prohibited
+  real_jwst_fault_claims: prohibited
 anomalies:
   - anomaly_id: none
     description: No anomaly.
+    is_anomaly: false
+    benchmark_only: true
+    target_regions:
+      - approach_hold_standoff
+      - mirror_inspection
+      - sunshield_survey
+    anomaly_prim: null
+    counterpart_required: false
+    public_reference_exemplar_used: false
   - anomaly_id: sunshield_tear_proxy
     description: Synthetic sunshield tear benchmark stressor only.
+    is_anomaly: true
     benchmark_only: true
     target_regions:
       - sunshield_survey
+    anomaly_prim: /World/JWST/Sunshield
+    counterpart_required: true
+    public_reference_exemplar_used: false
   - anomaly_id: sunshield_discoloration
     description: Synthetic sunshield discoloration benchmark stressor only.
+    is_anomaly: true
     benchmark_only: true
     target_regions:
       - sunshield_survey
+    anomaly_prim: /World/JWST/Sunshield
+    counterpart_required: true
+    public_reference_exemplar_used: false
   - anomaly_id: mirror_obstruction_proxy
-    description: Synthetic mirror obstruction benchmark stressor only.
+    description: Synthetic mirror obstruction benchmark stressor retained for compatibility.
+    is_anomaly: true
     benchmark_only: true
     target_regions:
       - mirror_inspection
+    anomaly_prim: /World/JWST/Optics/PrimaryMirror
+    counterpart_required: true
+    public_reference_exemplar_used: false
+    active_week5: false
   - anomaly_id: mirror_region_obstruction
     description: Synthetic mirror-region obstruction benchmark stressor only.
+    is_anomaly: true
     benchmark_only: true
     target_regions:
       - mirror_inspection
+    anomaly_prim: /World/JWST/Optics/PrimaryMirror
+    counterpart_required: true
+    public_reference_exemplar_used: false
   - anomaly_id: thermal_blanket_discoloration
-    description: Synthetic thermal blanket discoloration benchmark stressor only.
+    description: Synthetic thermal blanket discoloration benchmark stressor retained for compatibility.
+    is_anomaly: true
     benchmark_only: true
     target_regions:
       - approach_hold_standoff
+    anomaly_prim: /World/JWST/Bus
+    counterpart_required: true
+    public_reference_exemplar_used: false
+    active_week5: false
   - anomaly_id: truss_occlusion_proxy
     description: Synthetic truss occlusion or deformation benchmark stressor only.
+    is_anomaly: true
     benchmark_only: true
     target_regions:
       - approach_hold_standoff
+    anomaly_prim: /World/JWST/Truss
+    counterpart_required: true
+    public_reference_exemplar_used: false
   - anomaly_id: missing_small_component_proxy
-    description: Synthetic missing small component benchmark stressor only.
+    description: Synthetic missing small component benchmark stressor retained for compatibility.
+    is_anomaly: true
     benchmark_only: true
     target_regions:
       - approach_hold_standoff
+    anomaly_prim: /World/JWST/Antenna
+    counterpart_required: true
+    public_reference_exemplar_used: false
+    active_week5: false
   - anomaly_id: glare_induced_false_anomaly_condition
-    description: Nominal high-glare condition used to measure false alarms.
+    description: Nominal high-glare condition retained for Week 1-4 compatibility.
+    is_anomaly: false
     benchmark_only: true
     target_regions:
       - mirror_inspection
+    anomaly_prim: null
+    counterpart_required: false
+    public_reference_exemplar_used: false
+    deprecated_alias_for: nominal_high_glare_false_alarm_control
+  - anomaly_id: nominal_high_glare_false_alarm_control
+    description: Nominal high-glare no-anomaly control used to measure false alarms.
+    is_anomaly: false
+    benchmark_only: true
+    target_regions:
+      - mirror_inspection
+    anomaly_prim: null
+    counterpart_required: false
+    false_alarm_control: true
+    public_reference_exemplar_used: false

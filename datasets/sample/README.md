@@ -35,6 +35,15 @@ python scripts/validate_week4_dataset.py
 python scripts/create_week4_contact_sheet.py
 ```
 
+Generate the Week 5 anomaly pilot and baseline report with:
+
+```bash
+python scripts/generate_week5_anomaly_dataset.py
+python scripts/validate_week5_anomaly_dataset.py
+python scripts/create_week5_contact_sheet.py
+python scripts/evaluate_week5_perception_baseline.py
+```
+
 Large generated datasets should be stored externally and referenced from a manifest.
 
 Current sample:
@@ -61,6 +70,16 @@ Current Week 4 randomized pilot:
 - validation report at `validation/reports/week4_randomization_report.json`
 - RGB plus mask contact sheet at `validation/reports/week4_randomization_contact_sheet.png`
 
+Current Week 5 anomaly pilot:
+
+- 720 generated frames under `datasets/generated/week5_anomaly_pilot/`
+- 480 `train`, 120 `validation`, and 120 `dev_test` frames
+- true anomaly frames paired with no-anomaly counterparts
+- nominal high-glare no-anomaly controls for false-alarm measurement
+- anomaly validation report at `validation/reports/week5_anomaly_report.json`
+- perception baseline report at `validation/reports/week5_perception_baseline_report.json`
+- RGB plus mask contact sheet at `validation/reports/week5_anomaly_contact_sheet.png`
+
 Guardrails:
 
 - no public JWST reference images are used for training
@@ -74,3 +93,7 @@ Guardrails:
 - every Week 4 frame must record randomization config version and active factor values
 - Week 4 duplicate or near-duplicate view rate must stay at or below 5%
 - Week 4 clean validation must remain unrandomized and include all scene label IDs
+- Week 5 anomalies must be benchmark stressors only, not real JWST fault claims
+- every true Week 5 anomaly must have a paired no-anomaly counterpart
+- Week 5 anomaly prevalence must be reported by split and type
+- high-glare no-anomaly controls must be present for false-alarm reporting

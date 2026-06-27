@@ -25,8 +25,23 @@ from jwst_inspect.data.week4_randomized_dataset import (
     write_week4_contact_sheet,
     write_week4_randomized_dataset,
 )
+from jwst_inspect.data.week5_anomaly_dataset import (
+    WEEK5_ACTIVE_ANOMALY_IDS,
+    WEEK5_DATASET_DIR,
+    WEEK5_DEV_TEST_FRAME_COUNT,
+    WEEK5_FRAME_COUNT,
+    WEEK5_HIGH_GLARE_CONTROL_COUNT,
+    WEEK5_TRAIN_FRAME_COUNT,
+    WEEK5_VALIDATION_FRAME_COUNT,
+    validate_week5_anomaly_catalog,
+    write_week5_anomaly_dataset,
+    write_week5_contact_sheet,
+)
+from jwst_inspect.perception.week5_baseline import evaluate_week5_perception_baseline
 from jwst_inspect.validation.dataset import (
     validate_sample_dataset,
+    validate_week5_anomaly_dataset,
+    validate_week5_anomaly_dataset_with_report,
     validate_week4_randomized_dataset,
     validate_week4_randomized_dataset_with_report,
     validate_week4_randomization_config,
@@ -289,6 +304,131 @@ class Week4RandomizationValidationTests(unittest.TestCase):
                 ROOT,
                 self.dataset_dir,
                 Path(tmpdir) / "week4_contact_sheet.png",
+            )
+
+            self.assertTrue(contact_sheet.exists())
+            self.assertGreater(contact_sheet.stat().st_size, 0)
+
+
+class Week5AnomalyValidationTests(unittest.TestCase):
+    _tmpdir = None
+    dataset_dir: Path
+
+    @classmethod
+    def setUpClass(cls):
+        generated_dataset = ROOT / WEEK5_DATASET_DIR
+        if (generated_dataset / "dataset_manifest.json").exists():
+            cls.dataset_dir = generated_dataset
+            return
+        cls._tmpdir = tempfile.TemporaryDirectory()
+        cls.dataset_dir = Path(cls._tmpdir.name) / "week5_anomaly_pilot"
+        write_week5_anomaly_dataset(ROOT, cls.dataset_dir)
+
+    @classmethod
+    def tearDownClass(cls):
+        if cls._tmpdir is not None:
+            cls._tmpdir.cleanup()
+
+    def _manifest(self) -> dict:
+        return json.loads((self.dataset_dir / "dataset_manifest.json").read_text(encoding="utf-8"))
+
+    def _metadata_paths(self) -> list[Path]:
+        manifest = self._manifest()
+        return [self.dataset_dir / frame["metadata_path"] for frame in manifest["frames"]]
+
+    def _metadata_paths_matching(self, key: str, value) -> list[Path]:
+        paths: list[Path] = []
+        for path in self._metadata_paths():
+            metadata = json.loads(path.read_text(encoding="utf-8"))
+            if metadata.get(key) == value:
+                paths.append(path)
+        return paths
+
+    def test_week5_anomaly_catalog_passes_guardrails(self):
+        self.assertEqual(validate_week5_anomaly_catalog(ROOT), [])
+
+    def test_week5_anomaly_dataset_passes_ship_gates(self):
+        errors, report = validate_week5_anomaly_dataset_with_report(ROOT, self.dataset_dir)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["frame_count"], WEEK5_FRAME_COUNT)
+        self.assertEqual(report["split_counts"]["train"], WEEK5_TRAIN_FRAME_COUNT)
+        self.assertEqual(report["split_counts"]["validation"], WEEK5_VALIDATION_FRAME_COUNT)
+        self.assertEqual(report["split_counts"]["dev_test"], WEEK5_DEV_TEST_FRAME_COUNT)
+        self.assertEqual(report["metadata_completeness"], 1.0)
+        self.assertEqual(report["anomaly_metadata_completeness"], 1.0)
+        self.assertEqual(report["media_completeness"], 1.0)
+        self.assertEqual(report["counterpart_coverage"], 1.0)
+        self.assertLessEqual(report["true_anomaly_fraction_by_split"]["train"], 0.50)
+        self.assertLessEqual(report["true_anomaly_fraction_by_split"]["validation"], 0.34)
+        self.assertLessEqual(report["true_anomaly_fraction_by_split"]["dev_test"], 0.34)
+        self.assertEqual(sum(report["high_glare_control_counts"].values()), WEEK5_HIGH_GLARE_CONTROL_COUNT)
+        self.assertLessEqual(report["duplicate_view_rate"], report["duplicate_view_rate_max"])
+        for anomaly_id in WEEK5_ACTIVE_ANOMALY_IDS:
+            self.assertGreater(report["anomaly_counts"][anomaly_id], 0)
+
+    def test_week5_perception_baseline_reports_false_alarm_and_per_type_metrics(self):
+        errors, report = evaluate_week5_perception_baseline(ROOT, self.dataset_dir)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["support_by_split"]["validation"], WEEK5_VALIDATION_FRAME_COUNT)
+        self.assertEqual(report["support_by_split"]["dev_test"], WEEK5_DEV_TEST_FRAME_COUNT)
+        self.assertLessEqual(
+            report["high_glare_false_alarm"]["false_alarm_rate"],
+            report["high_glare_false_alarm"]["false_alarm_rate_max"],
+        )
+        for anomaly_id in WEEK5_ACTIVE_ANOMALY_IDS:
+            self.assertIn(anomaly_id, report["per_anomaly_type_metrics"])
+            self.assertGreater(report["per_anomaly_type_metrics"][anomaly_id]["support"], 0)
+
+    def test_week5_missing_counterpart_fails(self):
+        metadata_path = self._metadata_paths_matching("anomaly_is_present", True)[0]
+        original = metadata_path.read_text(encoding="utf-8")
+        try:
+            metadata = json.loads(original)
+            metadata["counterpart_frame_id"] = "missing_counterpart_frame"
+            metadata_path.write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            errors = validate_week5_anomaly_dataset(ROOT, self.dataset_dir)
+            self.assertTrue(any("counterpart" in error for error in errors), errors)
+        finally:
+            metadata_path.write_text(original, encoding="utf-8")
+
+    def test_week5_missing_high_glare_controls_fail(self):
+        metadata_paths = self._metadata_paths_matching("stress_condition_id", "nominal_high_glare_false_alarm_control")[:40]
+        originals = {path: path.read_text(encoding="utf-8") for path in metadata_paths}
+        try:
+            for path, original in originals.items():
+                metadata = json.loads(original)
+                metadata["stress_condition_id"] = "paired_no_anomaly_counterpart"
+                path.write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            errors = validate_week5_anomaly_dataset(ROOT, self.dataset_dir)
+            self.assertTrue(any("high-glare controls" in error for error in errors), errors)
+        finally:
+            for path, original in originals.items():
+                path.write_text(original, encoding="utf-8")
+
+    def test_week5_public_reference_exemplar_fails_catalog_validation(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            catalog_copy = Path(tmpdir) / "anomaly_catalog.yaml"
+            original = (ROOT / "replicator" / "anomaly_catalog.yaml").read_text(encoding="utf-8")
+            catalog_copy.write_text(
+                original.replace("public_reference_exemplar_used: false", "public_reference_exemplar_used: true", 1),
+                encoding="utf-8",
+            )
+
+            errors = validate_week5_anomaly_catalog(ROOT, catalog_copy)
+            self.assertTrue(any("public_reference_exemplar_used" in error for error in errors), errors)
+
+    def test_week5_contact_sheet_can_be_regenerated(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            contact_sheet = write_week5_contact_sheet(
+                ROOT,
+                self.dataset_dir,
+                Path(tmpdir) / "week5_contact_sheet.png",
             )
 
             self.assertTrue(contact_sheet.exists())

@@ -1,0 +1,86 @@
+{
+  "baseline_id": "week5_rgb_red_patch_heuristic_v0_1",
+  "baseline_type": "dependency_free_rgb_heuristic",
+  "binary_anomaly_metrics": {
+    "f1": 1.0,
+    "false_alarm_rate": 0.0,
+    "false_negative": 0,
+    "false_positive": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "true_negative": 160,
+    "true_positive": 80
+  },
+  "dataset_phase": "week5_anomaly_pilot",
+  "errors": [],
+  "evaluation_splits": [
+    "validation",
+    "dev_test"
+  ],
+  "guardrails": {
+    "high_glare_false_alarm_reported": true,
+    "metadata_used_for_prediction": false,
+    "per_type_metrics_reported": true,
+    "public_reference_images_used_for_training": false,
+    "rgb_only_prediction": true
+  },
+  "high_glare_false_alarm": {
+    "false_alarm_rate": 0.0,
+    "false_alarm_rate_max": 0.25,
+    "false_positive_count": 0,
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "support": 80
+  },
+  "manifest_path": "datasets/generated/week5_anomaly_pilot/dataset_manifest.json",
+  "per_anomaly_type_metrics": {
+    "mirror_region_obstruction": {
+      "f1": 1.0,
+      "false_negative": 0,
+      "false_positive": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "support": 20,
+      "true_positive": 20
+    },
+    "sunshield_discoloration": {
+      "f1": 1.0,
+      "false_negative": 0,
+      "false_positive": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "support": 20,
+      "true_positive": 20
+    },
+    "sunshield_tear_proxy": {
+      "f1": 1.0,
+      "false_negative": 0,
+      "false_positive": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "support": 20,
+      "true_positive": 20
+    },
+    "truss_occlusion_proxy": {
+      "f1": 1.0,
+      "false_negative": 0,
+      "false_positive": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "support": 20,
+      "true_positive": 20
+    }
+  },
+  "status": "passed",
+  "support_by_split": {
+    "dev_test": 120,
+    "validation": 120
+  },
+  "support_by_truth_type": {
+    "mirror_region_obstruction": 20,
+    "none": 160,
+    "sunshield_discoloration": 20,
+    "sunshield_tear_proxy": 20,
+    "truss_occlusion_proxy": 20
+  },
+  "support_count": 240
+}

@@ -1,0 +1,135 @@
+{
+  "anomaly_catalog_version": "0.1.0",
+  "anomaly_counts": {
+    "mirror_region_obstruction": 80,
+    "none": 400,
+    "sunshield_discoloration": 80,
+    "sunshield_tear_proxy": 80,
+    "truss_occlusion_proxy": 80
+  },
+  "anomaly_counts_by_split": {
+    "dev_test": {
+      "mirror_region_obstruction": 10,
+      "none": 80,
+      "sunshield_discoloration": 10,
+      "sunshield_tear_proxy": 10,
+      "truss_occlusion_proxy": 10
+    },
+    "train": {
+      "mirror_region_obstruction": 60,
+      "none": 240,
+      "sunshield_discoloration": 60,
+      "sunshield_tear_proxy": 60,
+      "truss_occlusion_proxy": 60
+    },
+    "validation": {
+      "mirror_region_obstruction": 10,
+      "none": 80,
+      "sunshield_discoloration": 10,
+      "sunshield_tear_proxy": 10,
+      "truss_occlusion_proxy": 10
+    }
+  },
+  "anomaly_metadata_completeness": 1.0,
+  "class_coverage": {
+    "dev_test": {
+      "missing_label_ids": [],
+      "per_class_pixel_counts": {
+        "0": 7032,
+        "1": 4560,
+        "2": 4572,
+        "3": 3348,
+        "4": 3336,
+        "5": 7044,
+        "6": 864,
+        "7": 7032,
+        "8": 7032,
+        "9": 7020
+      }
+    },
+    "train": {
+      "missing_label_ids": [],
+      "per_class_pixel_counts": {
+        "0": 27396,
+        "1": 12576,
+        "2": 12588,
+        "3": 20016,
+        "4": 20004,
+        "5": 27408,
+        "6": 5184,
+        "7": 27396,
+        "8": 27396,
+        "9": 27396
+      }
+    },
+    "validation": {
+      "missing_label_ids": [],
+      "per_class_pixel_counts": {
+        "0": 7032,
+        "1": 4560,
+        "2": 4572,
+        "3": 3348,
+        "4": 3336,
+        "5": 7044,
+        "6": 864,
+        "7": 7032,
+        "8": 7032,
+        "9": 7020
+      }
+    }
+  },
+  "corrupt_or_blank_fraction": 0.0,
+  "corrupt_or_blank_frame_count": 0,
+  "counterpart_coverage": 1.0,
+  "dataset_phase": "week5_anomaly_pilot",
+  "duplicate_view_count": 0,
+  "duplicate_view_rate": 0.0,
+  "duplicate_view_rate_max": 0.05,
+  "errors": [],
+  "expected_frame_count": 720,
+  "frame_count": 720,
+  "generation_mode": "static_anomaly_pilot",
+  "guardrails": {
+    "counterpart_required_for_true_anomalies": true,
+    "high_glare_false_alarm_denominator_available": true,
+    "public_reference_exemplars_used": false,
+    "public_reference_images_used_for_training": false,
+    "renderer_metrics_separate": true,
+    "synthetic_anomalies_are_benchmark_stressors_only": true
+  },
+  "high_glare_control_counts": {
+    "dev_test": 40,
+    "validation": 40
+  },
+  "manifest_path": "datasets/generated/week5_anomaly_pilot/dataset_manifest.json",
+  "max_corrupt_or_blank_fraction": 0.05,
+  "media_completeness": 1.0,
+  "metadata_completeness": 1.0,
+  "renderer_counts": {
+    "rasterized": 720
+  },
+  "split_counts": {
+    "dev_test": 120,
+    "train": 480,
+    "validation": 120
+  },
+  "status": "passed",
+  "stress_condition_counts": {
+    "mirror_region_obstruction": 80,
+    "nominal_high_glare_false_alarm_control": 80,
+    "paired_no_anomaly_counterpart": 320,
+    "sunshield_discoloration": 80,
+    "sunshield_tear_proxy": 80,
+    "truss_occlusion_proxy": 80
+  },
+  "true_anomaly_counts_by_split": {
+    "dev_test": 40,
+    "train": 240,
+    "validation": 40
+  },
+  "true_anomaly_fraction_by_split": {
+    "dev_test": 0.3333333333333333,
+    "train": 0.5,
+    "validation": 0.3333333333333333
+  }
+}

@@ -37,3 +37,18 @@ The generated pilot contains 500 randomized train frames and 100 clean
 validation frames. It records viewpoint, lighting, exposure, background, and
 material factors for every frame. Generated frame media remains ignored by git;
 the tracked evidence is the config, report, contact sheet, code, and tests.
+
+## Week 5 Status
+
+The current Team 2 artifact adds benchmark-only anomaly stressors and a first
+local perception baseline:
+
+- `replicator/anomaly_catalog.yaml` defines catalog version `0.1.0`.
+- `scripts/generate_week5_anomaly_dataset.py` writes 720 frames to `datasets/generated/week5_anomaly_pilot/`.
+- `scripts/validate_week5_anomaly_dataset.py` validates anomaly prevalence, no-anomaly counterparts, high-glare controls, metadata completeness, media completeness, duplicate views, and public-reference exclusion.
+- `scripts/evaluate_week5_perception_baseline.py` reports binary anomaly metrics, per-anomaly-type metrics, and high-glare false-alarm rate.
+- `scripts/create_week5_contact_sheet.py` writes a tracked QA contact sheet under `validation/reports/`.
+
+The anomaly pilot contains paired true anomaly and no-anomaly frames plus
+nominal high-glare no-anomaly controls. The anomalies are synthetic benchmark
+stressors only and are not claims about real JWST fault modes.

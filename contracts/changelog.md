@@ -5,6 +5,7 @@
 - Froze Workstream 3 evaluation contracts for Week 6 with official dev-suite tasks, baselines, profile hooks, held-out seed policy, and run metadata requirements.
 - Froze normalized-score weights for the Week 6 dev suite and required integration-council approval plus ablation evidence for later changes.
 - Added Vast.ai X090 official-evaluation metadata and storage-sync guardrails for future GPU-backed runs.
+- Froze Workstream 1 scene beta contract 0.2 with scene tag `scene-beta-v0.2.0`, compatibility alias `scene-proxy-thin-slice-v0.1`, automated scene beta QA inventory, frozen dev and held-out reference sets, Week 6 beta render matrix rows, Vast/sync plan, and validator guardrails for post-freeze change approval, held-out reference tuning prohibition, beta render metadata requirements, and downstream local smoke compatibility.
 
 ## 0.1.0
 
@@ -22,7 +23,4 @@
 - Added Workstream 1 Week 4 coverage and validation render-pack support: machine-readable mirror/sunshield coverage surface map, Week 4 paired raster/path-traced render manifest rows, sparse keypoint annotation template, silhouette mask staging guidance, and validator guardrails for duplicate coverage patches, label mappings, excluded-cell reasons, and public-reference training exclusion.
 - Added Workstream 2 Week 4 domain randomization contract support: bounded randomization config, `static_randomized` generation mode, generated media status, 600-frame pilot counts, randomization metadata fields, duplicate-view guardrail, clean-validation guardrail, and Week 4 validation commands.
 - Added Workstream 1 Week 5 material and lighting stress support: material and lighting variant catalogs, Week 5 stress render matrix rows, anomaly proxy region config, inspector sensor-frame config, collision proxy report, material stress report, mixed-stress lighting prim, and validator guardrails for stress matrix completeness, anomaly proxy-only semantics, collision proxy shrinkage, sensor path stability, and held-out reference tuning prohibition.
-
-## 0.2.0
-
-- Froze Workstream 1 scene beta contract 0.2 with scene tag `scene-beta-v0.2.0`, compatibility alias `scene-proxy-thin-slice-v0.1`, automated scene beta QA inventory, frozen dev and held-out reference sets, Week 6 beta render matrix rows, Vast/sync plan, and validator guardrails for post-freeze change approval, held-out reference tuning prohibition, beta render metadata requirements, and downstream local smoke compatibility.
+- Added Workstream 2 Week 5 anomaly pilot support: anomaly catalog 0.1 metadata, `static_anomaly_pilot` generation mode, anomaly/no-anomaly counterpart fields, 720-frame pilot counts, prevalence and high-glare false-alarm guardrails, and Week 5 validation/baseline commands.
