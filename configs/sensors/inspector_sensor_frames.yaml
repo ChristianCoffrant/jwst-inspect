@@ -1,0 +1,35 @@
+version: 0.1.0
+scene_tag: scene-proxy-thin-slice-v0.1
+owner: team1_scene_qa_integration_lead
+guardrails:
+  sensor_path_renames_after_week2: prohibited_without_integration_review
+  rgb_depth_intrinsics_match_required: true
+  generated_calibration_outputs_tracked_in_git: false
+sensor_frames:
+  - sensor_id: rgb_camera
+    sensor_path: /World/Inspector/Sensors/RGBCamera
+    sensor_role: rgb
+    frame_convention: inspector_body_frame_forward_y
+    focal_length_mm: 24
+    horizontal_aperture_mm: 20.955
+    vertical_aperture_mm: 15.2908
+    transform_policy: fixed_proxy_offset
+    aligned_to: depth_camera
+  - sensor_id: depth_camera
+    sensor_path: /World/Inspector/Sensors/DepthCamera
+    sensor_role: depth
+    frame_convention: inspector_body_frame_forward_y
+    focal_length_mm: 24
+    horizontal_aperture_mm: 20.955
+    vertical_aperture_mm: 15.2908
+    transform_policy: fixed_proxy_offset
+    aligned_to: rgb_camera
+  - sensor_id: imu_frame
+    sensor_path: /World/Inspector/Sensors/IMUFrame
+    sensor_role: imu_reference
+    frame_convention: inspector_body_frame_forward_y
+    focal_length_mm: 0
+    horizontal_aperture_mm: 0
+    vertical_aperture_mm: 0
+    transform_policy: fixed_body_origin
+    aligned_to: inspector_body

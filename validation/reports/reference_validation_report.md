@@ -53,6 +53,25 @@ The coverage patch names are aligned to rollout `coverage_patch` values consumed
 
 `validation/annotations/sparse_keypoints/week4_keypoints_template.csv` reserves 20 public-reference candidates for sparse keypoints or silhouette outlines. Every row maps to `validation/reference_manifest.csv` and remains `excluded_from_training=true`.
 
+## Week 5 Material and Lighting Stress Checklist
+
+| Combo ID | Material Variant | Lighting Variant | Status |
+| --- | --- | --- | --- |
+| `nominal_clean` | `nominal` | `nominal_sun_key` | Configured; render rows blocked until Isaac Sim/Vast run |
+| `high_glare_edge` | `high_glare` | `high_glare_edge` | Configured; render rows blocked until Isaac Sim/Vast run |
+| `degraded_low_light` | `degraded` | `low_light_cold_side` | Configured; render rows blocked until Isaac Sim/Vast run |
+| `anomaly_mixed_stress` | `anomaly_test` | `mixed_stress` | Configured; render rows blocked until Isaac Sim/Vast run |
+
+`validation/reports/week5_material_stress_report.md` records that public references motivate broad stress categories only. Held-out references are not used for material tuning, lighting tuning, anomaly placement, perception thresholds, or policy behavior.
+
+## Week 5 Collision and Sensor Checklist
+
+| Artifact | Required Coverage | Status |
+| --- | --- | --- |
+| `validation/reports/week5_collision_proxy_report.md` | Bus and sunshield collision proxies | Complete metadata; shrinkage count is 0 |
+| `configs/sensors/inspector_sensor_frames.yaml` | RGB, depth, and IMU frames | Complete metadata; frozen sensor paths preserved |
+| `configs/anomalies/week5_anomaly_regions.yaml` | Proxy anomalies tied to task regions | Complete metadata; real JWST failure claims are 0 |
+
 ## Mismatch Log
 
 | Date | Reference ID | Scene Version | Mismatch | Decision |
@@ -62,3 +81,5 @@ The coverage patch names are aligned to rollout `coverage_patch` values consumed
 | 2026-06-26 | Week 3 render manifest | `scene-proxy-thin-slice-v0.1` | Raster/path-traced artifacts are not generated locally. | Record blocker as `blocked_vast_required`; do not fabricate render completion. |
 | 2026-06-26 | Week 4 render pack | `scene-proxy-thin-slice-v0.1` | Week 4 validation render artifacts are not generated locally. | Keep rows as `blocked_vast_required` until a Vast/Isaac Sim run records real artifacts. |
 | 2026-06-26 | Week 4 sparse annotation template | 0.1.0 Week 4 | Public reference images are validation-only. | Keep candidates excluded from training and store large annotation outputs outside Git. |
+| 2026-06-26 | Week 5 material stress matrix | `scene-proxy-thin-slice-v0.1` | Week 5 stress render artifacts are not generated locally. | Keep rows as `blocked_vast_required` until a Vast/Isaac Sim run records real artifacts. |
+| 2026-06-26 | Week 5 anomaly proxy regions | 0.1.0 Week 5 | Anomaly regions are benchmark stress proxies and not real JWST failure claims. | Keep proxy-only language and require downstream reports to preserve this distinction. |

@@ -24,5 +24,12 @@ over "World"
             float intensity = 500
             float angle = 1.0
         }
+
+        def DistantLight "MixedStress"
+        {
+            custom string jwstInspect:variant = "mixed_stress"
+            float intensity = 4200
+            float angle = 0.40
+        }
     }
 }

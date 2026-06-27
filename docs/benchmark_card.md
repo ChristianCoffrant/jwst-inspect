@@ -14,7 +14,7 @@ Not a flight-certified JWST simulator. Not a real anomaly diagnosis system.
 
 ## Version
 
-0.1.0 Week 4 coverage and validation render-pack support.
+0.1.0 Week 5 material and lighting stress catalog support.
 
 ## Scene Scope
 
@@ -23,6 +23,8 @@ The current Workstream 1 scene is a proxy OpenUSD scene for contract validation 
 Week 3 adds the scene tag `scene-proxy-thin-slice-v0.1`, fixed seed `31003`, fixed validation camera IDs, task aliases, and a render manifest for paired rasterized/path-traced validation attempts.
 
 Week 4 adds `configs/coverage/coverage_surfaces.yaml` as the authoritative surface map for mirror and sunshield coverage patches, `configs/renderers/week4_validation_renders.yaml` as the validation render-pack request, and `validation/annotations/sparse_keypoints/week4_keypoints_template.csv` as the sparse public-reference annotation staging template.
+
+Week 5 adds `configs/materials/material_variants.yaml`, `configs/lighting/lighting_variants.yaml`, `configs/renderers/week5_material_stress.yaml`, `configs/anomalies/week5_anomaly_regions.yaml`, and `configs/sensors/inspector_sensor_frames.yaml`. These files define switchable benchmark stressors and sensor assumptions without claiming physical JWST fidelity.
 
 It does not claim geometric or radiometric fidelity to JWST. The selected public NASA JWST GLB source is recorded for later conversion, but the current benchmark scene remains a proxy fallback until imported geometry can be mapped without breaking the contract.
 
@@ -39,3 +41,6 @@ Public JWST references are tracked for validation and reporting only and are exc
 - Render artifacts are not tracked in Git; `validation/render_manifest.csv` records planned or completed validation renders.
 - Coverage patch IDs must match rollout logs exactly, and duplicate patch IDs are not allowed.
 - Public reference annotation candidates must remain excluded from training.
+- High-glare and degraded variants remain required even if they hurt perception or policy results.
+- Anomaly regions are benchmark proxies only and must not be described as real JWST failure modes.
+- Material and lighting values must not be tuned to held-out references or to make perception easier.
