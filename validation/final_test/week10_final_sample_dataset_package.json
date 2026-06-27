@@ -27,7 +27,7 @@
   "schema_version": "1.0.0",
   "tracked_sample_frame_count": 24,
   "tracked_sample_manifest": "datasets/sample/dataset_manifest.json",
-  "tracked_sample_manifest_sha256": "6141346151bfe032a696a8333dc5985c42e71da350fc1790dda73050f7558322",
+  "tracked_sample_manifest_sha256": "71809a770bb2fcfc5e9b4a598d90a6d6fa01e4f6dc04d180a7c7a0e6115578eb",
   "tracked_sample_media_status_counts": {
     "tiny_placeholder_media": 24
   },

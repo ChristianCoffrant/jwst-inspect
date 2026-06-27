@@ -1,0 +1,81 @@
+version: 1.0.0
+scene_final_tag: scene-final-v1.0.0
+manifest_status: release_ready
+untraceable_figure_count: 0
+generated_or_large_artifacts_committed: 0
+figures:
+  - figure_id: scene_layer_stack
+    title: Final scene layer stack
+    caption: Paper table showing the root USD scene, frozen layers, scene contract, source manifest, and final package lock for scene-final-v1.0.0.
+    source_type: tracked_repository_document
+    source_path: docs/paper_scene_section.md
+    config_path: contracts/scene_contract.yaml
+    run_id: not_applicable
+    source_sha256: not_applicable
+    tracked_in_git: true
+    allowed_in_paper: true
+    public_reference_ids:
+      - ref_nasa_jwst_3d
+    claim_bound: proxy benchmark structure and component-presence context only
+  - figure_id: final_render_contact_sheet
+    title: Week 8 final render contact sheet
+    caption: Final scene visual evidence from the synced Week 8 rasterized and path-traced render run.
+    source_type: ignored_synced_render_artifact
+    source_path: validation/renders/week8_final/vast_42853129_20260627_1253_utc/week8_final_contact_sheet.png
+    config_path: configs/renderers/week8_final_validation.yaml
+    run_id: week8_final_vast_42853129_20260627
+    source_sha256: 33fca6737cc7287f0748b14f8fc1e0b55f6ae1760c94108b7a4aa8a5d36661c1
+    tracked_in_git: false
+    allowed_in_paper: true
+    public_reference_ids:
+      - ref_nasa_jwst_3d
+    claim_bound: final proxy-scene render evidence only
+  - figure_id: final_evaluation_stress_matrix
+    title: Week 9 final evaluation stress matrix contact sheet
+    caption: Final evaluation support views covering four material and lighting stress conditions, three cameras, and two renderer modes.
+    source_type: ignored_synced_render_artifact
+    source_path: validation/renders/week9_final_eval/vast_42878885_20260627/week9_final_eval_contact_sheet.png
+    config_path: configs/renderers/week9_final_evaluation_support.yaml
+    run_id: week9_final_vast_42878885_20260627
+    source_sha256: 256157931f743853cc045b7da061c5a570ae158149eecc9a45eef1a40733e498
+    tracked_in_git: false
+    allowed_in_paper: true
+    public_reference_ids:
+      - ref_nasa_jwst_3d
+    claim_bound: renderer and stress-condition benchmark evidence only
+  - figure_id: final_perception_results_table
+    title: Week 10 final perception results table
+    caption: Team 2 final perception table regenerated from the locked Week 9 final perception run and frozen in the Week 10 results lock.
+    source_type: tracked_repository_artifact
+    source_path: validation/reports/week10_final_perception_table.json
+    config_path: configs/perception/week10_final_results_lock.yaml
+    run_id: vast_week9_team2_20260627_42889311
+    source_sha256: not_applicable
+    tracked_in_git: true
+    allowed_in_paper: true
+    public_reference_ids: []
+    claim_bound: perception-domain final-test evidence only
+  - figure_id: final_policy_results_lock
+    title: Week 10 final policy and R2P results lock
+    caption: Team 3 real-Isaac final results lock documenting the paid Vast run, expected policy rows, R2P rows, safety guardrails, and known unsupported learned mirror rows.
+    source_type: tracked_repository_document
+    source_path: docs/workstream3_week10_execution.md
+    config_path: configs/experiments/week10_final_results_lock.yaml
+    run_id: week10_team3_final_policy_isaac_42896511_20260627
+    source_sha256: not_applicable
+    tracked_in_git: true
+    allowed_in_paper: true
+    public_reference_ids: []
+    claim_bound: final policy benchmark and R2P release evidence only
+  - figure_id: release_guardrail_table
+    title: Week 11 release guardrail table
+    caption: Final release table summarizing zero scene-changing and benchmark-gaming guardrail violations.
+    source_type: tracked_release_checklist
+    source_path: validation/scene_final/week11_scene_release_checklist.yaml
+    config_path: validation/scene_final/week10_final_scene_package.yaml
+    run_id: not_applicable
+    source_sha256: not_applicable
+    tracked_in_git: true
+    allowed_in_paper: true
+    public_reference_ids: []
+    claim_bound: release packaging and audit evidence only

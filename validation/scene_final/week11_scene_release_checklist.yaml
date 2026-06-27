@@ -1,0 +1,60 @@
+version: 1.0.0
+gate_status: passed
+scene_final_tag: scene-final-v1.0.0
+release_package_status: paper_ready_reproducible_artifact
+base_scene_package: validation/scene_final/week10_final_scene_package.yaml
+paper_scene_section: docs/paper_scene_section.md
+benchmark_card_scene_section: docs/benchmark_card_scene_section.md
+final_figure_manifest: validation/reports/week11_final_figure_manifest.yaml
+external_reference_audit: validation/reports/week11_external_reference_audit.md
+readme: README.md
+week11_execution_log: docs/workstream1_week11_execution.md
+new_gpu_spend_usd: 0
+release_docs:
+  - path: docs/paper_scene_section.md
+    role: paper_scene_section
+  - path: docs/benchmark_card_scene_section.md
+    role: benchmark_card_scene_section
+  - path: validation/reports/week11_final_figure_manifest.yaml
+    role: final_figure_manifest
+  - path: validation/reports/week11_external_reference_audit.md
+    role: external_reference_audit
+  - path: docs/workstream1_week11_execution.md
+    role: execution_log
+ship_gates:
+  week10_scene_lock_still_passes: passed
+  paper_scene_section_complete: passed
+  benchmark_card_scene_section_complete: passed
+  final_figure_manifest_traceable: passed
+  external_reference_audit_complete: passed
+  readme_points_to_week11_release: passed
+  generated_media_committed: passed
+  release_validator_passes: passed
+guardrail_metrics:
+  label_id_renames: 0
+  task_region_id_renames: 0
+  safety_path_renames: 0
+  safety_boundary_shrink_count: 0
+  camera_frame_renames: 0
+  material_variant_renames: 0
+  lighting_variant_renames: 0
+  scene_geometry_changes: 0
+  coverage_region_changes_for_metric_improvement: 0
+  metric_definition_changes: 0
+  public_reference_training_use_count: 0
+  heldout_reference_tuning_count: 0
+  unreviewed_asset_changes: 0
+  unsupported_realism_claims: 0
+  untraceable_final_figures: 0
+  generated_or_large_artifacts_committed: 0
+  fabricated_gpu_render_outputs: 0
+validation_commands:
+  - python scripts/validate_week11_scene_release.py
+  - python scripts/validate_week10_scene_lock.py
+  - python scripts/validate_scene.py
+  - python scripts/validate_contracts.py
+  - python scripts/validate_reference_manifest.py
+  - python scripts/validate_run_registry.py
+  - python scripts/validate_dataset.py
+  - python scripts/e2e_local_smoke.py
+  - python -m unittest discover -s tests

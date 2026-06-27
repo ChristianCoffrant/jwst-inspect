@@ -99,19 +99,19 @@
     },
     "week10_scene_package": {
       "path": "validation/scene_final/week10_final_scene_package.yaml",
-      "sha256": "a2523f921b99c5866bd49b8a88fb335e45b6b7f0234eb25ce42e8e7a0cb39f76"
+      "sha256": "48d252f4ceb8449a52a7d3fd64aeae64f8ae0c53983284a682f655b07711cada"
     },
     "week9_failures": {
       "path": "validation/reports/week9_final_perception_run1_failures.json",
-      "sha256": "323e471495b89b305ea2d342df7f9b28d3fa09d04d8040991d813b376d9afa4c"
+      "sha256": "49187942a4fff61d0e9a4fe4d7e6b23aa865402e0a67194b21b3d575682eab04"
     },
     "week9_report": {
       "path": "validation/reports/week9_final_perception_run1_report.json",
-      "sha256": "e02ea611eded38073cb91d4997ce45fe9a95aca75d8a5f55f050a5847d6dbf20"
+      "sha256": "ebaa61dc04dc9fccc57ede68428978a9f9beb7db01ae073d34cebf846b7940e5"
     },
     "week9_run_manifest": {
       "path": "validation/final_test/week9_final_perception_run1_manifest.json",
-      "sha256": "0b7492983b18672ae766b5b7b142460810e5e325a08f2d5b9224072d344a91cd"
+      "sha256": "323b3d2aad157f9a191038f04523355f33bc726ce6a99f5dd6acc97f8661d906"
     }
   },
   "status": "passed",

@@ -80,11 +80,10 @@ def _write_json(path: Path, payload: Any) -> None:
 
 
 def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(65536), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+    data = path.read_bytes()
+    if path.suffix.lower() in {".csv", ".json", ".md", ".py", ".txt", ".yaml", ".yml"}:
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
 
 
 def _git_tracked_generated_media_count(root: Path) -> int:

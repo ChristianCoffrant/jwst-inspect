@@ -38,6 +38,10 @@ from jwst_inspect.validation.scene import (
     validate_week10_final_scene_package,
     validate_week10_reports,
     validate_week10_scene_lock,
+    validate_week11_documentation,
+    validate_week11_figure_manifest,
+    validate_week11_release_checklist,
+    validate_week11_scene_release,
 )
 
 
@@ -152,6 +156,18 @@ class SceneValidationTests(unittest.TestCase):
 
     def test_week10_scene_lock_aggregate_passes(self):
         self.assertEqual(validate_week10_scene_lock(ROOT), [])
+
+    def test_week11_release_checklist_records_ship_gates_and_guardrails(self):
+        self.assertEqual(validate_week11_release_checklist(ROOT), [])
+
+    def test_week11_documentation_is_paper_ready_and_bounded(self):
+        self.assertEqual(validate_week11_documentation(ROOT), [])
+
+    def test_week11_final_figures_are_traceable(self):
+        self.assertEqual(validate_week11_figure_manifest(ROOT), [])
+
+    def test_week11_scene_release_aggregate_passes(self):
+        self.assertEqual(validate_week11_scene_release(ROOT), [])
 
     def test_proxy_usd_layers_have_required_contract_tokens(self):
         self.assertEqual(validate_usd_proxy_layers(ROOT), [])

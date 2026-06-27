@@ -111,6 +111,12 @@ WEEK9_SCENE_RELEASE_NOTES = Path("validation/scene_final/week9_scene_release_not
 WEEK9_FINAL_EVALUATION_REPORT = Path("validation/reports/week9_final_evaluation_support_report.md")
 WEEK10_FINAL_SCENE_PACKAGE = Path("validation/scene_final/week10_final_scene_package.yaml")
 WEEK10_FINAL_SCENE_QA_REPORT = Path("validation/reports/week10_final_scene_qa_report.md")
+WEEK11_SCENE_RELEASE_CHECKLIST = Path("validation/scene_final/week11_scene_release_checklist.yaml")
+WEEK11_PAPER_SCENE_SECTION = Path("docs/paper_scene_section.md")
+WEEK11_BENCHMARK_CARD_SCENE_SECTION = Path("docs/benchmark_card_scene_section.md")
+WEEK11_FINAL_FIGURE_MANIFEST = Path("validation/reports/week11_final_figure_manifest.yaml")
+WEEK11_EXTERNAL_REFERENCE_AUDIT = Path("validation/reports/week11_external_reference_audit.md")
+WEEK11_EXECUTION_LOG = Path("docs/workstream1_week11_execution.md")
 
 REQUIRED_COVERAGE_COLUMNS = (
     "coverage_patch",
@@ -262,6 +268,43 @@ REQUIRED_WEEK10_PACKAGE_FILES = {
     "validation/reports/reference_validation_report.md",
     "docs/benchmark_card.md",
 }
+
+REQUIRED_WEEK11_RELEASE_DOCS = {
+    "docs/paper_scene_section.md",
+    "docs/benchmark_card_scene_section.md",
+    "validation/reports/week11_final_figure_manifest.yaml",
+    "validation/reports/week11_external_reference_audit.md",
+    "docs/workstream1_week11_execution.md",
+}
+
+REQUIRED_WEEK11_FIGURE_IDS = {
+    "scene_layer_stack",
+    "final_render_contact_sheet",
+    "final_evaluation_stress_matrix",
+    "final_perception_results_table",
+    "final_policy_results_lock",
+    "release_guardrail_table",
+}
+
+REQUIRED_WEEK11_GUARDRAILS = (
+    "label_id_renames",
+    "task_region_id_renames",
+    "safety_path_renames",
+    "safety_boundary_shrink_count",
+    "camera_frame_renames",
+    "material_variant_renames",
+    "lighting_variant_renames",
+    "scene_geometry_changes",
+    "coverage_region_changes_for_metric_improvement",
+    "metric_definition_changes",
+    "public_reference_training_use_count",
+    "heldout_reference_tuning_count",
+    "unreviewed_asset_changes",
+    "unsupported_realism_claims",
+    "untraceable_final_figures",
+    "generated_or_large_artifacts_committed",
+    "fabricated_gpu_render_outputs",
+)
 VALID_WEEK8_RENDER_GATE_STATUS = {"pending_gpu_run", "passed"}
 VALID_WEEK9_EVALUATION_GATE_STATUS = {"pending_gpu_run", "passed"}
 
@@ -2416,6 +2459,227 @@ def validate_week10_scene_lock(root: Path | str = ".") -> list[str]:
     return errors
 
 
+def _reference_manifest_rows(path: Path) -> tuple[dict[str, dict[str, str]], list[str]]:
+    if not path.exists():
+        return {}, [f"Missing reference manifest: {path}"]
+    with path.open(newline="", encoding="utf-8") as handle:
+        rows = {
+            str(row.get("reference_id", "")).strip(): row
+            for row in csv.DictReader(handle)
+            if str(row.get("reference_id", "")).strip()
+        }
+    return rows, []
+
+
+def _text_contains_tokens(path: Path, tokens: tuple[str, ...]) -> list[str]:
+    if not path.exists():
+        return [f"Missing required Week 11 document: {path}"]
+    text = _read_text(path).lower()
+    return [f"{path}: missing token {token!r}" for token in tokens if token.lower() not in text]
+
+
+def validate_week11_documentation(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    errors: list[str] = []
+    token_requirements = {
+        Path("README.md"): (
+            "week 11 digital twin",
+            "scene-final-v1.0.0",
+            "python scripts/validate_week11_scene_release.py",
+            "docs/paper_scene_section.md",
+        ),
+        WEEK11_PAPER_SCENE_SECTION: (
+            "benchmark-oriented proxy",
+            "layer structure",
+            "labels",
+            "safety zones",
+            "task regions",
+            "limitations",
+            "provenance appendix",
+            "not a flight-certified",
+            "scene-final-v1.0.0",
+        ),
+        WEEK11_BENCHMARK_CARD_SCENE_SECTION: (
+            "benchmark-oriented proxy openusd scene",
+            "final labels, safety, and tasks",
+            "figures and provenance",
+            "known limitations",
+            "scene-final-v1.0.0",
+        ),
+        WEEK11_EXTERNAL_REFERENCE_AUDIT: (
+            "held-out reference use: 0 tuning changes",
+            "component presence notes",
+            "public images used in paper or video",
+            "unsupported realism claims",
+            "scene-final-v1.0.0",
+        ),
+        WEEK11_EXECUTION_LOG: (
+            "iteration 1: baseline integration",
+            "ship gates",
+            "guardrail metrics",
+            "python scripts/validate_week11_scene_release.py",
+        ),
+    }
+    for rel_path, tokens in token_requirements.items():
+        errors.extend(_text_contains_tokens(root_path / rel_path, tokens))
+    return errors
+
+
+def validate_week11_figure_manifest(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    manifest_path = root_path / WEEK11_FINAL_FIGURE_MANIFEST
+    if not manifest_path.exists():
+        return [f"Missing Week 11 final figure manifest: {manifest_path}"]
+
+    errors: list[str] = []
+    manifest = load_contract_yaml(manifest_path)
+    if manifest.get("version") != "1.0.0":
+        errors.append(f"{manifest_path}: version must be '1.0.0'")
+    if manifest.get("scene_final_tag") != FINAL_SCENE_TAG:
+        errors.append(f"{manifest_path}: scene_final_tag must be {FINAL_SCENE_TAG!r}")
+    if manifest.get("manifest_status") != "release_ready":
+        errors.append(f"{manifest_path}: manifest_status must be 'release_ready'")
+    for key in ("untraceable_figure_count", "generated_or_large_artifacts_committed"):
+        if int(manifest.get(key, -1)) != 0:
+            errors.append(f"{manifest_path}: {key} must be 0")
+
+    figures = [_as_mapping(row) for row in _as_list(manifest.get("figures"))]
+    figure_ids = {str(row.get("figure_id", "")).strip() for row in figures}
+    if figure_ids != REQUIRED_WEEK11_FIGURE_IDS:
+        missing = sorted(REQUIRED_WEEK11_FIGURE_IDS - figure_ids)
+        extra = sorted(figure_ids - REQUIRED_WEEK11_FIGURE_IDS)
+        errors.append(f"{manifest_path}: figure IDs mismatch; missing={missing}, extra={extra}")
+
+    reference_rows, reference_errors = _reference_manifest_rows(root_path / "validation" / "reference_manifest.csv")
+    errors.extend(reference_errors)
+    run_registry_text = _read_text(root_path / "compute" / "gpu_run_registry.csv")
+
+    for index, figure in enumerate(figures, start=1):
+        figure_id = str(figure.get("figure_id", "")).strip()
+        for key in (
+            "title",
+            "caption",
+            "source_type",
+            "source_path",
+            "config_path",
+            "run_id",
+            "source_sha256",
+            "tracked_in_git",
+            "allowed_in_paper",
+            "claim_bound",
+        ):
+            if figure.get(key) in (None, ""):
+                errors.append(f"{manifest_path}: figure {figure_id or index} missing {key}")
+
+        if figure.get("allowed_in_paper") is not True:
+            errors.append(f"{manifest_path}: figure {figure_id or index} must be allowed_in_paper=true")
+
+        claim_bound = str(figure.get("claim_bound", "")).lower()
+        if not any(token in claim_bound for token in ("proxy", "benchmark", "metric", "release", "perception-domain")):
+            errors.append(f"{manifest_path}: figure {figure_id or index} has an unsupported claim_bound")
+
+        source_path = root_path / str(figure.get("source_path", ""))
+        tracked_in_git = figure.get("tracked_in_git")
+        if tracked_in_git is True:
+            if not source_path.exists():
+                errors.append(f"{manifest_path}: tracked source is missing for figure {figure_id}: {source_path}")
+        elif tracked_in_git is False:
+            digest = str(figure.get("source_sha256", "")).strip()
+            if len(digest) != 64:
+                errors.append(f"{manifest_path}: ignored artifact figure {figure_id} must record a SHA-256 source hash")
+            if not str(figure.get("source_path", "")).startswith("validation/renders/"):
+                errors.append(f"{manifest_path}: ignored artifact figure {figure_id} must live under validation/renders/")
+            if source_path.exists() and len(digest) == 64 and _file_sha256(source_path) != digest:
+                errors.append(f"{source_path}: SHA-256 does not match Week 11 figure manifest")
+        else:
+            errors.append(f"{manifest_path}: figure {figure_id or index} tracked_in_git must be true or false")
+
+        config_path = root_path / str(figure.get("config_path", ""))
+        if str(figure.get("config_path", "")) != "not_applicable" and not config_path.exists():
+            errors.append(f"{manifest_path}: config/source package path missing for figure {figure_id}: {config_path}")
+
+        run_id = str(figure.get("run_id", "")).strip()
+        if run_id != "not_applicable" and run_id not in run_registry_text:
+            errors.append(f"{manifest_path}: run_id {run_id!r} for figure {figure_id} is not in compute/gpu_run_registry.csv")
+
+        for reference_id in _as_list(figure.get("public_reference_ids")):
+            reference_key = str(reference_id).strip()
+            manifest_row = reference_rows.get(reference_key)
+            if manifest_row is None:
+                errors.append(f"{manifest_path}: figure {figure_id} references unknown public reference {reference_key!r}")
+                continue
+            if manifest_row.get("allowed_in_paper", "").strip().lower() != "true":
+                errors.append(f"{manifest_path}: reference {reference_key!r} is not allowed_in_paper=true")
+            if manifest_row.get("excluded_from_training", "").strip().lower() != "true":
+                errors.append(f"{manifest_path}: reference {reference_key!r} must remain excluded_from_training=true")
+
+    return errors
+
+
+def validate_week11_release_checklist(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    checklist_path = root_path / WEEK11_SCENE_RELEASE_CHECKLIST
+    if not checklist_path.exists():
+        return [f"Missing Week 11 scene release checklist: {checklist_path}"]
+
+    errors: list[str] = []
+    checklist = load_contract_yaml(checklist_path)
+    for key, expected in (
+        ("version", "1.0.0"),
+        ("gate_status", "passed"),
+        ("scene_final_tag", FINAL_SCENE_TAG),
+        ("release_package_status", "paper_ready_reproducible_artifact"),
+        ("base_scene_package", WEEK10_FINAL_SCENE_PACKAGE.as_posix()),
+        ("paper_scene_section", WEEK11_PAPER_SCENE_SECTION.as_posix()),
+        ("benchmark_card_scene_section", WEEK11_BENCHMARK_CARD_SCENE_SECTION.as_posix()),
+        ("final_figure_manifest", WEEK11_FINAL_FIGURE_MANIFEST.as_posix()),
+        ("external_reference_audit", WEEK11_EXTERNAL_REFERENCE_AUDIT.as_posix()),
+        ("readme", "README.md"),
+        ("week11_execution_log", WEEK11_EXECUTION_LOG.as_posix()),
+    ):
+        if checklist.get(key) != expected:
+            errors.append(f"{checklist_path}: {key} must be {expected!r}")
+
+    if float(checklist.get("new_gpu_spend_usd", -1)) != 0:
+        errors.append(f"{checklist_path}: new_gpu_spend_usd must be 0")
+
+    release_docs = {
+        str(_as_mapping(row).get("path", "")).strip()
+        for row in _as_list(checklist.get("release_docs"))
+    }
+    if release_docs != REQUIRED_WEEK11_RELEASE_DOCS:
+        missing = sorted(REQUIRED_WEEK11_RELEASE_DOCS - release_docs)
+        extra = sorted(release_docs - REQUIRED_WEEK11_RELEASE_DOCS)
+        errors.append(f"{checklist_path}: release_docs mismatch; missing={missing}, extra={extra}")
+    for rel_path in REQUIRED_WEEK11_RELEASE_DOCS:
+        if not (root_path / rel_path).exists():
+            errors.append(f"{checklist_path}: missing release doc {rel_path}")
+
+    ship_gates = _as_mapping(checklist.get("ship_gates"))
+    for gate, status in ship_gates.items():
+        if status != "passed":
+            errors.append(f"{checklist_path}: ship_gates.{gate} must be passed")
+    if not ship_gates:
+        errors.append(f"{checklist_path}: ship_gates must not be empty")
+
+    guardrails = _as_mapping(checklist.get("guardrail_metrics"))
+    for key in REQUIRED_WEEK11_GUARDRAILS:
+        if int(guardrails.get(key, -1)) != 0:
+            errors.append(f"{checklist_path}: guardrail_metrics.{key} must be 0")
+
+    return errors
+
+
+def validate_week11_scene_release(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    errors: list[str] = []
+    errors.extend(validate_week10_scene_lock(root_path))
+    errors.extend(validate_week11_release_checklist(root_path))
+    errors.extend(validate_week11_documentation(root_path))
+    errors.extend(validate_week11_figure_manifest(root_path))
+    return errors
+
+
 def validate_scene_contract(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     contract_path = root_path / "contracts" / "scene_contract.yaml"
@@ -2581,5 +2845,6 @@ def validate_scene_package(root: Path | str = ".") -> list[str]:
     errors.extend(validate_week9_release_notes(root_path))
     errors.extend(validate_week9_reports(root_path))
     errors.extend(validate_week10_scene_lock(root_path))
+    errors.extend(validate_week11_scene_release(root_path))
     errors.extend(validate_usd_proxy_layers(root_path))
     return errors
