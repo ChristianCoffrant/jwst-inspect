@@ -4,7 +4,7 @@
 
 JWST-Inspect synthetic sample dataset.
 
-Current version: `0.1.0` Week 5 anomaly-aware rasterized pilot.
+Current version: `0.2.0` Week 6 beta dataset contract.
 
 ## Data Sources
 
@@ -14,6 +14,8 @@ frames generated from `configs/episodes/dev_episodes.yaml`. The Week 4 pilot
 adds 600 deterministic rasterized proxy frames generated from
 `replicator/randomization.yaml`. The Week 5 pilot adds 720 deterministic
 anomaly/no-anomaly proxy frames generated from `replicator/anomaly_catalog.yaml`.
+The Week 6 beta dataset adds a 720-frame `scene-beta-v0.2.0` package with a
+required 60-frame path-traced dev-test subset.
 
 The Week 2 and Week 3 tracked samples include tiny placeholder RGB, depth,
 semantic mask, and instance mask files so validators can check media paths,
@@ -22,7 +24,10 @@ pilot is generated under `datasets/generated/` and is excluded from git; its
 tracked evidence is the randomization config, validation report, and contact
 sheet. The Week 5 pilot is also generated under `datasets/generated/`; its
 tracked evidence is the anomaly catalog, anomaly validation report, perception
-baseline report, and contact sheet.
+baseline report, and contact sheet. Week 6 generated frame media also remains
+outside git; the path-traced subset is accepted only after x090/Isaac outputs
+are synced and recorded in the GPU run registry. The accepted Week 6 run is
+`vast_week6_team2_20260627_42852996` on a Vast RTX 4090 instance.
 
 Future rendered samples will be generated from the JWST-Inspect benchmark scene.
 Public JWST images are reference validation material only and are excluded from
@@ -43,6 +48,13 @@ Week 5 pilot uses 480 `train`, 120 `validation`, and 120 `dev_test` frames.
 Validation and dev_test include paired no-anomaly counterparts plus nominal
 high-glare controls for false-alarm measurement. The `final_test` split remains
 unpopulated and held out.
+
+The Week 6 beta dataset keeps the same 480/120/120 split sizes. Its `dev_test`
+split is renderer-paired with 60 rasterized and 60 path-traced frames. The
+path-traced frames are accepted only when media, `gpu_run_id`, and synced
+run-registry metadata are present. The current synced path-traced RGB subset was
+rendered with Isaac Sim 6.0 PathTracing at `spp=32`; depth and mask artifacts
+remain deterministic contract proxy labels.
 
 ## Sample Media
 
@@ -98,6 +110,23 @@ alarms. The first perception baseline is a dependency-free RGB heuristic that
 reports binary anomaly metrics, per-anomaly-type metrics, and high-glare false
 alarm rate.
 
+## Week 6 Beta Metadata and Perception
+
+Week 6 beta frames additionally include:
+
+- `scene_tag`
+- `dataset_tag`
+- `render_config_id`
+- `renderer_pair_id`
+- `gpu_run_id`
+- `artifact_sync_status`
+
+The Week 6 perception baseline reports semantic mIoU, per-class IoU, pixel
+accuracy, anomaly precision/recall/F1, high-glare false-alarm rate, and
+perception R2P gap separately for rasterized and path-traced dev-test frames.
+It does not run unless the dataset validator accepts the required GPU-backed
+path-traced subset.
+
 ## Metadata
 
 Every frame must include:
@@ -124,5 +153,6 @@ Synthetic anomalies are benchmark stressors, not claims about real JWST faults.
 Week 2 and Week 3 placeholder samples are contract-validation artifacts. The
 Week 4 pilot is a local rasterized proxy for data-interface and guardrail
 validation. The Week 5 anomaly pilot and baseline are local rasterized proxies
-for stressor bookkeeping and evaluation reporting, not evidence of final
-renderer fidelity or real JWST diagnosis capability.
+for stressor bookkeeping and evaluation reporting. Week 6 combines local
+contract proxy labels with a synced x090/Isaac path-traced RGB dev-test subset.
+None of these artifacts are evidence of real JWST diagnosis capability.

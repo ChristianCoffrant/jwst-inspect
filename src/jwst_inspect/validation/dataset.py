@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import csv
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -53,6 +54,30 @@ from jwst_inspect.data.week5_anomaly_dataset import (
     WEEK5_VALIDATION_FRAME_COUNT,
     validate_week5_anomaly_catalog,
 )
+from jwst_inspect.data.week6_beta_dataset import (
+    WEEK6_CONFIG,
+    WEEK6_DATASET_DIR,
+    WEEK6_DATASET_TAG,
+    WEEK6_DEV_PROFILE,
+    WEEK6_DEV_TEST_ANOMALY_FRAME_COUNT,
+    WEEK6_DEV_TEST_FRAME_COUNT,
+    WEEK6_DEV_TEST_PATH_TRACED_FRAME_COUNT,
+    WEEK6_DEV_TEST_RASTERIZED_FRAME_COUNT,
+    WEEK6_DEV_TEST_RENDERER_PAIR_COUNT,
+    WEEK6_FRAME_COUNT,
+    WEEK6_GENERATION_MODE,
+    WEEK6_HIGH_GLARE_CONTROL_COUNT,
+    WEEK6_PATH_TRACED_MEDIA_STATUS,
+    WEEK6_RASTER_MEDIA_STATUS,
+    WEEK6_SCENE_TAG,
+    WEEK6_TRAIN_ANOMALY_FRAME_COUNT,
+    WEEK6_TRAIN_FRAME_COUNT,
+    WEEK6_TRAIN_PROFILE,
+    WEEK6_VALIDATION_ANOMALY_FRAME_COUNT,
+    WEEK6_VALIDATION_FRAME_COUNT,
+    WEEK6_VALIDATION_PROFILE,
+    validate_week6_beta_config,
+)
 
 
 WEEK3_REQUIRED_METADATA_FIELDS: tuple[str, ...] = (
@@ -84,6 +109,28 @@ WEEK5_REQUIRED_METADATA_FIELDS: tuple[str, ...] = (
     "stress_condition_id",
     "counterpart_frame_id",
     "randomization_factors",
+)
+
+WEEK6_REQUIRED_METADATA_FIELDS: tuple[str, ...] = (
+    "generation_mode",
+    "frame_index",
+    "policy_id",
+    "task_id",
+    "randomization_config_id",
+    "randomization_config_version",
+    "randomization_profile",
+    "randomization_factors",
+    "anomaly_catalog_version",
+    "anomaly_instance_id",
+    "anomaly_is_present",
+    "stress_condition_id",
+    "counterpart_frame_id",
+    "scene_tag",
+    "dataset_tag",
+    "render_config_id",
+    "renderer_pair_id",
+    "gpu_run_id",
+    "artifact_sync_status",
 )
 
 
@@ -1818,6 +1865,599 @@ def write_week5_validation_report(
     return output_path, errors
 
 
+def _gpu_registry_rows(path: Path) -> tuple[dict[str, dict[str, str]], list[str]]:
+    if not path.exists():
+        return {}, [f"{path}: missing GPU run registry"]
+    rows: dict[str, dict[str, str]] = {}
+    errors: list[str] = []
+    try:
+        with path.open(newline="", encoding="utf-8") as handle:
+            reader = csv.DictReader(handle)
+            for index, row in enumerate(reader, start=2):
+                run_id = (row.get("run_id") or "").strip()
+                if not run_id:
+                    continue
+                if run_id in rows:
+                    errors.append(f"{path}:{index}: duplicate run_id {run_id!r}")
+                rows[run_id] = {key: (value or "").strip() for key, value in row.items()}
+    except Exception as exc:
+        return {}, [f"{path}: cannot parse GPU run registry: {exc}"]
+    return rows, errors
+
+
+def _week6_registry_errors(
+    frame_id: str,
+    metadata: dict[str, Any],
+    registry_rows: dict[str, dict[str, str]],
+) -> list[str]:
+    gpu_run_id = metadata.get("gpu_run_id")
+    if not isinstance(gpu_run_id, str) or not gpu_run_id:
+        return [f"{frame_id}: path_traced frame requires gpu_run_id"]
+    row = registry_rows.get(gpu_run_id)
+    if row is None:
+        return [f"{frame_id}: gpu_run_id {gpu_run_id!r} is missing from compute/gpu_run_registry.csv"]
+
+    errors: list[str] = []
+    if row.get("team") != "team2_synthetic_data_perception":
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} must belong to team2_synthetic_data_perception")
+    if row.get("scene_tag") != WEEK6_SCENE_TAG:
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} scene_tag must be {WEEK6_SCENE_TAG!r}")
+    if row.get("dataset_tag") != WEEK6_DATASET_TAG:
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} dataset_tag must be {WEEK6_DATASET_TAG!r}")
+    if row.get("config_path") != WEEK6_CONFIG.as_posix():
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} config_path must be {WEEK6_CONFIG.as_posix()!r}")
+    try:
+        gpu_vram_gb = float(row.get("gpu_vram_gb", "0"))
+    except ValueError:
+        gpu_vram_gb = 0.0
+    if gpu_vram_gb < 24.0:
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} must record at least 24 GB VRAM")
+    if row.get("artifact_sync_status") != "synced":
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} artifact_sync_status must be synced")
+    if row.get("status") != "success":
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} status must be success")
+    return errors
+
+
+def _week6_view_key(metadata: dict[str, Any]) -> tuple[Any, ...]:
+    factors = metadata.get("randomization_factors", {})
+    camera = factors.get("camera", {}) if isinstance(factors, dict) else {}
+    return (
+        metadata.get("split"),
+        metadata.get("target_region"),
+        round(float(camera.get("azimuth_deg", 0.0)) / 2.0),
+        round(float(camera.get("elevation_deg", 0.0)) / 2.0),
+        round(float(camera.get("radius_m", 0.0)) * 2.0) / 2.0,
+    )
+
+
+def _week6_renderer_pair_errors(pair_id: str, pair_records: list[dict[str, Any]]) -> list[str]:
+    errors: list[str] = []
+    if len(pair_records) != 2:
+        return [f"renderer_pair_id {pair_id!r} must contain exactly two frames"]
+    renderer_modes = {record.get("renderer_mode") for record in pair_records}
+    if renderer_modes != {"rasterized", "path_traced"}:
+        errors.append(f"renderer_pair_id {pair_id!r} must include rasterized and path_traced frames")
+    comparable_keys = (
+        "split",
+        "target_region",
+        "material_variant",
+        "lighting_condition",
+        "anomaly_type",
+        "anomaly_is_present",
+        "stress_condition_id",
+        "randomization_factors",
+    )
+    first = pair_records[0]
+    for other in pair_records[1:]:
+        for key in comparable_keys:
+            if other.get(key) != first.get(key):
+                errors.append(f"renderer_pair_id {pair_id!r} must keep {key} matched across renderers")
+    return errors
+
+
+def _week6_reference_usage_errors(metadata: dict[str, Any], frame_id: str) -> list[str]:
+    errors = _week5_reference_usage_errors(metadata, frame_id)
+    reference_usage = metadata.get("reference_usage", {})
+    if isinstance(reference_usage, dict) and reference_usage.get("heldout_reference_used_for_tuning") is not False:
+        errors.append(f"{frame_id}: heldout_reference_used_for_tuning must be false")
+    return errors
+
+
+def validate_week6_beta_dataset_with_report(
+    root: Path | str = ".",
+    dataset_dir: Path | str | None = None,
+    registry_path: Path | str | None = None,
+) -> tuple[list[str], dict[str, Any]]:
+    root_path = Path(root)
+    sample_path = Path(dataset_dir) if dataset_dir is not None else root_path / WEEK6_DATASET_DIR
+    manifest_path = sample_path / "dataset_manifest.json"
+    registry_file = Path(registry_path) if registry_path is not None else root_path / "compute" / "gpu_run_registry.csv"
+    errors: list[str] = []
+
+    try:
+        schema = load_contract_yaml(root_path / "contracts" / "dataset_schema.yaml")
+    except Exception as exc:
+        return [f"contracts/dataset_schema.yaml: cannot parse schema: {exc}"], {
+            "status": "failed",
+            "errors": [str(exc)],
+        }
+    errors.extend(validate_week6_beta_config(root_path))
+
+    scene_labels, label_errors = _scene_labels(root_path)
+    errors.extend(label_errors)
+    all_label_ids = {int(label_id) for label_id in scene_labels}
+    task_regions, material_variants, lighting_variants, variant_errors = _scene_variants(root_path)
+    errors.extend(variant_errors)
+    anomaly_ids, anomaly_errors = _allowed_anomalies(root_path)
+    errors.extend(anomaly_errors)
+    catalog_by_id, catalog_errors = _week5_catalog_by_id(root_path)
+    errors.extend(catalog_errors)
+    registry_rows, registry_errors = _gpu_registry_rows(registry_file)
+    errors.extend(registry_errors)
+
+    manifest, manifest_errors = _load_manifest(manifest_path)
+    errors.extend(manifest_errors)
+    if manifest is None:
+        report = {
+            "status": "failed",
+            "dataset_phase": "week6_beta_dataset",
+            "manifest_path": _relative_posix(manifest_path, root_path),
+            "errors": errors,
+        }
+        return errors, report
+
+    frames = manifest.get("frames")
+    if not isinstance(frames, list) or not frames:
+        errors.append(f"{manifest_path}: frames must be a non-empty list")
+        frames = []
+    if len(frames) != WEEK6_FRAME_COUNT:
+        errors.append(f"{manifest_path}: Week 6 beta dataset must include exactly {WEEK6_FRAME_COUNT} frames")
+    if manifest.get("dataset_phase") != "week6_beta_dataset":
+        errors.append(f"{manifest_path}: dataset_phase must be 'week6_beta_dataset'")
+    if manifest.get("generation_mode") != WEEK6_GENERATION_MODE:
+        errors.append(f"{manifest_path}: generation_mode must be {WEEK6_GENERATION_MODE!r}")
+    if manifest.get("scene_tag") != WEEK6_SCENE_TAG:
+        errors.append(f"{manifest_path}: scene_tag must be {WEEK6_SCENE_TAG!r}")
+    if manifest.get("dataset_tag") != WEEK6_DATASET_TAG:
+        errors.append(f"{manifest_path}: dataset_tag must be {WEEK6_DATASET_TAG!r}")
+
+    split_counts: Counter[str] = Counter()
+    renderer_counts: Counter[str] = Counter()
+    renderer_counts_by_split: dict[str, Counter[str]] = {"dev_test": Counter()}
+    profile_counts: Counter[str] = Counter()
+    anomaly_counts: Counter[str] = Counter()
+    anomaly_counts_by_split: dict[str, Counter[str]] = {
+        "train": Counter(),
+        "validation": Counter(),
+        "dev_test": Counter(),
+    }
+    stress_counts: Counter[str] = Counter()
+    high_glare_control_counts: Counter[str] = Counter()
+    true_anomaly_counts_by_split: Counter[str] = Counter()
+    semantic_pixel_counts: dict[str, Counter[int]] = {
+        "train": Counter(),
+        "validation": Counter(),
+        "dev_test": Counter(),
+    }
+    semantic_pixel_counts_by_renderer: dict[str, Counter[int]] = {
+        "rasterized": Counter(),
+        "path_traced": Counter(),
+    }
+    view_counts: Counter[tuple[Any, ...]] = Counter()
+    metadata_by_frame_id: dict[str, dict[str, Any]] = {}
+    renderer_pairs: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    frame_ids: set[str] = set()
+    complete_metadata_count = 0
+    complete_beta_metadata_count = 0
+    complete_media_count = 0
+    blank_or_corrupt_count = 0
+    path_traced_frame_count = 0
+    path_traced_gpu_metadata_count = 0
+    path_traced_synced_artifact_count = 0
+
+    for index, frame_record in enumerate(frames):
+        if not isinstance(frame_record, dict):
+            errors.append(f"{manifest_path}: frame record {index} must be a mapping")
+            continue
+        metadata_relpath = frame_record.get("metadata_path")
+        if not isinstance(metadata_relpath, str):
+            errors.append(f"{manifest_path}: frame record {index} missing metadata_path")
+            continue
+        metadata_path = sample_path / metadata_relpath
+        if not metadata_path.exists():
+            errors.append(f"{metadata_path}: missing metadata file")
+            blank_or_corrupt_count += 1
+            continue
+
+        metadata, frame_errors = _validate_metadata_file(
+            metadata_path,
+            schema,
+            scene_labels,
+            task_regions,
+            material_variants,
+            lighting_variants,
+            anomaly_ids,
+        )
+        if metadata is None:
+            errors.extend(f"{metadata_path}: {error}" for error in frame_errors)
+            blank_or_corrupt_count += 1
+            continue
+
+        frame_id = str(metadata.get("frame_id"))
+        week6_metadata_errors: list[str] = []
+        for field in WEEK6_REQUIRED_METADATA_FIELDS:
+            if field not in metadata:
+                week6_metadata_errors.append(f"{frame_id}: missing Week 6 metadata field {field!r}")
+        if metadata.get("generation_mode") != WEEK6_GENERATION_MODE:
+            week6_metadata_errors.append(f"{frame_id}: generation_mode must be {WEEK6_GENERATION_MODE!r}")
+        if metadata.get("scene_tag") != WEEK6_SCENE_TAG:
+            week6_metadata_errors.append(f"{frame_id}: scene_tag must be {WEEK6_SCENE_TAG!r}")
+        if metadata.get("dataset_tag") != WEEK6_DATASET_TAG:
+            week6_metadata_errors.append(f"{frame_id}: dataset_tag must be {WEEK6_DATASET_TAG!r}")
+        if metadata.get("render_config_id") != "week6_beta_validation_v0_2":
+            week6_metadata_errors.append(f"{frame_id}: render_config_id must be 'week6_beta_validation_v0_2'")
+        split = str(metadata.get("split"))
+        renderer_mode = str(metadata.get("renderer_mode"))
+        expected_profile = {
+            "train": WEEK6_TRAIN_PROFILE,
+            "validation": WEEK6_VALIDATION_PROFILE,
+            "dev_test": WEEK6_DEV_PROFILE,
+        }.get(split)
+        if expected_profile is None:
+            week6_metadata_errors.append(f"{frame_id}: split must be train, validation, or dev_test")
+        elif metadata.get("randomization_profile") != expected_profile:
+            week6_metadata_errors.append(f"{frame_id}: randomization_profile must be {expected_profile!r}")
+        if split != "dev_test" and renderer_mode != "rasterized":
+            week6_metadata_errors.append(f"{frame_id}: train and validation frames must be rasterized")
+        if split == "dev_test" and not isinstance(metadata.get("renderer_pair_id"), str):
+            week6_metadata_errors.append(f"{frame_id}: dev_test frames require renderer_pair_id")
+        if split != "dev_test" and metadata.get("renderer_pair_id") is not None:
+            week6_metadata_errors.append(f"{frame_id}: non-dev_test frames must have null renderer_pair_id")
+        if renderer_mode == "path_traced":
+            path_traced_frame_count += 1
+            if metadata.get("media_status") != WEEK6_PATH_TRACED_MEDIA_STATUS:
+                week6_metadata_errors.append(
+                    f"{frame_id}: path_traced frames must have media_status {WEEK6_PATH_TRACED_MEDIA_STATUS!r}"
+                )
+            if metadata.get("artifact_sync_status") != "synced":
+                week6_metadata_errors.append(f"{frame_id}: path_traced frames require artifact_sync_status synced")
+            registry_check_errors = _week6_registry_errors(frame_id, metadata, registry_rows)
+            week6_metadata_errors.extend(registry_check_errors)
+            if not registry_check_errors and metadata.get("artifact_sync_status") == "synced":
+                path_traced_gpu_metadata_count += 1
+        else:
+            if metadata.get("media_status") != WEEK6_RASTER_MEDIA_STATUS:
+                week6_metadata_errors.append(
+                    f"{frame_id}: rasterized frames must have media_status {WEEK6_RASTER_MEDIA_STATUS!r}"
+                )
+            if metadata.get("artifact_sync_status") != "not_applicable":
+                week6_metadata_errors.append(f"{frame_id}: rasterized frames require artifact_sync_status not_applicable")
+            if metadata.get("gpu_run_id") is not None:
+                week6_metadata_errors.append(f"{frame_id}: rasterized frames must have null gpu_run_id")
+
+        anomaly_type = str(metadata.get("anomaly_type"))
+        anomaly_def = catalog_by_id.get(anomaly_type)
+        if anomaly_def is None:
+            week6_metadata_errors.append(f"{frame_id}: anomaly_type must exist in anomaly catalog")
+        elif metadata.get("anomaly_is_present") is True:
+            if anomaly_type not in WEEK5_ACTIVE_ANOMALY_IDS:
+                week6_metadata_errors.append(f"{frame_id}: true anomaly must use an active anomaly type")
+            if not isinstance(metadata.get("anomaly_instance_id"), str) or not metadata["anomaly_instance_id"]:
+                week6_metadata_errors.append(f"{frame_id}: anomaly_instance_id must be set for anomalies")
+            if metadata.get("anomaly_prim") != anomaly_def.get("anomaly_prim"):
+                week6_metadata_errors.append(f"{frame_id}: anomaly_prim must match anomaly catalog")
+            if metadata.get("stress_condition_id") != anomaly_type:
+                week6_metadata_errors.append(f"{frame_id}: stress_condition_id must match anomaly_type")
+            if not isinstance(metadata.get("counterpart_frame_id"), str) or not metadata["counterpart_frame_id"]:
+                week6_metadata_errors.append(f"{frame_id}: anomaly counterpart_frame_id is required")
+        else:
+            if anomaly_type != "none":
+                week6_metadata_errors.append(f"{frame_id}: no-anomaly frames must use anomaly_type 'none'")
+            if metadata.get("anomaly_prim") is not None:
+                week6_metadata_errors.append(f"{frame_id}: no-anomaly frames must have null anomaly_prim")
+            if metadata.get("anomaly_instance_id") is not None:
+                week6_metadata_errors.append(f"{frame_id}: no-anomaly frames must have null anomaly_instance_id")
+
+        for key in (
+            "frame_id",
+            "split",
+            "seed",
+            "generation_mode",
+            "randomization_profile",
+            "target_region",
+            "renderer_mode",
+            "renderer_pair_id",
+            "material_variant",
+            "lighting_condition",
+            "anomaly_type",
+            "anomaly_is_present",
+            "stress_condition_id",
+            "counterpart_frame_id",
+            "scene_tag",
+            "dataset_tag",
+            "render_config_id",
+            "gpu_run_id",
+            "artifact_sync_status",
+            "media_status",
+        ):
+            week6_metadata_errors.extend(_frame_record_value(frame_record, metadata, key))
+        week6_metadata_errors.extend(_week6_reference_usage_errors(metadata, frame_id))
+        week6_metadata_errors.extend(_week5_randomization_factor_errors(metadata, frame_id))
+
+        errors.extend(f"{metadata_path}: {error}" for error in frame_errors)
+        errors.extend(f"{metadata_path}: {error}" for error in week6_metadata_errors)
+        if not frame_errors and not week6_metadata_errors:
+            complete_metadata_count += 1
+        if not week6_metadata_errors and all(field in metadata for field in WEEK6_REQUIRED_METADATA_FIELDS):
+            complete_beta_metadata_count += 1
+
+        media_errors = _validate_output_media(sample_path, metadata, scene_labels)
+        media_blank = False
+        if not media_errors:
+            try:
+                media_blank = _is_blank_week5_media(sample_path, metadata)
+            except Exception as exc:
+                media_errors.append(f"{frame_id}: cannot inspect blank/corrupt guardrail: {exc}")
+        errors.extend(f"{metadata_path}: {error}" for error in media_errors)
+        if not media_errors and not media_blank:
+            complete_media_count += 1
+            if renderer_mode == "path_traced" and metadata.get("artifact_sync_status") == "synced":
+                path_traced_synced_artifact_count += 1
+        else:
+            blank_or_corrupt_count += 1
+
+        semantic_path = sample_path / metadata["outputs"]["semantic_mask"]
+        if semantic_path.exists():
+            try:
+                semantic_values = read_png_grayscale_values(semantic_path)
+                semantic_pixel_counts.setdefault(split, Counter()).update(semantic_values)
+                semantic_pixel_counts_by_renderer.setdefault(renderer_mode, Counter()).update(semantic_values)
+            except Exception:
+                pass
+
+        if frame_id in frame_ids:
+            errors.append(f"{metadata_path}: duplicated frame_id {frame_id!r}")
+        frame_ids.add(frame_id)
+        metadata_by_frame_id[frame_id] = metadata
+        split_counts[split] += 1
+        renderer_counts[renderer_mode] += 1
+        renderer_counts_by_split.setdefault(split, Counter())[renderer_mode] += 1
+        profile_counts[str(metadata.get("randomization_profile"))] += 1
+        anomaly_counts[anomaly_type] += 1
+        anomaly_counts_by_split.setdefault(split, Counter())[anomaly_type] += 1
+        stress_counts[str(metadata.get("stress_condition_id"))] += 1
+        if metadata.get("anomaly_is_present") is True:
+            true_anomaly_counts_by_split[split] += 1
+        if metadata.get("stress_condition_id") == WEEK5_HIGH_GLARE_CONTROL_ID:
+            high_glare_control_counts[split] += 1
+        view_counts[_week6_view_key(metadata)] += 1
+        renderer_pair_id = metadata.get("renderer_pair_id")
+        if isinstance(renderer_pair_id, str):
+            renderer_pairs[renderer_pair_id].append(metadata)
+
+    expected_split_counts = {
+        "train": WEEK6_TRAIN_FRAME_COUNT,
+        "validation": WEEK6_VALIDATION_FRAME_COUNT,
+        "dev_test": WEEK6_DEV_TEST_FRAME_COUNT,
+    }
+    for split_name, expected_count in expected_split_counts.items():
+        if split_counts.get(split_name, 0) != expected_count:
+            errors.append(f"{manifest_path}: {split_name} split must contain {expected_count} frames")
+    if renderer_counts_by_split.get("dev_test", Counter()).get("rasterized", 0) != WEEK6_DEV_TEST_RASTERIZED_FRAME_COUNT:
+        errors.append(f"{manifest_path}: dev_test must contain {WEEK6_DEV_TEST_RASTERIZED_FRAME_COUNT} rasterized frames")
+    if renderer_counts_by_split.get("dev_test", Counter()).get("path_traced", 0) != WEEK6_DEV_TEST_PATH_TRACED_FRAME_COUNT:
+        errors.append(f"{manifest_path}: dev_test must contain {WEEK6_DEV_TEST_PATH_TRACED_FRAME_COUNT} path_traced frames")
+    if len(renderer_pairs) != WEEK6_DEV_TEST_RENDERER_PAIR_COUNT:
+        errors.append(f"{manifest_path}: dev_test must contain {WEEK6_DEV_TEST_RENDERER_PAIR_COUNT} renderer pairs")
+    for pair_id, pair_records in sorted(renderer_pairs.items()):
+        errors.extend(f"{manifest_path}: {error}" for error in _week6_renderer_pair_errors(pair_id, pair_records))
+    expected_true_anomalies = {
+        "train": WEEK6_TRAIN_ANOMALY_FRAME_COUNT,
+        "validation": WEEK6_VALIDATION_ANOMALY_FRAME_COUNT,
+        "dev_test": WEEK6_DEV_TEST_ANOMALY_FRAME_COUNT,
+    }
+    for split_name, expected_count in expected_true_anomalies.items():
+        if true_anomaly_counts_by_split.get(split_name, 0) != expected_count:
+            errors.append(f"{manifest_path}: {split_name} true anomaly count must be {expected_count}")
+    for anomaly_id in WEEK5_ACTIVE_ANOMALY_IDS:
+        for split_name in ("train", "validation", "dev_test"):
+            if anomaly_counts_by_split[split_name].get(anomaly_id, 0) == 0:
+                errors.append(f"{manifest_path}: {split_name} missing anomaly type {anomaly_id!r}")
+    if sum(high_glare_control_counts.values()) < WEEK6_HIGH_GLARE_CONTROL_COUNT:
+        errors.append(f"{manifest_path}: high-glare no-anomaly controls must include at least {WEEK6_HIGH_GLARE_CONTROL_COUNT} frames")
+
+    prevalence_by_split: dict[str, float] = {}
+    for split_name in ("train", "validation", "dev_test"):
+        denominator = split_counts.get(split_name, 0)
+        prevalence = true_anomaly_counts_by_split.get(split_name, 0) / denominator if denominator else 1.0
+        prevalence_by_split[split_name] = prevalence
+    if prevalence_by_split.get("train", 1.0) > 0.50:
+        errors.append(f"{manifest_path}: train true anomaly fraction must be <= 0.50")
+    for split_name in ("validation", "dev_test"):
+        if prevalence_by_split.get(split_name, 1.0) > 0.34:
+            errors.append(f"{manifest_path}: {split_name} true anomaly fraction must be <= 0.34")
+
+    true_anomaly_frame_ids = [
+        frame_id for frame_id, metadata in metadata_by_frame_id.items() if metadata.get("anomaly_is_present") is True
+    ]
+    covered_counterparts = 0
+    allowed_duplicate_pairs_by_key: Counter[tuple[Any, ...]] = Counter()
+    for frame_id in true_anomaly_frame_ids:
+        metadata = metadata_by_frame_id[frame_id]
+        counterpart_id = metadata.get("counterpart_frame_id")
+        counterpart = metadata_by_frame_id.get(str(counterpart_id))
+        counterpart_errors = _week5_counterpart_errors(metadata, counterpart)
+        if counterpart_errors:
+            errors.extend(f"{frame_id}: {error}" for error in counterpart_errors)
+            continue
+        covered_counterparts += 1
+        key = _week6_view_key(metadata)
+        if counterpart is not None and _week6_view_key(counterpart) == key:
+            allowed_duplicate_pairs_by_key[key] += 1
+    for pair_records in renderer_pairs.values():
+        if len(pair_records) == 2:
+            key = _week6_view_key(pair_records[0])
+            if _week6_view_key(pair_records[1]) == key:
+                allowed_duplicate_pairs_by_key[key] += 1
+
+    frame_count = len(frames)
+    counterpart_coverage = covered_counterparts / len(true_anomaly_frame_ids) if true_anomaly_frame_ids else 0.0
+    if counterpart_coverage < 1.0:
+        errors.append(f"{manifest_path}: anomaly counterpart coverage must be 1.0")
+    duplicate_view_count = 0
+    for key, count in view_counts.items():
+        duplicate_view_count += max(0, count - 1 - allowed_duplicate_pairs_by_key.get(key, 0))
+    duplicate_view_rate = duplicate_view_count / frame_count if frame_count else 1.0
+    duplicate_view_rate_max = 0.05
+    if duplicate_view_rate > duplicate_view_rate_max:
+        errors.append(
+            f"{manifest_path}: counterpart/renderer-pair-aware duplicate view rate is "
+            f"{duplicate_view_rate:.3f}, expected <= {duplicate_view_rate_max:.3f}"
+        )
+
+    corrupt_or_blank_fraction = blank_or_corrupt_count / frame_count if frame_count else 1.0
+    if corrupt_or_blank_fraction > MAX_CORRUPT_OR_BLANK_FRACTION:
+        errors.append(
+            f"{manifest_path}: corrupt or blank frame fraction is "
+            f"{corrupt_or_blank_fraction:.3f}, expected <= {MAX_CORRUPT_OR_BLANK_FRACTION:.3f}"
+        )
+
+    metadata_completeness = complete_metadata_count / frame_count if frame_count else 0.0
+    beta_metadata_completeness = complete_beta_metadata_count / frame_count if frame_count else 0.0
+    media_completeness = complete_media_count / frame_count if frame_count else 0.0
+    path_traced_gpu_metadata_completeness = (
+        path_traced_gpu_metadata_count / path_traced_frame_count if path_traced_frame_count else 0.0
+    )
+    path_traced_synced_artifact_fraction = (
+        path_traced_synced_artifact_count / path_traced_frame_count if path_traced_frame_count else 0.0
+    )
+    if metadata_completeness < 1.0:
+        errors.append(f"{manifest_path}: metadata completeness is {complete_metadata_count}/{frame_count}, expected 100%")
+    if beta_metadata_completeness < 1.0:
+        errors.append(f"{manifest_path}: beta metadata completeness is {complete_beta_metadata_count}/{frame_count}, expected 100%")
+    if media_completeness < 1.0:
+        errors.append(f"{manifest_path}: media completeness is {complete_media_count}/{frame_count}, expected 100%")
+    if path_traced_gpu_metadata_completeness < 1.0:
+        errors.append(
+            f"{manifest_path}: path-traced GPU metadata completeness is "
+            f"{path_traced_gpu_metadata_count}/{path_traced_frame_count}, expected 100%"
+        )
+    if path_traced_synced_artifact_fraction < 1.0:
+        errors.append(
+            f"{manifest_path}: path-traced synced artifact fraction is "
+            f"{path_traced_synced_artifact_count}/{path_traced_frame_count}, expected 100%"
+        )
+
+    summary = manifest.get("summary")
+    if not isinstance(summary, dict):
+        errors.append(f"{manifest_path}: summary must be present")
+    else:
+        if summary.get("public_reference_images_used_for_training") is not False:
+            errors.append(f"{manifest_path}: public_reference_images_used_for_training must be false")
+        if summary.get("public_reference_exemplars_used") is not False:
+            errors.append(f"{manifest_path}: public_reference_exemplars_used must be false")
+        if summary.get("heldout_reference_used_for_tuning") is not False:
+            errors.append(f"{manifest_path}: heldout_reference_used_for_tuning must be false")
+        if summary.get("large_generated_outputs_committed") is not False:
+            errors.append(f"{manifest_path}: large_generated_outputs_committed must be false")
+
+    class_coverage = {
+        split_name: {
+            "per_class_pixel_counts": _counter_to_json(counter),
+            "missing_label_ids": sorted(all_label_ids - set(counter)),
+        }
+        for split_name, counter in semantic_pixel_counts.items()
+    }
+    class_coverage_by_renderer = {
+        renderer_mode: {
+            "per_class_pixel_counts": _counter_to_json(counter),
+            "missing_label_ids": sorted(all_label_ids - set(counter)),
+        }
+        for renderer_mode, counter in semantic_pixel_counts_by_renderer.items()
+    }
+    report = {
+        "status": "failed" if errors else "passed",
+        "dataset_phase": "week6_beta_dataset",
+        "generation_mode": manifest.get("generation_mode"),
+        "manifest_path": _relative_posix(manifest_path, root_path),
+        "scene_tag": manifest.get("scene_tag"),
+        "dataset_tag": manifest.get("dataset_tag"),
+        "frame_count": frame_count,
+        "expected_frame_count": WEEK6_FRAME_COUNT,
+        "metadata_completeness": metadata_completeness,
+        "beta_metadata_completeness": beta_metadata_completeness,
+        "media_completeness": media_completeness,
+        "path_traced_gpu_metadata_completeness": path_traced_gpu_metadata_completeness,
+        "path_traced_synced_artifact_fraction": path_traced_synced_artifact_fraction,
+        "counterpart_coverage": counterpart_coverage,
+        "corrupt_or_blank_frame_count": blank_or_corrupt_count,
+        "corrupt_or_blank_fraction": corrupt_or_blank_fraction,
+        "max_corrupt_or_blank_fraction": MAX_CORRUPT_OR_BLANK_FRACTION,
+        "duplicate_view_count": duplicate_view_count,
+        "duplicate_view_rate": duplicate_view_rate,
+        "duplicate_view_rate_max": duplicate_view_rate_max,
+        "split_counts": dict(sorted(split_counts.items())),
+        "renderer_counts": dict(sorted(renderer_counts.items())),
+        "renderer_counts_by_split": {
+            split_name: dict(sorted(counter.items()))
+            for split_name, counter in sorted(renderer_counts_by_split.items())
+        },
+        "profile_counts": dict(sorted(profile_counts.items())),
+        "anomaly_counts": dict(sorted(anomaly_counts.items())),
+        "anomaly_counts_by_split": {
+            split_name: dict(sorted(counter.items()))
+            for split_name, counter in sorted(anomaly_counts_by_split.items())
+        },
+        "true_anomaly_counts_by_split": dict(sorted(true_anomaly_counts_by_split.items())),
+        "true_anomaly_fraction_by_split": dict(sorted(prevalence_by_split.items())),
+        "stress_condition_counts": dict(sorted(stress_counts.items())),
+        "high_glare_control_counts": dict(sorted(high_glare_control_counts.items())),
+        "renderer_pair_count": len(renderer_pairs),
+        "path_traced_frame_count": path_traced_frame_count,
+        "path_traced_gpu_metadata_count": path_traced_gpu_metadata_count,
+        "path_traced_synced_artifact_count": path_traced_synced_artifact_count,
+        "class_coverage": class_coverage,
+        "class_coverage_by_renderer": class_coverage_by_renderer,
+        "guardrails": {
+            "public_reference_images_used_for_training": False,
+            "public_reference_exemplars_used": False,
+            "heldout_reference_used_for_tuning": False,
+            "synthetic_anomalies_are_benchmark_stressors_only": True,
+            "counterpart_required_for_true_anomalies": True,
+            "renderer_metrics_separate": True,
+            "path_traced_dev_subset_requires_real_gpu_artifacts": True,
+            "official_gpu_run_requires_registry_metadata": True,
+        },
+        "errors": errors,
+    }
+    return errors, report
+
+
+def validate_week6_beta_dataset(
+    root: Path | str = ".",
+    dataset_dir: Path | str | None = None,
+    registry_path: Path | str | None = None,
+) -> list[str]:
+    errors, _ = validate_week6_beta_dataset_with_report(root, dataset_dir, registry_path)
+    return errors
+
+
+def write_week6_validation_report(
+    root: Path | str = ".",
+    dataset_dir: Path | str | None = None,
+    report_path: Path | str | None = None,
+    registry_path: Path | str | None = None,
+) -> tuple[Path, list[str]]:
+    root_path = Path(root)
+    sample_path = Path(dataset_dir) if dataset_dir is not None else root_path / WEEK6_DATASET_DIR
+    errors, report = validate_week6_beta_dataset_with_report(root_path, sample_path, registry_path)
+    output_path = Path(report_path) if report_path is not None else sample_path / "validation_report.json"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return output_path, errors
+
+
 def validate_dataset_package(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     errors: list[str] = []
@@ -1829,4 +2469,6 @@ def validate_dataset_package(root: Path | str = ".") -> list[str]:
         errors.extend(validate_week4_randomized_dataset(root_path))
     if (root_path / WEEK5_DATASET_DIR / "dataset_manifest.json").exists():
         errors.extend(validate_week5_anomaly_dataset(root_path))
+    if (root_path / WEEK6_DATASET_DIR / "dataset_manifest.json").exists():
+        errors.extend(validate_week6_beta_dataset(root_path))
     return errors

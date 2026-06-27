@@ -52,3 +52,26 @@ local perception baseline:
 The anomaly pilot contains paired true anomaly and no-anomaly frames plus
 nominal high-glare no-anomaly controls. The anomalies are synthetic benchmark
 stressors only and are not claims about real JWST fault modes.
+
+## Week 6 Status
+
+The current Team 2 artifact adds the beta dataset/perception scaffold for
+`scene-beta-v0.2.0`:
+
+- `configs/replicator/week6_beta_dataset.yaml` defines dataset tag
+  `week6-beta-data-v0.2.0`.
+- `scripts/generate_week6_beta_dataset.py` writes a 720-frame scaffold to
+  `datasets/generated/week6_beta_dataset/`.
+- `scripts/validate_week6_beta_dataset.py` enforces the required 60-frame
+  path-traced dev-test subset, synced GPU run metadata, renderer pairing,
+  anomaly balance, metadata completeness, media completeness, and
+  public-reference exclusion.
+- `scripts/render_week6_isaac_path_traced_rgb.py` renders the official Isaac
+  Sim path-traced RGB subset on the x090/Vast host.
+- `scripts/evaluate_week6_perception_baseline.py` reports renderer-separated
+  semantic, anomaly, high-glare false-alarm, and perception R2P metrics.
+
+The Week 6 final gate is GPU-required. The official Week 6 run
+`vast_week6_team2_20260627_42852996` rendered the 60 path-traced dev-test RGB
+frames on a Vast RTX 4090 instance and recorded the synced run in
+`compute/gpu_run_registry.csv`.

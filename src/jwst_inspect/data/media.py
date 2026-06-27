@@ -79,7 +79,40 @@ def read_png_info(path: Path) -> dict[str, int]:
     raise ValueError(f"{path}: missing PNG IHDR chunk")
 
 
-def read_png_grayscale_values(path: Path) -> list[int]:
+def _paeth_predictor(left: int, up: int, upper_left: int) -> int:
+    prediction = left + up - upper_left
+    left_distance = abs(prediction - left)
+    up_distance = abs(prediction - up)
+    upper_left_distance = abs(prediction - upper_left)
+    if left_distance <= up_distance and left_distance <= upper_left_distance:
+        return left
+    if up_distance <= upper_left_distance:
+        return up
+    return upper_left
+
+
+def _unfilter_png_row(filter_type: int, row: bytes, previous: bytes, bytes_per_pixel: int) -> bytes:
+    reconstructed = bytearray(len(row))
+    for index, value in enumerate(row):
+        left = reconstructed[index - bytes_per_pixel] if index >= bytes_per_pixel else 0
+        up = previous[index] if previous else 0
+        upper_left = previous[index - bytes_per_pixel] if previous and index >= bytes_per_pixel else 0
+        if filter_type == 0:
+            reconstructed[index] = value
+        elif filter_type == 1:
+            reconstructed[index] = (value + left) & 0xFF
+        elif filter_type == 2:
+            reconstructed[index] = (value + up) & 0xFF
+        elif filter_type == 3:
+            reconstructed[index] = (value + ((left + up) // 2)) & 0xFF
+        elif filter_type == 4:
+            reconstructed[index] = (value + _paeth_predictor(left, up, upper_left)) & 0xFF
+        else:
+            raise ValueError(f"unsupported PNG filter type {filter_type}")
+    return bytes(reconstructed)
+
+
+def _read_png_scanlines(path: Path, expected_color_type: int, bytes_per_pixel: int) -> tuple[int, int, list[bytes]]:
     data = path.read_bytes()
     if not data.startswith(PNG_SIGNATURE):
         raise ValueError(f"{path}: not a PNG file")
@@ -91,9 +124,14 @@ def read_png_grayscale_values(path: Path) -> list[int]:
         chunk_type = data[offset + 4 : offset + 8]
         chunk_payload = data[offset + 8 : offset + 8 + chunk_length]
         if chunk_type == b"IHDR":
-            width, height, bit_depth, color_type, *_ = struct.unpack(">IIBBBBB", chunk_payload)
-            if bit_depth != 8 or color_type != 0:
-                raise ValueError(f"{path}: expected 8-bit grayscale PNG")
+            width, height, bit_depth, color_type, compression, filter_method, interlace = struct.unpack(
+                ">IIBBBBB", chunk_payload
+            )
+            if bit_depth != 8 or color_type != expected_color_type:
+                expected = "grayscale" if expected_color_type == 0 else "RGB"
+                raise ValueError(f"{path}: expected 8-bit {expected} PNG")
+            if compression != 0 or filter_method != 0 or interlace != 0:
+                raise ValueError(f"{path}: unsupported PNG compression/filter/interlace settings")
         elif chunk_type == b"IDAT":
             idat_chunks.append(chunk_payload)
         elif chunk_type == b"IEND":
@@ -102,46 +140,37 @@ def read_png_grayscale_values(path: Path) -> list[int]:
     if width is None or height is None or color_type is None:
         raise ValueError(f"{path}: incomplete PNG")
     raw = zlib.decompress(b"".join(idat_chunks))
-    stride = width + 1
-    values: list[int] = []
+    scanline_width = width * bytes_per_pixel
+    stride = scanline_width + 1
+    if len(raw) != stride * height:
+        raise ValueError(f"{path}: decompressed PNG size does not match dimensions")
+    rows: list[bytes] = []
+    previous = b""
     for row_index in range(height):
         row = raw[row_index * stride : (row_index + 1) * stride]
-        if row[0] != 0:
-            raise ValueError(f"{path}: unsupported PNG filter type {row[0]}")
-        values.extend(row[1:])
+        try:
+            reconstructed = _unfilter_png_row(row[0], row[1:], previous, bytes_per_pixel)
+        except ValueError as exc:
+            raise ValueError(f"{path}: {exc}") from exc
+        if len(reconstructed) != scanline_width:
+            raise ValueError(f"{path}: reconstructed scanline width mismatch")
+        rows.append(reconstructed)
+        previous = reconstructed
+    return width, height, rows
+
+
+def read_png_grayscale_values(path: Path) -> list[int]:
+    _, _, rows = _read_png_scanlines(path, expected_color_type=0, bytes_per_pixel=1)
+    values: list[int] = []
+    for row in rows:
+        values.extend(row)
     return values
 
 
 def read_png_rgb_values(path: Path) -> list[tuple[int, int, int]]:
-    data = path.read_bytes()
-    if not data.startswith(PNG_SIGNATURE):
-        raise ValueError(f"{path}: not a PNG file")
-    offset = len(PNG_SIGNATURE)
-    width = height = color_type = None
-    idat_chunks: list[bytes] = []
-    while offset < len(data):
-        chunk_length = struct.unpack(">I", data[offset : offset + 4])[0]
-        chunk_type = data[offset + 4 : offset + 8]
-        chunk_payload = data[offset + 8 : offset + 8 + chunk_length]
-        if chunk_type == b"IHDR":
-            width, height, bit_depth, color_type, *_ = struct.unpack(">IIBBBBB", chunk_payload)
-            if bit_depth != 8 or color_type != 2:
-                raise ValueError(f"{path}: expected 8-bit RGB PNG")
-        elif chunk_type == b"IDAT":
-            idat_chunks.append(chunk_payload)
-        elif chunk_type == b"IEND":
-            break
-        offset += 12 + chunk_length
-    if width is None or height is None or color_type is None:
-        raise ValueError(f"{path}: incomplete PNG")
-    raw = zlib.decompress(b"".join(idat_chunks))
-    stride = width * 3 + 1
+    _, _, rows = _read_png_scanlines(path, expected_color_type=2, bytes_per_pixel=3)
     values: list[tuple[int, int, int]] = []
-    for row_index in range(height):
-        row = raw[row_index * stride : (row_index + 1) * stride]
-        if row[0] != 0:
-            raise ValueError(f"{path}: unsupported PNG filter type {row[0]}")
-        pixels = row[1:]
+    for pixels in rows:
         for offset_index in range(0, len(pixels), 3):
             values.append(
                 (

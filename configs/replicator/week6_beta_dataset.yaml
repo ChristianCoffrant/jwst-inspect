@@ -1,0 +1,60 @@
+version: 0.2.0
+dataset_tag: week6-beta-data-v0.2.0
+dataset_phase: week6_beta_dataset
+scene_tag: scene-beta-v0.2.0
+generation_mode: beta_scene_dataset
+render_config_id: week6_beta_validation_v0_2
+render_config_path: configs/renderers/week6_beta_validation.yaml
+frame_count: 720
+splits:
+  train:
+    frame_count: 480
+    renderer_mode: rasterized
+    profile: beta_train_v0_2
+    seed_start: 860000
+    true_anomaly_count: 240
+    paired_no_anomaly_count: 240
+  validation:
+    frame_count: 120
+    renderer_mode: rasterized
+    profile: beta_validation_v0_2
+    seed_start: 870000
+    true_anomaly_count: 40
+    paired_no_anomaly_count: 40
+    high_glare_control_count: 40
+  dev_test:
+    frame_count: 120
+    renderer_modes:
+      rasterized: 60
+      path_traced: 60
+    profile: beta_dev_renderer_pair_v0_2
+    seed_start: 880000
+    renderer_pair_count: 60
+    true_anomaly_count: 40
+    paired_no_anomaly_count: 40
+    high_glare_control_count: 40
+target_regions:
+  - approach_hold_standoff
+  - mirror_inspection
+  - sunshield_survey
+active_anomaly_ids:
+  - sunshield_tear_proxy
+  - sunshield_discoloration
+  - mirror_region_obstruction
+  - truss_occlusion_proxy
+source_policy:
+  public_reference_images_training_use: prohibited
+  public_reference_exemplars_allowed: false
+  generated_outputs_in_git: prohibited
+guardrails:
+  metadata_completeness_required: 1.0
+  media_completeness_required: 1.0
+  path_traced_gpu_metadata_completeness_required: 1.0
+  path_traced_synced_artifact_fraction_required: 1.0
+  train_true_anomaly_fraction_max: 0.50
+  eval_true_anomaly_fraction_max: 0.34
+  duplicate_view_rate_max: 0.05
+  corrupt_or_blank_frame_fraction_max: 0.05
+  high_glare_control_count_min: 80
+  path_traced_dev_subset_requires_real_gpu_artifacts: true
+  official_gpu_run_requires_registry_metadata: true

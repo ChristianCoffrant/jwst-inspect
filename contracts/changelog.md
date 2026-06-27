@@ -10,6 +10,7 @@
 - Froze normalized-score weights for the Week 6 dev suite and required integration-council approval plus ablation evidence for later changes.
 - Added Vast.ai X090 official-evaluation metadata and storage-sync guardrails for future GPU-backed runs.
 - Froze Workstream 1 scene beta contract 0.2 with scene tag `scene-beta-v0.2.0`, compatibility alias `scene-proxy-thin-slice-v0.1`, automated scene beta QA inventory, frozen dev and held-out reference sets, Week 6 beta render matrix rows, Vast/sync plan, and validator guardrails for post-freeze change approval, held-out reference tuning prohibition, beta render metadata requirements, and downstream local smoke compatibility.
+- Froze Workstream 2 dataset contract 0.2 with beta dataset tag `week6-beta-data-v0.2.0`, scene-beta metadata, renderer-pair IDs, GPU run IDs, artifact sync status, 720-frame beta split counts, 60-frame path-traced dev-test requirement, synced x090 run-registry guardrails, renderer-separated perception metrics, and public-reference training/tuning prohibition.
 
 ## 0.1.0
 

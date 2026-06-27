@@ -37,7 +37,23 @@ from jwst_inspect.data.week5_anomaly_dataset import (
     write_week5_anomaly_dataset,
     write_week5_contact_sheet,
 )
+from jwst_inspect.data.week6_beta_dataset import (
+    WEEK6_DATASET_DIR,
+    WEEK6_DATASET_TAG,
+    WEEK6_DEV_TEST_FRAME_COUNT,
+    WEEK6_DEV_TEST_PATH_TRACED_FRAME_COUNT,
+    WEEK6_DEV_TEST_RASTERIZED_FRAME_COUNT,
+    WEEK6_FRAME_COUNT,
+    WEEK6_HIGH_GLARE_CONTROL_COUNT,
+    WEEK6_SCENE_TAG,
+    WEEK6_TRAIN_FRAME_COUNT,
+    WEEK6_VALIDATION_FRAME_COUNT,
+    validate_week6_beta_config,
+    write_week6_beta_dataset,
+    write_week6_contact_sheet,
+)
 from jwst_inspect.perception.week5_baseline import evaluate_week5_perception_baseline
+from jwst_inspect.perception.week6_baseline import evaluate_week6_perception_baseline
 from jwst_inspect.validation.dataset import (
     validate_sample_dataset,
     validate_week5_anomaly_dataset,
@@ -47,6 +63,8 @@ from jwst_inspect.validation.dataset import (
     validate_week4_randomization_config,
     validate_week3_episode_dataset,
     validate_week3_episode_dataset_with_report,
+    validate_week6_beta_dataset,
+    validate_week6_beta_dataset_with_report,
 )
 
 
@@ -429,6 +447,156 @@ class Week5AnomalyValidationTests(unittest.TestCase):
                 ROOT,
                 self.dataset_dir,
                 Path(tmpdir) / "week5_contact_sheet.png",
+            )
+
+            self.assertTrue(contact_sheet.exists())
+            self.assertGreater(contact_sheet.stat().st_size, 0)
+
+
+class Week6BetaValidationTests(unittest.TestCase):
+    _tmpdir = None
+    dataset_dir: Path
+    registry_path: Path
+    gpu_run_id = "week6_test_gpu_run"
+
+    @classmethod
+    def setUpClass(cls):
+        cls._tmpdir = tempfile.TemporaryDirectory()
+        temp_root = Path(cls._tmpdir.name)
+        cls.dataset_dir = temp_root / "week6_beta_dataset"
+        cls.registry_path = temp_root / "gpu_run_registry.csv"
+        write_week6_beta_dataset(
+            ROOT,
+            cls.dataset_dir,
+            materialize_path_traced_artifacts=True,
+            gpu_run_id=cls.gpu_run_id,
+        )
+        cls._write_registry(cls.registry_path, cls.gpu_run_id)
+
+    @classmethod
+    def tearDownClass(cls):
+        if cls._tmpdir is not None:
+            cls._tmpdir.cleanup()
+
+    @staticmethod
+    def _write_registry(path: Path, run_id: str | None) -> None:
+        header = (
+            "run_id,date,team,owner,git_commit,scene_tag,dataset_tag,policy_tag,"
+            "config_path,gpu_model,gpu_vram_gb,hourly_price_usd,rental_type,"
+            "runtime_minutes,setup_minutes,artifact_sync_status,status,notes\n"
+        )
+        if run_id is None:
+            path.write_text(header, encoding="utf-8")
+            return
+        row = (
+            f"{run_id},2026-06-27,team2_synthetic_data_perception,codex,test,"
+            f"{WEEK6_SCENE_TAG},{WEEK6_DATASET_TAG},none,configs/replicator/week6_beta_dataset.yaml,"
+            "RTX 4090,24,0.0,on_demand,12,5,synced,success,test fixture\n"
+        )
+        path.write_text(header + row, encoding="utf-8")
+
+    def _manifest(self) -> dict:
+        return json.loads((self.dataset_dir / "dataset_manifest.json").read_text(encoding="utf-8"))
+
+    def _metadata_paths(self) -> list[Path]:
+        manifest = self._manifest()
+        return [self.dataset_dir / frame["metadata_path"] for frame in manifest["frames"]]
+
+    def _metadata_paths_matching(self, key: str, value) -> list[Path]:
+        paths: list[Path] = []
+        for path in self._metadata_paths():
+            metadata = json.loads(path.read_text(encoding="utf-8"))
+            if metadata.get(key) == value:
+                paths.append(path)
+        return paths
+
+    def test_week6_beta_config_passes_guardrails(self):
+        self.assertEqual(validate_week6_beta_config(ROOT), [])
+
+    def test_week6_beta_dataset_passes_ship_gates_with_synced_gpu_fixture(self):
+        errors, report = validate_week6_beta_dataset_with_report(ROOT, self.dataset_dir, self.registry_path)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["frame_count"], WEEK6_FRAME_COUNT)
+        self.assertEqual(report["split_counts"]["train"], WEEK6_TRAIN_FRAME_COUNT)
+        self.assertEqual(report["split_counts"]["validation"], WEEK6_VALIDATION_FRAME_COUNT)
+        self.assertEqual(report["split_counts"]["dev_test"], WEEK6_DEV_TEST_FRAME_COUNT)
+        self.assertEqual(
+            report["renderer_counts_by_split"]["dev_test"]["rasterized"],
+            WEEK6_DEV_TEST_RASTERIZED_FRAME_COUNT,
+        )
+        self.assertEqual(
+            report["renderer_counts_by_split"]["dev_test"]["path_traced"],
+            WEEK6_DEV_TEST_PATH_TRACED_FRAME_COUNT,
+        )
+        self.assertEqual(report["metadata_completeness"], 1.0)
+        self.assertEqual(report["beta_metadata_completeness"], 1.0)
+        self.assertEqual(report["media_completeness"], 1.0)
+        self.assertEqual(report["path_traced_gpu_metadata_completeness"], 1.0)
+        self.assertEqual(report["path_traced_synced_artifact_fraction"], 1.0)
+        self.assertEqual(report["counterpart_coverage"], 1.0)
+        self.assertEqual(sum(report["high_glare_control_counts"].values()), WEEK6_HIGH_GLARE_CONTROL_COUNT)
+        self.assertLessEqual(report["duplicate_view_rate"], report["duplicate_view_rate_max"])
+
+    def test_week6_perception_baseline_reports_renderer_metrics(self):
+        errors, report = evaluate_week6_perception_baseline(ROOT, self.dataset_dir, self.registry_path)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["support_by_renderer"]["rasterized"], WEEK6_DEV_TEST_RASTERIZED_FRAME_COUNT)
+        self.assertEqual(report["support_by_renderer"]["path_traced"], WEEK6_DEV_TEST_PATH_TRACED_FRAME_COUNT)
+        self.assertIn("semantic_miou", report["perception_r2p_gap"])
+        for renderer_mode in ("rasterized", "path_traced"):
+            self.assertIn("miou", report["segmentation_by_renderer"][renderer_mode])
+            self.assertIn("per_class_iou", report["segmentation_by_renderer"][renderer_mode])
+            self.assertLessEqual(
+                report["high_glare_false_alarm_by_renderer"][renderer_mode]["false_alarm_rate"],
+                report["high_glare_false_alarm_by_renderer"][renderer_mode]["false_alarm_rate_max"],
+            )
+
+    def test_week6_missing_gpu_registry_row_fails(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            empty_registry = Path(tmpdir) / "gpu_run_registry.csv"
+            self._write_registry(empty_registry, None)
+
+            errors = validate_week6_beta_dataset(ROOT, self.dataset_dir, empty_registry)
+            self.assertTrue(any("gpu_run_id" in error for error in errors), errors)
+
+    def test_week6_unsynced_path_traced_metadata_fails(self):
+        metadata_path = self._metadata_paths_matching("renderer_mode", "path_traced")[0]
+        original = metadata_path.read_text(encoding="utf-8")
+        try:
+            metadata = json.loads(original)
+            metadata["artifact_sync_status"] = "not_synced"
+            metadata["media_status"] = "path_traced_vast_required"
+            metadata["gpu_run_id"] = None
+            metadata_path.write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            errors = validate_week6_beta_dataset(ROOT, self.dataset_dir, self.registry_path)
+            self.assertTrue(any("path_traced" in error or "gpu_run_id" in error for error in errors), errors)
+        finally:
+            metadata_path.write_text(original, encoding="utf-8")
+
+    def test_week6_heldout_reference_tuning_fails(self):
+        metadata_path = self._metadata_paths()[0]
+        original = metadata_path.read_text(encoding="utf-8")
+        try:
+            metadata = json.loads(original)
+            metadata["reference_usage"]["heldout_reference_used_for_tuning"] = True
+            metadata_path.write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            errors = validate_week6_beta_dataset(ROOT, self.dataset_dir, self.registry_path)
+            self.assertTrue(any("heldout_reference_used_for_tuning" in error for error in errors), errors)
+        finally:
+            metadata_path.write_text(original, encoding="utf-8")
+
+    def test_week6_contact_sheet_can_be_regenerated(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            contact_sheet = write_week6_contact_sheet(
+                ROOT,
+                self.dataset_dir,
+                Path(tmpdir) / "week6_contact_sheet.png",
             )
 
             self.assertTrue(contact_sheet.exists())
