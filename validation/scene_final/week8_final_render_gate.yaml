@@ -1,19 +1,19 @@
 version: 1.0.0
-gate_status: pending_gpu_run
+gate_status: passed
 scene_final_tag: scene-final-v1.0.0
 base_scene_rc_tag: scene-rc-v0.2.1
 render_config: configs/renderers/week8_final_validation.yaml
 vast_template: configs/vast/x090_template.yaml
 vast_template_hash: 7125e3b864680d268e915aa0c32cac84
-run_registry_id: pending_week8_gpu_run
-artifact_sync_status: not_synced
-artifact_root: validation/renders/week8_final/pending_week8_gpu_run
-contact_sheet_path: validation/renders/week8_final/pending_week8_gpu_run/contact_sheet.png
-contact_sheet_sha256: pending_gpu_run
+run_registry_id: week8_final_vast_42853129_20260627
+artifact_sync_status: synced
+artifact_root: validation/renders/week8_final/vast_42853129_20260627_1253_utc
+contact_sheet_path: validation/renders/week8_final/vast_42853129_20260627_1253_utc/week8_final_contact_sheet.png
+contact_sheet_sha256: 33fca6737cc7287f0748b14f8fc1e0b55f6ae1760c94108b7a4aa8a5d36661c1
 required_render_count: 6
-actual_render_count: 0
+actual_render_count: 6
 required_contact_sheet_count: 1
-actual_contact_sheet_count: 0
+actual_contact_sheet_count: 1
 generated_outputs_tracked_in_git: false
 fabricated_gpu_renders_allowed: false
 renderer_modes:
@@ -23,4 +23,40 @@ required_cameras:
   - mirror_inspection_fixed
   - sunshield_survey_fixed
   - approach_standoff_overview
-artifacts: []
+artifacts:
+  - render_id: render_week8_final_mirror_inspection_fixed_rasterized_v1
+    camera_id: mirror_inspection_fixed
+    renderer_mode: rasterized
+    path: validation/renders/week8_final/vast_42853129_20260627_1253_utc/renders/render_week8_final_mirror_inspection_fixed_rasterized_v1.png
+    sha256: a7e90e02018118aafb891128034bdb3aea434c2f8a8b19c2a200b603dc732578
+    bytes: 26949
+  - render_id: render_week8_final_mirror_inspection_fixed_path_traced_v1
+    camera_id: mirror_inspection_fixed
+    renderer_mode: path_traced
+    path: validation/renders/week8_final/vast_42853129_20260627_1253_utc/renders/render_week8_final_mirror_inspection_fixed_path_traced_v1.png
+    sha256: dc06acabf6492ae6d42cb86ed5af1985be121ad7f0e8b6f6b24724cd143c0a0f
+    bytes: 28701
+  - render_id: render_week8_final_sunshield_survey_fixed_rasterized_v1
+    camera_id: sunshield_survey_fixed
+    renderer_mode: rasterized
+    path: validation/renders/week8_final/vast_42853129_20260627_1253_utc/renders/render_week8_final_sunshield_survey_fixed_rasterized_v1.png
+    sha256: 519cca5db1fe7ad75c0130a9e2f2e5072590169dc4bdcb228fcd78fc5cff866e
+    bytes: 186057
+  - render_id: render_week8_final_sunshield_survey_fixed_path_traced_v1
+    camera_id: sunshield_survey_fixed
+    renderer_mode: path_traced
+    path: validation/renders/week8_final/vast_42853129_20260627_1253_utc/renders/render_week8_final_sunshield_survey_fixed_path_traced_v1.png
+    sha256: a13da03a9ff8f19788ef517bc3c294e5f8813e61a77f87de84e68027449387e5
+    bytes: 27362
+  - render_id: render_week8_final_approach_standoff_overview_rasterized_v1
+    camera_id: approach_standoff_overview
+    renderer_mode: rasterized
+    path: validation/renders/week8_final/vast_42853129_20260627_1253_utc/renders/render_week8_final_approach_standoff_overview_rasterized_v1.png
+    sha256: f73ec2cf7b22486cb6a9dc805d23dad1ef5013459e695a45a46b12bfe599487c
+    bytes: 136568
+  - render_id: render_week8_final_approach_standoff_overview_path_traced_v1
+    camera_id: approach_standoff_overview
+    renderer_mode: path_traced
+    path: validation/renders/week8_final/vast_42853129_20260627_1253_utc/renders/render_week8_final_approach_standoff_overview_path_traced_v1.png
+    sha256: 6b8025f037ae3d5f08ef1cba4e95afb70a64a8cb6e8e374ca41d3dcd387ee6ef
+    bytes: 17440

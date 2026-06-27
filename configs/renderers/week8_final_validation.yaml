@@ -31,4 +31,4 @@ final_render_matrix:
     lighting_variant: nominal_sun_key
     required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
     required_renderer_modes: rasterized;path_traced
-    status: pending_gpu_run
+    status: completed

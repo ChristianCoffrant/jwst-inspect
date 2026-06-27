@@ -8,9 +8,9 @@ Vast.ai/Isaac Sim render gate.
 
 ## Current Status
 
-- Contract status: `pending_gpu_render_gate`
-- Render gate: `pending_gpu_run`
-- Required final render pack: 3 fixed cameras x 2 renderer modes
+- Contract status: `scene-final-v1.0.0`
+- Render gate: `passed`
+- Required final render pack: 3 fixed cameras x 2 renderer modes, synced
 - Generated render artifacts tracked in Git: 0
 - Fabricated GPU render outputs allowed: false
 
@@ -33,7 +33,7 @@ Vast.ai/Isaac Sim render gate.
 
 ## Ship Gate
 
-The final ship gate remains pending until `validation/scene_final/week8_final_render_gate.yaml`
+The final ship gate passed on 2026-06-27. `validation/scene_final/week8_final_render_gate.yaml`
 records `gate_status: passed`, `artifact_sync_status: synced`, one contact
-sheet checksum, and six rendered view checksums from a successful run listed in
-`compute/gpu_run_registry.csv`.
+sheet checksum, and six rendered view checksums from successful run
+`week8_final_vast_42853129_20260627` in `compute/gpu_run_registry.csv`.

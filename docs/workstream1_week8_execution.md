@@ -60,30 +60,31 @@ Implemented locally:
 
 - `configs/renderers/week8_final_validation.yaml` defines 3 fixed cameras x 2
   renderer modes under nominal material and lighting.
-- `validation/render_manifest.csv` reserves the six Week 8 final rows.
+- `validation/render_manifest.csv` records the six completed Week 8 final rows.
 - `isaac_env/scripts/render_week8_scene_validation.py` opens the project USD
-  scene in Isaac Sim headless mode and writes six PNG renders plus metadata.
+  scene in Isaac Sim headless mode, uses Kit viewport capture, and writes six
+  PNG renders plus metadata.
 - `scripts/build_week8_scene_contact_sheet.py` builds a contact sheet from the
   synced PNG artifacts.
 - `scripts/validate_week8_render_artifacts.py` verifies local artifact existence
   and SHA-256 checksums after sync.
 
-Current decision: run the Vast.ai/Isaac Sim gate under the authorized spend cap
-before moving `contract_status` to `frozen_week8_scene_contract_1_0`.
+Decision: the Vast.ai/Isaac Sim gate passed under the authorized spend cap.
+Render evidence is synced locally and remains ignored by Git.
 
 ## Ship Gates
 
 | Gate | Metric | Status |
 | --- | --- | --- |
-| Final scene tag | `scene-final-v1.0.0` declared | Pending GPU gate |
+| Final scene tag | `scene-final-v1.0.0` declared | Pass |
 | Required prims | 100 percent present | Pass |
 | Asset provenance completeness | 100 percent for final-result assets | Pass |
 | Contract diff from Week 7 | Reviewed and signed off | Pass |
 | Label/task/safety/camera/material/lighting renames | 0 | Pass |
 | Downstream local tests | Unit tests and scene validators pass | Pass |
-| Final render pack | 3 cameras x 2 renderer modes | Pending GPU gate |
-| Contact sheet | 1 synced contact sheet | Pending GPU gate |
-| Successful GPU registry row | status `success`, sync `synced` | Pending GPU gate |
+| Final render pack | 3 cameras x 2 renderer modes | Pass |
+| Contact sheet | 1 synced contact sheet | Pass |
+| Successful GPU registry row | status `success`, sync `synced` | Pass |
 | Generated or large artifacts committed | 0 | Pass |
 
 ## Guardrail Metrics
@@ -101,6 +102,7 @@ before moving `contract_status` to `frozen_week8_scene_contract_1_0`.
 | Held-out reference tuning count | 0 | 0 |
 | Fabricated GPU render outputs | 0 | 0 |
 | Generated or large artifacts committed | 0 | 0 |
+| Estimated GPU spend | <5 USD | 0.329 USD |
 
 ## Validation Commands
 
