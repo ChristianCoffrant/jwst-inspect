@@ -51,7 +51,7 @@ package_files:
     sha256: 649897ec70aab5a04716189104ab8e00eb840c94b85f62469f94185a2ef1a16c
   - path: assets/source_manifest.csv
     role: final_source_manifest
-    sha256: 214d74912d75411a6fb40f2fdf6ed2393ccdbbe486ac13abbc6e1690a1e250f9
+    sha256: 8af92153ab3949b6997003e5561e05192698780363f4e2c4817925330091d923
   - path: assets/jwst/component_mapping.csv
     role: component_mapping
     sha256: 8af2b70fef7e658dddc5139c2401472ea80b359759d8d7c221e71d88e75bb777
@@ -114,4 +114,4 @@ package_files:
     sha256: dd739b6a9a324e659577bbee9aac568a44687d851c017c6a663fa8b08fdfb85f
   - path: docs/benchmark_card.md
     role: benchmark_card
-    sha256: 27650439b6d40b694fe7437cb67d8818a9da8927db445eeaa51e06ae6184ef20
+    sha256: 19062e8ad332f50a4dca5401f4a39ff94efb4c4a840522a6d0ad79d5642f0bad

@@ -1,0 +1,73 @@
+version: 0.1.0
+experiment_id: week9_final_evaluation_run1
+owner: team3_autonomous_inspection
+status: week9_final_evaluation_run1_preflight_blocked
+final_evaluation_plan: configs/experiments/final_evaluation_plan_v1_0.yaml
+week9_scene_support_config: configs/renderers/week9_final_evaluation_support.yaml
+week9_scene_gate: validation/scene_final/week9_final_evaluation_gate.yaml
+vast_template: configs/vast/x090_template.yaml
+gpu_run_registry: compute/gpu_run_registry.csv
+cost_log: compute/cost_log.csv
+output_dir: runs/week9_final_evaluation_run1
+max_spend_usd: 5.0
+week10_budget_estimate_usd: 20.0
+official_tasks:
+  - approach_hold_standoff
+  - sunshield_survey
+  - mirror_inspection
+evaluation_conditions:
+  - nominal_clean
+  - high_glare_edge
+  - degraded_low_light
+  - anomaly_mixed_stress
+renderer_modes:
+  - rasterized
+  - path_traced
+required_policies:
+  - scripted_baseline
+optional_policies:
+  learned_state_bc_v0_1:
+    status: not_run_week9
+    reason: scripted_pilot_blocked_before_paid_vast_launch
+expected_scripted_rows: 24
+expected_r2p_rows: 12
+vast_policy_run:
+  run_id: week9_team3_final_eval_run1_preflight_20260627
+  execution_status: blocked_preflight
+  actual_paid_instance_launched: false
+  registry_status: failed_preflight_not_official
+  artifact_sync_status: not_applicable
+  primary_failure_mode: isaac_policy_runner_missing
+  primary_blocker_class: implementation_gap
+  preflight_blockers:
+    - blocker_id: vast_cli_missing
+      blocker_class: environment_preflight
+      description: vastai CLI is not installed in the local execution environment
+    - blocker_id: isaac_policy_runner_missing
+      blocker_class: implementation_gap
+      description: repository has render support scripts but no Team 3 Isaac policy runner for final evaluation rows
+failure_taxonomy:
+  - none
+  - vast_cli_missing
+  - isaac_policy_runner_missing
+  - isaac_runtime_error
+  - policy_task_not_trained
+  - metric_threshold_miss
+  - renderer_transfer_degradation
+  - safety_violation
+  - budget_stop
+  - artifact_sync_failure
+  - config_contract_mismatch
+guardrails:
+  metric_weight_changes_after_freeze_allowed: false
+  safety_metrics_disable_allowed: false
+  final_heldout_seed_access_allowed: false
+  unpaired_renderer_comparison_allowed: false
+  dropped_result_rows_allowed: false
+  undocumented_failures_allowed: false
+  manual_metrics_edit_allowed: false
+  ad_hoc_notebook_results_allowed: false
+  generated_large_artifacts_committed: false
+  official_gpu_run_requires_registry_metadata: true
+  official_gpu_run_requires_synced_artifacts: true
+  actual_success_required_for_week9_acceptance: false

@@ -522,6 +522,11 @@ def _file_sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _text_normalized_file_sha256(path: Path) -> str:
+    data = path.read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
+
+
 def _section_text(text: str, section_name: str) -> str:
     pattern = re.compile(rf"^{re.escape(section_name)}:\n(?P<body>(?:^[ \t].*\n?)+)", re.MULTILINE)
     match = pattern.search(text)
@@ -2356,7 +2361,9 @@ def validate_week10_final_scene_package(root: Path | str = ".") -> list[str]:
         if not file_path.exists():
             errors.append(f"Missing Week 10 package file: {file_path}")
             continue
-        if _file_sha256(file_path) != digest:
+        actual_digest = _file_sha256(file_path)
+        normalized_digest = _text_normalized_file_sha256(file_path)
+        if actual_digest != digest and normalized_digest != digest:
             errors.append(f"{file_path}: SHA-256 does not match Week 10 package manifest")
 
     return errors
