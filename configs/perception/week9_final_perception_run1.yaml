@@ -1,0 +1,60 @@
+version: 1.0.0
+run_id: week9-final-perception-run1-v1.0.0
+analysis_id: week9_final_perception_run1_rgb_analysis_v1_0_0
+dataset_tag: week8-final-data-v1.0.0
+scene_tag: scene-final-v1.0.0
+schema_version: 1.0.0
+validation_dataset_dir: datasets/generated/week8_final_dataset
+final_test_definition_id: week8-final-perception-test-v1.0.0
+final_test_definition_path: validation/final_test/week8_final_perception_test_definition.json
+final_test_output_root: datasets/generated/week9_final_perception_run1
+request_pack_path: validation/final_test/week9_final_perception_run1_path_traced_requests.json
+run_manifest_path: validation/final_test/week9_final_perception_run1_manifest.json
+report_path: validation/reports/week9_final_perception_run1_report.json
+failure_examples_path: validation/reports/week9_final_perception_run1_failures.json
+plot_data_path: validation/reports/week9_final_perception_run1_plot_data.json
+metrics_plot_path: validation/reports/week9_final_perception_run1_metrics.svg
+rendering:
+  final_test_renderer_mode: path_traced
+  final_test_rgb_artifact_count: 120
+  validation_renderer_mode: rasterized
+  validation_frame_count: 120
+  vast_template: configs/vast/x090_template.yaml
+  preferred_gpu_models:
+    - NVIDIA GeForce RTX 5090
+    - NVIDIA GeForce RTX 4090
+    - NVIDIA GeForce RTX 3090
+  min_gpu_vram_gb: 24
+  max_spend_usd: 5.0
+  rgb_render_script: scripts/render_week6_isaac_path_traced_rgb.py
+  isaac_stage: usd/jwst_inspect_root.usd
+evaluation:
+  baseline_type: dependency_free_rgb_heuristic
+  validation_split: validation
+  final_test_split: final_test
+  failure_example_limit: 24
+  false_positive_limit: 8
+  false_negative_limit: 8
+  worst_iou_limit: 8
+  high_glare_false_alarm_rate_max: 0.25
+guardrails:
+  locked_definition_id_required: week8-final-perception-test-v1.0.0
+  final_test_training_use_allowed: false
+  final_test_tuning_use_allowed: false
+  final_test_tuning_driven_config_changes_max: 0
+  public_reference_images_used_for_training_allowed: false
+  heldout_reference_used_for_tuning_allowed: false
+  final_test_request_count_required: 120
+  final_test_path_traced_rgb_artifact_count_required: 120
+  metadata_completeness_required: 1.0
+  media_completeness_required: 1.0
+  seed_leakage_count_required: 0
+  frame_id_leakage_count_required: 0
+  corrupt_or_blank_path_traced_frames_max: 0
+  generated_media_committed_count_required: 0
+  official_gpu_run_requires_registry_metadata: true
+  official_gpu_artifacts_require_sync: true
+  per_class_metrics_required: true
+  per_condition_metrics_required: true
+  high_glare_false_alarm_required: true
+  failure_examples_must_trace_to_frame_id: true

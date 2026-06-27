@@ -1,0 +1,3362 @@
+[
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_tear_proxy",
+    "frame_id": "wk8_final_pair_0000_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -12.4321,
+      37.8069,
+      24.3513
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0000",
+    "rgb": "images/final_test/wk8_final_pair_0000_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980001,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "71fc854ec2bd9a259c8138d6ce6759d909286b69d1ce0b1aa25cb0833c4c664d",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_tear_proxy",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0000_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -12.4321,
+      37.8069,
+      24.3513
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0001",
+    "rgb": "images/final_test/wk8_final_pair_0000_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980003,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "df8c7195f36ae484821157f4525c0971b45d29288c6d3dab5e1d865e116a4d3f",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_discoloration",
+    "frame_id": "wk8_final_pair_0001_path_anomaly",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -18.8813,
+      -41.8374,
+      14.1059
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0002",
+    "rgb": "images/final_test/wk8_final_pair_0001_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980011,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "62a89b2217251fc7b1f9340d3b52491ee93e70cdbf28c5edc4d7e6bfd4b832fd",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_discoloration",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0001_path_nominal",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -18.8813,
+      -41.8374,
+      14.1059
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0003",
+    "rgb": "images/final_test/wk8_final_pair_0001_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980013,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "c9e2b41d4128e6f7eeb2ae1f614b1a353022a37ddf21f3d58ad431a4c32fe39c",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "mirror_region_obstruction",
+    "frame_id": "wk8_final_pair_0002_path_anomaly",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      24.6658,
+      10.5809,
+      13.8794
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0004",
+    "rgb": "images/final_test/wk8_final_pair_0002_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980021,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "b23ff47af4df158730e0174c515e51c60e8e0831419dd45bfd8985f551d80dc8",
+    "split": "final_test",
+    "stress_condition_id": "mirror_region_obstruction",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0002_path_nominal",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      24.6658,
+      10.5809,
+      13.8794
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0005",
+    "rgb": "images/final_test/wk8_final_pair_0002_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980023,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "38ebbc9067b0971ece7cc37c1e92dd552374cb0064d19fcf6bba18b9a6e07971",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "truss_occlusion_proxy",
+    "frame_id": "wk8_final_pair_0003_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -29.9211,
+      10.4631,
+      20.854
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0006",
+    "rgb": "images/final_test/wk8_final_pair_0003_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980031,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "9782dd239f281da3b12345fd638841f562836dbeaaf95b1e87f3c27f3a592854",
+    "split": "final_test",
+    "stress_condition_id": "truss_occlusion_proxy",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0003_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -29.9211,
+      10.4631,
+      20.854
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0007",
+    "rgb": "images/final_test/wk8_final_pair_0003_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980033,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "beb9e4242cdae37ad3655e74ed3f570fce6da53e90ec42b39d123d5331131650",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_tear_proxy",
+    "frame_id": "wk8_final_pair_0004_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      19.5634,
+      -36.4343,
+      13.8012
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0008",
+    "rgb": "images/final_test/wk8_final_pair_0004_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980041,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "6e084280ea0535f674073e46bfd7e1b71a7b8c0fced08b51d47d5e807faed721",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_tear_proxy",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0004_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      19.5634,
+      -36.4343,
+      13.8012
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0009",
+    "rgb": "images/final_test/wk8_final_pair_0004_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980043,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "444f1d6d9a0d6638baf99149a6a5e453fbfb6365d2654cf834ab91138da48f2f",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_discoloration",
+    "frame_id": "wk8_final_pair_0005_path_anomaly",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      10.2927,
+      40.5019,
+      20.1461
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0010",
+    "rgb": "images/final_test/wk8_final_pair_0005_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980051,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "d6f746e41a6e1d73fc245724fad904ae5689136fde9290795cff63a31ca63445",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_discoloration",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0005_path_nominal",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      10.2927,
+      40.5019,
+      20.1461
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0011",
+    "rgb": "images/final_test/wk8_final_pair_0005_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980053,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "5fe8cbb49de4a2ac1e3d7944d25cfb026b56d5ccca87897680589e071bec3528",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "mirror_region_obstruction",
+    "frame_id": "wk8_final_pair_0006_path_anomaly",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -26.6747,
+      -17.4881,
+      7.6106
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0012",
+    "rgb": "images/final_test/wk8_final_pair_0006_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980061,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "21c067f34b2a66139e85573324e85293fd50f75a0983ff7e94b4a2c13005511a",
+    "split": "final_test",
+    "stress_condition_id": "mirror_region_obstruction",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0006_path_nominal",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -26.6747,
+      -17.4881,
+      7.6106
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0013",
+    "rgb": "images/final_test/wk8_final_pair_0006_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980063,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "50062889f996d84f4a41d650fea71984064510981f0ce3f0be96eaff8bac7b60",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "truss_occlusion_proxy",
+    "frame_id": "wk8_final_pair_0007_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      32.239,
+      -5.2465,
+      12.2954
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0014",
+    "rgb": "images/final_test/wk8_final_pair_0007_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980071,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "c6db106a4dcc175ac01b4a3205993ff1c825fcd45789cf527b1154d9a0214808",
+    "split": "final_test",
+    "stress_condition_id": "truss_occlusion_proxy",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0007_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      32.239,
+      -5.2465,
+      12.2954
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0015",
+    "rgb": "images/final_test/wk8_final_pair_0007_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980073,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "3e55fd1fe942458d52f12710341c276a932caf2a042b540c0000a55fbd81f6e8",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_tear_proxy",
+    "frame_id": "wk8_final_pair_0008_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -26.4054,
+      33.4775,
+      21.2629
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0016",
+    "rgb": "images/final_test/wk8_final_pair_0008_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980081,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "3c5c9d9117391166a4b09fb55f31da031297c4b714c67f9feea4fdff87b08f3f",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_tear_proxy",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0008_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -26.4054,
+      33.4775,
+      21.2629
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0017",
+    "rgb": "images/final_test/wk8_final_pair_0008_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980083,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "4954c920ec3e5538d523586067231c9c8840bda0f555f2f7fb418d465ace684f",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_discoloration",
+    "frame_id": "wk8_final_pair_0009_path_anomaly",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -3.1144,
+      -42.1326,
+      9.4683
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0018",
+    "rgb": "images/final_test/wk8_final_pair_0009_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980091,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "96d84ac1ffb95cddcc58dbdba6f2696a22027fda97b640bdc74e1d31fdd992e1",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_discoloration",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0009_path_nominal",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -3.1144,
+      -42.1326,
+      9.4683
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0019",
+    "rgb": "images/final_test/wk8_final_pair_0009_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980093,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "5ee5e8adb3383816f436f47db76f756ad5b366fcfc5b340c04cf3a0fbdef8845",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "mirror_region_obstruction",
+    "frame_id": "wk8_final_pair_0010_path_anomaly",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      21.0093,
+      19.7844,
+      11.8227
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0020",
+    "rgb": "images/final_test/wk8_final_pair_0010_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980101,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "c0d1dcfe09c4d8cc21e06c9112ee71c1d2ba6448305c2720d17726c6a9e0b272",
+    "split": "final_test",
+    "stress_condition_id": "mirror_region_obstruction",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0010_path_nominal",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      21.0093,
+      19.7844,
+      11.8227
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0021",
+    "rgb": "images/final_test/wk8_final_pair_0010_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980103,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "ccbd45e227416155c455aa147f961a0f0961e94512328abe25c50017d856a6a9",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "truss_occlusion_proxy",
+    "frame_id": "wk8_final_pair_0011_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -34.2501,
+      -0.471,
+      18.5103
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0022",
+    "rgb": "images/final_test/wk8_final_pair_0011_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980111,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "35f6af4506f7e993aaec49e0d51783b2951887aa8f32e237ae0d72a72bea2a6f",
+    "split": "final_test",
+    "stress_condition_id": "truss_occlusion_proxy",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0011_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -34.2501,
+      -0.471,
+      18.5103
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0023",
+    "rgb": "images/final_test/wk8_final_pair_0011_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980113,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "242f22f76b4d523a977758841399ad04b228daa4f055899febb5a8833654b671",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_tear_proxy",
+    "frame_id": "wk8_final_pair_0012_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      32.3587,
+      -28.8349,
+      10.3165
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0024",
+    "rgb": "images/final_test/wk8_final_pair_0012_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980121,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "895432fd07be2108ed72a247571b35216757ace01964cd4efc06413419b70cd5",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_tear_proxy",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0012_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      32.3587,
+      -28.8349,
+      10.3165
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0025",
+    "rgb": "images/final_test/wk8_final_pair_0012_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980123,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "f370c3ea44d4a9bea8d09f072975bb760d52b9b46a7d390023e87972297965a0",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_discoloration",
+    "frame_id": "wk8_final_pair_0013_path_anomaly",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -4.479,
+      44.0686,
+      16.7713
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0026",
+    "rgb": "images/final_test/wk8_final_pair_0013_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980131,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "31fb4502f1b1ab906367bf4e7ad9e62b419dbe0b6c33fdfe882c862b2d4fe733",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_discoloration",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0013_path_nominal",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -4.479,
+      44.0686,
+      16.7713
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0027",
+    "rgb": "images/final_test/wk8_final_pair_0013_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980133,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "5a652fa1cd586bb4b4e4f5eb5eab27ea7ad1cad7d20c6c3538514ac623c2afd7",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "mirror_region_obstruction",
+    "frame_id": "wk8_final_pair_0014_path_anomaly",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -15.1337,
+      -20.3117,
+      15.2114
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0028",
+    "rgb": "images/final_test/wk8_final_pair_0014_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980141,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "8177d5c9c7f1cdfa787ef41ddc4b711375efb3e3f624cdacb2b98900488421c1",
+    "split": "final_test",
+    "stress_condition_id": "mirror_region_obstruction",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0014_path_nominal",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -15.1337,
+      -20.3117,
+      15.2114
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0029",
+    "rgb": "images/final_test/wk8_final_pair_0014_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980143,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "ec594af0dd4a8981fedd16fa80f4caa869bf9d98a8f42385ba2e8a1de12c5f11",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "truss_occlusion_proxy",
+    "frame_id": "wk8_final_pair_0015_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      33.9349,
+      6.4851,
+      9.6008
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0030",
+    "rgb": "images/final_test/wk8_final_pair_0015_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980151,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "55c65bf2a1c5572dfcfbf2d3847c453b2a17a4c20e48a166ec0c91da4bdd9214",
+    "split": "final_test",
+    "stress_condition_id": "truss_occlusion_proxy",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0015_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      33.9349,
+      6.4851,
+      9.6008
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0031",
+    "rgb": "images/final_test/wk8_final_pair_0015_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980153,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "14e556387c16dbae075c174ef43e8446dd05dfa781d2002b19e1ba0f5acbcc6f",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_tear_proxy",
+    "frame_id": "wk8_final_pair_0016_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -38.496,
+      23.7508,
+      17.8292
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0032",
+    "rgb": "images/final_test/wk8_final_pair_0016_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980161,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "94cb93b03138e3a28d13cec195a2c23efa1e8b318390eb149c4a50774b1131c6",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_tear_proxy",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0016_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -38.496,
+      23.7508,
+      17.8292
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0033",
+    "rgb": "images/final_test/wk8_final_pair_0016_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980163,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "5dbaed39190d778580da00f47f54fa9f7aecc967fe0cd563e99378857b9de048",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_discoloration",
+    "frame_id": "wk8_final_pair_0017_path_anomaly",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      10.8746,
+      -38.3418,
+      22.4082
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0034",
+    "rgb": "images/final_test/wk8_final_pair_0017_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980171,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "ffa20cc126947d5c20e698446c104ffd99d3de6f62bcec02ce67ec7492704cd1",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_discoloration",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0017_path_nominal",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      10.8746,
+      -38.3418,
+      22.4082
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0035",
+    "rgb": "images/final_test/wk8_final_pair_0017_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980173,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "6e1fe466b7b548c3148597e0a1e9fa24a8ee90126239d503663f290011e36e95",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "mirror_region_obstruction",
+    "frame_id": "wk8_final_pair_0018_path_anomaly",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      13.7802,
+      27.4493,
+      9.4848
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0036",
+    "rgb": "images/final_test/wk8_final_pair_0018_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980181,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "525abf66092409108610425351bb1e6a85074e7ca9ee884994d00bbc9ab760f5",
+    "split": "final_test",
+    "stress_condition_id": "mirror_region_obstruction",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0018_path_nominal",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      13.7802,
+      27.4493,
+      9.4848
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0037",
+    "rgb": "images/final_test/wk8_final_pair_0018_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980183,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "5e9df3cc5ab0b17a95258236b8e70bdbcdee4e412ea42f5c828ef3e29af63cf6",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "truss_occlusion_proxy",
+    "frame_id": "wk8_final_pair_0019_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -29.1656,
+      -11.1081,
+      14.0904
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0038",
+    "rgb": "images/final_test/wk8_final_pair_0019_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980191,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "0829e0c13f38f0ee826fadec43d6c0881f42e71919489506c1b9c7b0357a8e8b",
+    "split": "final_test",
+    "stress_condition_id": "truss_occlusion_proxy",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0019_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -29.1656,
+      -11.1081,
+      14.0904
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0039",
+    "rgb": "images/final_test/wk8_final_pair_0019_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980193,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "0aa74f20c5d5efab045808ee38d07e33dab46977d9828a2a05bbc276fddad2fd",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_tear_proxy",
+    "frame_id": "wk8_final_pair_0020_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      37.7711,
+      -14.9868,
+      23.5639
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0040",
+    "rgb": "images/final_test/wk8_final_pair_0020_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980201,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "7fbc421437287e8bbb8bf27e556200f439f5dd9802eeac9cd5ee536ced5a3553",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_tear_proxy",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0020_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      37.7711,
+      -14.9868,
+      23.5639
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0041",
+    "rgb": "images/final_test/wk8_final_pair_0020_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980203,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "cc9337039ed79f1d69e27a24f8bc2fcacc18c6c288fa92286287f48e6b952f9e",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_discoloration",
+    "frame_id": "wk8_final_pair_0021_path_anomaly",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -20.2959,
+      41.8619,
+      13.0782
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0042",
+    "rgb": "images/final_test/wk8_final_pair_0021_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980211,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "45aca708ceaf2c8c5df7be69b0469a3d10809a0eea2504d1b2d8eff8f2ed8c9c",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_discoloration",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0021_path_nominal",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -20.2959,
+      41.8619,
+      13.0782
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0043",
+    "rgb": "images/final_test/wk8_final_pair_0021_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980213,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "9c03d96515d12343b8cf0243c0e5ff491466bf4ab161f184bdbf316d28730390",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "mirror_region_obstruction",
+    "frame_id": "wk8_final_pair_0022_path_anomaly",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -7.8537,
+      -26.2998,
+      13.3617
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0044",
+    "rgb": "images/final_test/wk8_final_pair_0022_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980221,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "ba8dad40c8e1ef00d7cb29c8bdd414773741e1d980d11d9dc90cda9b4fc91ae6",
+    "split": "final_test",
+    "stress_condition_id": "mirror_region_obstruction",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0022_path_nominal",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -7.8537,
+      -26.2998,
+      13.3617
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0045",
+    "rgb": "images/final_test/wk8_final_pair_0022_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980223,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "ce4104566d8e93e5a70d5d093e36261d201782ed53fdff522eea0ed832e9b04d",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "truss_occlusion_proxy",
+    "frame_id": "wk8_final_pair_0023_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      27.8503,
+      16.6556,
+      20.2678
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0046",
+    "rgb": "images/final_test/wk8_final_pair_0023_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980231,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "8159a9292f7bcd0a35e9b21a67928b5968dc30126ad0859c62b7ee2d01f105b6",
+    "split": "final_test",
+    "stress_condition_id": "truss_occlusion_proxy",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0023_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      27.8503,
+      16.6556,
+      20.2678
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0047",
+    "rgb": "images/final_test/wk8_final_pair_0023_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980233,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "a028981737df2a7a3dd8dea0d5d72954f404a5a714de27705d57e3000659b046",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_tear_proxy",
+    "frame_id": "wk8_final_pair_0024_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -41.1102,
+      8.4471,
+      12.8889
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0048",
+    "rgb": "images/final_test/wk8_final_pair_0024_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980241,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "f7cc6e67188505aad663e6c87d28271774ffcde85d72fa744bdea8fde8ad9e28",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_tear_proxy",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0024_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -41.1102,
+      8.4471,
+      12.8889
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0049",
+    "rgb": "images/final_test/wk8_final_pair_0024_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980243,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "54c5932e0508a11c5fb8b3b7b18fbbc44a6ff1b9d7202e783848f54310bfc3ba",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_discoloration",
+    "frame_id": "wk8_final_pair_0025_path_anomaly",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      24.9429,
+      -34.4616,
+      19.2738
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0050",
+    "rgb": "images/final_test/wk8_final_pair_0025_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980251,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "2118c107a25986381635b23b87bb925959ab2c2a10610eb9df023db9ad6e41dc",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_discoloration",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0025_path_nominal",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      24.9429,
+      -34.4616,
+      19.2738
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0051",
+    "rgb": "images/final_test/wk8_final_pair_0025_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980253,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "88d7b88af16a5b607b91229d6b8e3ea329ba55571dbec65afed9214349df8e52",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "mirror_region_obstruction",
+    "frame_id": "wk8_final_pair_0026_path_anomaly",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      3.3099,
+      28.6262,
+      19.0278
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0052",
+    "rgb": "images/final_test/wk8_final_pair_0026_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980261,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "540359ba6b935887a31482fbc1024c428dce7c3a0d0011426f552e73d27808e2",
+    "split": "final_test",
+    "stress_condition_id": "mirror_region_obstruction",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0026_path_nominal",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      3.3099,
+      28.6262,
+      19.0278
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0053",
+    "rgb": "images/final_test/wk8_final_pair_0026_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980263,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "a8a53dae87e9ae54285e65c00df194b3699d90ad63398a01929dc53159b7cec1",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "truss_occlusion_proxy",
+    "frame_id": "wk8_final_pair_0027_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -25.122,
+      -21.7706,
+      11.5983
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0054",
+    "rgb": "images/final_test/wk8_final_pair_0027_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980271,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "c8a0142f871546ebe58b6e37f210bfc2c360cbde5d226959fe281668a5daaa64",
+    "split": "final_test",
+    "stress_condition_id": "truss_occlusion_proxy",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0027_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -25.122,
+      -21.7706,
+      11.5983
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0055",
+    "rgb": "images/final_test/wk8_final_pair_0027_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980273,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "2a9428414c4bcbb43dc701ef2b9c55b14e3eaf6be9e2c881c2764872af5127ce",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_tear_proxy",
+    "frame_id": "wk8_final_pair_0028_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      43.3976,
+      -1.1971,
+      20.376
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0056",
+    "rgb": "images/final_test/wk8_final_pair_0028_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980281,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "5970b50f0eb4053aa53d2d0cb7263ac4257e37117fe591d55d9567ed9bc4b7a1",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_tear_proxy",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0028_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      43.3976,
+      -1.1971,
+      20.376
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0057",
+    "rgb": "images/final_test/wk8_final_pair_0028_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980283,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "802cea7ceebdffcdc6b6a83b64453c390982480ef33bbd4bfa15a075ce7b634f",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_discoloration",
+    "frame_id": "wk8_final_pair_0029_path_anomaly",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -30.7247,
+      29.7455,
+      8.4947
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0058",
+    "rgb": "images/final_test/wk8_final_pair_0029_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980291,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "5831aec6d74a48c5c5e4943c2bd0d0d99f4915b48ed097c2f921b5d9682e260f",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_discoloration",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0029_path_nominal",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -30.7247,
+      29.7455,
+      8.4947
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0059",
+    "rgb": "images/final_test/wk8_final_pair_0029_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980293,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "6f13d20cd630c87753bd37fca1e98bba1a0a170bc7dacbc1e415b8631cd6ff82",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "mirror_region_obstruction",
+    "frame_id": "wk8_final_pair_0030_path_anomaly",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      1.7633,
+      -29.3735,
+      11.2233
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0060",
+    "rgb": "images/final_test/wk8_final_pair_0030_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980301,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "004fdb236727983548334ca823dd3258ea1ff0cdb30790745b184e5b3556c095",
+    "split": "final_test",
+    "stress_condition_id": "mirror_region_obstruction",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0030_path_nominal",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      1.7633,
+      -29.3735,
+      11.2233
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0061",
+    "rgb": "images/final_test/wk8_final_pair_0030_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980303,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "572b486d99f9b638c641707f428f73119f56abc3e78ff984531fc1ca70c76c5c",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "truss_occlusion_proxy",
+    "frame_id": "wk8_final_pair_0031_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      22.0303,
+      27.15,
+      17.8313
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0062",
+    "rgb": "images/final_test/wk8_final_pair_0031_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980311,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "f34b258be15a9369cca82e2af331abed13b0c5524021902e3e63fe14626fef6b",
+    "split": "final_test",
+    "stress_condition_id": "truss_occlusion_proxy",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0031_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      22.0303,
+      27.15,
+      17.8313
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0063",
+    "rgb": "images/final_test/wk8_final_pair_0031_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980313,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "270855b6c8158aa44df37691443632c0db0364f044e55422d363878706b84c96",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_tear_proxy",
+    "frame_id": "wk8_final_pair_0032_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -43.4019,
+      -6.4485,
+      9.3228
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0064",
+    "rgb": "images/final_test/wk8_final_pair_0032_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980321,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "77f0031e59dbdc179bd0017e8b78177dd5b447266d956ee440bd203556571d14",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_tear_proxy",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0032_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -43.4019,
+      -6.4485,
+      9.3228
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0065",
+    "rgb": "images/final_test/wk8_final_pair_0032_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980323,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "c660c992665b5634b933a9f7ef0d73db34577b9e8db1db8c59b5f081ef0ae5f0",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_discoloration",
+    "frame_id": "wk8_final_pair_0033_path_anomaly",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      37.2689,
+      -25.1773,
+      15.8063
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0066",
+    "rgb": "images/final_test/wk8_final_pair_0033_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980331,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "8abf6bf2431b4daf122f58d0e792cd1d616440b43129283e86ed1c6b07accb24",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_discoloration",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0033_path_nominal",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      37.2689,
+      -25.1773,
+      15.8063
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0067",
+    "rgb": "images/final_test/wk8_final_pair_0033_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980333,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "5b8e4610fd69376ef0cfd478ae9f7d32b35bded809fae355751aa607657a9f37",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "mirror_region_obstruction",
+    "frame_id": "wk8_final_pair_0034_path_anomaly",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -6.0457,
+      25.2472,
+      14.7534
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0068",
+    "rgb": "images/final_test/wk8_final_pair_0034_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980341,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "c3508d2d7a5184a8dcfe424e6de3c82d496866aa87e3b0f64d34dd191de02e60",
+    "split": "final_test",
+    "stress_condition_id": "mirror_region_obstruction",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0034_path_nominal",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -6.0457,
+      25.2472,
+      14.7534
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0069",
+    "rgb": "images/final_test/wk8_final_pair_0034_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980343,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "8fc19032faa01b47b39dbc6ffb37bace027eb84298fcf1fc153f02f49895daa3",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "truss_occlusion_proxy",
+    "frame_id": "wk8_final_pair_0035_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -17.0159,
+      -30.665,
+      8.8247
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0070",
+    "rgb": "images/final_test/wk8_final_pair_0035_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980351,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "176d29bb706d11d34be7678b967bc3966d53eb1945458b85b3404a959f5f4228",
+    "split": "final_test",
+    "stress_condition_id": "truss_occlusion_proxy",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0035_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -17.0159,
+      -30.665,
+      8.8247
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0071",
+    "rgb": "images/final_test/wk8_final_pair_0035_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980353,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "70e353275875abd86b032339fc7f08b5313597e20ead485d27ddf9c121b4f691",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_tear_proxy",
+    "frame_id": "wk8_final_pair_0036_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      43.568,
+      14.5624,
+      16.8475
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0072",
+    "rgb": "images/final_test/wk8_final_pair_0036_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980361,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "8bba7a83e95f4ced43c7fac9c4fded186fa783fcebf5a7109c6796806b78f8fe",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_tear_proxy",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0036_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      43.568,
+      14.5624,
+      16.8475
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0073",
+    "rgb": "images/final_test/wk8_final_pair_0036_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980363,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "5180eaeaf30bdc1c82d938caeaed23f5567f1f3e6e11eb650a23a72ab580fe39",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "sunshield_discoloration",
+    "frame_id": "wk8_final_pair_0037_path_anomaly",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -37.134,
+      16.541,
+      21.6055
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0074",
+    "rgb": "images/final_test/wk8_final_pair_0037_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980371,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "c3d184152e5116f5278abee64b44632d2a9dc2cd6dae9df6375fc043a3f0e798",
+    "split": "final_test",
+    "stress_condition_id": "sunshield_discoloration",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0037_path_nominal",
+    "lighting_condition": "low_light_cold_side",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "degraded",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -37.134,
+      16.541,
+      21.6055
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0075",
+    "rgb": "images/final_test/wk8_final_pair_0037_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980373,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "dfc605298771b1aac43a5de97fbd838f39ddaaaedc620415829086509d98c0c8",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "sunshield_survey"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "mirror_region_obstruction",
+    "frame_id": "wk8_final_pair_0038_path_anomaly",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      12.4526,
+      -28.6424,
+      8.8071
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0076",
+    "rgb": "images/final_test/wk8_final_pair_0038_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980381,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "e9b1881530888c364d022b70c457c38350aeb4d97b029e2332734a2347eb22b4",
+    "split": "final_test",
+    "stress_condition_id": "mirror_region_obstruction",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0038_path_nominal",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      12.4526,
+      -28.6424,
+      8.8071
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0077",
+    "rgb": "images/final_test/wk8_final_pair_0038_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980383,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "4caf629504fd606e2ac8a0150a8798421cdb3e4722c697a06bee7b3d52a60e03",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": true,
+    "anomaly_type": "truss_occlusion_proxy",
+    "frame_id": "wk8_final_pair_0039_path_anomaly",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      10.3587,
+      30.093,
+      13.4525
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0078",
+    "rgb": "images/final_test/wk8_final_pair_0039_path_anomaly.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980391,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "61c51e88325b96250b4aeaa8e550bdfcc6c3b4a20edcee5513797d1a21af7964",
+    "split": "final_test",
+    "stress_condition_id": "truss_occlusion_proxy",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_pair_0039_path_nominal",
+    "lighting_condition": "mixed_stress",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "anomaly_test",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      10.3587,
+      30.093,
+      13.4525
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0079",
+    "rgb": "images/final_test/wk8_final_pair_0039_path_nominal.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 980393,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "1182e085071a2e1641b0f179f827c96bbd09fa09f3bc82c25fd3e81bc33e071f",
+    "split": "final_test",
+    "stress_condition_id": "paired_no_anomaly_counterpart",
+    "target_region": "approach_hold_standoff"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0000_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -3.0533,
+      29.2139,
+      18.1415
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0080",
+    "rgb": "images/final_test/wk8_final_high_glare_0000_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989001,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "2bd557ab929ebf9cb8782848f25edf6598b2628450ec209417a4aac4b949e11a",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0001_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -17.0576,
+      -23.0304,
+      9.5925
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0081",
+    "rgb": "images/final_test/wk8_final_high_glare_0001_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989011,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "c425cc9a5c9aef5b96f5016b45c9d4b5b4ef778cc085d12f47829bfb6d2fccf5",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0002_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      29.2676,
+      5.6795,
+      14.1687
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0082",
+    "rgb": "images/final_test/wk8_final_high_glare_0002_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989021,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "f47c1684c787426c424112027b10d295416fec5ceba951e88a11f6893d64cdf0",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0003_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -21.4162,
+      13.1291,
+      16.593
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0083",
+    "rgb": "images/final_test/wk8_final_high_glare_0003_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989031,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "d82092a24654dd8204be68b9a45e1d79feccda37b171c6e99900236dc8b74a60",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0004_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      8.1963,
+      -28.5885,
+      10.2989
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0084",
+    "rgb": "images/final_test/wk8_final_high_glare_0004_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989041,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "a202e303fd5cc756a8d32a2e6d16c2c0c421208a528639bcdcb16cae896e897a",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0005_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      13.7298,
+      27.5442,
+      15.0499
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0085",
+    "rgb": "images/final_test/wk8_final_high_glare_0005_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989051,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "1333a2d485fd390895e9815dfd96132c5d7691a4c9c42e846e15d9a737edf76a",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0006_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -24.2519,
+      -9.3158,
+      17.5481
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0086",
+    "rgb": "images/final_test/wk8_final_high_glare_0006_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989061,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "8351af3eb3f61dfa5983df9cf365f3de5342087dc8d7592636c659da02341eb5",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0007_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      28.6661,
+      -11.2798,
+      11.0413
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0087",
+    "rgb": "images/final_test/wk8_final_high_glare_0007_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989071,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "ce1ec9c1e644d79827da4dd52543277de78bff19bce9d0383ddf48ecc563f905",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0008_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -11.5784,
+      23.7092,
+      13.9527
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0088",
+    "rgb": "images/final_test/wk8_final_high_glare_0008_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989081,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "b6023cf9bca98b8fad99908ab1a792912a2887d949c8c2bd87b7732b88115ec6",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0009_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -8.5965,
+      -29.0893,
+      7.1881
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0089",
+    "rgb": "images/final_test/wk8_final_high_glare_0009_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989091,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "da9a54d834ac9c1b29297d37830383094331ccfde5ecb47a000d869a0e23ab2a",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0010_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      27.2918,
+      16.4273,
+      11.8193
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0090",
+    "rgb": "images/final_test/wk8_final_high_glare_0010_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989101,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "342d3de3c4acccf7b6f2a58cc4033ce71d8f32a54521ea6872c011c0c899089b",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0011_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -26.7947,
+      5.4261,
+      14.8149
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0091",
+    "rgb": "images/final_test/wk8_final_high_glare_0011_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989111,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "075221272701f6460b99a646b22829ec78886742da334a728f672f7ab7a07366",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0012_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      18.5237,
+      -25.4399,
+      7.8175
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0092",
+    "rgb": "images/final_test/wk8_final_high_glare_0012_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989121,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "38575761a0c12b99ae54e5aa2712fbe0479468e1cc0a01553183eb656c08f3cc",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0013_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      3.0666,
+      27.2003,
+      11.1853
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0093",
+    "rgb": "images/final_test/wk8_final_high_glare_0013_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989131,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "5aecc3ab33866a86ee12ee66a1f0b0e4bd4909b16b2b4e4f033b63de72bcea05",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0014_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -21.3118,
+      -18.5752,
+      15.7101
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0094",
+    "rgb": "images/final_test/wk8_final_high_glare_0014_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989141,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "166aba0fb401b2d1abd0088c2a3981848ae5e40229aa3ea89610740cd5f0a01b",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0015_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      26.938,
+      -0.6663,
+      7.7071
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0095",
+    "rgb": "images/final_test/wk8_final_high_glare_0015_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989151,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "91bdf93ab0b22b4bc5166287325e41d8df1ff8d8cc83d246a3fd99e448c1528a",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0016_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -20.4676,
+      19.7027,
+      11.9455
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0096",
+    "rgb": "images/final_test/wk8_final_high_glare_0016_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989161,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "46ae427068744dbfcd623c627cc56ee841f1616a2edb54ea439c6facd51e4c26",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0017_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      1.8315,
+      -29.1234,
+      16.6378
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0097",
+    "rgb": "images/final_test/wk8_final_high_glare_0017_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989171,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "3453a676719a645660ae89825f4f31a2a199959273fd2fc1cb75a747fede52aa",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0018_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      17.6242,
+      21.8468,
+      8.3203
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0098",
+    "rgb": "images/final_test/wk8_final_high_glare_0018_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989181,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "f9c59333f88a660782e7a9bfc956242ffd96ade089bc8c69969e307050ed3964",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0019_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -29.0974,
+      -4.4079,
+      12.7407
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0099",
+    "rgb": "images/final_test/wk8_final_high_glare_0019_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989191,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "b002ca893631fa1c7f3ceed1003c17aabb42e4fae61fc29df9f6044c2f2c638b",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0020_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      20.6516,
+      -13.8659,
+      15.2488
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0100",
+    "rgb": "images/final_test/wk8_final_high_glare_0020_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989201,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "e7f95648c759beef00a0f48a5787f90623def8c4efde8ebd9d516e7a8030214a",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0021_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -6.876,
+      28.358,
+      8.9703
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0101",
+    "rgb": "images/final_test/wk8_final_high_glare_0021_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989211,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "b65dc54eefe99d03e3fe0bc034a3db0cd6777923592f43360c25c11a274c9f19",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0022_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -14.6892,
+      -26.6505,
+      13.5704
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0102",
+    "rgb": "images/final_test/wk8_final_high_glare_0022_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989221,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "3ce2cf48d08d9afbe4b18e59552cce396e547c0a7b63c46ca33378e8eb363591",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0023_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      24.4241,
+      8.241,
+      16.1572
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0103",
+    "rgb": "images/final_test/wk8_final_high_glare_0023_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989231,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "3cd59698c21951d7155ebafa8bac9f3899456502328500538b99864ed627bc4e",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0024_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -27.6913,
+      12.2405,
+      9.6569
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0104",
+    "rgb": "images/final_test/wk8_final_high_glare_0024_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989241,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "57f20898f1ae7a66fd03a7ecb939a5743aeb9189299e93053b3dc65d27a9256d",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0025_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      10.4355,
+      -23.8171,
+      12.6374
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0105",
+    "rgb": "images/final_test/wk8_final_high_glare_0025_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989251,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "da16367ee964a05a03244e4867f6fa10e3152f6ef0adef86cf7dca54f2e949c7",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0026_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      8.6043,
+      25.2293,
+      17.0972
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0106",
+    "rgb": "images/final_test/wk8_final_high_glare_0026_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989261,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "4f46f919fc994120c3b6e331b033a0ad6371f1d3685577283aed78962c50c3df",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0027_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -27.5114,
+      -15.0472,
+      10.3798
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0107",
+    "rgb": "images/final_test/wk8_final_high_glare_0027_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989271,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "f9fc332094e1b673d8526490994a74652c11751fad0615c45387fc1572a65475",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0028_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      26.2131,
+      -6.4464,
+      13.4488
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0108",
+    "rgb": "images/final_test/wk8_final_high_glare_0028_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989281,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "ab967edc347dae1e86e2e59fcb23db16e55bda6a99c15ca4fd5114305e4be775",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0029_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -15.2614,
+      22.8907,
+      18.0683
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0109",
+    "rgb": "images/final_test/wk8_final_high_glare_0029_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989291,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "b82257ba67ac87eaccf7d934aa034cd34edcbf444b9a010a7d1f05d0c8ff40b2",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0030_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -4.1089,
+      -26.5406,
+      9.913
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0110",
+    "rgb": "images/final_test/wk8_final_high_glare_0030_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989301,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "a414279aa47ec0116c0861186db01697edd4b8c191b5c27691f693b27d8d6035",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0031_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      21.823,
+      17.488,
+      14.2939
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0111",
+    "rgb": "images/final_test/wk8_final_high_glare_0031_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989311,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "8c827c75d71df5c8e511f83c31a1ae7be606775a7dddce345b58893c3325aadf",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0032_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -28.2808,
+      1.871,
+      19.07
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0112",
+    "rgb": "images/final_test/wk8_final_high_glare_0032_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989321,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "7d31e3fdcc7ecb75b9cec4552724c951ba35015660371f7492ba3b62d616e580",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0033_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      19.3019,
+      -20.1822,
+      10.6187
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0113",
+    "rgb": "images/final_test/wk8_final_high_glare_0033_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989331,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "ea570b2cb1c92244bac1e1c7e19d37876d0bd31352f415c3582c87d2241a0ce4",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0034_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -0.621,
+      28.91,
+      15.1725
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0114",
+    "rgb": "images/final_test/wk8_final_high_glare_0034_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989341,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "af7354cc28dd735d8406a447f6a8f6e5d365adfb39a0bff791610974a8c40f40",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0035_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -18.0867,
+      -20.6154,
+      7.1044
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0115",
+    "rgb": "images/final_test/wk8_final_high_glare_0035_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989351,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "8e03f31d9aa43ef18506ae61291eab988c46ba7d212be445ccd0d6f28e3ee894",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0036_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      28.808,
+      3.153,
+      11.36
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0116",
+    "rgb": "images/final_test/wk8_final_high_glare_0036_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989361,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "a2b72390dcbfd771893ad929cdb8292b229413858f2fe799cdb5caef025f2eaa",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0037_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      -24.0707,
+      17.6469,
+      16.0841
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0117",
+    "rgb": "images/final_test/wk8_final_high_glare_0037_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989371,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "6c253e9ad7a144230e0515bb2a524931a5a0f32d6e4c72c4f218c07f90803a2a",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0038_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      5.5778,
+      -28.0118,
+      7.6969
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0118",
+    "rgb": "images/final_test/wk8_final_high_glare_0038_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989381,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "8fc0daff7d9eb073ff3f2c9e1060d3a0d46a4223b95b5b962ec72740cab6f07b",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  },
+  {
+    "anomaly_is_present": false,
+    "anomaly_type": "none",
+    "frame_id": "wk8_final_high_glare_0039_path",
+    "lighting_condition": "high_glare_edge",
+    "look_at_m": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "material_variant": "high_glare",
+    "output_root": "datasets/generated/week9_final_perception_run1",
+    "position_m": [
+      15.5632,
+      25.6669,
+      12.1366
+    ],
+    "renderer_mode": "path_traced",
+    "request_id": "week9_final_run1_0119",
+    "rgb": "images/final_test/wk8_final_high_glare_0039_path.png",
+    "run_id": "week9-final-perception-run1-v1.0.0",
+    "seed": 989391,
+    "source_definition_id": "week8-final-perception-test-v1.0.0",
+    "source_frame_sha256": "30b22f333ceae9040048e38a16805e4fd77a6b0c302e64035381145fc05b9620",
+    "split": "final_test",
+    "stress_condition_id": "nominal_high_glare_false_alarm_control",
+    "target_region": "mirror_inspection"
+  }
+]

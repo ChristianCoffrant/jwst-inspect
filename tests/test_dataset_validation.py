@@ -83,6 +83,17 @@ from jwst_inspect.perception.week5_baseline import evaluate_week5_perception_bas
 from jwst_inspect.perception.week6_baseline import evaluate_week6_perception_baseline
 from jwst_inspect.perception.week7_error_analysis import evaluate_week7_perception_error_analysis
 from jwst_inspect.perception.week8_validation import evaluate_week8_validation_perception
+from jwst_inspect.perception.week9_final import (
+    WEEK9_ANALYSIS_ID,
+    WEEK9_DATASET_DIR,
+    WEEK9_RUN_ID,
+    validate_week9_final_perception_config,
+    validate_week9_final_perception_request_pack,
+    validate_week9_final_perception_run,
+    write_week9_final_perception_dataset,
+    write_week9_final_perception_report,
+    write_week9_final_perception_request_pack,
+)
 from jwst_inspect.validation.dataset import (
     validate_sample_dataset,
     validate_week5_anomaly_dataset,
@@ -878,6 +889,151 @@ class Week8FinalDatasetValidationTests(unittest.TestCase):
 
             self.assertTrue(contact_sheet.exists())
             self.assertGreater(contact_sheet.stat().st_size, 0)
+
+
+class Week9FinalPerceptionRunTests(unittest.TestCase):
+    _tmpdir = None
+    validation_dataset_dir: Path
+    final_test_dataset_dir: Path
+    request_path: Path
+    run_manifest_path: Path
+    registry_path: Path
+    report_path: Path
+    failures_path: Path
+    plot_data_path: Path
+    metrics_plot_path: Path
+    gpu_run_id = "vast_week9_team2_test_20260627_000001"
+
+    @classmethod
+    def setUpClass(cls):
+        cls._tmpdir = tempfile.TemporaryDirectory()
+        temp_root = Path(cls._tmpdir.name)
+        cls.validation_dataset_dir = temp_root / "week8_final_dataset"
+        cls.final_test_dataset_dir = temp_root / WEEK9_DATASET_DIR.name
+        cls.request_path = temp_root / "week9_final_perception_requests.json"
+        cls.run_manifest_path = temp_root / "week9_final_perception_manifest.json"
+        cls.registry_path = temp_root / "gpu_run_registry.csv"
+        cls.report_path = temp_root / "week9_final_perception_report.json"
+        cls.failures_path = temp_root / "week9_final_perception_failures.json"
+        cls.plot_data_path = temp_root / "week9_final_perception_plot_data.json"
+        cls.metrics_plot_path = temp_root / "week9_final_perception_metrics.svg"
+        write_week8_final_dataset(ROOT, cls.validation_dataset_dir)
+        write_week9_final_perception_request_pack(
+            ROOT,
+            cls.request_path,
+            dataset_dir=cls.validation_dataset_dir,
+        )
+        write_week9_final_perception_dataset(
+            ROOT,
+            cls.final_test_dataset_dir,
+            gpu_run_id=cls.gpu_run_id,
+            request_path=cls.request_path,
+            manifest_path=cls.run_manifest_path,
+            validation_dataset_dir=cls.validation_dataset_dir,
+        )
+        cls.registry_path.write_text(
+            "\n".join(
+                [
+                    "run_id,date,team,owner,git_commit,scene_tag,dataset_tag,policy_tag,config_path,"
+                    "gpu_model,gpu_vram_gb,hourly_price_usd,rental_type,runtime_minutes,setup_minutes,"
+                    "artifact_sync_status,status,notes",
+                    f"{cls.gpu_run_id},2026-06-27,team2_synthetic_data_perception,Codex,test,"
+                    f"{WEEK8_SCENE_TAG},{WEEK8_DATASET_TAG},not_applicable,"
+                    "configs/perception/week9_final_perception_run1.yaml,NVIDIA GeForce RTX 4090,24,"
+                    "0.40,on_demand,10.0,5.0,synced,success,"
+                    "\"unit-test synced x090 metadata row under spend cap\"",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+
+    @classmethod
+    def tearDownClass(cls):
+        if cls._tmpdir is not None:
+            cls._tmpdir.cleanup()
+
+    def test_week9_final_perception_config_passes_guardrails(self):
+        self.assertEqual(validate_week9_final_perception_config(ROOT), [])
+
+    def test_week9_request_pack_matches_locked_final_definition(self):
+        errors, report = validate_week9_final_perception_request_pack(
+            ROOT,
+            self.request_path,
+            dataset_dir=self.validation_dataset_dir,
+        )
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["request_count"], WEEK8_FINAL_TEST_FRAME_COUNT)
+        self.assertEqual(report["renderer_counts"]["path_traced"], WEEK8_FINAL_TEST_FRAME_COUNT)
+
+    def test_week9_final_perception_run_passes_ship_gates(self):
+        errors, report = validate_week9_final_perception_run(
+            ROOT,
+            self.final_test_dataset_dir,
+            request_path=self.request_path,
+            registry_path=self.registry_path,
+            validation_dataset_dir=self.validation_dataset_dir,
+        )
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["run_id"], WEEK9_RUN_ID)
+        self.assertEqual(report["path_traced_rgb_artifact_count"], WEEK8_FINAL_TEST_FRAME_COUNT)
+        self.assertEqual(report["blank_or_corrupt_path_traced_frame_count"], 0)
+        self.assertEqual(report["cross_split_seed_overlap_count"], 0)
+        self.assertEqual(report["generated_media_committed_count"], 0)
+        self.assertLessEqual(report["vast_spend_usd_total"], report["vast_spend_usd_max"])
+
+    def test_week9_final_perception_evaluation_reports_metrics_and_failures(self):
+        report_path, errors = write_week9_final_perception_report(
+            ROOT,
+            validation_dataset_dir=self.validation_dataset_dir,
+            final_test_dataset_dir=self.final_test_dataset_dir,
+            registry_path=self.registry_path,
+            request_path=self.request_path,
+            report_path=self.report_path,
+            failure_examples_path=self.failures_path,
+            plot_data_path=self.plot_data_path,
+            metrics_plot_path=self.metrics_plot_path,
+        )
+
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        failures = json.loads(self.failures_path.read_text(encoding="utf-8"))
+        plot_data = json.loads(self.plot_data_path.read_text(encoding="utf-8"))
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["analysis_id"], WEEK9_ANALYSIS_ID)
+        self.assertEqual(report["final_test_definition_id"], WEEK8_FINAL_TEST_DEFINITION_ID)
+        self.assertIn("per_class_iou", report["final_test_path_traced"]["segmentation"])
+        self.assertIn("high_glare_false_alarm", report["final_test_path_traced"])
+        self.assertGreater(len(failures["examples"]), 0)
+        self.assertTrue(all("frame_id" in example for example in failures["examples"]))
+        self.assertIn("final_test_path_traced", plot_data["metrics"])
+        self.assertTrue(self.metrics_plot_path.exists())
+        self.assertGreater(self.metrics_plot_path.stat().st_size, 0)
+
+    def test_week9_final_perception_run_rejects_missing_registry_row(self):
+        empty_registry = self.registry_path.parent / "empty_gpu_run_registry.csv"
+        empty_registry.write_text(
+            "run_id,date,team,owner,git_commit,scene_tag,dataset_tag,policy_tag,config_path,"
+            "gpu_model,gpu_vram_gb,hourly_price_usd,rental_type,runtime_minutes,setup_minutes,"
+            "artifact_sync_status,status,notes\n",
+            encoding="utf-8",
+        )
+
+        errors, report = validate_week9_final_perception_run(
+            ROOT,
+            self.final_test_dataset_dir,
+            request_path=self.request_path,
+            registry_path=empty_registry,
+            validation_dataset_dir=self.validation_dataset_dir,
+        )
+
+        self.assertTrue(errors)
+        self.assertEqual(report["status"], "failed")
+        self.assertTrue(any("missing from compute/gpu_run_registry.csv" in error for error in errors), errors)
 
 
 if __name__ == "__main__":

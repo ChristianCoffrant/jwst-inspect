@@ -44,6 +44,14 @@ The final path-traced perception test is locked as metadata only in
 final-test RGB, depth, semantic mask, or instance mask media is rendered or
 exposed in Week 8. Team 2 Week 8 Vast spend is `$0`.
 
+The Week 9 final perception run 1 materializes that locked final-test definition
+under ignored `datasets/generated/week9_final_perception_run1/`. The accepted
+Team 2 run is `vast_week9_team2_20260627_42889311` on a Vast RTX 4090 instance;
+it synced 120 path-traced RGB frames with zero blank/corrupt images and an
+estimated spend of about `$0.08` under the `$5` cap. The committed artifacts are
+request metadata, the run manifest, final perception report, failure examples,
+and plot metadata; final-test media remains untracked.
+
 Future rendered samples will be generated from the JWST-Inspect benchmark scene.
 Public JWST images are reference validation material only and are excluded from
 official training data.
@@ -53,7 +61,7 @@ official training data.
 - `train`: rasterized randomized training frames.
 - `validation`: rasterized development holdout frames.
 - `dev_test`: paired rasterized/path-traced development checks.
-- `final_test`: held-out path-traced evaluation frames, intentionally empty for Week 1.
+- `final_test`: held-out path-traced evaluation frames; locked as metadata in Week 8 and rendered for final perception run 1 in Week 9.
 
 The Week 2 sample includes `train`, `validation`, and `dev_test` records. The
 Week 3 episode-linked thin slice uses `dev_test` records because it is a local
@@ -78,6 +86,13 @@ frames, true anomaly fractions of 0.50/0.333/0.333, 80 high-glare controls,
 100% metadata/media/GPU metadata completeness, 100% path-traced sync, 1.0
 counterpart coverage, 0.0 duplicate-view rate, and zero path-traced blank or
 corrupt frames.
+
+The Week 8 final train/validation dataset uses 480 rasterized train and 120
+rasterized validation frames. Its final-test definition contains 120 held-out
+path-traced frame specifications: 40 true anomaly frames, 40 paired no-anomaly
+counterparts, and 40 high-glare no-anomaly controls. Week 9 final perception
+run 1 renders those 120 RGB outputs on x090/Vast and keeps the media outside
+Git.
 
 The Week 8 final dataset contains 480 `train` and 120 `validation` frames only.
 The locked `final_test` definition contains 120 path-traced frame specs: 40

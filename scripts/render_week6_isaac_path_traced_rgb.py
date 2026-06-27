@@ -131,6 +131,22 @@ def _apply_anomaly_state(stage, markers: dict[str, str], frame: dict[str, object
         _set_visibility(stage, marker_path, visible=marker_path == active_path)
 
 
+def _modify_camera_pose(rep, camera, position: tuple[float, float, float], look_at: tuple[float, float, float]) -> None:
+    kwargs = {
+        "position_value": position,
+        "look_at_value": look_at,
+        "look_at_up_axis": (0, 0, 1),
+        "write_to_usd": True,
+    }
+    try:
+        rep.functional.modify.pose(camera, **kwargs)
+    except TypeError as exc:
+        if "write_to_usd" not in str(exc):
+            raise
+        kwargs.pop("write_to_usd")
+        rep.functional.modify.pose(camera, **kwargs)
+
+
 def main() -> int:
     args = _parse_args()
     app = SimulationApp(
@@ -189,13 +205,7 @@ def main() -> int:
         if look_at == (0.0, 0.0, 0.0):
             look_at = (0.0, 0.0, 4.0)
         _apply_anomaly_state(stage, anomaly_markers, frame)
-        rep.functional.modify.pose(
-            camera,
-            position_value=position,
-            look_at_value=look_at,
-            look_at_up_axis=(0, 0, 1),
-            write_to_usd=True,
-        )
+        _modify_camera_pose(rep, camera, position, look_at)
         for _ in range(2):
             app.update()
         rep.orchestrator.step(rt_subframes=16, delta_time=0.0)

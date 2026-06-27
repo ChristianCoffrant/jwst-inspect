@@ -1,0 +1,19 @@
+{
+  "analysis_id": "week9_final_perception_run1_rgb_analysis_v1_0_0",
+  "metrics": {
+    "final_test_path_traced": {
+      "anomaly_f1": 0.0,
+      "high_glare_false_alarm_rate": 0.0,
+      "semantic_miou": 0.01629893599285529,
+      "semantic_pixel_accuracy": 0.09513888888888888
+    },
+    "validation_rasterized": {
+      "anomaly_f1": 1.0,
+      "high_glare_false_alarm_rate": 0.0,
+      "semantic_miou": 0.2710119654580008,
+      "semantic_pixel_accuracy": 0.3834683641975309
+    }
+  },
+  "plot_note": "Draft Week 9 metric bars for validation rasterized versus final-test path-traced run 1.",
+  "run_id": "week9-final-perception-run1-v1.0.0"
+}
