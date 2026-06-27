@@ -4,8 +4,6 @@ import tempfile
 import unittest
 from pathlib import Path
 
-import yaml
-
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -28,15 +26,23 @@ class StressEvaluationTests(unittest.TestCase):
         self.assertEqual(report["mirror_coverage_cell_count"], 16)
 
     def test_missing_required_profile_fails_validation(self):
-        with self.config_path.open(encoding="utf-8") as handle:
-            config = yaml.safe_load(handle)
-        config["stress_profiles"] = [
-            profile for profile in config["stress_profiles"] if profile["profile_id"] != "combined_proxy"
-        ]
+        combined_profile_block = """  - profile_id: combined_proxy
+    sensor_noise_profile: low_noise_proxy
+    latency_profile: fixed_latency_proxy
+    actuation_delay_profile: fixed_actuation_delay_proxy
+    observation_noise_m: 0.35
+    latency_steps: 1
+    actuation_delay_alpha: 0.55
+    coverage_dropout_period: 5
+    nuisance_condition: combined_noise_latency_delay_proxy
+    material_variant: high_glare
+    estimated_cost_usd_per_episode: 0.0
+"""
+        config_text = self.config_path.read_text(encoding="utf-8")
+        self.assertIn(combined_profile_block, config_text)
         with tempfile.TemporaryDirectory() as tmpdir:
             broken_config = Path(tmpdir) / "stress_evaluation_v0_1.yaml"
-            with broken_config.open("w", encoding="utf-8") as handle:
-                yaml.safe_dump(config, handle)
+            broken_config.write_text(config_text.replace(combined_profile_block, ""), encoding="utf-8")
             report = validate_stress_evaluation_config(ROOT, broken_config)
         self.assertEqual(report["status"], "failed")
         self.assertFalse(report["ship_gates"]["stress_condition_configs_exist"])

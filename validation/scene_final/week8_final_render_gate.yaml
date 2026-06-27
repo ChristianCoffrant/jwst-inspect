@@ -1,0 +1,26 @@
+version: 1.0.0
+gate_status: pending_gpu_run
+scene_final_tag: scene-final-v1.0.0
+base_scene_rc_tag: scene-rc-v0.2.1
+render_config: configs/renderers/week8_final_validation.yaml
+vast_template: configs/vast/x090_template.yaml
+vast_template_hash: 7125e3b864680d268e915aa0c32cac84
+run_registry_id: pending_week8_gpu_run
+artifact_sync_status: not_synced
+artifact_root: validation/renders/week8_final/pending_week8_gpu_run
+contact_sheet_path: validation/renders/week8_final/pending_week8_gpu_run/contact_sheet.png
+contact_sheet_sha256: pending_gpu_run
+required_render_count: 6
+actual_render_count: 0
+required_contact_sheet_count: 1
+actual_contact_sheet_count: 0
+generated_outputs_tracked_in_git: false
+fabricated_gpu_renders_allowed: false
+renderer_modes:
+  - rasterized
+  - path_traced
+required_cameras:
+  - mirror_inspection_fixed
+  - sunshield_survey_fixed
+  - approach_standoff_overview
+artifacts: []

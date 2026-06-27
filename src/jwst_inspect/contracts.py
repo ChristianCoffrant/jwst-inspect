@@ -104,6 +104,11 @@ def _parse_scalar(value: str) -> Any:
     value = value.strip()
     if value == "":
         return ""
+    if value.startswith("[") and value.endswith("]"):
+        inner = value[1:-1].strip()
+        if not inner:
+            return []
+        return [_parse_scalar(item.strip()) for item in inner.split(",")]
     if value in {"true", "false"}:
         return value == "true"
     if value in {"null", "None", "~"}:

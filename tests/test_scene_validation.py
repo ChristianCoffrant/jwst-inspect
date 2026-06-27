@@ -27,6 +27,10 @@ from jwst_inspect.validation.scene import (
     validate_week7_performance_profile,
     validate_week7_release_candidate,
     validate_week7_reports,
+    validate_week8_final_render_config,
+    validate_week8_render_gate,
+    validate_week8_reports,
+    validate_week8_scene_freeze,
 )
 
 
@@ -105,6 +109,18 @@ class SceneValidationTests(unittest.TestCase):
 
     def test_week7_reports_record_downstream_hardening_guardrails(self):
         self.assertEqual(validate_week7_reports(ROOT), [])
+
+    def test_week8_final_render_config_declares_hard_gpu_gate(self):
+        self.assertEqual(validate_week8_final_render_config(ROOT / "configs" / "renderers" / "week8_final_validation.yaml"), [])
+
+    def test_week8_scene_freeze_preserves_final_invariants(self):
+        self.assertEqual(validate_week8_scene_freeze(ROOT / "validation" / "scene_final" / "week8_scene_contract_freeze.yaml"), [])
+
+    def test_week8_render_gate_is_machine_readable_before_gpu_run(self):
+        self.assertEqual(validate_week8_render_gate(ROOT), [])
+
+    def test_week8_reports_record_final_scene_guardrails(self):
+        self.assertEqual(validate_week8_reports(ROOT), [])
 
     def test_proxy_usd_layers_have_required_contract_tokens(self):
         self.assertEqual(validate_usd_proxy_layers(ROOT), [])

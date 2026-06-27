@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from jwst_inspect.contracts import load_contract_yaml
 from jwst_inspect.evaluation.metrics import compute_rollout_metrics
 from jwst_inspect.policy.proxy_env import ProxyEnvironmentConfig, ScriptedApproachConfig, rollout_episode
 from jwst_inspect.policy.stress import (
@@ -58,10 +59,7 @@ class StressProfileTests(unittest.TestCase):
         self.assertEqual(blend_velocity((0.0, 0.0, 0.0), (1.0, 0.0, 0.0), 0.55), (0.55, 0.0, 0.0))
 
     def test_required_profile_can_be_loaded_from_config(self):
-        import yaml
-
-        with (ROOT / "configs" / "experiments" / "stress_evaluation_v0_1.yaml").open(encoding="utf-8") as handle:
-            config = yaml.safe_load(handle)
+        config = load_contract_yaml(ROOT / "configs" / "experiments" / "stress_evaluation_v0_1.yaml")
         profile = profile_by_id(config, "combined_proxy")
         self.assertEqual(profile.sensor_noise_profile, "low_noise_proxy")
         self.assertEqual(profile.latency_profile, "fixed_latency_proxy")

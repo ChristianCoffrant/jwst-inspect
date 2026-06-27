@@ -1,0 +1,34 @@
+version: 1.0.0
+scene_tag: scene-final-v1.0.0
+base_scene_tag: scene-rc-v0.2.1
+seed: 31003
+source_camera_config: configs/renderers/thin_slice_validation.yaml
+render_manifest: validation/render_manifest.csv
+artifact_root: validation/renders/week8_final
+resolution:
+  width_px: 640
+  height_px: 480
+renderers:
+  rasterized:
+    isaac_renderer: RaytracedLighting
+    samples_per_pixel: 1
+    output_format: png
+  path_traced:
+    isaac_renderer: PathTracing
+    samples_per_pixel: 16
+    output_format: png
+guardrails:
+  fixed_seed_required: true
+  paired_renderer_modes_required: true
+  contact_sheet_required: true
+  generated_outputs_tracked_in_git: false
+  completed_rows_require_run_metadata: true
+  fabricated_outputs_allowed: false
+  artifact_sync_required: true
+final_render_matrix:
+  - matrix_id: final_nominal_standard_views
+    material_variant: nominal
+    lighting_variant: nominal_sun_key
+    required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
+    required_renderer_modes: rasterized;path_traced
+    status: pending_gpu_run

@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import re
 from pathlib import Path
+from typing import Any
+
+from jwst_inspect.contracts import load_contract_yaml
 
 
 REQUIRED_SOURCE_COLUMNS = (
@@ -68,7 +72,8 @@ REQUIRED_RENDER_COLUMNS = (
 THIN_SLICE_SCENE_TAG = "scene-proxy-thin-slice-v0.1"
 BETA_SCENE_TAG = "scene-beta-v0.2.0"
 SCENE_RC_TAG = "scene-rc-v0.2.1"
-VALID_SCENE_TAGS = {THIN_SLICE_SCENE_TAG, BETA_SCENE_TAG, SCENE_RC_TAG}
+FINAL_SCENE_TAG = "scene-final-v1.0.0"
+VALID_SCENE_TAGS = {THIN_SLICE_SCENE_TAG, BETA_SCENE_TAG, SCENE_RC_TAG, FINAL_SCENE_TAG}
 THIN_SLICE_SEED = "31003"
 THIN_SLICE_CAMERA_IDS = {
     "mirror_inspection_fixed",
@@ -96,6 +101,10 @@ WEEK7_DOWNSTREAM_TRIAGE = Path("validation/downstream/week7_downstream_triage.ya
 WEEK7_RELEASE_CANDIDATE = Path("validation/scene_rc/week7_release_candidate.yaml")
 WEEK7_PERFORMANCE_PROFILE = Path("validation/scene_rc/week7_performance_profile.yaml")
 WEEK7_HARDENING_REPORT = Path("validation/reports/week7_downstream_hardening_report.md")
+WEEK8_SCENE_FREEZE = Path("validation/scene_final/week8_scene_contract_freeze.yaml")
+WEEK8_FINAL_RENDER_CONFIG = Path("configs/renderers/week8_final_validation.yaml")
+WEEK8_FINAL_RENDER_GATE = Path("validation/scene_final/week8_final_render_gate.yaml")
+WEEK8_FINAL_QA_REPORT = Path("validation/reports/week8_scene_final_qa_report.md")
 
 REQUIRED_COVERAGE_COLUMNS = (
     "coverage_patch",
@@ -205,6 +214,22 @@ REQUIRED_WEEK7_RC_INVARIANTS = {
 VALID_WEEK7_TRIAGE_SOURCES = {"workstream2", "workstream3", "integration"}
 VALID_WEEK7_TRIAGE_DISPOSITIONS = {"resolved", "accepted_with_evidence", "deferred_non_blocking"}
 VALID_WEEK7_PERFORMANCE_STATUS = {"blocked_vast_required", "measured_local_validation", "completed"}
+
+REQUIRED_WEEK8_FINAL_INVARIANTS = {
+    "required_prims_present_percent": 100,
+    "asset_provenance_completeness_percent": 100,
+    "label_id_renames": 0,
+    "task_region_id_renames": 0,
+    "safety_path_renames": 0,
+    "safety_boundary_shrink_count": 0,
+    "camera_frame_renames": 0,
+    "material_variant_renames": 0,
+    "lighting_variant_renames": 0,
+    "public_reference_training_use_count": 0,
+    "heldout_reference_tuning_count": 0,
+    "generated_or_large_artifacts_committed": 0,
+}
+VALID_WEEK8_RENDER_GATE_STATUS = {"pending_gpu_run", "passed"}
 
 REQUIRED_STRESS_MATRIX_COLUMNS = (
     "combo_id",
@@ -447,6 +472,22 @@ def _semicolon_set(value: str) -> set[str]:
     return {item.strip() for item in value.split(";") if item.strip()}
 
 
+def _as_mapping(value: Any) -> dict[str, Any]:
+    return value if isinstance(value, dict) else {}
+
+
+def _as_list(value: Any) -> list[Any]:
+    return value if isinstance(value, list) else []
+
+
+def _file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def _section_text(text: str, section_name: str) -> str:
     pattern = re.compile(rf"^{re.escape(section_name)}:\n(?P<body>(?:^[ \t].*\n?)+)", re.MULTILINE)
     match = pattern.search(text)
@@ -566,6 +607,8 @@ def validate_render_manifest(path: Path | str) -> list[str]:
         for material_variant, lighting_variant in WEEK6_REQUIRED_BETA_COMBOS
         for camera_id in THIN_SLICE_CAMERA_IDS
     }
+    week8_paired: dict[str, set[str]] = {camera_id: set() for camera_id in THIN_SLICE_CAMERA_IDS}
+    saw_week8_rows = False
     seen_ids: set[str] = set()
     with manifest_path.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -600,8 +643,18 @@ def validate_render_manifest(path: Path | str) -> list[str]:
                 paired[camera_id].add(renderer_mode)
 
             output_path = row.get("expected_output_path", "").strip()
-            if not output_path.startswith(("validation/renders/week3/", "validation/renders/week4/", "validation/renders/week5/", "validation/renders/week6_beta/")):
-                errors.append(f"{manifest_path}:{index}: expected_output_path must be under validation/renders/week3/, validation/renders/week4/, validation/renders/week5/, or validation/renders/week6_beta/")
+            if not output_path.startswith((
+                "validation/renders/week3/",
+                "validation/renders/week4/",
+                "validation/renders/week5/",
+                "validation/renders/week6_beta/",
+                "validation/renders/week8_final/",
+            )):
+                errors.append(
+                    f"{manifest_path}:{index}: expected_output_path must be under validation/renders/week3/, "
+                    "validation/renders/week4/, validation/renders/week5/, validation/renders/week6_beta/, "
+                    "or validation/renders/week8_final/"
+                )
             elif output_path.startswith("validation/renders/week4/") and camera_id in week4_paired and renderer_mode in THIN_SLICE_RENDERER_MODES:
                 week4_paired[camera_id].add(renderer_mode)
             elif output_path.startswith("validation/renders/week5/") and renderer_mode in THIN_SLICE_RENDERER_MODES:
@@ -622,6 +675,16 @@ def validate_render_manifest(path: Path | str) -> list[str]:
                     errors.append(f"{manifest_path}:{index}: invalid Week 6 beta material/lighting combo {(material_variant, lighting_variant)!r}")
                 elif camera_id in THIN_SLICE_CAMERA_IDS:
                     week6_paired[beta_key].add(renderer_mode)
+            elif output_path.startswith("validation/renders/week8_final/") and renderer_mode in THIN_SLICE_RENDERER_MODES:
+                saw_week8_rows = True
+                material_variant = row.get("material_variant", "").strip()
+                lighting_variant = row.get("lighting_variant", "").strip()
+                if scene_tag != FINAL_SCENE_TAG:
+                    errors.append(f"{manifest_path}:{index}: Week 8 final rows must use scene_tag {FINAL_SCENE_TAG!r}")
+                elif (material_variant, lighting_variant) != ("nominal", "nominal_sun_key"):
+                    errors.append(f"{manifest_path}:{index}: Week 8 final rows must use nominal material and lighting")
+                elif camera_id in THIN_SLICE_CAMERA_IDS:
+                    week8_paired[camera_id].add(renderer_mode)
 
             status = row.get("status", "").strip()
             if status not in VALID_RENDER_STATUS:
@@ -650,6 +713,11 @@ def validate_render_manifest(path: Path | str) -> list[str]:
                 f"{manifest_path}: Week 6 beta combo {(material_variant, lighting_variant)!r} camera {camera_id!r} "
                 "must have paired rasterized and path_traced rows"
             )
+
+    if saw_week8_rows:
+        for camera_id, modes in week8_paired.items():
+            if modes != THIN_SLICE_RENDERER_MODES:
+                errors.append(f"{manifest_path}: Week 8 final camera {camera_id!r} must have paired rasterized and path_traced rows")
 
     return errors
 
@@ -1485,6 +1553,299 @@ def validate_week7_reports(root: Path | str = ".") -> list[str]:
     return errors
 
 
+def validate_week8_final_render_config(path: Path | str) -> list[str]:
+    config_path = Path(path)
+    if not config_path.exists():
+        return [f"Missing Week 8 final render config: {config_path}"]
+
+    errors: list[str] = []
+    config = load_contract_yaml(config_path)
+    if config.get("version") != "1.0.0":
+        errors.append(f"{config_path}: version must be 1.0.0")
+    if config.get("scene_tag") != FINAL_SCENE_TAG:
+        errors.append(f"{config_path}: scene_tag must be {FINAL_SCENE_TAG}")
+    if config.get("base_scene_tag") != SCENE_RC_TAG:
+        errors.append(f"{config_path}: base_scene_tag must be {SCENE_RC_TAG}")
+    if int(config.get("seed", 0)) != int(THIN_SLICE_SEED):
+        errors.append(f"{config_path}: seed must be {THIN_SLICE_SEED}")
+    if config.get("source_camera_config") != "configs/renderers/thin_slice_validation.yaml":
+        errors.append(f"{config_path}: source_camera_config must use the frozen fixed camera config")
+    if config.get("artifact_root") != "validation/renders/week8_final":
+        errors.append(f"{config_path}: artifact_root must be validation/renders/week8_final")
+
+    resolution = _as_mapping(config.get("resolution"))
+    if int(resolution.get("width_px", 0)) < 320 or int(resolution.get("height_px", 0)) < 240:
+        errors.append(f"{config_path}: resolution must be at least 320x240")
+
+    renderers = _as_mapping(config.get("renderers"))
+    for renderer_mode in THIN_SLICE_RENDERER_MODES:
+        renderer = _as_mapping(renderers.get(renderer_mode))
+        if not renderer:
+            errors.append(f"{config_path}: missing renderer {renderer_mode!r}")
+            continue
+        if renderer.get("output_format") != "png":
+            errors.append(f"{config_path}: renderer {renderer_mode!r} must output png")
+        if int(renderer.get("samples_per_pixel", 0)) < 1:
+            errors.append(f"{config_path}: renderer {renderer_mode!r} samples_per_pixel must be positive")
+
+    guardrails = _as_mapping(config.get("guardrails"))
+    required_guardrails = {
+        "fixed_seed_required": True,
+        "paired_renderer_modes_required": True,
+        "contact_sheet_required": True,
+        "generated_outputs_tracked_in_git": False,
+        "completed_rows_require_run_metadata": True,
+        "fabricated_outputs_allowed": False,
+        "artifact_sync_required": True,
+    }
+    for key, expected in required_guardrails.items():
+        if guardrails.get(key) is not expected:
+            errors.append(f"{config_path}: guardrails.{key} must be {str(expected).lower()}")
+
+    rows = _as_list(config.get("final_render_matrix"))
+    if len(rows) != 1 or not isinstance(rows[0], dict):
+        errors.append(f"{config_path}: final_render_matrix must contain exactly one row")
+    else:
+        row = rows[0]
+        if row.get("material_variant") != "nominal" or row.get("lighting_variant") != "nominal_sun_key":
+            errors.append(f"{config_path}: final render matrix must use nominal material and lighting")
+        if _semicolon_set(str(row.get("required_cameras", ""))) != THIN_SLICE_CAMERA_IDS:
+            errors.append(f"{config_path}: final render matrix must include all fixed cameras")
+        if _semicolon_set(str(row.get("required_renderer_modes", ""))) != THIN_SLICE_RENDERER_MODES:
+            errors.append(f"{config_path}: final render matrix must include rasterized and path_traced")
+        if row.get("status") not in {"pending_gpu_run", "completed"}:
+            errors.append(f"{config_path}: final render matrix status must be pending_gpu_run or completed")
+
+    return errors
+
+
+def validate_week8_scene_freeze(path: Path | str) -> list[str]:
+    freeze_path = Path(path)
+    if not freeze_path.exists():
+        return [f"Missing Week 8 scene freeze manifest: {freeze_path}"]
+
+    errors: list[str] = []
+    freeze = load_contract_yaml(freeze_path)
+    for key, expected in (
+        ("version", "1.0.0"),
+        ("scene_final_tag", FINAL_SCENE_TAG),
+        ("base_scene_rc_tag", SCENE_RC_TAG),
+        ("base_scene_beta_tag", BETA_SCENE_TAG),
+        ("contract_version", "1.0.0"),
+        ("future_scene_additions_policy", "new_versioned_variants_only"),
+        ("final_render_config", "configs/renderers/week8_final_validation.yaml"),
+        ("render_gate_manifest", "validation/scene_final/week8_final_render_gate.yaml"),
+        ("qa_report", "validation/reports/week8_scene_final_qa_report.md"),
+    ):
+        if freeze.get(key) != expected:
+            errors.append(f"{freeze_path}: {key} must be {expected!r}")
+
+    if freeze.get("contract_status") not in {"pending_gpu_render_gate", "frozen_week8_scene_contract_1_0"}:
+        errors.append(f"{freeze_path}: contract_status must be pending_gpu_render_gate or frozen_week8_scene_contract_1_0")
+
+    guardrails = _as_mapping(freeze.get("guardrails"))
+    for key, expected in (
+        ("label_id_renames_allowed", False),
+        ("task_region_id_renames_allowed", False),
+        ("safety_path_renames_allowed", False),
+        ("safety_boundary_shrink_allowed", False),
+        ("camera_frame_renames_allowed", False),
+        ("material_variant_renames_allowed", False),
+        ("lighting_variant_renames_allowed", False),
+        ("public_reference_training_use_allowed", False),
+        ("heldout_reference_tuning_allowed", False),
+        ("generated_outputs_tracked_in_git", False),
+        ("fabricated_gpu_renders_allowed", False),
+    ):
+        if guardrails.get(key) is not expected:
+            errors.append(f"{freeze_path}: guardrails.{key} must be {str(expected).lower()}")
+
+    rows = _as_list(freeze.get("invariant_checks"))
+    metrics: dict[str, tuple[int, int, str]] = {}
+    for index, row_any in enumerate(rows, start=1):
+        row = _as_mapping(row_any)
+        invariant_id = str(row.get("invariant_id", "")).strip()
+        try:
+            required_count = int(row.get("required_count", ""))
+            actual_count = int(row.get("actual_count", ""))
+        except ValueError:
+            errors.append(f"{freeze_path}: invariant row {index} required_count and actual_count must be integers")
+            continue
+        status = str(row.get("status", "")).strip()
+        metrics[invariant_id] = (required_count, actual_count, status)
+        if status != "pass":
+            errors.append(f"{freeze_path}: invariant {invariant_id!r} status must be pass")
+        if invariant_id.endswith("_percent"):
+            if actual_count < required_count:
+                errors.append(f"{freeze_path}: invariant {invariant_id!r} actual_count below required_count")
+        elif actual_count != required_count:
+            errors.append(f"{freeze_path}: invariant {invariant_id!r} actual_count must equal required_count")
+
+    for invariant_id, required_count in REQUIRED_WEEK8_FINAL_INVARIANTS.items():
+        metric = metrics.get(invariant_id)
+        if metric is None:
+            errors.append(f"{freeze_path}: missing required invariant {invariant_id!r}")
+        elif metric[0] != required_count:
+            errors.append(f"{freeze_path}: invariant {invariant_id!r} required_count must be {required_count}")
+
+    return errors
+
+
+def _registry_row(root_path: Path, run_id: str) -> dict[str, str] | None:
+    registry_path = root_path / "compute" / "gpu_run_registry.csv"
+    if not registry_path.exists():
+        return None
+    with registry_path.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            if row.get("run_id", "").strip() == run_id:
+                return row
+    return None
+
+
+def validate_week8_render_gate(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    gate_path = root_path / WEEK8_FINAL_RENDER_GATE
+    if not gate_path.exists():
+        return [f"Missing Week 8 final render gate manifest: {gate_path}"]
+
+    errors: list[str] = []
+    gate = load_contract_yaml(gate_path)
+    for key, expected in (
+        ("version", "1.0.0"),
+        ("scene_final_tag", FINAL_SCENE_TAG),
+        ("base_scene_rc_tag", SCENE_RC_TAG),
+        ("render_config", "configs/renderers/week8_final_validation.yaml"),
+        ("vast_template", "configs/vast/x090_template.yaml"),
+        ("generated_outputs_tracked_in_git", False),
+        ("fabricated_gpu_renders_allowed", False),
+    ):
+        if gate.get(key) != expected:
+            errors.append(f"{gate_path}: {key} must be {expected!r}")
+
+    status = str(gate.get("gate_status", "")).strip()
+    if status not in VALID_WEEK8_RENDER_GATE_STATUS:
+        errors.append(f"{gate_path}: invalid gate_status {status!r}")
+
+    if set(str(mode) for mode in _as_list(gate.get("renderer_modes"))) != THIN_SLICE_RENDERER_MODES:
+        errors.append(f"{gate_path}: renderer_modes must include rasterized and path_traced")
+    if set(str(camera) for camera in _as_list(gate.get("required_cameras"))) != THIN_SLICE_CAMERA_IDS:
+        errors.append(f"{gate_path}: required_cameras must include the three fixed cameras")
+
+    required_render_count = int(gate.get("required_render_count", 0))
+    actual_render_count = int(gate.get("actual_render_count", 0))
+    if required_render_count != 6:
+        errors.append(f"{gate_path}: required_render_count must be 6")
+
+    if status == "pending_gpu_run":
+        if gate.get("artifact_sync_status") != "not_synced":
+            errors.append(f"{gate_path}: pending gate must have artifact_sync_status not_synced")
+        return errors
+
+    if gate.get("artifact_sync_status") != "synced":
+        errors.append(f"{gate_path}: passed gate must have artifact_sync_status synced")
+    if actual_render_count != required_render_count:
+        errors.append(f"{gate_path}: actual_render_count must equal required_render_count")
+    if int(gate.get("actual_contact_sheet_count", 0)) != 1:
+        errors.append(f"{gate_path}: passed gate must record exactly one contact sheet")
+    if len(str(gate.get("contact_sheet_sha256", ""))) != 64:
+        errors.append(f"{gate_path}: contact_sheet_sha256 must be a SHA-256 hex digest")
+
+    run_id = str(gate.get("run_registry_id", "")).strip()
+    if not run_id or run_id.startswith("pending"):
+        errors.append(f"{gate_path}: passed gate must record a concrete run_registry_id")
+    else:
+        row = _registry_row(root_path, run_id)
+        if row is None:
+            errors.append(f"{gate_path}: run_registry_id {run_id!r} is missing from compute/gpu_run_registry.csv")
+        else:
+            if row.get("status") != "success":
+                errors.append(f"{gate_path}: registry row {run_id!r} must have status success")
+            if row.get("artifact_sync_status") != "synced":
+                errors.append(f"{gate_path}: registry row {run_id!r} must have synced artifacts")
+            if row.get("scene_tag") != FINAL_SCENE_TAG:
+                errors.append(f"{gate_path}: registry row {run_id!r} must use scene tag {FINAL_SCENE_TAG}")
+
+    artifacts = [_as_mapping(item) for item in _as_list(gate.get("artifacts"))]
+    if len(artifacts) != required_render_count:
+        errors.append(f"{gate_path}: artifacts must contain {required_render_count} rows")
+    seen_pairs: set[tuple[str, str]] = set()
+    for index, artifact in enumerate(artifacts, start=1):
+        for key in ("render_id", "camera_id", "renderer_mode", "path", "sha256", "bytes"):
+            if not str(artifact.get(key, "")).strip():
+                errors.append(f"{gate_path}: artifact row {index} missing {key}")
+        camera_id = str(artifact.get("camera_id", "")).strip()
+        renderer_mode = str(artifact.get("renderer_mode", "")).strip()
+        if camera_id not in THIN_SLICE_CAMERA_IDS:
+            errors.append(f"{gate_path}: artifact row {index} invalid camera_id {camera_id!r}")
+        if renderer_mode not in THIN_SLICE_RENDERER_MODES:
+            errors.append(f"{gate_path}: artifact row {index} invalid renderer_mode {renderer_mode!r}")
+        seen_pairs.add((camera_id, renderer_mode))
+        if len(str(artifact.get("sha256", ""))) != 64:
+            errors.append(f"{gate_path}: artifact row {index} sha256 must be a SHA-256 hex digest")
+
+    expected_pairs = {
+        (camera_id, renderer_mode)
+        for camera_id in THIN_SLICE_CAMERA_IDS
+        for renderer_mode in THIN_SLICE_RENDERER_MODES
+    }
+    if seen_pairs != expected_pairs:
+        errors.append(f"{gate_path}: artifact camera/renderer pairs do not match the final render matrix")
+
+    return errors
+
+
+def validate_week8_reports(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    report_path = root_path / WEEK8_FINAL_QA_REPORT
+    if not report_path.exists():
+        return [f"Missing Week 8 scene final QA report: {report_path}"]
+
+    errors: list[str] = []
+    report_text = _read_text(report_path)
+    report_text_lower = report_text.lower()
+    for token in (
+        "scene-final-v1.0.0",
+        "required prims present percent",
+        "asset provenance completeness percent",
+        "fabricated gpu render outputs allowed: false",
+        "generated or large artifacts committed",
+    ):
+        if token.lower() not in report_text_lower:
+            errors.append(f"{report_path}: missing token {token!r}")
+    return errors
+
+
+def validate_week8_render_artifacts(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    gate_path = root_path / WEEK8_FINAL_RENDER_GATE
+    errors = validate_week8_render_gate(root_path)
+    if errors:
+        return errors
+
+    gate = load_contract_yaml(gate_path)
+    if gate.get("gate_status") != "passed":
+        return [f"{gate_path}: gate_status must be passed before validating local artifacts"]
+
+    contact_sheet = root_path / str(gate["contact_sheet_path"])
+    if not contact_sheet.exists():
+        errors.append(f"Missing Week 8 contact sheet artifact: {contact_sheet}")
+    elif _file_sha256(contact_sheet) != gate.get("contact_sheet_sha256"):
+        errors.append(f"{contact_sheet}: SHA-256 does not match render gate manifest")
+
+    for artifact_any in _as_list(gate.get("artifacts")):
+        artifact = _as_mapping(artifact_any)
+        artifact_path = root_path / str(artifact.get("path", ""))
+        if not artifact_path.exists():
+            errors.append(f"Missing Week 8 render artifact: {artifact_path}")
+            continue
+        if _file_sha256(artifact_path) != artifact.get("sha256"):
+            errors.append(f"{artifact_path}: SHA-256 does not match render gate manifest")
+        if artifact_path.stat().st_size <= 0:
+            errors.append(f"{artifact_path}: render artifact is empty")
+
+    return errors
+
+
 def validate_scene_contract(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     contract_path = root_path / "contracts" / "scene_contract.yaml"
@@ -1641,5 +2002,9 @@ def validate_scene_package(root: Path | str = ".") -> list[str]:
     errors.extend(validate_week7_release_candidate(root_path / WEEK7_RELEASE_CANDIDATE))
     errors.extend(validate_week7_performance_profile(root_path / WEEK7_PERFORMANCE_PROFILE))
     errors.extend(validate_week7_reports(root_path))
+    errors.extend(validate_week8_final_render_config(root_path / WEEK8_FINAL_RENDER_CONFIG))
+    errors.extend(validate_week8_scene_freeze(root_path / WEEK8_SCENE_FREEZE))
+    errors.extend(validate_week8_render_gate(root_path))
+    errors.extend(validate_week8_reports(root_path))
     errors.extend(validate_usd_proxy_layers(root_path))
     return errors
