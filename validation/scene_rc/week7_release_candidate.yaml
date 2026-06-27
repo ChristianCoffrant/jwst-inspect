@@ -1,0 +1,78 @@
+version: 0.2.1
+release_candidate_id: week7_scene_rc_0_2_1
+scene_rc_tag: scene-rc-v0.2.1
+base_scene_tag: scene-beta-v0.2.0
+compatibility_alias_beta: scene-beta-v0.2.0
+compatibility_alias_thin_slice: scene-proxy-thin-slice-v0.1
+contract_version: 0.2.0
+contract_status: frozen_week6_contract_0_2
+final_task_region_draft_status: rc_locked_no_id_changes
+final_safety_zone_draft_status: rc_locked_no_path_or_boundary_shrink
+owner: team1_scene_qa_integration_lead
+guardrails:
+  breaking_scene_contract_changes_allowed: false
+  integration_council_required_for_breaking_changes: true
+  public_reference_training_use_allowed: false
+  heldout_reference_tuning_allowed: false
+  generated_outputs_tracked_in_git: false
+invariant_checks:
+  - invariant_id: label_id_renames
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: task_region_id_renames
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: safety_path_renames
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: safety_boundary_shrink_count
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: coverage_patch_renames
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: coverage_patch_resizes
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: material_variant_removals
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: lighting_variant_removals
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: sensor_path_renames
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: label_coverage_percent
+    required_count: 95
+    actual_count: 100
+    status: pass
+  - invariant_id: unresolved_blocking_downstream_issues
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: downstream_smoke_failures
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: public_reference_training_use_count
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: heldout_reference_tuning_count
+    required_count: 0
+    actual_count: 0
+    status: pass
+  - invariant_id: generated_or_large_artifacts_committed
+    required_count: 0
+    actual_count: 0
+    status: pass

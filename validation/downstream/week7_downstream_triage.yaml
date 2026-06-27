@@ -1,0 +1,61 @@
+version: 0.2.1
+triage_id: week7_downstream_hardening_0_2_1
+scene_rc_tag: scene-rc-v0.2.1
+base_scene_tag: scene-beta-v0.2.0
+owner: team1_scene_qa_integration_lead
+guardrails:
+  contract_breaking_changes_allowed: false
+  label_task_safety_path_renames_allowed: false
+  unresolved_blocking_issues_allowed: false
+  generated_outputs_tracked_in_git: false
+issue_triage:
+  - issue_id: ws2_week5_anomaly_region_alignment
+    source_workstream: workstream2
+    source_artifact: replicator/anomaly_catalog.yaml
+    blocking_status: non_blocking
+    disposition: resolved
+    scene_owner_action: verified_anomaly_regions_match_frozen_task_regions_and_coverage_patches
+    contract_breaking_change_required: false
+    integration_council_approval_id: not_required
+    evidence: python scripts/validate_week5_anomaly_dataset.py
+    downstream_validation_command: python scripts/validate_week5_anomaly_dataset.py
+  - issue_id: ws2_week5_label_material_lighting_alignment
+    source_workstream: workstream2
+    source_artifact: validation/reports/week5_perception_baseline_report.json
+    blocking_status: non_blocking
+    disposition: resolved
+    scene_owner_action: verified_labels_material_variants_and_lighting_variants_remain_frozen
+    contract_breaking_change_required: false
+    integration_council_approval_id: not_required
+    evidence: python scripts/validate_dataset.py
+    downstream_validation_command: python scripts/validate_dataset.py
+  - issue_id: ws3_week6_dev_suite_scene_contract_alignment
+    source_workstream: workstream3
+    source_artifact: configs/experiments/dev_evaluation_suite_v0_2.yaml
+    blocking_status: non_blocking
+    disposition: resolved
+    scene_owner_action: verified_dev_suite_uses_frozen_task_safety_and_sensor_paths
+    contract_breaking_change_required: false
+    integration_council_approval_id: not_required
+    evidence: python scripts/validate_evaluation_contract.py --config configs/experiments/dev_evaluation_suite_v0_2.yaml
+    downstream_validation_command: python scripts/validate_evaluation_contract.py --config configs/experiments/dev_evaluation_suite_v0_2.yaml
+  - issue_id: ws3_week6_policy_smoke_coverage_alignment
+    source_workstream: workstream3
+    source_artifact: runs/dev_evaluation_suite
+    blocking_status: non_blocking
+    disposition: accepted_with_evidence
+    scene_owner_action: no_scene_geometry_or_safety_change_required_for_local_dev_suite
+    contract_breaking_change_required: false
+    integration_council_approval_id: not_required
+    evidence: python scripts/run_dev_evaluation_suite.py --config configs/experiments/dev_evaluation_suite_v0_2.yaml --output-dir runs/dev_evaluation_suite
+    downstream_validation_command: python scripts/run_dev_evaluation_suite.py --config configs/experiments/dev_evaluation_suite_v0_2.yaml --output-dir runs/dev_evaluation_suite
+  - issue_id: integration_week7_local_smoke
+    source_workstream: integration
+    source_artifact: scripts/e2e_local_smoke.py
+    blocking_status: non_blocking
+    disposition: resolved
+    scene_owner_action: verified_local_smoke_still_passes_on_scene_rc_commit
+    contract_breaking_change_required: false
+    integration_council_approval_id: not_required
+    evidence: python scripts/e2e_local_smoke.py
+    downstream_validation_command: python scripts/e2e_local_smoke.py

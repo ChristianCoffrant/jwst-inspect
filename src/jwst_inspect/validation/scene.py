@@ -67,7 +67,8 @@ REQUIRED_RENDER_COLUMNS = (
 
 THIN_SLICE_SCENE_TAG = "scene-proxy-thin-slice-v0.1"
 BETA_SCENE_TAG = "scene-beta-v0.2.0"
-VALID_SCENE_TAGS = {THIN_SLICE_SCENE_TAG, BETA_SCENE_TAG}
+SCENE_RC_TAG = "scene-rc-v0.2.1"
+VALID_SCENE_TAGS = {THIN_SLICE_SCENE_TAG, BETA_SCENE_TAG, SCENE_RC_TAG}
 THIN_SLICE_SEED = "31003"
 THIN_SLICE_CAMERA_IDS = {
     "mirror_inspection_fixed",
@@ -91,6 +92,10 @@ WEEK6_REFERENCE_FREEZE = Path("validation/reference_sets/week6_reference_freeze.
 WEEK6_BETA_RENDER_CONFIG = Path("configs/renderers/week6_beta_validation.yaml")
 WEEK6_SCENE_BETA_QA_REPORT = Path("validation/reports/week6_scene_beta_qa_report.md")
 WEEK6_VAST_SYNC_PLAN = Path("compute/week6_scene_beta_sync_plan.md")
+WEEK7_DOWNSTREAM_TRIAGE = Path("validation/downstream/week7_downstream_triage.yaml")
+WEEK7_RELEASE_CANDIDATE = Path("validation/scene_rc/week7_release_candidate.yaml")
+WEEK7_PERFORMANCE_PROFILE = Path("validation/scene_rc/week7_performance_profile.yaml")
+WEEK7_HARDENING_REPORT = Path("validation/reports/week7_downstream_hardening_report.md")
 
 REQUIRED_COVERAGE_COLUMNS = (
     "coverage_patch",
@@ -178,6 +183,28 @@ REQUIRED_WEEK6_QA_METRICS = {
     "asset_provenance_completeness_percent": 90,
     "downstream_local_smoke_failures": 0,
 }
+
+REQUIRED_WEEK7_RC_INVARIANTS = {
+    "label_id_renames": 0,
+    "task_region_id_renames": 0,
+    "safety_path_renames": 0,
+    "safety_boundary_shrink_count": 0,
+    "coverage_patch_renames": 0,
+    "coverage_patch_resizes": 0,
+    "material_variant_removals": 0,
+    "lighting_variant_removals": 0,
+    "sensor_path_renames": 0,
+    "label_coverage_percent": 95,
+    "unresolved_blocking_downstream_issues": 0,
+    "downstream_smoke_failures": 0,
+    "public_reference_training_use_count": 0,
+    "heldout_reference_tuning_count": 0,
+    "generated_or_large_artifacts_committed": 0,
+}
+
+VALID_WEEK7_TRIAGE_SOURCES = {"workstream2", "workstream3", "integration"}
+VALID_WEEK7_TRIAGE_DISPOSITIONS = {"resolved", "accepted_with_evidence", "deferred_non_blocking"}
+VALID_WEEK7_PERFORMANCE_STATUS = {"blocked_vast_required", "measured_local_validation", "completed"}
 
 REQUIRED_STRESS_MATRIX_COLUMNS = (
     "combo_id",
@@ -275,6 +302,7 @@ REQUIRED_SCENE_TOKENS = (
     "materials:",
     "validation:",
     "scene_beta:",
+    "scene_release_candidate:",
     "thin_slice:",
     "coverage_surfaces:",
     "sparse_annotations:",
@@ -1219,6 +1247,244 @@ def validate_week6_reports(root: Path | str = ".") -> list[str]:
     return errors
 
 
+def validate_week7_downstream_triage(path: Path | str) -> list[str]:
+    triage_path = Path(path)
+    if not triage_path.exists():
+        return [f"Missing Week 7 downstream triage file: {triage_path}"]
+
+    errors: list[str] = []
+    text = _read_text(triage_path)
+    for token in (
+        "scene_rc_tag: scene-rc-v0.2.1",
+        "base_scene_tag: scene-beta-v0.2.0",
+        "contract_breaking_changes_allowed: false",
+        "label_task_safety_path_renames_allowed: false",
+        "unresolved_blocking_issues_allowed: false",
+        "generated_outputs_tracked_in_git: false",
+    ):
+        if token not in text:
+            errors.append(f"{triage_path}: missing guardrail token {token!r}")
+
+    rows = _parse_simple_yaml_list(triage_path, "issue_triage")
+    if not rows:
+        return [f"{triage_path}: no issue_triage rows found"]
+
+    seen_ids: set[str] = set()
+    seen_sources: set[str] = set()
+    for index, row in enumerate(rows, start=1):
+        for column in (
+            "issue_id",
+            "source_workstream",
+            "source_artifact",
+            "blocking_status",
+            "disposition",
+            "scene_owner_action",
+            "contract_breaking_change_required",
+            "integration_council_approval_id",
+            "evidence",
+            "downstream_validation_command",
+        ):
+            if not row.get(column, "").strip():
+                errors.append(f"{triage_path}: row {index} empty required field {column}")
+
+        issue_id = row.get("issue_id", "").strip()
+        if issue_id in seen_ids:
+            errors.append(f"{triage_path}: duplicate issue_id {issue_id!r}")
+        seen_ids.add(issue_id)
+
+        source = row.get("source_workstream", "").strip()
+        if source not in VALID_WEEK7_TRIAGE_SOURCES:
+            errors.append(f"{triage_path}: row {index} invalid source_workstream {source!r}")
+        seen_sources.add(source)
+
+        disposition = row.get("disposition", "").strip()
+        blocking_status = row.get("blocking_status", "").strip()
+        if disposition not in VALID_WEEK7_TRIAGE_DISPOSITIONS:
+            errors.append(f"{triage_path}: row {index} invalid disposition {disposition!r}")
+        if "unresolved" in disposition or blocking_status == "unresolved":
+            errors.append(f"{triage_path}: row {index} must not leave unresolved blocking work")
+        if blocking_status == "blocking" and disposition not in {"resolved", "accepted_with_evidence"}:
+            errors.append(f"{triage_path}: row {index} blocking issues must be resolved or accepted with evidence")
+        if disposition == "deferred_non_blocking" and blocking_status != "non_blocking":
+            errors.append(f"{triage_path}: row {index} deferred issues must be non_blocking")
+
+        if row.get("contract_breaking_change_required", "").strip().lower() != "false":
+            errors.append(f"{triage_path}: row {index} contract_breaking_change_required must be false")
+        if row.get("integration_council_approval_id", "").strip() != "not_required":
+            errors.append(f"{triage_path}: row {index} integration_council_approval_id must be not_required")
+
+    for required_source in ("workstream2", "workstream3"):
+        if required_source not in seen_sources:
+            errors.append(f"{triage_path}: missing downstream triage rows for {required_source}")
+
+    return errors
+
+
+def validate_week7_release_candidate(path: Path | str) -> list[str]:
+    rc_path = Path(path)
+    if not rc_path.exists():
+        return [f"Missing Week 7 release candidate manifest: {rc_path}"]
+
+    errors: list[str] = []
+    text = _read_text(rc_path)
+    for token in (
+        "scene_rc_tag: scene-rc-v0.2.1",
+        "base_scene_tag: scene-beta-v0.2.0",
+        "compatibility_alias_beta: scene-beta-v0.2.0",
+        "compatibility_alias_thin_slice: scene-proxy-thin-slice-v0.1",
+        "contract_version: 0.2.0",
+        "contract_status: frozen_week6_contract_0_2",
+        "final_task_region_draft_status: rc_locked_no_id_changes",
+        "final_safety_zone_draft_status: rc_locked_no_path_or_boundary_shrink",
+        "breaking_scene_contract_changes_allowed: false",
+        "integration_council_required_for_breaking_changes: true",
+        "public_reference_training_use_allowed: false",
+        "heldout_reference_tuning_allowed: false",
+        "generated_outputs_tracked_in_git: false",
+    ):
+        if token not in text:
+            errors.append(f"{rc_path}: missing token {token!r}")
+
+    rows = _parse_simple_yaml_list(rc_path, "invariant_checks")
+    if not rows:
+        return [f"{rc_path}: no invariant_checks rows found"]
+
+    metrics: dict[str, tuple[int, int, str]] = {}
+    for index, row in enumerate(rows, start=1):
+        invariant_id = row.get("invariant_id", "").strip()
+        try:
+            required_count = int(row.get("required_count", "").strip())
+            actual_count = int(row.get("actual_count", "").strip())
+        except ValueError:
+            errors.append(f"{rc_path}: row {index} required_count and actual_count must be integers")
+            continue
+        status = row.get("status", "").strip()
+        metrics[invariant_id] = (required_count, actual_count, status)
+        if status != "pass":
+            errors.append(f"{rc_path}: invariant {invariant_id!r} status must be pass")
+        if invariant_id == "label_coverage_percent":
+            if actual_count < required_count:
+                errors.append(f"{rc_path}: label_coverage_percent actual_count {actual_count} below required_count {required_count}")
+        elif actual_count != required_count:
+            errors.append(f"{rc_path}: invariant {invariant_id!r} actual_count must equal required_count {required_count}")
+
+    for invariant_id, required_count in REQUIRED_WEEK7_RC_INVARIANTS.items():
+        metric = metrics.get(invariant_id)
+        if metric is None:
+            errors.append(f"{rc_path}: missing required invariant {invariant_id!r}")
+            continue
+        reported_required, _reported_actual, _status = metric
+        if reported_required != required_count:
+            errors.append(f"{rc_path}: invariant {invariant_id!r} expected required_count {required_count}, found {reported_required}")
+
+    return errors
+
+
+def validate_week7_performance_profile(path: Path | str) -> list[str]:
+    profile_path = Path(path)
+    if not profile_path.exists():
+        return [f"Missing Week 7 performance profile: {profile_path}"]
+
+    errors: list[str] = []
+    text = _read_text(profile_path)
+    for token in (
+        "scene_rc_tag: scene-rc-v0.2.1",
+        "base_scene_tag: scene-beta-v0.2.0",
+        "vast_template: configs/vast/x090_template.yaml",
+        "fabricated_gpu_metrics_allowed: false",
+        "completed_profile_rows_require_run_registry_metadata: true",
+        "generated_outputs_tracked_in_git: false",
+    ):
+        if token not in text:
+            errors.append(f"{profile_path}: missing token {token!r}")
+
+    rows = _parse_simple_yaml_list(profile_path, "standard_view_profiles")
+    if not rows:
+        return [f"{profile_path}: no standard_view_profiles rows found"]
+
+    cameras: set[str] = set()
+    completed_without_registry = 0
+    for index, row in enumerate(rows, start=1):
+        for column in (
+            "camera_id",
+            "task_region_id",
+            "local_contract_validation_status",
+            "local_validation_command",
+            "gpu_scene_load_status",
+            "gpu_memory_status",
+            "raster_render_status",
+            "path_traced_render_status",
+            "run_registry_row_id",
+            "notes",
+        ):
+            if not row.get(column, "").strip():
+                errors.append(f"{profile_path}: row {index} empty required field {column}")
+
+        camera_id = row.get("camera_id", "").strip()
+        cameras.add(camera_id)
+        if camera_id not in THIN_SLICE_CAMERA_IDS:
+            errors.append(f"{profile_path}: row {index} invalid camera_id {camera_id!r}")
+        if "python scripts/validate_scene.py" not in row.get("local_validation_command", ""):
+            errors.append(f"{profile_path}: row {index} local_validation_command must run validate_scene.py")
+
+        for column in (
+            "local_contract_validation_status",
+            "gpu_scene_load_status",
+            "gpu_memory_status",
+            "raster_render_status",
+            "path_traced_render_status",
+        ):
+            status = row.get(column, "").strip()
+            if status not in VALID_WEEK7_PERFORMANCE_STATUS:
+                errors.append(f"{profile_path}: row {index} invalid {column} {status!r}")
+
+        registry_id = row.get("run_registry_row_id", "").strip()
+        gpu_statuses = {
+            row.get("gpu_scene_load_status", "").strip(),
+            row.get("gpu_memory_status", "").strip(),
+            row.get("raster_render_status", "").strip(),
+            row.get("path_traced_render_status", "").strip(),
+        }
+        if "completed" in gpu_statuses and registry_id.startswith("not_applicable"):
+            completed_without_registry += 1
+        if gpu_statuses == {"blocked_vast_required"} and registry_id != "not_applicable_blocked":
+            errors.append(f"{profile_path}: row {index} blocked GPU profile rows must use run_registry_row_id not_applicable_blocked")
+
+    if cameras != THIN_SLICE_CAMERA_IDS:
+        errors.append(f"{profile_path}: expected standard view cameras {sorted(THIN_SLICE_CAMERA_IDS)}, found {sorted(cameras)}")
+    if completed_without_registry:
+        errors.append(f"{profile_path}: completed profile rows without registry metadata: {completed_without_registry}")
+
+    return errors
+
+
+def validate_week7_reports(root: Path | str = ".") -> list[str]:
+    root_path = Path(root)
+    report_path = root_path / WEEK7_HARDENING_REPORT
+    if not report_path.exists():
+        return [f"Missing Week 7 downstream hardening report: {report_path}"]
+
+    errors: list[str] = []
+    report_text = _read_text(report_path)
+    report_text_lower = report_text.lower()
+    for token in (
+        "scene-rc-v0.2.1",
+        "scene-beta-v0.2.0",
+        "workstream 2",
+        "workstream 3",
+        "blocked_vast_required",
+        "unresolved_blocking_downstream_issues: 0",
+        "completed_profile_rows_without_registry_metadata: 0",
+        "public_reference_training_use_count: 0",
+        "heldout_reference_tuning_count: 0",
+        "generated_or_large_artifacts_committed: 0",
+    ):
+        if token.lower() not in report_text_lower:
+            errors.append(f"{report_path}: missing token {token!r}")
+
+    return errors
+
+
 def validate_scene_contract(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     contract_path = root_path / "contracts" / "scene_contract.yaml"
@@ -1272,6 +1538,14 @@ def validate_scene_contract(root: Path | str = ".") -> list[str]:
         "reference_freeze: validation/reference_sets/week6_reference_freeze.yaml",
         "beta_render_config: configs/renderers/week6_beta_validation.yaml",
         "vast_sync_plan: compute/week6_scene_beta_sync_plan.md",
+        "scene_rc_tag: scene-rc-v0.2.1",
+        "base_scene_tag: scene-beta-v0.2.0",
+        "downstream_triage: validation/downstream/week7_downstream_triage.yaml",
+        "release_candidate_manifest: validation/scene_rc/week7_release_candidate.yaml",
+        "performance_profile: validation/scene_rc/week7_performance_profile.yaml",
+        "hardening_report: validation/reports/week7_downstream_hardening_report.md",
+        "no_contract_breaking_changes: true",
+        "unresolved_blocking_downstream_issues_allowed: false",
         "render_manifest: validation/render_manifest.csv",
         "vast_smoke:",
         "blocked_vast_required",
@@ -1288,6 +1562,7 @@ def validate_scene_contract(root: Path | str = ".") -> list[str]:
         "collision_proxy_shrinkage_allowed: false",
         "week5_material_lighting_anomaly_safety_sensor_gate",
         "week6_scene_contract_0_2_beta_freeze",
+        "week7_downstream_hardening_scene_rc",
         "post_freeze_reference_changes_require_integration_council: true",
     ):
         if guardrail not in text:
@@ -1362,5 +1637,9 @@ def validate_scene_package(root: Path | str = ".") -> list[str]:
     errors.extend(validate_week6_scene_beta_qa(root_path))
     errors.extend(validate_week6_reference_freeze(root_path / WEEK6_REFERENCE_FREEZE, root_path / "validation" / "reference_manifest.csv"))
     errors.extend(validate_week6_reports(root_path))
+    errors.extend(validate_week7_downstream_triage(root_path / WEEK7_DOWNSTREAM_TRIAGE))
+    errors.extend(validate_week7_release_candidate(root_path / WEEK7_RELEASE_CANDIDATE))
+    errors.extend(validate_week7_performance_profile(root_path / WEEK7_PERFORMANCE_PROFILE))
+    errors.extend(validate_week7_reports(root_path))
     errors.extend(validate_usd_proxy_layers(root_path))
     return errors

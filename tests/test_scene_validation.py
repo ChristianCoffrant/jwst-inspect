@@ -23,6 +23,10 @@ from jwst_inspect.validation.scene import (
     validate_week6_reference_freeze,
     validate_week6_reports,
     validate_week6_scene_beta_qa,
+    validate_week7_downstream_triage,
+    validate_week7_performance_profile,
+    validate_week7_release_candidate,
+    validate_week7_reports,
 )
 
 
@@ -89,6 +93,18 @@ class SceneValidationTests(unittest.TestCase):
 
     def test_week6_reports_record_beta_freeze_guardrails(self):
         self.assertEqual(validate_week6_reports(ROOT), [])
+
+    def test_week7_downstream_triage_resolves_team2_and_team3_blockers(self):
+        self.assertEqual(validate_week7_downstream_triage(ROOT / "validation" / "downstream" / "week7_downstream_triage.yaml"), [])
+
+    def test_week7_release_candidate_preserves_frozen_invariants(self):
+        self.assertEqual(validate_week7_release_candidate(ROOT / "validation" / "scene_rc" / "week7_release_candidate.yaml"), [])
+
+    def test_week7_performance_profile_records_standard_view_blockers(self):
+        self.assertEqual(validate_week7_performance_profile(ROOT / "validation" / "scene_rc" / "week7_performance_profile.yaml"), [])
+
+    def test_week7_reports_record_downstream_hardening_guardrails(self):
+        self.assertEqual(validate_week7_reports(ROOT), [])
 
     def test_proxy_usd_layers_have_required_contract_tokens(self):
         self.assertEqual(validate_usd_proxy_layers(ROOT), [])

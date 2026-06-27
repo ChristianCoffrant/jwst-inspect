@@ -123,6 +123,8 @@ validation:
     - python scripts/validate_reference_manifest.py
     - python scripts/validate_run_registry.py
     - python scripts/validate_dataset.py
+    - python scripts/validate_week5_anomaly_dataset.py
+    - python scripts/validate_evaluation_contract.py --config configs/experiments/dev_evaluation_suite_v0_2.yaml
     - python scripts/e2e_local_smoke.py
 scene_beta:
   scene_tag: scene-beta-v0.2.0
@@ -137,6 +139,32 @@ scene_beta:
     breaking_scene_contract_changes_require_integration_council: true
     reference_set_changes_require_integration_council: true
     label_task_safety_path_renames_allowed: false
+scene_release_candidate:
+  scene_rc_tag: scene-rc-v0.2.1
+  base_scene_tag: scene-beta-v0.2.0
+  compatibility_aliases:
+    - scene-beta-v0.2.0
+    - scene-proxy-thin-slice-v0.1
+  downstream_triage: validation/downstream/week7_downstream_triage.yaml
+  release_candidate_manifest: validation/scene_rc/week7_release_candidate.yaml
+  performance_profile: validation/scene_rc/week7_performance_profile.yaml
+  hardening_report: validation/reports/week7_downstream_hardening_report.md
+  final_task_region_draft_status: rc_locked_no_id_changes
+  final_safety_zone_draft_status: rc_locked_no_path_or_boundary_shrink
+  downstream_validation_commands:
+    - python scripts/validate_week5_anomaly_dataset.py
+    - python scripts/validate_evaluation_contract.py --config configs/experiments/dev_evaluation_suite_v0_2.yaml
+    - python scripts/run_dev_evaluation_suite.py --config configs/experiments/dev_evaluation_suite_v0_2.yaml --output-dir runs/dev_evaluation_suite
+    - python scripts/e2e_local_smoke.py
+  guardrails:
+    no_contract_breaking_changes: true
+    unresolved_blocking_downstream_issues_allowed: false
+    label_task_safety_path_renames_allowed: false
+    safety_boundary_shrink_allowed: false
+    coverage_patch_rename_or_resize_allowed: false
+    completed_profile_rows_require_run_registry_metadata: true
+    public_reference_training_use_allowed: false
+    heldout_reference_tuning_allowed: false
 thin_slice:
   scene_tag: scene-proxy-thin-slice-v0.1
   fixed_seed: 31003
@@ -278,6 +306,21 @@ ship_gate:
       - render_rows_do_not_claim_completion_without_artifacts
       - downstream_local_smoke_failures_equal_zero
       - post_freeze_change_policies_declared
+      - no_large_or_generated_assets_committed
+      - all_local_validators_pass
+  week7_downstream_hardening_scene_rc:
+    required:
+      - scene_rc_tag_scene_rc_v0_2_1_declared
+      - compatibility_aliases_preserve_week6_beta_and_week3_thin_slice_tags
+      - downstream_triage_has_zero_unresolved_blocking_issues
+      - team2_week5_anomaly_validation_passes
+      - team3_week6_dev_evaluation_suite_passes
+      - label_coverage_at_or_above_95_percent
+      - label_task_safety_and_coverage_renames_equal_zero
+      - safety_boundary_shrink_count_equal_zero
+      - performance_profile_records_standard_views_or_blockers
+      - completed_profile_rows_without_registry_metadata_equal_zero
+      - public_reference_training_and_heldout_tuning_use_equal_zero
       - no_large_or_generated_assets_committed
       - all_local_validators_pass
 downstream_handoff:

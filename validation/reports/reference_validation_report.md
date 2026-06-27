@@ -95,6 +95,16 @@ All public references remain `excluded_from_training=true`. Held-out rows must n
 
 The Week 6 beta rows cover four material/lighting combinations, three fixed cameras, and paired rasterized/path-traced modes.
 
+## Week 7 Release Candidate Checklist
+
+| Artifact | Scene Tag | Status |
+| --- | --- | --- |
+| `validation/downstream/week7_downstream_triage.yaml` | `scene-rc-v0.2.1` | 0 unresolved blocking downstream issues |
+| `validation/scene_rc/week7_release_candidate.yaml` | `scene-rc-v0.2.1` | Frozen interface invariants preserved |
+| `validation/scene_rc/week7_performance_profile.yaml` | `scene-rc-v0.2.1` | 3 standard views documented; GPU metrics blocked until Vast/Isaac run |
+
+The Week 7 RC does not add public reference imagery, train on public references, tune to held-out references, or change frozen task/safety/coverage identifiers.
+
 ## Mismatch Log
 
 | Date | Reference ID | Scene Version | Mismatch | Decision |
@@ -108,3 +118,4 @@ The Week 6 beta rows cover four material/lighting combinations, three fixed came
 | 2026-06-26 | Week 5 anomaly proxy regions | 0.1.0 Week 5 | Anomaly regions are benchmark stress proxies and not real JWST failure claims. | Keep proxy-only language and require downstream reports to preserve this distinction. |
 | 2026-06-27 | Week 6 reference freeze | 0.2.0 | Held-out references are now frozen metadata rows but images are not committed. | Keep public images outside Git and prohibit tuning against held-out references. |
 | 2026-06-27 | Week 6 beta render matrix | `scene-beta-v0.2.0` | Beta render artifacts are not generated locally. | Keep rows as `blocked_vast_required` until a Vast/Isaac Sim run records real artifacts and run metadata. |
+| 2026-06-27 | Week 7 performance profile | `scene-rc-v0.2.1` | GPU scene-load, memory, and render timing are not generated locally. | Keep performance fields `blocked_vast_required` until an x090 Vast/Isaac Sim run records registry metadata. |

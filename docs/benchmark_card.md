@@ -14,7 +14,7 @@ Not a flight-certified JWST simulator. Not a real anomaly diagnosis system.
 
 ## Version
 
-0.2.0 Week 6 scene beta contract freeze.
+0.2.1 Week 7 scene release candidate metadata.
 
 ## Scene Scope
 
@@ -27,6 +27,8 @@ Week 4 adds `configs/coverage/coverage_surfaces.yaml` as the authoritative surfa
 Week 5 adds `configs/materials/material_variants.yaml`, `configs/lighting/lighting_variants.yaml`, `configs/renderers/week5_material_stress.yaml`, `configs/anomalies/week5_anomaly_regions.yaml`, and `configs/sensors/inspector_sensor_frames.yaml`. These files define switchable benchmark stressors and sensor assumptions without claiming physical JWST fidelity.
 
 Week 6 freezes scene contract `0.2.0` and scene beta tag `scene-beta-v0.2.0`. It adds automated scene QA metadata, frozen dev and held-out reference sets, and a beta validation render matrix under `validation/renders/week6_beta/`.
+
+Week 7 adds scene release candidate tag `scene-rc-v0.2.1`. It records downstream triage for Team 2 and Team 3, freezes release-candidate invariants, and documents standard-view performance profile blockers without changing the Week 6 contract-facing IDs.
 
 It does not claim geometric or radiometric fidelity to JWST. The selected public NASA JWST GLB source is recorded for later conversion, but the current benchmark scene remains a proxy fallback until imported geometry can be mapped without breaking the contract.
 
@@ -48,3 +50,5 @@ Public JWST references are tracked for validation and reporting only and are exc
 - Material and lighting values must not be tuned to held-out references or to make perception easier.
 - After the Week 6 freeze, breaking scene-contract or reference-set changes require integration council approval.
 - Held-out references are excluded from training and tuning; final audits must not feed changes back into the beta scene.
+- Week 7 hardening cannot accept visual-fidelity work that breaks Team 2 data generation or Team 3 policy evaluation.
+- Completed GPU performance profile rows require run-registry metadata and synced artifact notes.

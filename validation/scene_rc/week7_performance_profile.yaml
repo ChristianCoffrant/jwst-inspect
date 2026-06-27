@@ -1,0 +1,42 @@
+version: 0.2.1
+profile_id: week7_standard_view_performance_profile
+scene_rc_tag: scene-rc-v0.2.1
+base_scene_tag: scene-beta-v0.2.0
+measurement_date: 2026-06-27
+vast_template: configs/vast/x090_template.yaml
+owner: team1_scene_qa_integration_lead
+guardrails:
+  fabricated_gpu_metrics_allowed: false
+  completed_profile_rows_require_run_registry_metadata: true
+  generated_outputs_tracked_in_git: false
+standard_view_profiles:
+  - camera_id: mirror_inspection_fixed
+    task_region_id: mirror_inspection_v0
+    local_contract_validation_status: measured_local_validation
+    local_validation_command: python scripts/validate_scene.py
+    gpu_scene_load_status: blocked_vast_required
+    gpu_memory_status: blocked_vast_required
+    raster_render_status: blocked_vast_required
+    path_traced_render_status: blocked_vast_required
+    run_registry_row_id: not_applicable_blocked
+    notes: no_x090_vast_instance_allocated_for_week7_scene_profile
+  - camera_id: sunshield_survey_fixed
+    task_region_id: sunshield_survey_v0
+    local_contract_validation_status: measured_local_validation
+    local_validation_command: python scripts/validate_scene.py
+    gpu_scene_load_status: blocked_vast_required
+    gpu_memory_status: blocked_vast_required
+    raster_render_status: blocked_vast_required
+    path_traced_render_status: blocked_vast_required
+    run_registry_row_id: not_applicable_blocked
+    notes: no_x090_vast_instance_allocated_for_week7_scene_profile
+  - camera_id: approach_standoff_overview
+    task_region_id: approach_hold_standoff_v0
+    local_contract_validation_status: measured_local_validation
+    local_validation_command: python scripts/validate_scene.py
+    gpu_scene_load_status: blocked_vast_required
+    gpu_memory_status: blocked_vast_required
+    raster_render_status: blocked_vast_required
+    path_traced_render_status: blocked_vast_required
+    run_registry_row_id: not_applicable_blocked
+    notes: no_x090_vast_instance_allocated_for_week7_scene_profile

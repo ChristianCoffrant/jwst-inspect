@@ -20,6 +20,14 @@ Week 6 compatibility alias: `scene-proxy-thin-slice-v0.1`.
 
 Week 6 reference freeze: `validation/reference_sets/week6_reference_freeze.yaml`.
 
+Week 7 scene release candidate tag: `scene-rc-v0.2.1`.
+
+Week 7 downstream triage: `validation/downstream/week7_downstream_triage.yaml`.
+
+Week 7 release-candidate manifest: `validation/scene_rc/week7_release_candidate.yaml`.
+
+Week 7 performance profile: `validation/scene_rc/week7_performance_profile.yaml`.
+
 This is a proxy scene for contract validation and downstream planning. It is not a flight-accurate JWST model and should not be presented as one.
 
 Selected external source asset: `jwst_nasa_glb_2025` in `assets/source_manifest.csv`.
@@ -88,6 +96,8 @@ Use:
 - Week 5 anomaly regions from `configs/anomalies/week5_anomaly_regions.yaml`
 - Week 6 beta render config from `configs/renderers/week6_beta_validation.yaml`
 - Week 6 frozen reference sets from `validation/reference_sets/week6_reference_freeze.yaml`
+- Week 7 downstream triage from `validation/downstream/week7_downstream_triage.yaml`
+- Week 7 scene RC tag `scene-rc-v0.2.1` for release-candidate metadata
 - sparse public-reference annotation candidates from `validation/annotations/sparse_keypoints/week4_keypoints_template.csv`
 - scene tag `scene-beta-v0.2.0` for beta scene references; `scene-proxy-thin-slice-v0.1` remains a compatibility alias
 - `validation/reference_manifest.csv` only for validation and reporting, not training
@@ -111,6 +121,7 @@ Use:
 - sensor-frame config from `configs/sensors/inspector_sensor_frames.yaml`
 - high-glare stress combo from `configs/renderers/week5_material_stress.yaml`
 - beta scene tag `scene-beta-v0.2.0`
+- release candidate scene tag `scene-rc-v0.2.1`
 - standoff metadata in `contracts/scene_contract.yaml`
 - standoff metadata in `usd/layers/tasks.usd`
 - toy local smoke test as contract health signal only
@@ -133,6 +144,13 @@ Do not:
 - Imported JWST geometry must be mapped into the frozen contract paths or wrapped under them.
 - Breaking changes require `contracts/changelog.md` plus integration council approval.
 
+## Week 7 RC Rules
+
+- `scene-rc-v0.2.1` is an additive release-candidate tag and does not replace frozen Week 6 contract IDs.
+- Team 2 and Team 3 blockers must be resolved or accepted with evidence before RC credit.
+- Performance profile rows may remain `blocked_vast_required`, but completed GPU rows require run-registry metadata.
+- Visual-fidelity changes are not accepted if they break generation, perception validation, or policy evaluation.
+
 ## Validation
 
 Run:
@@ -143,6 +161,9 @@ python scripts/validate_scene.py
 python scripts/validate_reference_manifest.py
 python scripts/validate_run_registry.py
 python scripts/validate_dataset.py
+python scripts/validate_week5_anomaly_dataset.py
+python scripts/validate_evaluation_contract.py --config configs/experiments/dev_evaluation_suite_v0_2.yaml
+python scripts/run_dev_evaluation_suite.py --config configs/experiments/dev_evaluation_suite_v0_2.yaml --output-dir runs/dev_evaluation_suite
 python scripts/e2e_local_smoke.py
 python -m unittest discover -s tests
 ```
@@ -176,3 +197,11 @@ Required lighting variants are `nominal_sun_key`, `high_glare_edge`, `low_light_
 `validation/reference_manifest.csv` now includes 5 frozen dev references and 5 frozen held-out references. Held-out references must not be used to tune geometry, materials, lighting, perception thresholds, or policy behavior.
 
 `validation/render_manifest.csv` includes 24 Week 6 beta render rows under `validation/renders/week6_beta/`. They remain `blocked_vast_required` until a real GPU run records artifacts and `compute/gpu_run_registry.csv` metadata.
+
+## Week 7 Downstream Hardening Status
+
+`validation/downstream/week7_downstream_triage.yaml` records Team 2 anomaly/perception checks and Team 3 evaluation-suite checks. Unresolved blocking downstream issues are 0.
+
+`validation/scene_rc/week7_release_candidate.yaml` records frozen RC invariants: label/task/safety/coverage renames are 0, safety shrinkage is 0, label coverage is 100 percent, and public-reference training or held-out tuning use is 0.
+
+`validation/scene_rc/week7_performance_profile.yaml` covers the three fixed standard cameras. GPU scene-load, memory, raster render, and path-traced render measurements remain `blocked_vast_required` until an x090-class Vast.ai/Isaac Sim run records registry metadata.
