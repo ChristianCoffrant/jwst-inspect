@@ -40,6 +40,11 @@ The shared research goal is to measure renderer-to-policy transfer: whether insp
 - Workstream 3 Week 1 execution log: `docs/workstream3_week1_execution.md`
 - Workstream 3 Week 9 execution log: `docs/workstream3_week9_execution.md`
 - Workstream 3 Week 10 execution log: `docs/workstream3_week10_execution.md`
+- Workstream 3 Week 11 execution log: `docs/workstream3_week11_execution.md`
+- Workstream 3 Week 12 execution log: `docs/workstream3_week12_execution.md`
+- Workstream 3 paper evaluation section: `docs/paper_workstream3_evaluation.md`
+- Workstream 3 benchmark card section: `docs/benchmark_card_policy_r2p_section.md`
+- Workstream 3 defense talking points: `docs/workstream3_defense_talking_points.md`
 - Execution plan: `outputs/capstone_proposals/04_12_week_execution_plan_15_person_team.md`
 - Contracts: `contracts/`
 - Local smoke test: `python scripts/e2e_local_smoke.py`
@@ -112,12 +117,20 @@ python -m unittest tests.test_dataset_validation.Week11DataPerceptionPackageTest
 
 ## Current Workstream 3 Gate
 
-The Week 1 Autonomous Inspection Policy and R2P Evaluation gate is a local JSON rollout scoring path.
+The Week 12 Autonomous Inspection Policy and R2P Evaluation gate freezes Team
+3 as `week12-team3-final-evaluation-package-v1.0.0`. The package regenerates
+from the Week 10 final policy/R2P results and Week 11 release evidence,
+preserves all final metrics, records visual recovery artifacts or renderer
+blockers, and prepares defense-ready R2P talking points.
 
 Run:
 
 ```bash
-python scripts/score_rollout.py tests/fixtures/rollouts/approach_hold_success.json
-python scripts/r2p_report.py --raster tests/fixtures/rollouts/approach_hold_success.json --path-traced tests/fixtures/rollouts/approach_hold_path_traced_degraded.json
-python -m unittest discover -s tests
+python scripts/validate_week10_final_results_lock.py --config configs/experiments/week10_final_results_lock.yaml
+python scripts/run_week11_release_package.py --config configs/experiments/week11_release_package.yaml --output-dir runs/week11_release_package
+python scripts/validate_week11_release_package.py --config configs/experiments/week11_release_package.yaml --output-dir runs/week11_release_package
+python scripts/write_week12_final_evaluation_package.py --config configs/experiments/week12_final_evaluation_package.yaml
+python scripts/validate_week12_final_evaluation_package.py --config configs/experiments/week12_final_evaluation_package.yaml
+python scripts/validate_run_registry.py
+python scripts/e2e_local_smoke.py
 ```

@@ -51,6 +51,8 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--height", type=int, default=480)
     parser.add_argument("--frames-per-clip", type=int, default=3)
     parser.add_argument("--samples-per-pixel", type=int, default=8)
+    parser.add_argument("--capture-backend", choices=("viewport", "replicator"), default="viewport")
+    parser.add_argument("--run-id", default="", help="Override visual manifest run_id for Week 12 recovery attempts.")
     parser.add_argument("--manifest-only", action="store_true")
     parser.add_argument("--blocker-reason", default="")
     parser.add_argument("--dry-run", action="store_true", help="Write SVG placeholder artifacts without Isaac. Never official.")
@@ -116,6 +118,24 @@ def _write_manifest(path: Path, manifest: dict[str, Any]) -> None:
     path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def _run_id(args: argparse.Namespace, config: dict[str, Any]) -> str:
+    if args.run_id:
+        return str(args.run_id)
+    visual_attempt = config.get("visual_attempt")
+    if isinstance(visual_attempt, dict) and visual_attempt.get("run_id"):
+        return str(visual_attempt["run_id"])
+    visual_recovery = config.get("visual_recovery")
+    if isinstance(visual_recovery, dict):
+        attempts = visual_recovery.get("attempts")
+        if isinstance(attempts, list) and attempts:
+            last = attempts[-1]
+            if isinstance(last, dict) and last.get("run_id"):
+                return str(last["run_id"])
+        if visual_recovery.get("recovery_group_id"):
+            return str(visual_recovery["recovery_group_id"])
+    return "week11_or_week12_visual_attempt"
+
+
 def _blocker_manifest(args: argparse.Namespace, config: dict[str, Any], reason: str) -> dict[str, Any]:
     clips = []
     for clip in _as_list(config.get("selected_visual_episodes")):
@@ -131,9 +151,9 @@ def _blocker_manifest(args: argparse.Namespace, config: dict[str, Any], reason: 
             )
     return {
         "status": "blocker_documented",
-        "run_id": str(config["visual_attempt"]["run_id"]),
+        "run_id": _run_id(args, config),
         "artifact_sync_status": "synced_after_blocker",
-        "render_backend": "isaac_sim_viewport_capture",
+        "render_backend": f"isaac_sim_{args.capture_backend}_capture",
         "blocker_reason": reason,
         "dry_run": False,
         "started_unix_s": time.time(),
@@ -175,7 +195,7 @@ def _write_dry_run_artifacts(args: argparse.Namespace, config: dict[str, Any], o
         )
     return {
         "status": "success",
-        "run_id": str(config["visual_attempt"]["run_id"]),
+        "run_id": _run_id(args, config),
         "artifact_sync_status": "local_dry_run",
         "render_backend": "dry_run_svg",
         "dry_run": True,
@@ -228,6 +248,27 @@ def _wait_for_png(path: Path, simulation_app: Any, timeout_s: float = 120.0) -> 
     raise RuntimeError(f"timed out waiting for PNG capture at {path}")
 
 
+def _wait_for_any_png(directory: Path, simulation_app: Any, timeout_s: float = 120.0) -> Path:
+    started = time.time()
+    seen: dict[Path, tuple[int, int]] = {}
+    while time.time() - started < timeout_s:
+        simulation_app.update()
+        for candidate in sorted(directory.rglob("*.png")):
+            size = candidate.stat().st_size
+            stable_size, stable_count = seen.get(candidate, (-1, 0))
+            if size > 0 and size == stable_size:
+                stable_count += 1
+            else:
+                stable_count = 0
+            seen[candidate] = (size, stable_count)
+            if size > 0 and stable_count >= 3:
+                with candidate.open("rb") as handle:
+                    if handle.read(8) == b"\x89PNG\r\n\x1a\n":
+                        return candidate
+        time.sleep(0.05)
+    raise RuntimeError(f"timed out waiting for Replicator PNG capture under {directory}")
+
+
 def _apply_material_variant(stage: Any, material_variant: str) -> None:
     from pxr import Gf, UsdGeom
 
@@ -267,11 +308,11 @@ def _capture_frame(
     width: int,
     height: int,
     samples_per_pixel: int,
+    capture_backend: str,
     position: list[float],
     look_at: list[float],
 ) -> None:
     from pxr import Sdf, UsdGeom
-    from omni.kit.viewport.utility import capture_viewport_to_file, create_viewport_window
 
     _set_renderer(samples_per_pixel)
     for _ in range(8):
@@ -279,6 +320,34 @@ def _capture_frame(
     camera_path = Sdf.Path(f"/World/Week11Video/Cameras/{camera_name}")
     camera = UsdGeom.Camera.Define(stage, camera_path)
     _set_camera_pose(camera, position, look_at)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    if output_path.exists():
+        output_path.unlink()
+    if capture_backend == "replicator":
+        import omni.replicator.core as rep
+
+        temp_dir = output_path.parent / f"{output_path.stem}_replicator"
+        temp_dir.mkdir(parents=True, exist_ok=True)
+        render_product = rep.create.render_product(str(camera_path), (int(width), int(height)))
+        writer = rep.WriterRegistry.get("BasicWriter")
+        writer.initialize(output_dir=str(temp_dir), rgb=True)
+        writer.attach([render_product])
+        for _ in range(max(16, samples_per_pixel * 4)):
+            simulation_app.update()
+        rep.orchestrator.step()
+        for _ in range(max(16, samples_per_pixel * 4)):
+            simulation_app.update()
+        captured = _wait_for_any_png(temp_dir, simulation_app)
+        output_path.write_bytes(captured.read_bytes())
+        try:
+            writer.detach()
+        except Exception:
+            pass
+        _wait_for_png(output_path, simulation_app, timeout_s=5.0)
+        return
+
+    from omni.kit.viewport.utility import capture_viewport_to_file, create_viewport_window
+
     viewport = create_viewport_window(
         name=f"Week11Video_{camera_name}",
         width=width,
@@ -292,9 +361,6 @@ def _capture_frame(
         pass
     for _ in range(max(48, samples_per_pixel * 4)):
         simulation_app.update()
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    if output_path.exists():
-        output_path.unlink()
     capture_viewport_to_file(viewport_api, str(output_path))
     _wait_for_png(output_path, simulation_app)
 
@@ -362,6 +428,7 @@ def _render(args: argparse.Namespace, config: dict[str, Any], week10_config: dic
                 width=int(args.width),
                 height=int(args.height),
                 samples_per_pixel=int(args.samples_per_pixel),
+                capture_backend=str(args.capture_backend),
                 position=position,
                 look_at=look_at,
             )
@@ -380,9 +447,9 @@ def _render(args: argparse.Namespace, config: dict[str, Any], week10_config: dic
 
     manifest = {
         "status": "success",
-        "run_id": str(config["visual_attempt"]["run_id"]),
+        "run_id": _run_id(args, config),
         "artifact_sync_status": "synced",
-        "render_backend": "isaac_sim_viewport_capture",
+        "render_backend": f"isaac_sim_{args.capture_backend}_capture",
         "stage_path": stage_path.as_posix(),
         "dry_run": False,
         "started_unix_s": started,

@@ -50,3 +50,13 @@ python scripts/run_week11_release_package.py --config configs/experiments/week11
 python scripts/validate_week11_release_package.py --config configs/experiments/week11_release_package.yaml --output-dir runs/week11_release_package
 ```
 
+The Week 12 final evaluation package freezes these results for defense and reviewer inspection. It adds claim-evidence, visual-recovery, and defense-readiness manifests without changing final metrics:
+
+```bash
+python scripts/write_week12_final_evaluation_package.py --config configs/experiments/week12_final_evaluation_package.yaml
+python scripts/validate_week12_final_evaluation_package.py --config configs/experiments/week12_final_evaluation_package.yaml
+```
+
+The Week 12 visual recovery attempt used a different Vast host and driver from Week 11 and tried both viewport and Replicator capture paths. Both failed before producing real frames, so the final package records a synced renderer blocker and does not claim final Team 3 video artifacts.
+
+

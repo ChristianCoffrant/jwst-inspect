@@ -1,0 +1,97 @@
+version: 1.0.0
+package_id: week12-team3-final-evaluation-package-v1.0.0
+owner: team3_autonomous_inspection
+status: completed_visual_recovery_with_renderer_blocker
+scene_tag: scene-final-v1.0.0
+dataset_tag: week8-final-data-v1.0.0
+source_week10_run_id: week10_team3_final_policy_isaac_42896511_20260627
+source_week11_visual_run_id: week11_team3_visual_rerun_42901494_20260627
+week10_final_results_config: configs/experiments/week10_final_results_lock.yaml
+week11_release_config: configs/experiments/week11_release_package.yaml
+week11_output_dir: runs/week11_release_package
+output_dir: runs/week12_final_evaluation_package
+gpu_run_registry: compute/gpu_run_registry.csv
+cost_log: compute/cost_log.csv
+scene_release_manifest: validation/scene_final/week12_final_scene_release.yaml
+data_perception_package_manifest: validation/reports/week11_data_perception_package.json
+paper_evaluation_section: docs/paper_workstream3_evaluation.md
+benchmark_card_section: docs/benchmark_card_policy_r2p_section.md
+defense_talking_points: docs/workstream3_defense_talking_points.md
+week12_execution_log: docs/workstream3_week12_execution.md
+readme: README.md
+expected_policy_rows: 48
+expected_completed_policy_rows: 40
+expected_failed_policy_rows: 8
+expected_r2p_rows: 24
+expected_visual_episode_count: 3
+max_visual_recovery_spend_usd: 25.0
+selected_visual_episodes:
+  - clip_id: clip01_nominal_scripted_approach
+    episode_id: week10_nominal_clean_approach_hold_standoff_scripted_baseline_rasterized
+    task_name: approach_hold_standoff
+    condition_id: nominal_clean
+    policy_id: scripted_baseline
+    renderer_mode: rasterized
+    rationale: nominal scripted success baseline
+  - clip_id: clip02_anomaly_learned_sunshield
+    episode_id: week10_anomaly_mixed_stress_sunshield_survey_learned_state_bc_v0_1_path_traced
+    task_name: sunshield_survey
+    condition_id: anomaly_mixed_stress
+    policy_id: learned_state_bc_v0_1
+    renderer_mode: path_traced
+    rationale: learned policy high R2P and metric-threshold stress case
+  - clip_id: clip03_anomaly_scripted_mirror
+    episode_id: week10_anomaly_mixed_stress_mirror_inspection_scripted_baseline_path_traced
+    task_name: mirror_inspection
+    condition_id: anomaly_mixed_stress
+    policy_id: scripted_baseline
+    renderer_mode: path_traced
+    rationale: scripted mirror high R2P stress case
+visual_recovery:
+  recovery_group_id: week12_team3_visual_recovery
+  status: blocker_documented
+  output_subdir: visual_recovery
+  active_vast_instances_after_run: 0
+  total_cost_usd: 0.1156
+  attempt_count: 1
+  successful_clip_count: 0
+  blocker_reason: Vast instance 42913976 on driver 580.119.02 reached the USD stage but viewport capture timed out; a second Replicator BasicWriter capture path also timed out and crashed during shutdown. Evidence is synced under runs/week12_final_evaluation_package/evidence.
+  attempts:
+    - run_id: week12_team3_visual_recovery_42913976_20260627_attempt2_replicator
+      actual_paid_instance_launched: true
+      execution_status: failed
+      registry_status: failed_official
+      artifact_sync_status: synced
+      visual_artifact_status: blocker_documented
+      instance_id: 42913976
+      start_time_utc: 2026-06-27T22:32:31Z
+      end_time_utc: 2026-06-27T22:49:07Z
+      runtime_minutes: 16.60
+      setup_minutes: 6.8
+      cost_usd: 0.1156
+      hourly_price_usd: 0.417778
+      gpu_model: NVIDIA GeForce RTX 4090
+      gpu_vram_gb: 24
+      driver_version: 580.119.02
+      capture_backends_attempted: viewport;replicator
+      evidence_logs: runs/week12_final_evaluation_package/evidence/vast_stdout_stderr_visual_recovery_attempt1.log;runs/week12_final_evaluation_package/evidence/vast_stdout_stderr_visual_recovery_attempt2_replicator.log
+guardrails:
+  metric_weight_changes_after_freeze_allowed: false
+  final_metric_mutation_allowed: false
+  new_headline_results_after_release_freeze_allowed: false
+  manual_metrics_edit_allowed: false
+  ad_hoc_notebook_results_allowed: false
+  final_heldout_seed_tuning_allowed: false
+  safety_metrics_disable_allowed: false
+  untraced_claims_allowed: false
+  untraced_defense_claims_allowed: false
+  untraced_storyboard_clips_allowed: false
+  unsupported_learned_mirror_hidden_allowed: false
+  cherry_picked_unlogged_video_allowed: false
+  official_visual_placeholders_allowed: false
+  generated_large_artifacts_committed: false
+  paid_gpu_attempt_requires_registry_metadata: true
+  paid_gpu_attempt_requires_cost_log: true
+  paid_gpu_attempt_requires_synced_artifacts_or_blocker: true
+  active_vast_instances_after_run_required: 0
+  clean_checkout_blockers_allowed: false
