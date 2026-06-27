@@ -1,0 +1,126 @@
+{
+  "anomaly_counts": {
+    "mirror_region_obstruction": 70,
+    "none": 320,
+    "sunshield_discoloration": 70,
+    "sunshield_tear_proxy": 70,
+    "truss_occlusion_proxy": 70
+  },
+  "anomaly_counts_by_split": {
+    "train": {
+      "mirror_region_obstruction": 60,
+      "none": 240,
+      "sunshield_discoloration": 60,
+      "sunshield_tear_proxy": 60,
+      "truss_occlusion_proxy": 60
+    },
+    "validation": {
+      "mirror_region_obstruction": 10,
+      "none": 80,
+      "sunshield_discoloration": 10,
+      "sunshield_tear_proxy": 10,
+      "truss_occlusion_proxy": 10
+    }
+  },
+  "base_scene_tag": "scene-rc-v0.2.1",
+  "class_coverage": {
+    "train": {
+      "missing_label_ids": [],
+      "per_class_pixel_counts": {
+        "0": 27396,
+        "1": 12576,
+        "2": 12588,
+        "3": 20016,
+        "4": 20004,
+        "5": 27408,
+        "6": 5184,
+        "7": 27396,
+        "8": 27396,
+        "9": 27396
+      }
+    },
+    "validation": {
+      "missing_label_ids": [],
+      "per_class_pixel_counts": {
+        "0": 5184,
+        "1": 5184,
+        "2": 5184,
+        "3": 5184,
+        "4": 5184,
+        "5": 5184,
+        "6": 5184,
+        "7": 5184,
+        "8": 5184,
+        "9": 5184
+      }
+    }
+  },
+  "corrupt_or_blank_fraction": 0.0,
+  "corrupt_or_blank_frame_count": 0,
+  "counterpart_coverage": 1.0,
+  "cross_split_seed_overlap_count": 0,
+  "dataset_phase": "week8_final_dataset",
+  "dataset_tag": "week8-final-data-v1.0.0",
+  "duplicate_view_count": 0,
+  "duplicate_view_rate": 0.0,
+  "duplicate_view_rate_max": 0.05,
+  "errors": [],
+  "expected_frame_count": 600,
+  "final_test_definition_id": "week8-final-perception-test-v1.0.0",
+  "final_test_generated_media_count": 0,
+  "final_test_training_or_tuning_exposure_count": 0,
+  "frame_count": 600,
+  "generation_mode": "final_scene_dataset",
+  "guardrails": {
+    "base_scene_rc_tag_required": "scene-rc-v0.2.1",
+    "cross_split_seed_leakage_count_required": 0,
+    "final_test_generated_media_count_required": 0,
+    "final_test_training_or_tuning_exposure_count_required": 0,
+    "heldout_reference_used_for_tuning": false,
+    "large_generated_outputs_committed": false,
+    "metadata_completeness_required": 1.0,
+    "public_reference_images_used_for_training": false,
+    "scene_final_tag_required": "scene-final-v1.0.0",
+    "schema_version": "1.0.0",
+    "train_validation_media_completeness_required": 1.0,
+    "validation_high_glare_control_count_min": 40
+  },
+  "high_glare_control_counts": {
+    "validation": 40
+  },
+  "manifest_path": "datasets/generated/week8_final_dataset/dataset_manifest.json",
+  "max_corrupt_or_blank_fraction": 0.05,
+  "media_completeness": 1.0,
+  "metadata_completeness": 1.0,
+  "profile_counts": {
+    "final_train_v1_0": 480,
+    "final_validation_v1_0": 120
+  },
+  "render_config_id": "week8_final_validation_v1_0",
+  "renderer_counts": {
+    "rasterized": 600
+  },
+  "scene_tag": "scene-final-v1.0.0",
+  "split_counts": {
+    "train": 480,
+    "validation": 120
+  },
+  "status": "passed",
+  "stress_condition_counts": {
+    "mirror_region_obstruction": 70,
+    "nominal_high_glare_false_alarm_control": 40,
+    "paired_no_anomaly_counterpart": 280,
+    "sunshield_discoloration": 70,
+    "sunshield_tear_proxy": 70,
+    "truss_occlusion_proxy": 70
+  },
+  "true_anomaly_counts_by_split": {
+    "train": 240,
+    "validation": 40
+  },
+  "true_anomaly_fraction_by_split": {
+    "train": 0.5,
+    "validation": 0.3333333333333333
+  },
+  "week8_metadata_completeness": 1.0
+}

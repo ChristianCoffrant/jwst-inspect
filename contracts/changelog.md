@@ -6,6 +6,13 @@
 - Kept normalized-score weights unchanged while promoting the score contract to version 1.0.0.
 - Locked the official final policy list to `scripted_baseline` and `learned_state_bc_v0_1`; anomaly reacquisition remains deferred until its target-region contract exists.
 - Added final-evaluation guardrails for paired renderer comparisons, safety metrics, path-traced config lock, and official GPU metadata requirements.
+- Froze Workstream 2 Week 8 dataset schema for final evaluation with dataset
+  tag `week8-final-data-v1.0.0` against `scene-final-v1.0.0`; added final
+  rasterized train/validation media status, final-test locked media status,
+  `final_scene_dataset` generation mode, final randomization profiles, 600-frame
+  train/validation counts, 120-frame final-test definition counts, zero
+  final-test media exposure, zero final-test training/tuning exposure, and
+  cross-split seed/frame leakage guardrails.
 
 ## 0.2.1
 

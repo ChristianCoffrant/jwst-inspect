@@ -65,9 +65,24 @@ from jwst_inspect.data.week7_rc_dataset import (
     write_week7_contact_sheet,
     write_week7_rc_dataset,
 )
+from jwst_inspect.data.week8_final_dataset import (
+    WEEK8_DATASET_TAG,
+    WEEK8_FINAL_TEST_DEFINITION_ID,
+    WEEK8_FINAL_TEST_FRAME_COUNT,
+    WEEK8_FRAME_COUNT,
+    WEEK8_SCENE_TAG,
+    WEEK8_TRAIN_FRAME_COUNT,
+    WEEK8_VALIDATION_FRAME_COUNT,
+    WEEK8_VALIDATION_HIGH_GLARE_CONTROL_COUNT,
+    validate_week8_final_config,
+    write_week8_contact_sheet,
+    write_week8_final_dataset,
+    write_week8_final_test_definition,
+)
 from jwst_inspect.perception.week5_baseline import evaluate_week5_perception_baseline
 from jwst_inspect.perception.week6_baseline import evaluate_week6_perception_baseline
 from jwst_inspect.perception.week7_error_analysis import evaluate_week7_perception_error_analysis
+from jwst_inspect.perception.week8_validation import evaluate_week8_validation_perception
 from jwst_inspect.validation.dataset import (
     validate_sample_dataset,
     validate_week5_anomaly_dataset,
@@ -81,6 +96,10 @@ from jwst_inspect.validation.dataset import (
     validate_week6_beta_dataset_with_report,
     validate_week7_rc_dataset,
     validate_week7_rc_dataset_with_report,
+    validate_week8_final_dataset,
+    validate_week8_final_dataset_with_report,
+    validate_week8_final_test_definition,
+    validate_week8_final_test_definition_with_report,
 )
 
 
@@ -750,6 +769,111 @@ class Week7ReleaseCandidateValidationTests(unittest.TestCase):
                 ROOT,
                 self.dataset_dir,
                 Path(tmpdir) / "week7_contact_sheet.png",
+            )
+
+            self.assertTrue(contact_sheet.exists())
+            self.assertGreater(contact_sheet.stat().st_size, 0)
+
+
+class Week8FinalDatasetValidationTests(unittest.TestCase):
+    _tmpdir = None
+    dataset_dir: Path
+    definition_path: Path
+
+    @classmethod
+    def setUpClass(cls):
+        cls._tmpdir = tempfile.TemporaryDirectory()
+        temp_root = Path(cls._tmpdir.name)
+        cls.dataset_dir = temp_root / "week8_final_dataset"
+        cls.definition_path = temp_root / "week8_final_perception_test_definition.json"
+        write_week8_final_dataset(ROOT, cls.dataset_dir)
+        write_week8_final_test_definition(ROOT, cls.definition_path)
+
+    @classmethod
+    def tearDownClass(cls):
+        if cls._tmpdir is not None:
+            cls._tmpdir.cleanup()
+
+    def _definition(self) -> dict:
+        return json.loads(self.definition_path.read_text(encoding="utf-8"))
+
+    def test_week8_final_config_passes_guardrails(self):
+        self.assertEqual(validate_week8_final_config(ROOT), [])
+
+    def test_week8_final_dataset_passes_ship_gates(self):
+        errors, report = validate_week8_final_dataset_with_report(ROOT, self.dataset_dir)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["scene_tag"], WEEK8_SCENE_TAG)
+        self.assertEqual(report["dataset_tag"], WEEK8_DATASET_TAG)
+        self.assertEqual(report["frame_count"], WEEK8_FRAME_COUNT)
+        self.assertEqual(report["split_counts"]["train"], WEEK8_TRAIN_FRAME_COUNT)
+        self.assertEqual(report["split_counts"]["validation"], WEEK8_VALIDATION_FRAME_COUNT)
+        self.assertEqual(report["metadata_completeness"], 1.0)
+        self.assertEqual(report["week8_metadata_completeness"], 1.0)
+        self.assertEqual(report["media_completeness"], 1.0)
+        self.assertEqual(report["final_test_generated_media_count"], 0)
+        self.assertEqual(report["final_test_training_or_tuning_exposure_count"], 0)
+        self.assertEqual(report["cross_split_seed_overlap_count"], 0)
+        self.assertEqual(report["high_glare_control_counts"]["validation"], WEEK8_VALIDATION_HIGH_GLARE_CONTROL_COUNT)
+
+    def test_week8_final_test_definition_is_locked_without_media(self):
+        errors, report = validate_week8_final_test_definition_with_report(
+            ROOT,
+            self.definition_path,
+            self.dataset_dir,
+        )
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["definition_id"], WEEK8_FINAL_TEST_DEFINITION_ID)
+        self.assertEqual(report["frame_count"], WEEK8_FINAL_TEST_FRAME_COUNT)
+        self.assertEqual(report["metadata_completeness"], 1.0)
+        self.assertEqual(report["generated_media_count"], 0)
+        self.assertEqual(report["training_or_tuning_exposure_count"], 0)
+        self.assertEqual(report["cross_split_seed_overlap_count"], 0)
+
+    def test_week8_validation_perception_reports_no_final_test_use(self):
+        errors, report = evaluate_week8_validation_perception(ROOT, self.dataset_dir)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["support_by_split"]["validation"], WEEK8_VALIDATION_FRAME_COUNT)
+        self.assertFalse(report["final_test_evaluated"])
+        self.assertLessEqual(
+            report["high_glare_false_alarm"]["false_alarm_rate"],
+            report["high_glare_false_alarm"]["false_alarm_rate_max"],
+        )
+
+    def test_week8_final_test_media_exposure_fails(self):
+        definition = self._definition()
+        first_rgb = self.dataset_dir / definition["frames"][0]["outputs"]["rgb"]
+        first_rgb.parent.mkdir(parents=True, exist_ok=True)
+        first_rgb.write_bytes(b"not a real final frame")
+        try:
+            errors = validate_week8_final_test_definition(ROOT, self.definition_path, self.dataset_dir)
+            self.assertTrue(any("must not exist" in error or "generated media count" in error for error in errors), errors)
+        finally:
+            first_rgb.unlink()
+
+    def test_week8_final_test_evaluation_request_fails(self):
+        errors, report = evaluate_week8_validation_perception(
+            ROOT,
+            self.dataset_dir,
+            evaluation_splits=("final_test",),
+        )
+
+        self.assertTrue(errors)
+        self.assertEqual(report["status"], "failed")
+        self.assertTrue(any("final_test" in error for error in errors))
+
+    def test_week8_contact_sheet_can_be_regenerated(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            contact_sheet = write_week8_contact_sheet(
+                ROOT,
+                self.dataset_dir,
+                Path(tmpdir) / "week8_contact_sheet.png",
             )
 
             self.assertTrue(contact_sheet.exists())

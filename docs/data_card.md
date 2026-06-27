@@ -4,8 +4,8 @@
 
 JWST-Inspect synthetic sample dataset.
 
-Current version: `0.2.0` frozen dataset contract with Week 7 release-candidate
-dataset aliases.
+Current version: `1.0.0` frozen dataset contract with Week 8 final
+train/validation data and a locked final-test definition.
 
 ## Data Sources
 
@@ -36,6 +36,13 @@ Week 7 generated frame media also remains outside git. The accepted Week 7 run
 is `vast_week7_team2_20260627_42866053` on a Vast RTX 4090 instance; it synced
 60 path-traced RGB frames with zero blank/low-unique images and an estimated
 spend of about $0.09 under the $5 cap.
+
+The Week 8 final dataset writes 600 local rasterized train/validation frames
+under `datasets/generated/week8_final_dataset/`, which remains ignored by Git.
+The final path-traced perception test is locked as metadata only in
+`validation/final_test/week8_final_perception_test_definition.json`; no
+final-test RGB, depth, semantic mask, or instance mask media is rendered or
+exposed in Week 8. Team 2 Week 8 Vast spend is `$0`.
 
 Future rendered samples will be generated from the JWST-Inspect benchmark scene.
 Public JWST images are reference validation material only and are excluded from
@@ -71,6 +78,13 @@ frames, true anomaly fractions of 0.50/0.333/0.333, 80 high-glare controls,
 100% metadata/media/GPU metadata completeness, 100% path-traced sync, 1.0
 counterpart coverage, 0.0 duplicate-view rate, and zero path-traced blank or
 corrupt frames.
+
+The Week 8 final dataset contains 480 `train` and 120 `validation` frames only.
+The locked `final_test` definition contains 120 path-traced frame specs: 40
+true anomalies, 40 paired no-anomaly counterparts, and 40 high-glare
+no-anomaly controls. The final-test definition has 0 generated media files, 0
+training/tuning exposure, 0 seed overlap with train/validation, and 0 frame ID
+overlap with train/validation.
 
 ## Sample Media
 
@@ -161,6 +175,28 @@ paths. The accepted report has 60 rasterized and 60 path-traced frames, zero
 high-glare false alarms for both renderers, and no public-reference training or
 held-out tuning.
 
+## Week 8 Final Metadata and Lock Policy
+
+Week 8 final train/validation frames use final contract values:
+
+- `scene_tag`: `scene-final-v1.0.0`
+- `base_scene_tag`: `scene-rc-v0.2.1`
+- `dataset_tag`: `week8-final-data-v1.0.0`
+- `generation_mode`: `final_scene_dataset`
+- `render_config_id`: `week8_final_validation_v1_0`
+- final randomization profiles for train, validation, and final-test lock
+
+The validation report records 600 train/validation frames, 100% metadata and
+media completeness, 1.0 counterpart coverage, 0.0 duplicate-view rate, 0
+corrupt/blank frames, 40 validation high-glare controls, and true anomaly
+fractions of 0.50 train and 0.333 validation.
+
+The final-test definition report records 120 locked path-traced specs, 100%
+metadata completeness, 40 true anomalies, 40 high-glare controls, 0 generated
+media files, 0 seed/frame overlap with train/validation, and 0 training/tuning
+exposure. The Week 8 validation perception report evaluates validation only;
+it does not evaluate `final_test`.
+
 ## Metadata
 
 Every frame must include:
@@ -189,5 +225,6 @@ Week 4 pilot is a local rasterized proxy for data-interface and guardrail
 validation. The Week 5 anomaly pilot and baseline are local rasterized proxies
 for stressor bookkeeping and evaluation reporting. Week 6 and Week 7 combine
 local contract proxy labels with synced x090/Isaac path-traced RGB dev-test
-subsets.
+subsets. Week 8 freezes the final train/validation contract and locks final-test
+metadata, but does not expose final-test media or claim final-test performance.
 None of these artifacts are evidence of real JWST diagnosis capability.

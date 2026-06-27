@@ -1,0 +1,58 @@
+version: 1.0.0
+schema_version: 1.0.0
+dataset_tag: week8-final-data-v1.0.0
+dataset_phase: week8_final_dataset
+scene_tag: scene-final-v1.0.0
+base_scene_tag: scene-rc-v0.2.1
+scene_freeze: validation/scene_final/week8_scene_contract_freeze.yaml
+generation_mode: final_scene_dataset
+render_config_id: week8_final_validation_v1_0
+render_config_path: configs/renderers/week8_final_validation.yaml
+final_perception_test_definition: validation/final_test/week8_final_perception_test_definition.json
+frame_count: 600
+splits:
+  train:
+    frame_count: 480
+    renderer_mode: rasterized
+    profile: final_train_v1_0
+    seed_start: 960000
+    true_anomaly_count: 240
+    paired_no_anomaly_count: 240
+  validation:
+    frame_count: 120
+    renderer_mode: rasterized
+    profile: final_validation_v1_0
+    seed_start: 970000
+    true_anomaly_count: 40
+    paired_no_anomaly_count: 40
+    high_glare_control_count: 40
+target_regions:
+  - approach_hold_standoff
+  - mirror_inspection
+  - sunshield_survey
+active_anomaly_ids:
+  - sunshield_tear_proxy
+  - sunshield_discoloration
+  - mirror_region_obstruction
+  - truss_occlusion_proxy
+source_policy:
+  public_reference_images_training_use: prohibited
+  heldout_reference_tuning_use: prohibited
+  final_test_training_use: prohibited
+  final_test_tuning_use: prohibited
+  public_reference_exemplars_allowed: false
+  generated_outputs_in_git: prohibited
+guardrails:
+  metadata_completeness_required: 1.0
+  train_validation_media_completeness_required: 1.0
+  final_test_generated_media_count_required: 0
+  train_true_anomaly_fraction_max: 0.50
+  eval_true_anomaly_fraction_max: 0.34
+  duplicate_view_rate_max: 0.05
+  corrupt_or_blank_frame_fraction_max: 0.05
+  validation_high_glare_control_count_min: 40
+  cross_split_seed_leakage_count_required: 0
+  public_reference_images_training_count_required: 0
+  heldout_reference_tuning_count_required: 0
+  final_test_training_or_tuning_exposure_count_required: 0
+  large_generated_outputs_committed: false

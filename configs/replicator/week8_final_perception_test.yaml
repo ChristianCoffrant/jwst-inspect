@@ -1,0 +1,33 @@
+version: 1.0.0
+definition_id: week8-final-perception-test-v1.0.0
+schema_version: 1.0.0
+dataset_tag: week8-final-data-v1.0.0
+scene_tag: scene-final-v1.0.0
+base_scene_tag: scene-rc-v0.2.1
+generation_mode: final_scene_dataset
+split: final_test
+renderer_mode: path_traced
+profile: final_test_lock_v1_0
+seed_start: 980000
+frame_count: 120
+true_anomaly_count: 40
+paired_no_anomaly_count: 40
+high_glare_control_count: 40
+media_policy:
+  generated_media_count_required: 0
+  media_status: final_test_locked_no_media
+  artifact_sync_status: locked_not_generated
+  render_on_week8: false
+lock_policy:
+  training_allowed: false
+  tuning_allowed: false
+  final_metrics_allowed_before_release: false
+  expose_rgb_depth_or_masks_before_final_eval: false
+  store_generation_config_and_seeds: true
+guardrails:
+  metadata_completeness_required: 1.0
+  final_test_generated_media_count_required: 0
+  final_test_true_anomaly_fraction_max: 0.34
+  final_test_high_glare_control_count_min: 40
+  cross_split_seed_leakage_count_required: 0
+  final_test_training_or_tuning_exposure_count_required: 0

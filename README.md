@@ -25,6 +25,7 @@ The shared research goal is to measure renderer-to-policy transfer: whether insp
 - Workstream 2 Week 2 execution log: `docs/workstream2_week2_execution.md`
 - Workstream 2 Week 6 execution log: `docs/workstream2_week6_execution.md`
 - Workstream 2 Week 7 execution log: `docs/workstream2_week7_execution.md`
+- Workstream 2 Week 8 execution log: `docs/workstream2_week8_execution.md`
 - Workstream 3 Week 1 execution log: `docs/workstream3_week1_execution.md`
 - Execution plan: `outputs/capstone_proposals/04_12_week_execution_plan_15_person_team.md`
 - Contracts: `contracts/`
@@ -63,23 +64,23 @@ python -m unittest discover -s tests
 
 ## Current Workstream 2 Gate
 
-The Week 7 Synthetic Data and Perception Benchmark gate keeps frozen dataset
-schema `0.2.0` and adds a release-candidate dataset/perception scaffold for
-`scene-rc-v0.2.1`. The local generator creates rasterized media,
-renderer-paired dev-test rows, and deterministic labels/depth. The official
-Week 7 gate is satisfied by synced Vast/Isaac RGB artifacts recorded as
-`vast_week7_team2_20260627_42866053` in the GPU run registry.
+The Week 8 Synthetic Data and Perception Benchmark gate freezes dataset schema
+`1.0.0`, generates the final train/validation dataset for
+`scene-final-v1.0.0`, and locks the held-out final path-traced perception test
+without exposing final-test media. The local generator creates 600 rasterized
+train/validation frames under ignored `datasets/generated/` and writes the
+tracked final-test definition to `validation/final_test/`.
 
 Run:
 
 ```bash
 python scripts/generate_dummy_dataset.py
-python scripts/generate_week7_rc_dataset.py --materialize-path-traced-artifacts --gpu-run-id vast_week7_team2_20260627_42866053
-python scripts/render_week6_isaac_path_traced_rgb.py --stage usd/jwst_inspect_root.usd --frames <path-frame-json> --output-root datasets/generated/week7_rc_dataset --scratch-dir <scratch>
+python scripts/generate_week8_final_dataset.py
 python scripts/validate_dataset.py
-python scripts/validate_week7_rc_dataset.py
-python scripts/create_week7_contact_sheet.py
-python scripts/evaluate_week7_perception_error_analysis.py
+python scripts/validate_week8_final_dataset.py
+python scripts/validate_week8_final_test_definition.py
+python scripts/create_week8_contact_sheet.py
+python scripts/evaluate_week8_validation_perception.py
 python -m unittest discover -s tests
 ```
 

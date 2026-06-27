@@ -1,0 +1,829 @@
+{
+  "analysis_id": "week8_final_validation_rgb_analysis_v1_0",
+  "anomaly": {
+    "binary_anomaly_metrics": {
+      "f1": 1.0,
+      "false_alarm_rate": 0.0,
+      "false_negative": 0,
+      "false_positive": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "true_negative": 80,
+      "true_positive": 40
+    },
+    "per_anomaly_type_metrics": {
+      "mirror_region_obstruction": {
+        "f1": 1.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 10,
+        "true_positive": 10
+      },
+      "sunshield_discoloration": {
+        "f1": 1.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 10,
+        "true_positive": 10
+      },
+      "sunshield_tear_proxy": {
+        "f1": 1.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 10,
+        "true_positive": 10
+      },
+      "truss_occlusion_proxy": {
+        "f1": 1.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 10,
+        "true_positive": 10
+      }
+    }
+  },
+  "baseline_type": "dependency_free_rgb_heuristic",
+  "dataset_phase": "week8_final_dataset",
+  "dataset_tag": "week8-final-data-v1.0.0",
+  "error_analysis_by_anomaly_type": {
+    "mirror_region_obstruction": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 0,
+        "true_positive": 10
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        },
+        "sunshield_discoloration": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_tear_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "truss_occlusion_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        }
+      },
+      "support": 10
+    },
+    "none": {
+      "binary_anomaly_metrics": {
+        "f1": 0.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "true_negative": 80,
+        "true_positive": 0
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_discoloration": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_tear_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "truss_occlusion_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        }
+      },
+      "support": 80
+    },
+    "sunshield_discoloration": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 0,
+        "true_positive": 10
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_discoloration": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        },
+        "sunshield_tear_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "truss_occlusion_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        }
+      },
+      "support": 10
+    },
+    "sunshield_tear_proxy": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 0,
+        "true_positive": 10
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_discoloration": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_tear_proxy": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        },
+        "truss_occlusion_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        }
+      },
+      "support": 10
+    },
+    "truss_occlusion_proxy": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 0,
+        "true_positive": 10
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_discoloration": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_tear_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "truss_occlusion_proxy": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        }
+      },
+      "support": 10
+    }
+  },
+  "error_analysis_by_lighting_condition": {
+    "high_glare_edge": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 50,
+        "true_positive": 10
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        },
+        "sunshield_discoloration": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_tear_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "truss_occlusion_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        }
+      },
+      "support": 60
+    },
+    "low_light_cold_side": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 10,
+        "true_positive": 10
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_discoloration": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        },
+        "sunshield_tear_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "truss_occlusion_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        }
+      },
+      "support": 20
+    },
+    "mixed_stress": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 20,
+        "true_positive": 20
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_discoloration": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_tear_proxy": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        },
+        "truss_occlusion_proxy": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        }
+      },
+      "support": 40
+    }
+  },
+  "error_analysis_by_material_variant": {
+    "anomaly_test": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 20,
+        "true_positive": 20
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_discoloration": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_tear_proxy": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        },
+        "truss_occlusion_proxy": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        }
+      },
+      "support": 40
+    },
+    "degraded": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 10,
+        "true_positive": 10
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_discoloration": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        },
+        "sunshield_tear_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "truss_occlusion_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        }
+      },
+      "support": 20
+    },
+    "high_glare": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 50,
+        "true_positive": 10
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        },
+        "sunshield_discoloration": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_tear_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "truss_occlusion_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        }
+      },
+      "support": 60
+    }
+  },
+  "error_analysis_by_target_region": {
+    "approach_hold_standoff": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 10,
+        "true_positive": 10
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_discoloration": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_tear_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "truss_occlusion_proxy": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        }
+      },
+      "support": 20
+    },
+    "mirror_inspection": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 50,
+        "true_positive": 10
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        },
+        "sunshield_discoloration": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_tear_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "truss_occlusion_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        }
+      },
+      "support": 60
+    },
+    "sunshield_survey": {
+      "binary_anomaly_metrics": {
+        "f1": 1.0,
+        "false_alarm_rate": 0.0,
+        "false_negative": 0,
+        "false_positive": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "true_negative": 20,
+        "true_positive": 20
+      },
+      "per_anomaly_type_metrics": {
+        "mirror_region_obstruction": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        },
+        "sunshield_discoloration": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        },
+        "sunshield_tear_proxy": {
+          "f1": 1.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "support": 10,
+          "true_positive": 10
+        },
+        "truss_occlusion_proxy": {
+          "f1": 0.0,
+          "false_negative": 0,
+          "false_positive": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0,
+          "true_positive": 0
+        }
+      },
+      "support": 40
+    }
+  },
+  "errors": [],
+  "evaluation_splits": [
+    "validation"
+  ],
+  "final_test_evaluated": false,
+  "guardrails": {
+    "condition_specific_error_analysis_reported": true,
+    "dataset_tag": "week8-final-data-v1.0.0",
+    "final_test_evaluated": false,
+    "heldout_reference_used_for_tuning": false,
+    "high_glare_false_alarm_rate_max": 0.25,
+    "high_glare_false_alarm_reported": true,
+    "metadata_used_for_prediction": false,
+    "per_class_iou_reported": true,
+    "public_reference_images_used_for_training": false,
+    "rgb_only_prediction": true,
+    "scene_tag": "scene-final-v1.0.0",
+    "validation_only": true
+  },
+  "high_glare_false_alarm": {
+    "false_alarm_rate": 0.0,
+    "false_alarm_rate_max": 0.25,
+    "false_positive_count": 0,
+    "support": 40
+  },
+  "manifest_path": "datasets/generated/week8_final_dataset/dataset_manifest.json",
+  "scene_tag": "scene-final-v1.0.0",
+  "segmentation": {
+    "miou": 0.2710119654580008,
+    "per_class_iou": {
+      "0": 0.6485339506172839,
+      "1": 0.31482575310100414,
+      "2": 0.47712485799855414,
+      "3": 0.058071328015016424,
+      "4": 0.23001447643557987,
+      "5": 0.24111498257839722,
+      "6": 0.009839089884185713,
+      "7": 0.3908179012345679,
+      "8": 0.1483624289379685,
+      "9": 0.19141488577745025
+    },
+    "pixel_accuracy": 0.3834683641975309,
+    "support_pixels": 51840
+  },
+  "status": "passed",
+  "support_by_renderer": {
+    "rasterized": 120
+  },
+  "support_by_split": {
+    "validation": 120
+  }
+}

@@ -1,10 +1,10 @@
-version: 0.2.0
-status: frozen_week6_dataset_contract_0_2
+version: 1.0.0
+status: frozen_week8_dataset_contract_1_0
 dataset:
   name: jwst-inspect-sample
-  version: 0.2.0
+  version: 1.0.0
   owner: team2_synthetic_data_perception
-  description: metadata-first synthetic inspection dataset contract for JWST-Inspect beta data and perception checks
+  description: metadata-first synthetic inspection dataset contract for JWST-Inspect final train/validation data and locked perception tests
   split_policy:
     train: rasterized_randomized
     validation: rasterized_holdout
@@ -28,7 +28,7 @@ splits:
       - path_traced
     tuning_allowed: true
   final_test:
-    description: held-out path-traced evaluation frames, not populated in Week 1
+    description: held-out path-traced evaluation frame definition locked in Week 8 without generated media exposure
     renderer_modes_allowed:
       - path_traced
     tuning_allowed: false
@@ -60,6 +60,8 @@ media_policy:
   rc_rasterized_media_status: rasterized_rc_synthetic
   rc_path_traced_media_status: path_traced_vast_synced
   rc_path_traced_pending_media_status: path_traced_vast_required
+  final_rasterized_media_status: rasterized_final_synthetic
+  final_test_locked_media_status: final_test_locked_no_media
   placeholder_media_purpose: schema_validation_only_not_replicator_output
   placeholder_formats:
     rgb: png_rgb_8bit
@@ -89,6 +91,14 @@ media_policy:
   week7_rc_dev_test_frame_count: 120
   week7_rc_dev_test_rasterized_frame_count: 60
   week7_rc_dev_test_path_traced_frame_count: 60
+  week8_final_dataset_required: true
+  week8_final_train_validation_media_required: true
+  week8_final_test_media_required: false
+  week8_final_frame_count: 600
+  week8_final_train_frame_count: 480
+  week8_final_validation_frame_count: 120
+  week8_final_test_definition_frame_count: 120
+  week8_final_test_generated_media_count: 0
   max_corrupt_or_blank_frame_fraction: 0.05
 metadata_fields:
   - frame_id
@@ -162,6 +172,7 @@ metadata_schema:
       - static_anomaly_pilot
       - beta_scene_dataset
       - rc_scene_dataset
+      - final_scene_dataset
     required_for_week3_episode_dataset: true
   policy_id:
     type: string
@@ -246,6 +257,9 @@ metadata_schema:
       - rc_train_v0_2_1
       - rc_validation_v0_2_1
       - rc_dev_renderer_pair_v0_2_1
+      - final_train_v1_0
+      - final_validation_v1_0
+      - final_test_lock_v1_0
     required_for_generation_mode: static_randomized
   randomization_factors:
     type: mapping
@@ -296,6 +310,7 @@ metadata_schema:
       - synced
       - not_synced
       - not_applicable
+      - locked_not_generated
     required_for_generation_mode: beta_scene_dataset
 camera_sampling:
   modes:
@@ -363,6 +378,20 @@ guardrails:
   week7_high_glare_control_count_min: 80
   week7_high_glare_false_alarm_rate_max: 0.25
   week7_dev_test_renderer_pair_count_required: 60
+  week8_final_frame_count_required: 600
+  week8_final_train_frame_count_required: 480
+  week8_final_validation_frame_count_required: 120
+  week8_final_test_definition_frame_count_required: 120
+  week8_final_test_generated_media_count_required: 0
+  week8_final_scene_tag_required: scene-final-v1.0.0
+  week8_final_base_scene_tag_required: scene-rc-v0.2.1
+  week8_final_dataset_tag_required: week8-final-data-v1.0.0
+  week8_train_true_anomaly_fraction_max: 0.50
+  week8_eval_true_anomaly_fraction_max: 0.34
+  week8_validation_high_glare_control_count_min: 40
+  week8_final_test_high_glare_control_count_min: 40
+  week8_cross_split_seed_leakage_count_required: 0
+  week8_final_test_training_or_tuning_exposure_count_required: 0
   week3_rollout_join_key:
     - episode_id
     - frame_index
@@ -382,6 +411,7 @@ guardrails:
   week6_official_gpu_run_requires_registry_metadata: true
   week7_path_traced_dev_subset_requires_real_gpu_artifacts: true
   week7_official_gpu_run_requires_registry_metadata: true
+  week8_final_test_lock_only: true
 reference_image_policy:
   official_training_use: prohibited
   validation_use: allowed_with_manifest
@@ -409,6 +439,11 @@ validation:
     - python scripts/validate_week7_rc_dataset.py
     - python scripts/create_week7_contact_sheet.py
     - python scripts/evaluate_week7_perception_error_analysis.py
+    - python scripts/generate_week8_final_dataset.py
+    - python scripts/validate_week8_final_dataset.py
+    - python scripts/validate_week8_final_test_definition.py
+    - python scripts/create_week8_contact_sheet.py
+    - python scripts/evaluate_week8_validation_perception.py
     - python scripts/e2e_local_smoke.py
     - pytest
 downstream_handoff:

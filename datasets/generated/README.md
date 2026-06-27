@@ -16,3 +16,9 @@ rendered the 60 path-traced dev-test RGB frames on a Vast RTX 4090 instance.
 Commit only the configs, validators, reports, and contact sheet; do not commit
 the generated dataset media.
 
+Week 8 final generation writes `datasets/generated/week8_final_dataset/`
+locally. That directory is ignored by Git. The tracked final-test artifact is
+only `validation/final_test/week8_final_perception_test_definition.json`, which
+locks seeds and metadata for 120 held-out path-traced specs. Do not create or
+commit final-test media during Week 8.
+

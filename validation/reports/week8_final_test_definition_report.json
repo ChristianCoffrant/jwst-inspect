@@ -1,0 +1,60 @@
+{
+  "anomaly_counts": {
+    "mirror_region_obstruction": 10,
+    "none": 80,
+    "sunshield_discoloration": 10,
+    "sunshield_tear_proxy": 10,
+    "truss_occlusion_proxy": 10
+  },
+  "base_scene_tag": "scene-rc-v0.2.1",
+  "cross_split_frame_id_overlap_count": 0,
+  "cross_split_seed_overlap_count": 0,
+  "dataset_tag": "week8-final-data-v1.0.0",
+  "definition_id": "week8-final-perception-test-v1.0.0",
+  "definition_path": "validation/final_test/week8_final_perception_test_definition.json",
+  "duplicate_view_count": 0,
+  "duplicate_view_rate": 0.0,
+  "duplicate_view_rate_max": 0.05,
+  "errors": [],
+  "expected_frame_count": 120,
+  "frame_count": 120,
+  "generated_media_count": 0,
+  "guardrails": {
+    "cross_split_frame_id_leakage_count_required": 0,
+    "cross_split_seed_leakage_count_required": 0,
+    "final_test_generated_media_count_required": 0,
+    "final_test_high_glare_control_count_min": 40,
+    "final_test_true_anomaly_fraction_max": 0.34,
+    "lock_only": true,
+    "metadata_completeness_required": 1.0,
+    "training_or_tuning_exposure_count_required": 0
+  },
+  "high_glare_control_count": 40,
+  "lock_policy": {
+    "expose_rgb_depth_or_masks_before_final_eval": false,
+    "final_metrics_allowed_before_release": false,
+    "store_generation_config_and_seeds": true,
+    "training_allowed": false,
+    "tuning_allowed": false
+  },
+  "metadata_completeness": 1.0,
+  "renderer_counts": {
+    "path_traced": 120
+  },
+  "scene_tag": "scene-final-v1.0.0",
+  "split_counts": {
+    "final_test": 120
+  },
+  "status": "passed",
+  "stress_condition_counts": {
+    "mirror_region_obstruction": 10,
+    "nominal_high_glare_false_alarm_control": 40,
+    "paired_no_anomaly_counterpart": 40,
+    "sunshield_discoloration": 10,
+    "sunshield_tear_proxy": 10,
+    "truss_occlusion_proxy": 10
+  },
+  "training_or_tuning_exposure_count": 0,
+  "true_anomaly_count": 40,
+  "true_anomaly_fraction": 0.3333333333333333
+}
