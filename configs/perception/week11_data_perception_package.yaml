@@ -1,0 +1,43 @@
+version: 1.0.0
+package_id: week11-data-perception-package-v1.0.0
+source_lock_id: week10-final-perception-lock-v1.0.0
+dataset_tag: week8-final-data-v1.0.0
+scene_tag: scene-final-v1.0.0
+final_scene_version_identifier: scene-final-v1.0.0+week10-lock
+baseline_type: dependency_free_rgb_heuristic
+week10_lock_path: validation/reports/week10_final_perception_results_lock.json
+week10_table_path: validation/reports/week10_final_perception_table.json
+week10_sample_package_path: validation/final_test/week10_final_sample_dataset_package.json
+week9_failures_path: validation/reports/week9_final_perception_run1_failures.json
+week9_metrics_plot_path: validation/reports/week9_final_perception_run1_metrics.svg
+paper_section_path: docs/paper_data_perception_section.md
+regeneration_guide_path: docs/workstream2_week11_regeneration_guide.md
+execution_doc_path: docs/workstream2_week11_execution.md
+benchmark_card_path: docs/benchmark_card_data_perception_section.md
+data_card_path: docs/data_card.md
+package_manifest_path: validation/reports/week11_data_perception_package.json
+claim_evidence_path: validation/reports/week11_data_perception_claim_evidence.json
+visual_summary_data_path: validation/reports/week11_data_perception_visual_summary.json
+visual_summary_svg_path: validation/reports/week11_data_perception_visual_summary.svg
+regeneration_commands:
+  - python scripts/validate_week10_final_perception_lock.py
+  - python scripts/validate_week9_final_perception_run1.py
+  - python scripts/evaluate_week9_final_perception_run1.py
+  - python scripts/write_week11_data_perception_package.py
+  - python scripts/validate_week11_data_perception_package.py
+  - python scripts/validate_contracts.py
+  - python scripts/validate_dataset.py
+  - python scripts/validate_run_registry.py
+  - python scripts/e2e_local_smoke.py
+guardrails:
+  final_test_training_use_required: 0
+  final_test_tuning_use_required: 0
+  public_reference_training_use_required: 0
+  heldout_reference_tuning_use_required: 0
+  generated_large_media_committed_required: 0
+  renderer_specific_metrics_required: true
+  final_test_failure_must_remain_reported: true
+  failure_examples_must_trace_to_frame_id: true
+  visual_outputs_must_regenerate_from_stored_artifacts: true
+  optional_week11_gpu_spend_usd_max: 0.0
+  new_final_test_metric_changes_allowed: false

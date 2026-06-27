@@ -83,24 +83,24 @@ python -m unittest discover -s tests
 
 ## Current Workstream 2 Gate
 
-The Week 8 Synthetic Data and Perception Benchmark gate freezes dataset schema
-`1.0.0`, generates the final train/validation dataset for
-`scene-final-v1.0.0`, and locks the held-out final path-traced perception test
-without exposing final-test media. The local generator creates 600 rasterized
-train/validation frames under ignored `datasets/generated/` and writes the
-tracked final-test definition to `validation/final_test/`.
+The Week 11 Synthetic Data and Perception Benchmark gate packages the locked
+Team 2 final evidence as `week11-data-perception-package-v1.0.0`. It keeps the
+Week 10 final metric lock, adds the paper data/perception section, regenerates
+small tracked visual summaries from stored artifacts, and documents exact
+regeneration commands. It does not tune on final-test imagery and does not
+commit large generated media.
 
 Run:
 
 ```bash
-python scripts/generate_dummy_dataset.py
-python scripts/generate_week8_final_dataset.py
+python scripts/validate_week10_final_perception_lock.py
+python scripts/write_week11_data_perception_package.py
+python scripts/validate_week11_data_perception_package.py
+python scripts/validate_contracts.py
 python scripts/validate_dataset.py
-python scripts/validate_week8_final_dataset.py
-python scripts/validate_week8_final_test_definition.py
-python scripts/create_week8_contact_sheet.py
-python scripts/evaluate_week8_validation_perception.py
-python -m unittest discover -s tests
+python scripts/validate_run_registry.py
+python scripts/e2e_local_smoke.py
+python -m unittest tests.test_dataset_validation.Week11DataPerceptionPackageTests
 ```
 
 ## Current Workstream 3 Gate

@@ -1,0 +1,90 @@
+{
+  "claim_matrix_id": "week11_data_perception_claim_evidence_v1_0_0",
+  "claims": [
+    {
+      "claim": "The Team 2 final dataset and held-out final-test definition are locked.",
+      "claim_id": "dataset_and_final_test_locked",
+      "evidence": [
+        "validation/reports/week10_final_perception_results_lock.json",
+        "validation/final_test/week10_final_sample_dataset_package.json"
+      ],
+      "status": "supported",
+      "value": {
+        "dataset_tag": "week8-final-data-v1.0.0",
+        "final_test_definition_id": "week8-final-perception-test-v1.0.0"
+      }
+    },
+    {
+      "claim": "Final-test imagery and labels were not used for training or tuning.",
+      "claim_id": "no_final_test_tuning",
+      "evidence": [
+        "validation/reports/week10_final_perception_results_lock.json"
+      ],
+      "status": "supported",
+      "value": {
+        "final_test_training_use": 0,
+        "final_test_tuning_driven_config_changes": 0,
+        "final_test_tuning_use": 0
+      }
+    },
+    {
+      "claim": "Perception metrics are reported separately for rasterized validation and path-traced final test.",
+      "claim_id": "renderer_specific_metrics",
+      "evidence": [
+        "validation/reports/week10_final_perception_table.json"
+      ],
+      "status": "supported",
+      "value": {
+        "final_test_anomaly_f1": 0.0,
+        "final_test_semantic_miou": 0.01629893599285529,
+        "validation_anomaly_f1": 1.0,
+        "validation_semantic_miou": 0.2710119654580008
+      }
+    },
+    {
+      "claim": "The dependency-free RGB heuristic fails to transfer to final path-traced anomaly imagery.",
+      "claim_id": "path_traced_perception_regression",
+      "evidence": [
+        "validation/reports/week10_final_perception_results_lock.json",
+        "validation/reports/week9_final_perception_run1_failures.json"
+      ],
+      "status": "supported",
+      "value": {
+        "final_test_anomaly_f1": 0.0,
+        "final_test_anomaly_recall": 0.0,
+        "semantic_miou_gap": 0.2547130294651455
+      }
+    },
+    {
+      "claim": "Large generated media is not tracked in Git.",
+      "claim_id": "large_generated_media_untracked",
+      "evidence": [
+        "validation/final_test/week10_final_sample_dataset_package.json"
+      ],
+      "status": "supported",
+      "value": {
+        "tracked_generated_media_count": 0,
+        "tracked_sample_frame_count": 24
+      }
+    },
+    {
+      "claim": "Selected failure examples remain tied to frame IDs and metadata paths.",
+      "claim_id": "failure_examples_traceable",
+      "evidence": [
+        "validation/reports/week9_final_perception_run1_failures.json"
+      ],
+      "status": "supported",
+      "value": {
+        "bucket_counts": {
+          "anomaly_type_mismatch": 0,
+          "highest_confidence_false_negative": 8,
+          "highest_confidence_false_positive": 0,
+          "worst_semantic_iou": 8
+        },
+        "example_count": 16
+      }
+    }
+  ],
+  "package_id": "week11-data-perception-package-v1.0.0",
+  "source_lock_id": "week10-final-perception-lock-v1.0.0"
+}

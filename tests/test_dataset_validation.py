@@ -101,6 +101,15 @@ from jwst_inspect.perception.week10_lock import (
     validate_week10_final_perception_config,
     validate_week10_final_perception_lock,
 )
+from jwst_inspect.perception.week11_package import (
+    WEEK11_PACKAGE_ID,
+    build_week11_claim_evidence,
+    build_week11_package_manifest,
+    build_week11_visual_summary,
+    build_week11_visual_svg,
+    validate_week11_data_perception_package,
+    validate_week11_package_config,
+)
 from jwst_inspect.validation.dataset import (
     validate_sample_dataset,
     validate_week5_anomaly_dataset,
@@ -1080,6 +1089,58 @@ class Week10FinalPerceptionLockTests(unittest.TestCase):
         self.assertFalse(sample_package["generated_dataset_references"]["week8_final_train_validation"]["tracked_in_git"])
         self.assertFalse(sample_package["generated_dataset_references"]["week9_final_test_path_traced"]["tracked_in_git"])
         self.assertEqual(sample_package["artifact_policy"]["tracked_generated_media_count"], 0)
+
+
+class Week11DataPerceptionPackageTests(unittest.TestCase):
+    def test_week11_package_config_passes_guardrails(self):
+        self.assertEqual(validate_week11_package_config(ROOT), [])
+
+    def test_week11_package_passes_ship_gates(self):
+        errors, report = validate_week11_data_perception_package(ROOT)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["package_id"], WEEK11_PACKAGE_ID)
+        self.assertEqual(report["guardrails"]["final_test_training_use"], 0)
+        self.assertEqual(report["guardrails"]["final_test_tuning_use"], 0)
+        self.assertEqual(report["guardrails"]["generated_large_media_committed_count"], 0)
+        self.assertTrue(report["guardrails"]["renderer_specific_metrics_reported"])
+        self.assertTrue(report["guardrails"]["final_test_failure_remains_reported"])
+
+    def test_week11_claim_matrix_regenerates_from_locked_artifacts(self):
+        expected = build_week11_claim_evidence(ROOT)
+        path = ROOT / "validation" / "reports" / "week11_data_perception_claim_evidence.json"
+        actual = json.loads(path.read_text(encoding="utf-8"))
+
+        self.assertEqual(actual, expected)
+        self.assertEqual(len(actual["claims"]), 6)
+        self.assertTrue(all(claim["status"] == "supported" for claim in actual["claims"]))
+        failure_claim = next(claim for claim in actual["claims"] if claim["claim_id"] == "path_traced_perception_regression")
+        self.assertEqual(failure_claim["value"]["final_test_anomaly_f1"], 0.0)
+
+    def test_week11_visual_summary_regenerates(self):
+        expected_data = build_week11_visual_summary(ROOT)
+        expected_svg = build_week11_visual_svg(expected_data)
+        data_path = ROOT / "validation" / "reports" / "week11_data_perception_visual_summary.json"
+        svg_path = ROOT / "validation" / "reports" / "week11_data_perception_visual_summary.svg"
+
+        self.assertEqual(json.loads(data_path.read_text(encoding="utf-8")), expected_data)
+        self.assertEqual(svg_path.read_text(encoding="utf-8"), expected_svg)
+        self.assertIn("Week 11 Team 2 Data and Perception Summary", expected_svg)
+        self.assertEqual(expected_data["sample_package"]["tracked_generated_media_count"], 0)
+
+    def test_week11_package_manifest_and_docs_are_consistent(self):
+        expected = build_week11_package_manifest(ROOT)
+        manifest_path = ROOT / "validation" / "reports" / "week11_data_perception_package.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        paper = (ROOT / "docs" / "paper_data_perception_section.md").read_text(encoding="utf-8")
+        guide = (ROOT / "docs" / "workstream2_week11_regeneration_guide.md").read_text(encoding="utf-8")
+
+        self.assertEqual(manifest, expected)
+        self.assertEqual(manifest["status"], "passed")
+        self.assertIn("final-test anomaly F1", (ROOT / "docs" / "data_card.md").read_text(encoding="utf-8"))
+        self.assertIn(WEEK11_PACKAGE_ID, paper)
+        self.assertIn("python scripts/validate_week11_data_perception_package.py", guide)
 
 
 if __name__ == "__main__":

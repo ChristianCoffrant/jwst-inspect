@@ -1,0 +1,105 @@
+{
+  "dataset_tag": "week8-final-data-v1.0.0",
+  "errors": [],
+  "final_test_definition_id": "week8-final-perception-test-v1.0.0",
+  "guardrails": {
+    "failure_examples_trace_to_frame_id": true,
+    "final_test_failure_remains_reported": true,
+    "final_test_training_use": 0,
+    "final_test_tuning_use": 0,
+    "generated_large_media_committed_count": 0,
+    "heldout_reference_tuning_use": 0,
+    "optional_week11_gpu_spend_usd": 0.0,
+    "public_reference_training_use": 0,
+    "renderer_specific_metrics_reported": true
+  },
+  "metric_summary": {
+    "final_test_path_traced": {
+      "anomaly_f1": 0.0,
+      "anomaly_recall": 0.0,
+      "high_glare_false_alarm_rate": 0.0,
+      "semantic_miou": 0.01629893599285529,
+      "semantic_pixel_accuracy": 0.09513888888888888
+    },
+    "validation_rasterized": {
+      "anomaly_f1": 1.0,
+      "anomaly_recall": 1.0,
+      "high_glare_false_alarm_rate": 0.0,
+      "semantic_miou": 0.2710119654580008,
+      "semantic_pixel_accuracy": 0.3834683641975309
+    },
+    "validation_to_final_test_gap": {
+      "anomaly_f1_validation_minus_final_test": 1.0,
+      "anomaly_recall_validation_minus_final_test": 1.0,
+      "semantic_miou_validation_minus_final_test": 0.2547130294651455,
+      "semantic_pixel_accuracy_validation_minus_final_test": 0.288329475308642
+    }
+  },
+  "output_artifacts": {
+    "benchmark_card_section": {
+      "path": "docs/benchmark_card_data_perception_section.md",
+      "sha256": "c2740df069b02743033dd684d8f4e2a939260af0409442caf1337d654d69b37b"
+    },
+    "claim_evidence": {
+      "path": "validation/reports/week11_data_perception_claim_evidence.json",
+      "sha256": "ee68c450761bbacee2915c9c9d05e45df1bb5cd922ba09f15bba0d7ba314d640"
+    },
+    "execution_doc": {
+      "path": "docs/workstream2_week11_execution.md",
+      "sha256": "e53b5a55905b7f1ca4e3b4581268b9b08a6eee8c5658bf5c6f23dfa49bde50dd"
+    },
+    "paper_section": {
+      "path": "docs/paper_data_perception_section.md",
+      "sha256": "407943e1bc2d3764dcd7e65185c858bee2a36bff564ac99afab8b17949519fcb"
+    },
+    "regeneration_guide": {
+      "path": "docs/workstream2_week11_regeneration_guide.md",
+      "sha256": "6f47ed685d76c291e15058b97c2eb7aea75ce8084bdea239ed4e0b8fa4d09c0e"
+    },
+    "visual_summary_data": {
+      "path": "validation/reports/week11_data_perception_visual_summary.json",
+      "sha256": "cb350823d6af59bdf990c12a3e10f344ba300d2c40ec4f3badbbaa659acef541"
+    },
+    "visual_summary_svg": {
+      "path": "validation/reports/week11_data_perception_visual_summary.svg",
+      "sha256": "c70f0b14b3b4f105ef2cbac16aaa3274b536926a4763a0400f9c18ab81cf869e"
+    }
+  },
+  "package_id": "week11-data-perception-package-v1.0.0",
+  "regeneration_commands": [
+    "python scripts/validate_week10_final_perception_lock.py",
+    "python scripts/validate_week9_final_perception_run1.py",
+    "python scripts/evaluate_week9_final_perception_run1.py",
+    "python scripts/write_week11_data_perception_package.py",
+    "python scripts/validate_week11_data_perception_package.py",
+    "python scripts/validate_contracts.py",
+    "python scripts/validate_dataset.py",
+    "python scripts/validate_run_registry.py",
+    "python scripts/e2e_local_smoke.py"
+  ],
+  "scene_tag": "scene-final-v1.0.0",
+  "source_artifacts": {
+    "config": {
+      "path": "configs/perception/week11_data_perception_package.yaml",
+      "sha256": "57cb11c64e50aafd637ca3381d4eabd019a6c1a961b42011aed9111849b05dbc"
+    },
+    "week10_lock": {
+      "path": "validation/reports/week10_final_perception_results_lock.json",
+      "sha256": "5e41256162f0e42dfbab110cd613a2e10465a3f905502abf888986f4f0abb7e1"
+    },
+    "week10_sample_package": {
+      "path": "validation/final_test/week10_final_sample_dataset_package.json",
+      "sha256": "60f949018cf9432f4cbe9ae50b97387e8ea1b2daa66a9a66d8f5e44baf4cf5a1"
+    },
+    "week10_table": {
+      "path": "validation/reports/week10_final_perception_table.json",
+      "sha256": "ca532344193ce1af10b56482f1275fa16fc1acf97b9e97a07eba49693a5727cf"
+    },
+    "week9_failures": {
+      "path": "validation/reports/week9_final_perception_run1_failures.json",
+      "sha256": "323e471495b89b305ea2d342df7f9b28d3fa09d04d8040991d813b376d9afa4c"
+    }
+  },
+  "source_lock_id": "week10-final-perception-lock-v1.0.0",
+  "status": "passed"
+}

@@ -1,0 +1,69 @@
+{
+  "failure_buckets": {
+    "anomaly_type_mismatch": 0,
+    "highest_confidence_false_negative": 8,
+    "highest_confidence_false_positive": 0,
+    "worst_semantic_iou": 8
+  },
+  "guardrail_summary": {
+    "final_test_training_use": 0,
+    "final_test_tuning_use": 0,
+    "generated_large_media_committed_count": 0,
+    "high_glare_false_alarm_rate": 0.0
+  },
+  "metric_rows": [
+    {
+      "anomaly_f1": 1.0,
+      "anomaly_precision": 1.0,
+      "anomaly_recall": 1.0,
+      "condition": "validation_rasterized",
+      "high_glare_false_alarm_rate": 0.0,
+      "renderer_mode": "rasterized",
+      "semantic_miou": 0.2710119654580008,
+      "semantic_pixel_accuracy": 0.3834683641975309,
+      "split": "validation",
+      "support_frames": 120
+    },
+    {
+      "anomaly_f1": 0.0,
+      "anomaly_precision": 0.0,
+      "anomaly_recall": 0.0,
+      "condition": "final_test_path_traced",
+      "high_glare_false_alarm_rate": 0.0,
+      "renderer_mode": "path_traced",
+      "semantic_miou": 0.01629893599285529,
+      "semantic_pixel_accuracy": 0.09513888888888888,
+      "split": "final_test",
+      "support_frames": 120
+    },
+    {
+      "anomaly_f1": 1.0,
+      "anomaly_precision": null,
+      "anomaly_recall": 1.0,
+      "condition": "validation_minus_final_test_gap",
+      "high_glare_false_alarm_rate": 0.0,
+      "renderer_mode": "rasterized_minus_path_traced",
+      "semantic_miou": 0.2547130294651455,
+      "semantic_pixel_accuracy": 0.288329475308642,
+      "split": "validation_minus_final_test",
+      "support_frames": null
+    }
+  ],
+  "package_id": "week11-data-perception-package-v1.0.0",
+  "sample_package": {
+    "package_id": "week10-final-sample-dataset-package-v1.0.0",
+    "tracked_generated_media_count": 0,
+    "tracked_sample_frame_count": 24,
+    "tracked_sample_renderer_counts": {
+      "path_traced": 2,
+      "rasterized": 22
+    },
+    "tracked_sample_split_counts": {
+      "dev_test": 4,
+      "train": 16,
+      "validation": 4
+    }
+  },
+  "source_table": "validation/reports/week10_final_perception_table.json",
+  "visual_summary_id": "week11_data_perception_visual_summary_v1_0_0"
+}

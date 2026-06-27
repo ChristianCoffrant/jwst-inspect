@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360">
+<rect width="920" height="360" fill="#f8fafc"/>
+<text x="36" y="34" font-family="Arial" font-size="22" fill="#102027">Week 11 Team 2 Data and Perception Summary</text>
+<text x="36" y="58" font-family="Arial" font-size="13" fill="#475569">Generated from locked Week 10 artifacts; final-test failure is retained.</text>
+<line x1="80" y1="270" x2="650" y2="270" stroke="#475569" stroke-width="1"/>
+<line x1="80" y1="80" x2="80" y2="270" stroke="#475569" stroke-width="1"/>
+<line x1="76" y1="270.0" x2="80" y2="270.0" stroke="#475569" stroke-width="1"/>
+<text x="36" y="274.0" font-family="Arial" font-size="11" fill="#475569">0.0</text>
+<line x1="76" y1="232.0" x2="80" y2="232.0" stroke="#475569" stroke-width="1"/>
+<text x="36" y="236.0" font-family="Arial" font-size="11" fill="#475569">0.2</text>
+<line x1="76" y1="194.0" x2="80" y2="194.0" stroke="#475569" stroke-width="1"/>
+<text x="36" y="198.0" font-family="Arial" font-size="11" fill="#475569">0.4</text>
+<line x1="76" y1="156.0" x2="80" y2="156.0" stroke="#475569" stroke-width="1"/>
+<text x="36" y="160.0" font-family="Arial" font-size="11" fill="#475569">0.6</text>
+<line x1="76" y1="118.0" x2="80" y2="118.0" stroke="#475569" stroke-width="1"/>
+<text x="36" y="122.0" font-family="Arial" font-size="11" fill="#475569">0.8</text>
+<line x1="76" y1="80.0" x2="80" y2="80.0" stroke="#475569" stroke-width="1"/>
+<text x="36" y="84.0" font-family="Arial" font-size="11" fill="#475569">1.0</text>
+<rect x="105" y="218.5" width="28" height="51.5" fill="#2f6f73"/>
+<rect x="141" y="266.9" width="28" height="3.1" fill="#b14d2e"/>
+<text x="99" y="294" font-family="Arial" font-size="12" fill="#1f2933">mIoU</text>
+<rect x="213" y="197.1" width="28" height="72.9" fill="#2f6f73"/>
+<rect x="249" y="251.9" width="28" height="18.1" fill="#b14d2e"/>
+<text x="207" y="294" font-family="Arial" font-size="12" fill="#1f2933">PixAcc</text>
+<rect x="321" y="80.0" width="28" height="190.0" fill="#2f6f73"/>
+<rect x="357" y="270.0" width="28" height="0.0" fill="#b14d2e"/>
+<text x="315" y="294" font-family="Arial" font-size="12" fill="#1f2933">Anom F1</text>
+<rect x="429" y="80.0" width="28" height="190.0" fill="#2f6f73"/>
+<rect x="465" y="270.0" width="28" height="0.0" fill="#b14d2e"/>
+<text x="423" y="294" font-family="Arial" font-size="12" fill="#1f2933">Recall</text>
+<rect x="537" y="270.0" width="28" height="0.0" fill="#2f6f73"/>
+<rect x="573" y="270.0" width="28" height="0.0" fill="#b14d2e"/>
+<text x="531" y="294" font-family="Arial" font-size="12" fill="#1f2933">Glare FA</text>
+<rect x="690" y="80" width="16" height="10" fill="#2f6f73"/>
+<text x="712" y="89" font-family="Arial" font-size="12" fill="#1f2933">validation rasterized</text>
+<rect x="690" y="102" width="16" height="10" fill="#b14d2e"/>
+<text x="712" y="111" font-family="Arial" font-size="12" fill="#1f2933">final-test path-traced</text>
+<text x="690" y="150" font-family="Arial" font-size="13" fill="#1f2933">Tracked sample frames: 24</text>
+<text x="690" y="174" font-family="Arial" font-size="13" fill="#1f2933">Generated media in Git: 0</text>
+<text x="690" y="198" font-family="Arial" font-size="13" fill="#1f2933">False negatives selected: 8</text>
+<text x="690" y="222" font-family="Arial" font-size="13" fill="#1f2933">Worst IoU examples: 8</text>
+<text x="36" y="334" font-family="Arial" font-size="12" fill="#475569">Guardrail: no final-test tuning; no public-reference training; no large generated media committed.</text>
+</svg>

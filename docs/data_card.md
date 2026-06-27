@@ -245,6 +245,19 @@ final-test controls. This is documented as a final perception transfer failure
 of the baseline, not as a dataset redesign request and not as a reason to tune
 on final-test labels.
 
+## Week 11 Paper and Regeneration Package
+
+Week 11 packages the final Team 2 evidence as
+`week11-data-perception-package-v1.0.0`. The package adds a paper-ready
+data/perception section, regeneration guide, claim-evidence matrix, and final
+visual summary while preserving the Week 10 locked metric values. It makes no
+final-test metric changes and performs no final-test tuning.
+
+The package continues to report final-test anomaly F1 as `0.0` and validation
+anomaly F1 as `1.0`. This is the stated perception-transfer finding: the
+dependency-free RGB heuristic fails under the locked path-traced final-test
+imagery while remaining apparently strong under rasterized validation imagery.
+
 ## Metadata
 
 Every frame must include:
@@ -277,4 +290,6 @@ subsets. Week 8 freezes the final train/validation contract and locks final-test
 metadata, but does not expose final-test media or claim final-test performance.
 Week 10 locks the final Team 2 evidence package and preserves the Week 9
 path-traced final-test failure as reported benchmark evidence.
+Week 11 adds paper and regeneration artifacts, not a new dataset or a new
+perception result.
 None of these artifacts are evidence of real JWST diagnosis capability.
