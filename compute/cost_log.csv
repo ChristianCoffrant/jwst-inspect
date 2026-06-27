@@ -2,3 +2,4 @@ date,team,owner,run_id,gpu_model,hourly_price_usd,start_time,end_time,gpu_hours,
 2026-06-27,workstream1,codex,week8_final_vast_42853129_20260627,NVIDIA GeForce RTX 5090,0.501111,2026-06-27T12:20:05Z,2026-06-27T12:59:29Z,0.657,0.329,"Destroyed Vast instance 42853129 after artifact sync; estimated Week 8 GPU spend stayed under the 5 USD cap."
 2026-06-27,team2_synthetic_data_perception,Codex,vast_week6_team2_20260627_42852996,RTX 4090,0.43,2026-06-27T12:18:43Z,2026-06-27T13:21:16Z,1.043,0.45,"Vast instance 42852996; Isaac Sim 6.0 PathTracing spp=32; 60 synced path-traced RGB frames; instance destroyed after sync."
 
+2026-06-27,workstream1,codex,week9_final_vast_42878885_20260627,NVIDIA GeForce RTX 4090,0.394444,2026-06-27T16:34:07Z,2026-06-27T16:52:48Z,0.311,0.123,"Destroyed Vast instance 42878885 after artifact sync; render runtime 2.25 min; estimated Week 9 GPU spend stayed under the 5 USD cap."

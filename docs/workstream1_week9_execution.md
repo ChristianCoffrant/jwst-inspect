@@ -3,8 +3,8 @@
 ## Scope
 
 Week 9 supports the first final evaluation run. The scene release remains
-`scene-final-v1.0.0` unless a blocking reproducibility or benchmark-validity bug
-requires a minimal bug-fix release.
+`scene-final-v1.0.0`; the final evaluation support pass found no blocking
+reproducibility or benchmark-validity bug requiring `scene-final-v1.0.1`.
 
 Primary artifacts:
 
@@ -22,14 +22,8 @@ Primary artifacts:
 
 Goal: prove current `origin/master` is coherent before adding Week 9 support.
 
-Required baseline:
-
-- Contract validation passes.
-- Scene package validation passes.
-- Reference manifest validation passes.
-- GPU run registry validation passes.
-
-Decision: add Week 9 render-gate metadata only after baseline passes.
+Result: contract, scene, reference manifest, and GPU run registry validators
+passed before adding Week 9 support.
 
 ### Iteration 2: Final Evaluation Matrix
 
@@ -42,34 +36,30 @@ Required matrix:
 - `degraded_low_light`: degraded / low_light_cold_side
 - `anomaly_mixed_stress`: anomaly_test / mixed_stress
 
-Each condition requires 3 fixed cameras x 2 renderer modes.
-
-Decision: run GPU only after all 24 manifest rows are paired and valid.
+Each condition includes 3 fixed cameras x 2 renderer modes for 24 total render
+artifacts.
 
 ### Iteration 3: GPU Evidence
 
 Goal: run the final evaluation render pack on Vast.ai/Isaac Sim under the
 authorized spend cap.
 
-Required process:
-
-- Use the committed Week 9 render config.
-- Sync PNGs and metadata to `validation/renders/week9_final_eval/...`.
-- Build one contact sheet.
-- Update the gate manifest, run registry, cost log, and report.
-- Destroy the Vast instance after artifact sync.
+Result: Vast instance `42878885` rendered 24 PNGs with Isaac Sim 5.1.0,
+synced artifacts to `validation/renders/week9_final_eval/vast_42878885_20260627`, generated one contact sheet,
+updated the gate manifest, recorded `week9_final_vast_42878885_20260627` in the GPU registry, and was
+destroyed after artifact sync.
 
 ## Ship Gates
 
 | Gate | Metric | Status |
 | --- | --- | --- |
-| Scene release tag | `scene-final-v1.0.0` | Pending GPU gate |
-| Final evaluation conditions | 4 required conditions | Pending GPU gate |
-| Final render pack | 24 renders | Pending GPU gate |
-| Contact sheet | 1 synced contact sheet | Pending GPU gate |
-| Successful GPU registry row | status `success`, sync `synced` | Pending GPU gate |
+| Scene release tag | `scene-final-v1.0.0` | Pass |
+| Final evaluation conditions | 4 required conditions | Pass |
+| Final render pack | 24 renders | Pass |
+| Contact sheet | 1 synced contact sheet | Pass |
+| Successful GPU registry row | status `success`, sync `synced` | Pass |
 | Generated or large artifacts committed | 0 | Pass |
-| Vast.ai spend | <5 USD | Pending GPU gate |
+| Vast.ai spend | <5 USD | Pass (`0.123` USD) |
 
 ## Guardrail Metrics
 
@@ -84,6 +74,8 @@ Required process:
 | Held-out reference tuning count | 0 | 0 |
 | Public reference training use count | 0 | 0 |
 | Generated render artifacts committed | 0 | 0 |
+| Blank or near-constant renders | 0 | 0 |
+| Duplicate render hashes | 0 | 0 |
 
 ## Validation Commands
 

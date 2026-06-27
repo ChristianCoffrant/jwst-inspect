@@ -31,27 +31,27 @@ guardrails:
   coverage_region_changes_allowed: false
   heldout_reference_tuning_allowed: false
 evaluation_render_matrix:
-  - condition_id: nominal_clean
-    material_variant: nominal
-    lighting_variant: nominal_sun_key
-    required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
-    required_renderer_modes: rasterized;path_traced
-    status: pending_gpu_run
-  - condition_id: high_glare_edge
-    material_variant: high_glare
-    lighting_variant: high_glare_edge
-    required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
-    required_renderer_modes: rasterized;path_traced
-    status: pending_gpu_run
-  - condition_id: degraded_low_light
-    material_variant: degraded
-    lighting_variant: low_light_cold_side
-    required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
-    required_renderer_modes: rasterized;path_traced
-    status: pending_gpu_run
-  - condition_id: anomaly_mixed_stress
-    material_variant: anomaly_test
-    lighting_variant: mixed_stress
-    required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
-    required_renderer_modes: rasterized;path_traced
-    status: pending_gpu_run
+- condition_id: nominal_clean
+  material_variant: nominal
+  lighting_variant: nominal_sun_key
+  required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
+  required_renderer_modes: rasterized;path_traced
+  status: completed
+- condition_id: high_glare_edge
+  material_variant: high_glare
+  lighting_variant: high_glare_edge
+  required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
+  required_renderer_modes: rasterized;path_traced
+  status: completed
+- condition_id: degraded_low_light
+  material_variant: degraded
+  lighting_variant: low_light_cold_side
+  required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
+  required_renderer_modes: rasterized;path_traced
+  status: completed
+- condition_id: anomaly_mixed_stress
+  material_variant: anomaly_test
+  lighting_variant: mixed_stress
+  required_cameras: mirror_inspection_fixed;sunshield_survey_fixed;approach_standoff_overview
+  required_renderer_modes: rasterized;path_traced
+  status: completed

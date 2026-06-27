@@ -1,19 +1,19 @@
 version: 1.0.0
-gate_status: pending_gpu_run
+gate_status: passed
 scene_final_tag: scene-final-v1.0.0
 scene_release_tag: scene-final-v1.0.0
 render_config: configs/renderers/week9_final_evaluation_support.yaml
 vast_template: configs/vast/x090_template.yaml
 vast_template_hash: 7125e3b864680d268e915aa0c32cac84
-run_registry_id: pending_week9_gpu_run
-artifact_sync_status: not_synced
-artifact_root: validation/renders/week9_final_eval/pending_week9_gpu_run
-contact_sheet_path: validation/renders/week9_final_eval/pending_week9_gpu_run/week9_final_eval_contact_sheet.png
-contact_sheet_sha256: pending_gpu_run
+run_registry_id: week9_final_vast_42878885_20260627
+artifact_sync_status: synced
+artifact_root: validation/renders/week9_final_eval/vast_42878885_20260627
+contact_sheet_path: validation/renders/week9_final_eval/vast_42878885_20260627/week9_final_eval_contact_sheet.png
+contact_sheet_sha256: 256157931f743853cc045b7da061c5a570ae158149eecc9a45eef1a40733e498
 required_render_count: 24
-actual_render_count: 0
+actual_render_count: 24
 required_contact_sheet_count: 1
-actual_contact_sheet_count: 0
+actual_contact_sheet_count: 1
 generated_outputs_tracked_in_git: false
 fabricated_gpu_renders_allowed: false
 scene_bugfix_release_required: false
@@ -24,23 +24,322 @@ metric_definition_changes: 0
 heldout_reference_tuning_count: 0
 public_reference_training_use_count: 0
 renderer_modes:
-  - rasterized
-  - path_traced
+- rasterized
+- path_traced
 required_cameras:
-  - mirror_inspection_fixed
-  - sunshield_survey_fixed
-  - approach_standoff_overview
+- mirror_inspection_fixed
+- sunshield_survey_fixed
+- approach_standoff_overview
 evaluation_conditions:
-  - condition_id: nominal_clean
-    material_variant: nominal
-    lighting_variant: nominal_sun_key
-  - condition_id: high_glare_edge
-    material_variant: high_glare
-    lighting_variant: high_glare_edge
-  - condition_id: degraded_low_light
-    material_variant: degraded
-    lighting_variant: low_light_cold_side
-  - condition_id: anomaly_mixed_stress
-    material_variant: anomaly_test
-    lighting_variant: mixed_stress
-artifacts: []
+- condition_id: nominal_clean
+  material_variant: nominal
+  lighting_variant: nominal_sun_key
+- condition_id: high_glare_edge
+  material_variant: high_glare
+  lighting_variant: high_glare_edge
+- condition_id: degraded_low_light
+  material_variant: degraded
+  lighting_variant: low_light_cold_side
+- condition_id: anomaly_mixed_stress
+  material_variant: anomaly_test
+  lighting_variant: mixed_stress
+artifacts:
+- render_id: render_week9_eval_anomaly_mixed_stress_approach_standoff_overview_path_traced_v1
+  condition_id: anomaly_mixed_stress
+  camera_id: approach_standoff_overview
+  renderer_mode: path_traced
+  material_variant: anomaly_test
+  lighting_variant: mixed_stress
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/anomaly_mixed_stress/render_week9_eval_anomaly_mixed_stress_approach_standoff_overview_path_traced_v1.png
+  sha256: 0cacca91967dbc125d157016ef24e5254c70b45252afafc9c54a433c74fcd015
+  bytes: 15574
+  variance_rgb_mean: 28.926
+  min_rgb: 130
+  max_rgb: 151
+- render_id: render_week9_eval_anomaly_mixed_stress_approach_standoff_overview_rasterized_v1
+  condition_id: anomaly_mixed_stress
+  camera_id: approach_standoff_overview
+  renderer_mode: rasterized
+  material_variant: anomaly_test
+  lighting_variant: mixed_stress
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/anomaly_mixed_stress/render_week9_eval_anomaly_mixed_stress_approach_standoff_overview_rasterized_v1.png
+  sha256: 8598c7fac58ff2ebc17ed6f643fafc1b2c857e00c4f77309f797b6a8af314416
+  bytes: 65311
+  variance_rgb_mean: 29.217
+  min_rgb: 126
+  max_rgb: 151
+- render_id: render_week9_eval_anomaly_mixed_stress_mirror_inspection_fixed_path_traced_v1
+  condition_id: anomaly_mixed_stress
+  camera_id: mirror_inspection_fixed
+  renderer_mode: path_traced
+  material_variant: anomaly_test
+  lighting_variant: mixed_stress
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/anomaly_mixed_stress/render_week9_eval_anomaly_mixed_stress_mirror_inspection_fixed_path_traced_v1.png
+  sha256: 69e03d4a788067360d5e4df1518834a8427159a72d89b66cc5c4bec26f758d31
+  bytes: 25724
+  variance_rgb_mean: 315.514
+  min_rgb: 0
+  max_rgb: 169
+- render_id: render_week9_eval_anomaly_mixed_stress_mirror_inspection_fixed_rasterized_v1
+  condition_id: anomaly_mixed_stress
+  camera_id: mirror_inspection_fixed
+  renderer_mode: rasterized
+  material_variant: anomaly_test
+  lighting_variant: mixed_stress
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/anomaly_mixed_stress/render_week9_eval_anomaly_mixed_stress_mirror_inspection_fixed_rasterized_v1.png
+  sha256: 5a077e2a3fea129ff10dd9e8db3037b5b2b1def3d414d382c43451fbc9a424d2
+  bytes: 25584
+  variance_rgb_mean: 315.355
+  min_rgb: 0
+  max_rgb: 169
+- render_id: render_week9_eval_anomaly_mixed_stress_sunshield_survey_fixed_path_traced_v1
+  condition_id: anomaly_mixed_stress
+  camera_id: sunshield_survey_fixed
+  renderer_mode: path_traced
+  material_variant: anomaly_test
+  lighting_variant: mixed_stress
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/anomaly_mixed_stress/render_week9_eval_anomaly_mixed_stress_sunshield_survey_fixed_path_traced_v1.png
+  sha256: 7a1ed58c965ba813793d97a9140138d3d0a0f88fd0f109efe361bd842b4387f7
+  bytes: 15971
+  variance_rgb_mean: 1495.192
+  min_rgb: 0
+  max_rgb: 117
+- render_id: render_week9_eval_anomaly_mixed_stress_sunshield_survey_fixed_rasterized_v1
+  condition_id: anomaly_mixed_stress
+  camera_id: sunshield_survey_fixed
+  renderer_mode: rasterized
+  material_variant: anomaly_test
+  lighting_variant: mixed_stress
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/anomaly_mixed_stress/render_week9_eval_anomaly_mixed_stress_sunshield_survey_fixed_rasterized_v1.png
+  sha256: e63a6794ac2d603c8365868f63584cc06e9403b3811e32cd528399f0b4cfdc63
+  bytes: 82147
+  variance_rgb_mean: 1467.989
+  min_rgb: 0
+  max_rgb: 117
+- render_id: render_week9_eval_degraded_low_light_approach_standoff_overview_path_traced_v1
+  condition_id: degraded_low_light
+  camera_id: approach_standoff_overview
+  renderer_mode: path_traced
+  material_variant: degraded
+  lighting_variant: low_light_cold_side
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/degraded_low_light/render_week9_eval_degraded_low_light_approach_standoff_overview_path_traced_v1.png
+  sha256: c3772b7602b2612e16005db97df50e3bf3f7266141b8abcb5959a2639a671aa9
+  bytes: 14539
+  variance_rgb_mean: 4.107
+  min_rgb: 24
+  max_rgb: 32
+- render_id: render_week9_eval_degraded_low_light_approach_standoff_overview_rasterized_v1
+  condition_id: degraded_low_light
+  camera_id: approach_standoff_overview
+  renderer_mode: rasterized
+  material_variant: degraded
+  lighting_variant: low_light_cold_side
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/degraded_low_light/render_week9_eval_degraded_low_light_approach_standoff_overview_rasterized_v1.png
+  sha256: ae2f5c65a183a7dc4761fbb3d0a18c95f25004b0b896bdd4f55b3c7c8c1e278f
+  bytes: 36555
+  variance_rgb_mean: 4.077
+  min_rgb: 23
+  max_rgb: 32
+- render_id: render_week9_eval_degraded_low_light_mirror_inspection_fixed_path_traced_v1
+  condition_id: degraded_low_light
+  camera_id: mirror_inspection_fixed
+  renderer_mode: path_traced
+  material_variant: degraded
+  lighting_variant: low_light_cold_side
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/degraded_low_light/render_week9_eval_degraded_low_light_mirror_inspection_fixed_path_traced_v1.png
+  sha256: 7ee7c53875466422d7a1456ba15f9848df11241e1aa8d5eca4ae2e7b259f668f
+  bytes: 27503
+  variance_rgb_mean: 293.192
+  min_rgb: 0
+  max_rgb: 169
+- render_id: render_week9_eval_degraded_low_light_mirror_inspection_fixed_rasterized_v1
+  condition_id: degraded_low_light
+  camera_id: mirror_inspection_fixed
+  renderer_mode: rasterized
+  material_variant: degraded
+  lighting_variant: low_light_cold_side
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/degraded_low_light/render_week9_eval_degraded_low_light_mirror_inspection_fixed_rasterized_v1.png
+  sha256: c1e0700c29b4a59c0573c964c6cf847b90239b8954461203ba745879a192228a
+  bytes: 27675
+  variance_rgb_mean: 288.453
+  min_rgb: 0
+  max_rgb: 169
+- render_id: render_week9_eval_degraded_low_light_sunshield_survey_fixed_path_traced_v1
+  condition_id: degraded_low_light
+  camera_id: sunshield_survey_fixed
+  renderer_mode: path_traced
+  material_variant: degraded
+  lighting_variant: low_light_cold_side
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/degraded_low_light/render_week9_eval_degraded_low_light_sunshield_survey_fixed_path_traced_v1.png
+  sha256: 3c7b0c5eb22c19ccb8836a15110cd38c11f596c6b09e75db276bac4d59a7791b
+  bytes: 13337
+  variance_rgb_mean: 40.669
+  min_rgb: 0
+  max_rgb: 20
+- render_id: render_week9_eval_degraded_low_light_sunshield_survey_fixed_rasterized_v1
+  condition_id: degraded_low_light
+  camera_id: sunshield_survey_fixed
+  renderer_mode: rasterized
+  material_variant: degraded
+  lighting_variant: low_light_cold_side
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/degraded_low_light/render_week9_eval_degraded_low_light_sunshield_survey_fixed_rasterized_v1.png
+  sha256: c67de2aab132321e38e7210444d961bbdc998956370780e53f1a07f69bb0057a
+  bytes: 22528
+  variance_rgb_mean: 39.555
+  min_rgb: 0
+  max_rgb: 20
+- render_id: render_week9_eval_high_glare_edge_approach_standoff_overview_path_traced_v1
+  condition_id: high_glare_edge
+  camera_id: approach_standoff_overview
+  renderer_mode: path_traced
+  material_variant: high_glare
+  lighting_variant: high_glare_edge
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/high_glare_edge/render_week9_eval_high_glare_edge_approach_standoff_overview_path_traced_v1.png
+  sha256: 2a0f728cad3b2d94ceebf196b656389961109a9d07cec3367ce5c4a9bf203256
+  bytes: 15188
+  variance_rgb_mean: 22.883
+  min_rgb: 167
+  max_rgb: 186
+- render_id: render_week9_eval_high_glare_edge_approach_standoff_overview_rasterized_v1
+  condition_id: high_glare_edge
+  camera_id: approach_standoff_overview
+  renderer_mode: rasterized
+  material_variant: high_glare
+  lighting_variant: high_glare_edge
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/high_glare_edge/render_week9_eval_high_glare_edge_approach_standoff_overview_rasterized_v1.png
+  sha256: 3a8c70cd11c460ea33cae2012efc6985cc8e68eeb28a18c36af157457f27c0bf
+  bytes: 52446
+  variance_rgb_mean: 23.094
+  min_rgb: 164
+  max_rgb: 186
+- render_id: render_week9_eval_high_glare_edge_mirror_inspection_fixed_path_traced_v1
+  condition_id: high_glare_edge
+  camera_id: mirror_inspection_fixed
+  renderer_mode: path_traced
+  material_variant: high_glare
+  lighting_variant: high_glare_edge
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/high_glare_edge/render_week9_eval_high_glare_edge_mirror_inspection_fixed_path_traced_v1.png
+  sha256: 0d234f36c7cebcde3d197b01d4e729cfdfc01531d4a56c1ad285540068d7b660
+  bytes: 29552
+  variance_rgb_mean: 232.659
+  min_rgb: 0
+  max_rgb: 169
+- render_id: render_week9_eval_high_glare_edge_mirror_inspection_fixed_rasterized_v1
+  condition_id: high_glare_edge
+  camera_id: mirror_inspection_fixed
+  renderer_mode: rasterized
+  material_variant: high_glare
+  lighting_variant: high_glare_edge
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/high_glare_edge/render_week9_eval_high_glare_edge_mirror_inspection_fixed_rasterized_v1.png
+  sha256: 4e77b6099750a84aced74965808f0370aea20f102294cc92caf58d2798c48809
+  bytes: 29907
+  variance_rgb_mean: 217.924
+  min_rgb: 0
+  max_rgb: 169
+- render_id: render_week9_eval_high_glare_edge_sunshield_survey_fixed_path_traced_v1
+  condition_id: high_glare_edge
+  camera_id: sunshield_survey_fixed
+  renderer_mode: path_traced
+  material_variant: high_glare
+  lighting_variant: high_glare_edge
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/high_glare_edge/render_week9_eval_high_glare_edge_sunshield_survey_fixed_path_traced_v1.png
+  sha256: b1031a8d4cf898dc51a9a69fce6a35150fca6585005e5d1b444e83ea62457623
+  bytes: 16652
+  variance_rgb_mean: 2673.287
+  min_rgb: 0
+  max_rgb: 155
+- render_id: render_week9_eval_high_glare_edge_sunshield_survey_fixed_rasterized_v1
+  condition_id: high_glare_edge
+  camera_id: sunshield_survey_fixed
+  renderer_mode: rasterized
+  material_variant: high_glare
+  lighting_variant: high_glare_edge
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/high_glare_edge/render_week9_eval_high_glare_edge_sunshield_survey_fixed_rasterized_v1.png
+  sha256: bac4748b2c480e07f1199b181e41011ff4cdb60f9ca8db74aad95c11995385c3
+  bytes: 94107
+  variance_rgb_mean: 2634.722
+  min_rgb: 0
+  max_rgb: 154
+- render_id: render_week9_eval_nominal_clean_approach_standoff_overview_path_traced_v1
+  condition_id: nominal_clean
+  camera_id: approach_standoff_overview
+  renderer_mode: path_traced
+  material_variant: nominal
+  lighting_variant: nominal_sun_key
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/nominal_clean/render_week9_eval_nominal_clean_approach_standoff_overview_path_traced_v1.png
+  sha256: 96a969691d10c9ee00783ba34a07b515ab0c3a97497cd8afaef840668b5fb201
+  bytes: 15915
+  variance_rgb_mean: 27.67
+  min_rgb: 107
+  max_rgb: 127
+- render_id: render_week9_eval_nominal_clean_approach_standoff_overview_rasterized_v1
+  condition_id: nominal_clean
+  camera_id: approach_standoff_overview
+  renderer_mode: rasterized
+  material_variant: nominal
+  lighting_variant: nominal_sun_key
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/nominal_clean/render_week9_eval_nominal_clean_approach_standoff_overview_rasterized_v1.png
+  sha256: cf4e15a1a8f42a86696fc4376a8f6b10f9af90f9dc8607a828a6d085c9d1275f
+  bytes: 61613
+  variance_rgb_mean: 27.657
+  min_rgb: 103
+  max_rgb: 127
+- render_id: render_week9_eval_nominal_clean_mirror_inspection_fixed_path_traced_v1
+  condition_id: nominal_clean
+  camera_id: mirror_inspection_fixed
+  renderer_mode: path_traced
+  material_variant: nominal
+  lighting_variant: nominal_sun_key
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/nominal_clean/render_week9_eval_nominal_clean_mirror_inspection_fixed_path_traced_v1.png
+  sha256: 7fc8dec817b645fa3d2b8bacbfad9f4fcbe270e4dbc1299259a384243115c3a7
+  bytes: 28816
+  variance_rgb_mean: 84.812
+  min_rgb: 0
+  max_rgb: 142
+- render_id: render_week9_eval_nominal_clean_mirror_inspection_fixed_rasterized_v1
+  condition_id: nominal_clean
+  camera_id: mirror_inspection_fixed
+  renderer_mode: rasterized
+  material_variant: nominal
+  lighting_variant: nominal_sun_key
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/nominal_clean/render_week9_eval_nominal_clean_mirror_inspection_fixed_rasterized_v1.png
+  sha256: f43f580a1bf3a8879f5ebc9960bc25cc9352dd694f7e31f83807c3455d2aa457
+  bytes: 26938
+  variance_rgb_mean: 50.095
+  min_rgb: 0
+  max_rgb: 123
+- render_id: render_week9_eval_nominal_clean_sunshield_survey_fixed_path_traced_v1
+  condition_id: nominal_clean
+  camera_id: sunshield_survey_fixed
+  renderer_mode: path_traced
+  material_variant: nominal
+  lighting_variant: nominal_sun_key
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/nominal_clean/render_week9_eval_nominal_clean_sunshield_survey_fixed_path_traced_v1.png
+  sha256: c3209d8c00702da8d5acfb5e2c05916c13c819e6a3293ca898d9e0897ee1ff28
+  bytes: 15575
+  variance_rgb_mean: 958.966
+  min_rgb: 0
+  max_rgb: 95
+- render_id: render_week9_eval_nominal_clean_sunshield_survey_fixed_rasterized_v1
+  condition_id: nominal_clean
+  camera_id: sunshield_survey_fixed
+  renderer_mode: rasterized
+  material_variant: nominal
+  lighting_variant: nominal_sun_key
+  path: validation/renders/week9_final_eval/vast_42878885_20260627/renders/nominal_clean/render_week9_eval_nominal_clean_sunshield_survey_fixed_rasterized_v1.png
+  sha256: 8308595c8dd4df5cd93864d6e71496070b9f164e25b262f272d0cbdedf4017b3
+  bytes: 204845
+  variance_rgb_mean: 942.769
+  min_rgb: 0
+  max_rgb: 100
+render_metadata_path: validation/renders/week9_final_eval/vast_42878885_20260627/render_metadata.json
+contact_sheet_bytes: 125524
+vast_instance_id: 42878885
+vast_hourly_price_usd: 0.394444
+vast_runtime_minutes: 18.68
+estimated_vast_cost_usd: 0.123
+render_start_utc: '2026-06-27T16:47:33Z'
+render_end_utc: '2026-06-27T16:49:48Z'
+render_runtime_minutes: 2.25
+blank_or_corrupt_render_count: 0
+duplicate_render_hash_count: 0
