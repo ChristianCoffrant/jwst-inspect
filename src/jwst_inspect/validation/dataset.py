@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import csv
+import shutil
+import tempfile
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -69,6 +71,8 @@ from jwst_inspect.data.week6_beta_dataset import (
     WEEK6_HIGH_GLARE_CONTROL_COUNT,
     WEEK6_PATH_TRACED_MEDIA_STATUS,
     WEEK6_RASTER_MEDIA_STATUS,
+    WEEK6_RENDER_CONFIG,
+    WEEK6_RENDER_CONFIG_ID,
     WEEK6_SCENE_TAG,
     WEEK6_TRAIN_ANOMALY_FRAME_COUNT,
     WEEK6_TRAIN_FRAME_COUNT,
@@ -77,6 +81,29 @@ from jwst_inspect.data.week6_beta_dataset import (
     WEEK6_VALIDATION_FRAME_COUNT,
     WEEK6_VALIDATION_PROFILE,
     validate_week6_beta_config,
+)
+from jwst_inspect.data.week7_rc_dataset import (
+    WEEK7_CONFIG,
+    WEEK7_DATASET_DIR,
+    WEEK7_DATASET_PHASE,
+    WEEK7_DATASET_TAG,
+    WEEK7_DEV_PROFILE,
+    WEEK7_DEV_TEST_FRAME_COUNT,
+    WEEK7_DEV_TEST_PATH_TRACED_FRAME_COUNT,
+    WEEK7_DEV_TEST_RASTERIZED_FRAME_COUNT,
+    WEEK7_DEV_TEST_RENDERER_PAIR_COUNT,
+    WEEK7_FRAME_COUNT,
+    WEEK7_GENERATION_MODE,
+    WEEK7_HIGH_GLARE_CONTROL_COUNT,
+    WEEK7_PATH_TRACED_MEDIA_STATUS,
+    WEEK7_RASTER_MEDIA_STATUS,
+    WEEK7_RENDER_CONFIG_ID,
+    WEEK7_SCENE_TAG,
+    WEEK7_TRAIN_FRAME_COUNT,
+    WEEK7_TRAIN_PROFILE,
+    WEEK7_VALIDATION_FRAME_COUNT,
+    WEEK7_VALIDATION_PROFILE,
+    validate_week7_rc_config,
 )
 
 
@@ -132,6 +159,8 @@ WEEK6_REQUIRED_METADATA_FIELDS: tuple[str, ...] = (
     "gpu_run_id",
     "artifact_sync_status",
 )
+
+WEEK7_REQUIRED_METADATA_FIELDS: tuple[str, ...] = WEEK6_REQUIRED_METADATA_FIELDS
 
 
 def _as_string_key_map(mapping: dict[Any, Any]) -> dict[str, str]:
@@ -2458,6 +2487,422 @@ def write_week6_validation_report(
     return output_path, errors
 
 
+_WEEK7_TO_WEEK6_VALIDATION_REPLACEMENTS: tuple[tuple[str, str], ...] = (
+    (WEEK7_DATASET_PHASE, "week6_beta_dataset"),
+    (WEEK7_GENERATION_MODE, WEEK6_GENERATION_MODE),
+    (WEEK7_SCENE_TAG, WEEK6_SCENE_TAG),
+    (WEEK7_DATASET_TAG, WEEK6_DATASET_TAG),
+    (WEEK7_RENDER_CONFIG_ID, WEEK6_RENDER_CONFIG_ID),
+    (WEEK7_CONFIG.as_posix(), WEEK6_CONFIG.as_posix()),
+    ("configs/renderers/week7_rc_validation.yaml", WEEK6_RENDER_CONFIG.as_posix()),
+    (WEEK7_TRAIN_PROFILE, WEEK6_TRAIN_PROFILE),
+    (WEEK7_VALIDATION_PROFILE, WEEK6_VALIDATION_PROFILE),
+    (WEEK7_DEV_PROFILE, WEEK6_DEV_PROFILE),
+    (WEEK7_RASTER_MEDIA_STATUS, WEEK6_RASTER_MEDIA_STATUS),
+)
+
+_GPU_REGISTRY_REQUIRED_COLUMNS: tuple[str, ...] = (
+    "run_id",
+    "date",
+    "team",
+    "owner",
+    "git_commit",
+    "scene_tag",
+    "dataset_tag",
+    "policy_tag",
+    "config_path",
+    "gpu_model",
+    "gpu_vram_gb",
+    "hourly_price_usd",
+    "rental_type",
+    "runtime_minutes",
+    "setup_minutes",
+    "artifact_sync_status",
+    "status",
+    "notes",
+)
+
+_WEEK7_CORE_REPORT_CACHE: dict[tuple[str, str, int, int], tuple[list[str], dict[str, Any]]] = {}
+
+
+def _tree_mtime_ns(path: Path) -> int:
+    if not path.exists():
+        return 0
+    latest = path.stat().st_mtime_ns
+    for child in path.rglob("*"):
+        if child.is_file():
+            latest = max(latest, child.stat().st_mtime_ns)
+    return latest
+
+
+def _week7_to_week6_validation_value(value: Any) -> Any:
+    if isinstance(value, str):
+        rewritten = value
+        for old, new in _WEEK7_TO_WEEK6_VALIDATION_REPLACEMENTS:
+            rewritten = rewritten.replace(old, new)
+        return rewritten
+    if isinstance(value, list):
+        return [_week7_to_week6_validation_value(item) for item in value]
+    if isinstance(value, dict):
+        return {
+            _week7_to_week6_validation_value(key): _week7_to_week6_validation_value(item)
+            for key, item in value.items()
+        }
+    return value
+
+
+def _write_week7_core_registry_as_week6(source_path: Path, output_path: Path) -> None:
+    if not source_path.exists():
+        output_path.write_text(",".join(_GPU_REGISTRY_REQUIRED_COLUMNS) + "\n", encoding="utf-8")
+        return
+    with source_path.open(newline="", encoding="utf-8") as source:
+        reader = csv.DictReader(source)
+        fieldnames = reader.fieldnames or list(_GPU_REGISTRY_REQUIRED_COLUMNS)
+        rows = [_week7_to_week6_validation_value(row) for row in reader]
+    with output_path.open("w", newline="", encoding="utf-8") as output:
+        writer = csv.DictWriter(output, fieldnames=fieldnames)
+        writer.writeheader()
+        for row in rows:
+            writer.writerow(row)
+
+
+def _week7_core_week6_report(
+    root_path: Path,
+    sample_path: Path,
+    registry_file: Path,
+) -> tuple[list[str], dict[str, Any]]:
+    cache_key = (
+        str(sample_path.resolve()),
+        str(registry_file.resolve()),
+        _tree_mtime_ns(sample_path),
+        registry_file.stat().st_mtime_ns if registry_file.exists() else 0,
+    )
+    if cache_key in _WEEK7_CORE_REPORT_CACHE:
+        cached_errors, cached_report = _WEEK7_CORE_REPORT_CACHE[cache_key]
+        return list(cached_errors), json.loads(json.dumps(cached_report))
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        temp_root = Path(tmpdir)
+        temp_dataset = temp_root / "week7_rc_as_week6_beta"
+        shutil.copytree(sample_path, temp_dataset)
+        for path in temp_dataset.rglob("*.json"):
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            path.write_text(
+                json.dumps(_week7_to_week6_validation_value(payload), indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+        temp_registry = temp_root / "gpu_run_registry.csv"
+        _write_week7_core_registry_as_week6(registry_file, temp_registry)
+        errors, report = validate_week6_beta_dataset_with_report(root_path, temp_dataset, temp_registry)
+        _WEEK7_CORE_REPORT_CACHE[cache_key] = (list(errors), json.loads(json.dumps(report)))
+        return errors, report
+
+
+def _week7_registry_errors(
+    frame_id: str,
+    metadata: dict[str, Any],
+    registry_rows: dict[str, dict[str, str]],
+) -> list[str]:
+    gpu_run_id = metadata.get("gpu_run_id")
+    if not isinstance(gpu_run_id, str) or not gpu_run_id:
+        return [f"{frame_id}: path_traced frame requires gpu_run_id"]
+    row = registry_rows.get(gpu_run_id)
+    if row is None:
+        return [f"{frame_id}: gpu_run_id {gpu_run_id!r} is missing from compute/gpu_run_registry.csv"]
+
+    errors: list[str] = []
+    if row.get("team") != "team2_synthetic_data_perception":
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} must belong to team2_synthetic_data_perception")
+    if row.get("scene_tag") != WEEK7_SCENE_TAG:
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} scene_tag must be {WEEK7_SCENE_TAG!r}")
+    if row.get("dataset_tag") != WEEK7_DATASET_TAG:
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} dataset_tag must be {WEEK7_DATASET_TAG!r}")
+    if row.get("config_path") != WEEK7_CONFIG.as_posix():
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} config_path must be {WEEK7_CONFIG.as_posix()!r}")
+    try:
+        gpu_vram_gb = float(row.get("gpu_vram_gb", "0"))
+    except ValueError:
+        gpu_vram_gb = 0.0
+    if gpu_vram_gb < 24.0:
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} must record at least 24 GB VRAM")
+    if row.get("artifact_sync_status") != "synced":
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} artifact_sync_status must be synced")
+    if row.get("status") != "success":
+        errors.append(f"{frame_id}: gpu run {gpu_run_id!r} status must be success")
+    return errors
+
+
+def validate_week7_rc_dataset_with_report(
+    root: Path | str = ".",
+    dataset_dir: Path | str | None = None,
+    registry_path: Path | str | None = None,
+) -> tuple[list[str], dict[str, Any]]:
+    root_path = Path(root)
+    sample_path = Path(dataset_dir) if dataset_dir is not None else root_path / WEEK7_DATASET_DIR
+    manifest_path = sample_path / "dataset_manifest.json"
+    registry_file = Path(registry_path) if registry_path is not None else root_path / "compute" / "gpu_run_registry.csv"
+    errors: list[str] = []
+
+    errors.extend(validate_week7_rc_config(root_path))
+    manifest, manifest_errors = _load_manifest(manifest_path)
+    errors.extend(manifest_errors)
+    registry_rows, registry_errors = _gpu_registry_rows(registry_file)
+    errors.extend(registry_errors)
+    if manifest is None:
+        report = {
+            "status": "failed",
+            "dataset_phase": WEEK7_DATASET_PHASE,
+            "manifest_path": _relative_posix(manifest_path, root_path),
+            "errors": errors,
+        }
+        return errors, report
+
+    frames = manifest.get("frames")
+    if not isinstance(frames, list) or not frames:
+        errors.append(f"{manifest_path}: frames must be a non-empty list")
+        frames = []
+    if len(frames) != WEEK7_FRAME_COUNT:
+        errors.append(f"{manifest_path}: Week 7 RC dataset must include exactly {WEEK7_FRAME_COUNT} frames")
+    if manifest.get("dataset_phase") != WEEK7_DATASET_PHASE:
+        errors.append(f"{manifest_path}: dataset_phase must be {WEEK7_DATASET_PHASE!r}")
+    if manifest.get("generation_mode") != WEEK7_GENERATION_MODE:
+        errors.append(f"{manifest_path}: generation_mode must be {WEEK7_GENERATION_MODE!r}")
+    if manifest.get("scene_tag") != WEEK7_SCENE_TAG:
+        errors.append(f"{manifest_path}: scene_tag must be {WEEK7_SCENE_TAG!r}")
+    if manifest.get("dataset_tag") != WEEK7_DATASET_TAG:
+        errors.append(f"{manifest_path}: dataset_tag must be {WEEK7_DATASET_TAG!r}")
+    if manifest.get("render_config_id") != WEEK7_RENDER_CONFIG_ID:
+        errors.append(f"{manifest_path}: render_config_id must be {WEEK7_RENDER_CONFIG_ID!r}")
+
+    profile_by_split = {
+        "train": WEEK7_TRAIN_PROFILE,
+        "validation": WEEK7_VALIDATION_PROFILE,
+        "dev_test": WEEK7_DEV_PROFILE,
+    }
+    complete_rc_metadata_count = 0
+    path_traced_frame_count = 0
+    path_traced_gpu_metadata_count = 0
+    path_traced_synced_artifact_count = 0
+    path_traced_blank_or_corrupt_count = 0
+
+    for index, frame_record in enumerate(frames):
+        if not isinstance(frame_record, dict):
+            errors.append(f"{manifest_path}: frame record {index} must be a mapping")
+            continue
+        metadata_relpath = frame_record.get("metadata_path")
+        if not isinstance(metadata_relpath, str):
+            errors.append(f"{manifest_path}: frame record {index} missing metadata_path")
+            continue
+        metadata_path = sample_path / metadata_relpath
+        if not metadata_path.exists():
+            errors.append(f"{metadata_path}: missing metadata file")
+            continue
+        try:
+            metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            errors.append(f"{metadata_path}: cannot parse metadata JSON: {exc}")
+            continue
+
+        frame_id = str(metadata.get("frame_id"))
+        metadata_errors: list[str] = []
+        for field in WEEK7_REQUIRED_METADATA_FIELDS:
+            if field not in metadata:
+                metadata_errors.append(f"{frame_id}: missing Week 7 RC metadata field {field!r}")
+        if metadata.get("generation_mode") != WEEK7_GENERATION_MODE:
+            metadata_errors.append(f"{frame_id}: generation_mode must be {WEEK7_GENERATION_MODE!r}")
+        if metadata.get("scene_tag") != WEEK7_SCENE_TAG:
+            metadata_errors.append(f"{frame_id}: scene_tag must be {WEEK7_SCENE_TAG!r}")
+        if metadata.get("dataset_tag") != WEEK7_DATASET_TAG:
+            metadata_errors.append(f"{frame_id}: dataset_tag must be {WEEK7_DATASET_TAG!r}")
+        if metadata.get("render_config_id") != WEEK7_RENDER_CONFIG_ID:
+            metadata_errors.append(f"{frame_id}: render_config_id must be {WEEK7_RENDER_CONFIG_ID!r}")
+        split = str(metadata.get("split"))
+        renderer_mode = str(metadata.get("renderer_mode"))
+        expected_profile = profile_by_split.get(split)
+        if expected_profile is None:
+            metadata_errors.append(f"{frame_id}: split must be train, validation, or dev_test")
+        elif metadata.get("randomization_profile") != expected_profile:
+            metadata_errors.append(f"{frame_id}: randomization_profile must be {expected_profile!r}")
+        if split != "dev_test" and renderer_mode != "rasterized":
+            metadata_errors.append(f"{frame_id}: train and validation frames must be rasterized")
+        if renderer_mode == "path_traced":
+            path_traced_frame_count += 1
+            if metadata.get("media_status") != WEEK7_PATH_TRACED_MEDIA_STATUS:
+                metadata_errors.append(
+                    f"{frame_id}: path_traced frames must have media_status {WEEK7_PATH_TRACED_MEDIA_STATUS!r}"
+                )
+            if metadata.get("artifact_sync_status") != "synced":
+                metadata_errors.append(f"{frame_id}: path_traced frames require artifact_sync_status synced")
+            registry_check_errors = _week7_registry_errors(frame_id, metadata, registry_rows)
+            metadata_errors.extend(registry_check_errors)
+            if not registry_check_errors and metadata.get("artifact_sync_status") == "synced":
+                path_traced_gpu_metadata_count += 1
+            try:
+                if _is_blank_week5_media(sample_path, metadata):
+                    path_traced_blank_or_corrupt_count += 1
+            except Exception as exc:
+                path_traced_blank_or_corrupt_count += 1
+                metadata_errors.append(f"{frame_id}: cannot inspect path-traced blank/corrupt guardrail: {exc}")
+        else:
+            if metadata.get("media_status") != WEEK7_RASTER_MEDIA_STATUS:
+                metadata_errors.append(
+                    f"{frame_id}: rasterized frames must have media_status {WEEK7_RASTER_MEDIA_STATUS!r}"
+                )
+            if metadata.get("artifact_sync_status") != "not_applicable":
+                metadata_errors.append(f"{frame_id}: rasterized frames require artifact_sync_status not_applicable")
+            if metadata.get("gpu_run_id") is not None:
+                metadata_errors.append(f"{frame_id}: rasterized frames must have null gpu_run_id")
+
+        for key in (
+            "frame_id",
+            "split",
+            "seed",
+            "generation_mode",
+            "randomization_profile",
+            "target_region",
+            "renderer_mode",
+            "renderer_pair_id",
+            "material_variant",
+            "lighting_condition",
+            "anomaly_type",
+            "anomaly_is_present",
+            "stress_condition_id",
+            "counterpart_frame_id",
+            "scene_tag",
+            "dataset_tag",
+            "render_config_id",
+            "gpu_run_id",
+            "artifact_sync_status",
+            "media_status",
+        ):
+            metadata_errors.extend(_frame_record_value(frame_record, metadata, key))
+        metadata_errors.extend(_week6_reference_usage_errors(metadata, frame_id))
+
+        if renderer_mode == "path_traced" and not metadata_errors:
+            path_traced_synced_artifact_count += 1
+        if not metadata_errors:
+            complete_rc_metadata_count += 1
+        errors.extend(f"{metadata_path}: {error}" for error in metadata_errors)
+
+    core_report: dict[str, Any] = {}
+    if not errors:
+        core_errors, core_report = _week7_core_week6_report(root_path, sample_path, registry_file)
+        errors.extend(f"Week 7 RC inherited Week 6 gate: {error}" for error in core_errors)
+
+    metadata_completeness = core_report.get("metadata_completeness", 0.0)
+    media_completeness = core_report.get("media_completeness", 0.0)
+    rc_metadata_completeness = complete_rc_metadata_count / len(frames) if frames else 0.0
+    path_traced_gpu_metadata_completeness = (
+        path_traced_gpu_metadata_count / path_traced_frame_count if path_traced_frame_count else 0.0
+    )
+    path_traced_synced_artifact_fraction = (
+        path_traced_synced_artifact_count / path_traced_frame_count if path_traced_frame_count else 0.0
+    )
+    if rc_metadata_completeness < 1.0:
+        errors.append(f"{manifest_path}: RC metadata completeness is {complete_rc_metadata_count}/{len(frames)}, expected 100%")
+    if path_traced_gpu_metadata_completeness < 1.0:
+        errors.append(
+            f"{manifest_path}: path-traced GPU metadata completeness is "
+            f"{path_traced_gpu_metadata_count}/{path_traced_frame_count}, expected 100%"
+        )
+    if path_traced_synced_artifact_fraction < 1.0:
+        errors.append(
+            f"{manifest_path}: path-traced synced artifact fraction is "
+            f"{path_traced_synced_artifact_count}/{path_traced_frame_count}, expected 100%"
+        )
+    if path_traced_blank_or_corrupt_count > 0:
+        errors.append(
+            f"{manifest_path}: path-traced blank/corrupt frame count is "
+            f"{path_traced_blank_or_corrupt_count}, expected 0"
+        )
+
+    report = {
+        "status": "failed" if errors else "passed",
+        "dataset_phase": WEEK7_DATASET_PHASE,
+        "generation_mode": manifest.get("generation_mode"),
+        "manifest_path": _relative_posix(manifest_path, root_path),
+        "scene_tag": manifest.get("scene_tag"),
+        "base_scene_tag": manifest.get("base_scene_tag"),
+        "dataset_tag": manifest.get("dataset_tag"),
+        "render_config_id": manifest.get("render_config_id"),
+        "frame_count": len(frames),
+        "expected_frame_count": WEEK7_FRAME_COUNT,
+        "metadata_completeness": metadata_completeness,
+        "rc_metadata_completeness": rc_metadata_completeness,
+        "media_completeness": media_completeness,
+        "path_traced_gpu_metadata_completeness": path_traced_gpu_metadata_completeness,
+        "path_traced_synced_artifact_fraction": path_traced_synced_artifact_fraction,
+        "path_traced_blank_or_corrupt_count": path_traced_blank_or_corrupt_count,
+        "path_traced_blank_or_corrupt_count_max": 0,
+        "counterpart_coverage": core_report.get("counterpart_coverage"),
+        "corrupt_or_blank_frame_count": core_report.get("corrupt_or_blank_frame_count"),
+        "corrupt_or_blank_fraction": core_report.get("corrupt_or_blank_fraction"),
+        "max_corrupt_or_blank_fraction": core_report.get("max_corrupt_or_blank_fraction"),
+        "duplicate_view_count": core_report.get("duplicate_view_count"),
+        "duplicate_view_rate": core_report.get("duplicate_view_rate"),
+        "duplicate_view_rate_max": core_report.get("duplicate_view_rate_max"),
+        "split_counts": core_report.get("split_counts", {}),
+        "renderer_counts": core_report.get("renderer_counts", {}),
+        "renderer_counts_by_split": core_report.get("renderer_counts_by_split", {}),
+        "profile_counts": core_report.get("profile_counts", {}),
+        "anomaly_counts": core_report.get("anomaly_counts", {}),
+        "anomaly_counts_by_split": core_report.get("anomaly_counts_by_split", {}),
+        "true_anomaly_counts_by_split": core_report.get("true_anomaly_counts_by_split", {}),
+        "true_anomaly_fraction_by_split": core_report.get("true_anomaly_fraction_by_split", {}),
+        "stress_condition_counts": core_report.get("stress_condition_counts", {}),
+        "high_glare_control_counts": core_report.get("high_glare_control_counts", {}),
+        "renderer_pair_count": core_report.get("renderer_pair_count"),
+        "path_traced_frame_count": path_traced_frame_count,
+        "path_traced_gpu_metadata_count": path_traced_gpu_metadata_count,
+        "path_traced_synced_artifact_count": path_traced_synced_artifact_count,
+        "class_coverage": core_report.get("class_coverage", {}),
+        "class_coverage_by_renderer": core_report.get("class_coverage_by_renderer", {}),
+        "guardrails": {
+            "schema_version_remains_frozen": True,
+            "scene_rc_tag_required": WEEK7_SCENE_TAG,
+            "base_scene_tag_required": WEEK6_SCENE_TAG,
+            "metadata_completeness_required": 1.0,
+            "media_completeness_required": 1.0,
+            "path_traced_blank_or_corrupt_count_max": 0,
+            "high_glare_control_count_min": WEEK7_HIGH_GLARE_CONTROL_COUNT,
+            "path_traced_dev_subset_requires_real_gpu_artifacts": True,
+            "official_gpu_run_requires_registry_metadata": True,
+            "public_reference_images_used_for_training": False,
+            "heldout_reference_used_for_tuning": False,
+            "large_generated_outputs_committed": False,
+        },
+        "errors": errors,
+    }
+    return errors, report
+
+
+def validate_week7_rc_dataset(
+    root: Path | str = ".",
+    dataset_dir: Path | str | None = None,
+    registry_path: Path | str | None = None,
+) -> list[str]:
+    errors, _ = validate_week7_rc_dataset_with_report(root, dataset_dir, registry_path)
+    return errors
+
+
+def write_week7_validation_report(
+    root: Path | str = ".",
+    dataset_dir: Path | str | None = None,
+    report_path: Path | str | None = None,
+    registry_path: Path | str | None = None,
+) -> tuple[Path, list[str]]:
+    root_path = Path(root)
+    sample_path = Path(dataset_dir) if dataset_dir is not None else root_path / WEEK7_DATASET_DIR
+    errors, report = validate_week7_rc_dataset_with_report(root_path, sample_path, registry_path)
+    output_path = Path(report_path) if report_path is not None else sample_path / "validation_report.json"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return output_path, errors
+
+
 def validate_dataset_package(root: Path | str = ".") -> list[str]:
     root_path = Path(root)
     errors: list[str] = []
@@ -2471,4 +2916,6 @@ def validate_dataset_package(root: Path | str = ".") -> list[str]:
         errors.extend(validate_week5_anomaly_dataset(root_path))
     if (root_path / WEEK6_DATASET_DIR / "dataset_manifest.json").exists():
         errors.extend(validate_week6_beta_dataset(root_path))
+    if (root_path / WEEK7_DATASET_DIR / "dataset_manifest.json").exists():
+        errors.extend(validate_week7_rc_dataset(root_path))
     return errors

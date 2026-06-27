@@ -4,7 +4,8 @@
 
 JWST-Inspect synthetic sample dataset.
 
-Current version: `0.2.0` Week 6 beta dataset contract.
+Current version: `0.2.0` frozen dataset contract with Week 7 release-candidate
+dataset aliases.
 
 ## Data Sources
 
@@ -15,7 +16,10 @@ adds 600 deterministic rasterized proxy frames generated from
 `replicator/randomization.yaml`. The Week 5 pilot adds 720 deterministic
 anomaly/no-anomaly proxy frames generated from `replicator/anomaly_catalog.yaml`.
 The Week 6 beta dataset adds a 720-frame `scene-beta-v0.2.0` package with a
-required 60-frame path-traced dev-test subset.
+required 60-frame path-traced dev-test subset. The Week 7 release-candidate
+dataset keeps the same split and schema shape, retags the package to
+`scene-rc-v0.2.1` / `week7-rc-data-v0.2.1`, and requires a fresh x090/Vast
+path-traced dev-test RGB subset.
 
 The Week 2 and Week 3 tracked samples include tiny placeholder RGB, depth,
 semantic mask, and instance mask files so validators can check media paths,
@@ -28,6 +32,10 @@ baseline report, and contact sheet. Week 6 generated frame media also remains
 outside git; the path-traced subset is accepted only after x090/Isaac outputs
 are synced and recorded in the GPU run registry. The accepted Week 6 run is
 `vast_week6_team2_20260627_42852996` on a Vast RTX 4090 instance.
+Week 7 generated frame media also remains outside git. The accepted Week 7 run
+is `vast_week7_team2_20260627_42866053` on a Vast RTX 4090 instance; it synced
+60 path-traced RGB frames with zero blank/low-unique images and an estimated
+spend of about $0.09 under the $5 cap.
 
 Future rendered samples will be generated from the JWST-Inspect benchmark scene.
 Public JWST images are reference validation material only and are excluded from
@@ -55,6 +63,14 @@ path-traced frames are accepted only when media, `gpu_run_id`, and synced
 run-registry metadata are present. The current synced path-traced RGB subset was
 rendered with Isaac Sim 6.0 PathTracing at `spp=32`; depth and mask artifacts
 remain deterministic contract proxy labels.
+
+The Week 7 release-candidate dataset keeps the same 480/120/120 split sizes and
+renderer-paired `dev_test` layout. The accepted validation report records 720
+frames, 480 train, 120 validation, 120 dev_test, 60 path-traced dev-test RGB
+frames, true anomaly fractions of 0.50/0.333/0.333, 80 high-glare controls,
+100% metadata/media/GPU metadata completeness, 100% path-traced sync, 1.0
+counterpart coverage, 0.0 duplicate-view rate, and zero path-traced blank or
+corrupt frames.
 
 ## Sample Media
 
@@ -127,6 +143,24 @@ perception R2P gap separately for rasterized and path-traced dev-test frames.
 It does not run unless the dataset validator accepts the required GPU-backed
 path-traced subset.
 
+## Week 7 RC Metadata and Error Analysis
+
+Week 7 RC frames use the same frozen metadata fields as Week 6, with RC values:
+
+- `scene_tag`: `scene-rc-v0.2.1`
+- `dataset_tag`: `week7-rc-data-v0.2.1`
+- `generation_mode`: `rc_scene_dataset`
+- `render_config_id`: `week7_rc_validation_v0_2_1`
+- RC randomization profiles for train, validation, and dev_test
+
+The Week 7 perception error-analysis report evaluates only accepted dev-test
+frames and reports renderer-separated semantic mIoU/per-class IoU, anomaly
+precision/recall/F1, high-glare false-alarm rate, material/lighting/region
+slices, anomaly-type slices, and failure examples tied to frame IDs and metadata
+paths. The accepted report has 60 rasterized and 60 path-traced frames, zero
+high-glare false alarms for both renderers, and no public-reference training or
+held-out tuning.
+
 ## Metadata
 
 Every frame must include:
@@ -153,6 +187,7 @@ Synthetic anomalies are benchmark stressors, not claims about real JWST faults.
 Week 2 and Week 3 placeholder samples are contract-validation artifacts. The
 Week 4 pilot is a local rasterized proxy for data-interface and guardrail
 validation. The Week 5 anomaly pilot and baseline are local rasterized proxies
-for stressor bookkeeping and evaluation reporting. Week 6 combines local
-contract proxy labels with a synced x090/Isaac path-traced RGB dev-test subset.
+for stressor bookkeeping and evaluation reporting. Week 6 and Week 7 combine
+local contract proxy labels with synced x090/Isaac path-traced RGB dev-test
+subsets.
 None of these artifacts are evidence of real JWST diagnosis capability.

@@ -24,6 +24,7 @@ The shared research goal is to measure renderer-to-policy transfer: whether insp
 - Workstream 2 Week 1 execution log: `docs/workstream2_week1_execution.md`
 - Workstream 2 Week 2 execution log: `docs/workstream2_week2_execution.md`
 - Workstream 2 Week 6 execution log: `docs/workstream2_week6_execution.md`
+- Workstream 2 Week 7 execution log: `docs/workstream2_week7_execution.md`
 - Workstream 3 Week 1 execution log: `docs/workstream3_week1_execution.md`
 - Execution plan: `outputs/capstone_proposals/04_12_week_execution_plan_15_person_team.md`
 - Contracts: `contracts/`
@@ -62,22 +63,23 @@ python -m unittest discover -s tests
 
 ## Current Workstream 2 Gate
 
-The Week 6 Synthetic Data and Perception Benchmark gate freezes dataset schema
-`0.2.0` and adds a beta dataset/perception scaffold for `scene-beta-v0.2.0`.
-The local generator creates rasterized media and renderer-paired path-traced
-dev-test rows. The official Week 6 gate is satisfied by synced Vast/Isaac RGB
-artifacts recorded as `vast_week6_team2_20260627_42852996` in the GPU run
-registry.
+The Week 7 Synthetic Data and Perception Benchmark gate keeps frozen dataset
+schema `0.2.0` and adds a release-candidate dataset/perception scaffold for
+`scene-rc-v0.2.1`. The local generator creates rasterized media,
+renderer-paired dev-test rows, and deterministic labels/depth. The official
+Week 7 gate is satisfied by synced Vast/Isaac RGB artifacts recorded as
+`vast_week7_team2_20260627_42866053` in the GPU run registry.
 
 Run:
 
 ```bash
 python scripts/generate_dummy_dataset.py
-python scripts/generate_week6_beta_dataset.py
-python scripts/render_week6_isaac_path_traced_rgb.py --stage usd/jwst_inspect_root.usd --frames <path-frame-json> --output-root datasets/generated/week6_beta_dataset --scratch-dir <scratch>
+python scripts/generate_week7_rc_dataset.py --materialize-path-traced-artifacts --gpu-run-id vast_week7_team2_20260627_42866053
+python scripts/render_week6_isaac_path_traced_rgb.py --stage usd/jwst_inspect_root.usd --frames <path-frame-json> --output-root datasets/generated/week7_rc_dataset --scratch-dir <scratch>
 python scripts/validate_dataset.py
-python scripts/validate_week6_beta_dataset.py
-python scripts/evaluate_week6_perception_baseline.py
+python scripts/validate_week7_rc_dataset.py
+python scripts/create_week7_contact_sheet.py
+python scripts/evaluate_week7_perception_error_analysis.py
 python -m unittest discover -s tests
 ```
 

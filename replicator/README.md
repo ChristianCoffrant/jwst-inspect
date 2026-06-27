@@ -75,3 +75,26 @@ The Week 6 final gate is GPU-required. The official Week 6 run
 `vast_week6_team2_20260627_42852996` rendered the 60 path-traced dev-test RGB
 frames on a Vast RTX 4090 instance and recorded the synced run in
 `compute/gpu_run_registry.csv`.
+
+## Week 7 Status
+
+The current Team 2 artifact adds the release-candidate dataset and perception
+error-analysis gate for `scene-rc-v0.2.1`:
+
+- `configs/replicator/week7_rc_dataset.yaml` defines dataset tag
+  `week7-rc-data-v0.2.1` while keeping schema version `0.2.0`.
+- `scripts/generate_week7_rc_dataset.py` writes a 720-frame scaffold to
+  `datasets/generated/week7_rc_dataset/`.
+- `scripts/validate_week7_rc_dataset.py` enforces RC tags, renderer pairing,
+  synced GPU metadata, zero blank path-traced frames, anomaly balance,
+  metadata/media completeness, and public-reference exclusion.
+- `scripts/evaluate_week7_perception_error_analysis.py` reports
+  renderer-separated semantic/anomaly metrics plus slices by anomaly type,
+  material variant, lighting condition, target region, and high-glare controls.
+- `scripts/create_week7_contact_sheet.py` writes tracked visual QA evidence
+  under `validation/reports/`.
+
+The Week 7 final gate is GPU-required. The official run
+`vast_week7_team2_20260627_42866053` rendered the 60 path-traced dev-test RGB
+frames on a Vast RTX 4090 instance at `spp=32`, synced the artifacts locally,
+and recorded the run in `compute/gpu_run_registry.csv`.

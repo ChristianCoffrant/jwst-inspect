@@ -1,0 +1,202 @@
+{
+  "anomaly_counts": {
+    "mirror_region_obstruction": 80,
+    "none": 400,
+    "sunshield_discoloration": 80,
+    "sunshield_tear_proxy": 80,
+    "truss_occlusion_proxy": 80
+  },
+  "anomaly_counts_by_split": {
+    "dev_test": {
+      "mirror_region_obstruction": 10,
+      "none": 80,
+      "sunshield_discoloration": 10,
+      "sunshield_tear_proxy": 10,
+      "truss_occlusion_proxy": 10
+    },
+    "train": {
+      "mirror_region_obstruction": 60,
+      "none": 240,
+      "sunshield_discoloration": 60,
+      "sunshield_tear_proxy": 60,
+      "truss_occlusion_proxy": 60
+    },
+    "validation": {
+      "mirror_region_obstruction": 10,
+      "none": 80,
+      "sunshield_discoloration": 10,
+      "sunshield_tear_proxy": 10,
+      "truss_occlusion_proxy": 10
+    }
+  },
+  "base_scene_tag": "scene-beta-v0.2.0",
+  "class_coverage": {
+    "dev_test": {
+      "missing_label_ids": [],
+      "per_class_pixel_counts": {
+        "0": 5184,
+        "1": 5184,
+        "2": 5184,
+        "3": 5184,
+        "4": 5184,
+        "5": 5184,
+        "6": 5184,
+        "7": 5184,
+        "8": 5184,
+        "9": 5184
+      }
+    },
+    "train": {
+      "missing_label_ids": [],
+      "per_class_pixel_counts": {
+        "0": 27396,
+        "1": 12576,
+        "2": 12588,
+        "3": 20016,
+        "4": 20004,
+        "5": 27408,
+        "6": 5184,
+        "7": 27396,
+        "8": 27396,
+        "9": 27396
+      }
+    },
+    "validation": {
+      "missing_label_ids": [],
+      "per_class_pixel_counts": {
+        "0": 5184,
+        "1": 5184,
+        "2": 5184,
+        "3": 5184,
+        "4": 5184,
+        "5": 5184,
+        "6": 5184,
+        "7": 5184,
+        "8": 5184,
+        "9": 5184
+      }
+    }
+  },
+  "class_coverage_by_renderer": {
+    "path_traced": {
+      "missing_label_ids": [],
+      "per_class_pixel_counts": {
+        "0": 2592,
+        "1": 2592,
+        "2": 2592,
+        "3": 2592,
+        "4": 2592,
+        "5": 2592,
+        "6": 2592,
+        "7": 2592,
+        "8": 2592,
+        "9": 2592
+      }
+    },
+    "rasterized": {
+      "missing_label_ids": [],
+      "per_class_pixel_counts": {
+        "0": 35172,
+        "1": 20352,
+        "2": 20364,
+        "3": 27792,
+        "4": 27780,
+        "5": 35184,
+        "6": 12960,
+        "7": 35172,
+        "8": 35172,
+        "9": 35172
+      }
+    }
+  },
+  "corrupt_or_blank_fraction": 0.0,
+  "corrupt_or_blank_frame_count": 0,
+  "counterpart_coverage": 1.0,
+  "dataset_phase": "week7_rc_dataset",
+  "dataset_tag": "week7-rc-data-v0.2.1",
+  "duplicate_view_count": 0,
+  "duplicate_view_rate": 0.0,
+  "duplicate_view_rate_max": 0.05,
+  "errors": [],
+  "expected_frame_count": 720,
+  "frame_count": 720,
+  "generation_mode": "rc_scene_dataset",
+  "guardrails": {
+    "base_scene_tag_required": "scene-beta-v0.2.0",
+    "heldout_reference_used_for_tuning": false,
+    "high_glare_control_count_min": 80,
+    "large_generated_outputs_committed": false,
+    "media_completeness_required": 1.0,
+    "metadata_completeness_required": 1.0,
+    "official_gpu_run_requires_registry_metadata": true,
+    "path_traced_blank_or_corrupt_count_max": 0,
+    "path_traced_dev_subset_requires_real_gpu_artifacts": true,
+    "public_reference_images_used_for_training": false,
+    "scene_rc_tag_required": "scene-rc-v0.2.1",
+    "schema_version_remains_frozen": true
+  },
+  "high_glare_control_counts": {
+    "dev_test": 40,
+    "validation": 40
+  },
+  "manifest_path": "datasets/generated/week7_rc_dataset/dataset_manifest.json",
+  "max_corrupt_or_blank_fraction": 0.05,
+  "media_completeness": 1.0,
+  "metadata_completeness": 1.0,
+  "path_traced_blank_or_corrupt_count": 0,
+  "path_traced_blank_or_corrupt_count_max": 0,
+  "path_traced_frame_count": 60,
+  "path_traced_gpu_metadata_completeness": 1.0,
+  "path_traced_gpu_metadata_count": 60,
+  "path_traced_synced_artifact_count": 60,
+  "path_traced_synced_artifact_fraction": 1.0,
+  "profile_counts": {
+    "beta_dev_renderer_pair_v0_2": 120,
+    "beta_train_v0_2": 480,
+    "beta_validation_v0_2": 120
+  },
+  "rc_metadata_completeness": 1.0,
+  "render_config_id": "week7_rc_validation_v0_2_1",
+  "renderer_counts": {
+    "path_traced": 60,
+    "rasterized": 660
+  },
+  "renderer_counts_by_split": {
+    "dev_test": {
+      "path_traced": 60,
+      "rasterized": 60
+    },
+    "train": {
+      "rasterized": 480
+    },
+    "validation": {
+      "rasterized": 120
+    }
+  },
+  "renderer_pair_count": 60,
+  "scene_tag": "scene-rc-v0.2.1",
+  "split_counts": {
+    "dev_test": 120,
+    "train": 480,
+    "validation": 120
+  },
+  "status": "passed",
+  "stress_condition_counts": {
+    "mirror_region_obstruction": 80,
+    "nominal_high_glare_false_alarm_control": 80,
+    "paired_no_anomaly_counterpart": 320,
+    "sunshield_discoloration": 80,
+    "sunshield_tear_proxy": 80,
+    "truss_occlusion_proxy": 80
+  },
+  "true_anomaly_counts_by_split": {
+    "dev_test": 40,
+    "train": 240,
+    "validation": 40
+  },
+  "true_anomaly_fraction_by_split": {
+    "dev_test": 0.3333333333333333,
+    "train": 0.5,
+    "validation": 0.3333333333333333
+  }
+}

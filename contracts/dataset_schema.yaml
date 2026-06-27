@@ -57,6 +57,9 @@ media_policy:
   beta_rasterized_media_status: rasterized_beta_synthetic
   beta_path_traced_media_status: path_traced_vast_synced
   beta_path_traced_pending_media_status: path_traced_vast_required
+  rc_rasterized_media_status: rasterized_rc_synthetic
+  rc_path_traced_media_status: path_traced_vast_synced
+  rc_path_traced_pending_media_status: path_traced_vast_required
   placeholder_media_purpose: schema_validation_only_not_replicator_output
   placeholder_formats:
     rgb: png_rgb_8bit
@@ -80,6 +83,12 @@ media_policy:
   week6_beta_dev_test_frame_count: 120
   week6_beta_dev_test_rasterized_frame_count: 60
   week6_beta_dev_test_path_traced_frame_count: 60
+  week7_rc_frame_count: 720
+  week7_rc_train_frame_count: 480
+  week7_rc_validation_frame_count: 120
+  week7_rc_dev_test_frame_count: 120
+  week7_rc_dev_test_rasterized_frame_count: 60
+  week7_rc_dev_test_path_traced_frame_count: 60
   max_corrupt_or_blank_frame_fraction: 0.05
 metadata_fields:
   - frame_id
@@ -152,6 +161,7 @@ metadata_schema:
       - static_randomized
       - static_anomaly_pilot
       - beta_scene_dataset
+      - rc_scene_dataset
     required_for_week3_episode_dataset: true
   policy_id:
     type: string
@@ -233,6 +243,9 @@ metadata_schema:
       - beta_train_v0_2
       - beta_validation_v0_2
       - beta_dev_renderer_pair_v0_2
+      - rc_train_v0_2_1
+      - rc_validation_v0_2_1
+      - rc_dev_renderer_pair_v0_2_1
     required_for_generation_mode: static_randomized
   randomization_factors:
     type: mapping
@@ -333,6 +346,23 @@ guardrails:
   week6_high_glare_control_count_min: 80
   week6_high_glare_false_alarm_rate_max: 0.25
   week6_dev_test_renderer_pair_count_required: 60
+  week7_rc_frame_count_required: 720
+  week7_rc_train_frame_count_required: 480
+  week7_rc_validation_frame_count_required: 120
+  week7_rc_dev_test_frame_count_required: 120
+  week7_rc_dev_test_rasterized_frame_count_required: 60
+  week7_rc_dev_test_path_traced_frame_count_required: 60
+  week7_rc_scene_tag_required: scene-rc-v0.2.1
+  week7_rc_base_scene_tag_required: scene-beta-v0.2.0
+  week7_rc_dataset_tag_required: week7-rc-data-v0.2.1
+  week7_path_traced_gpu_metadata_completeness_required: 1.0
+  week7_path_traced_synced_artifact_fraction_required: 1.0
+  week7_path_traced_blank_or_corrupt_count_max: 0
+  week7_train_true_anomaly_fraction_max: 0.50
+  week7_eval_true_anomaly_fraction_max: 0.34
+  week7_high_glare_control_count_min: 80
+  week7_high_glare_false_alarm_rate_max: 0.25
+  week7_dev_test_renderer_pair_count_required: 60
   week3_rollout_join_key:
     - episode_id
     - frame_index
@@ -350,6 +380,8 @@ guardrails:
   anomaly_prevalence_reporting_required: true
   week6_path_traced_dev_subset_requires_real_gpu_artifacts: true
   week6_official_gpu_run_requires_registry_metadata: true
+  week7_path_traced_dev_subset_requires_real_gpu_artifacts: true
+  week7_official_gpu_run_requires_registry_metadata: true
 reference_image_policy:
   official_training_use: prohibited
   validation_use: allowed_with_manifest
@@ -373,6 +405,10 @@ validation:
     - python scripts/validate_week6_beta_dataset.py
     - python scripts/create_week6_contact_sheet.py
     - python scripts/evaluate_week6_perception_baseline.py
+    - python scripts/generate_week7_rc_dataset.py
+    - python scripts/validate_week7_rc_dataset.py
+    - python scripts/create_week7_contact_sheet.py
+    - python scripts/evaluate_week7_perception_error_analysis.py
     - python scripts/e2e_local_smoke.py
     - pytest
 downstream_handoff:

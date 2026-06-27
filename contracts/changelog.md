@@ -3,6 +3,7 @@
 ## 0.2.1
 
 - Added Workstream 1 Week 7 downstream hardening metadata with scene RC tag `scene-rc-v0.2.1`, downstream triage, release-candidate invariant checks, standard-view performance profile blockers, and validator guardrails for zero unresolved blocking downstream issues, zero frozen-interface renames, zero safety shrinkage, zero completed GPU profile rows without registry metadata, and continued public-reference training/tuning prohibition.
+- Added Workstream 2 Week 7 release-candidate dataset support for `week7-rc-data-v0.2.1` against `scene-rc-v0.2.1` while preserving frozen schema version `0.2.0`; added RC media statuses, RC randomization profiles, a GPU-backed 60-frame path-traced dev-test gate, condition-specific perception error analysis, zero blank path-traced frame guardrail, and synced Vast RTX 4090 run metadata.
 
 ## 0.2.0
 
