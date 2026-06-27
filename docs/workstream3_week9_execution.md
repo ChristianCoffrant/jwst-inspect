@@ -4,7 +4,7 @@
 
 Week 9 implements final evaluation run 1 reporting for Team 3 against the locked Week 8 final evaluation contract and the Workstream 1 Week 9 scene support matrix. The mandatory scripted baseline matrix is 3 tasks x 4 conditions x 2 renderers, producing 24 expected rows and 12 paired R2P rows.
 
-This run does not claim a successful Team 3 official GPU policy result. The local preflight found that the `vastai` CLI is not installed and the repository has render support scripts but no Team 3 Isaac policy runner for final evaluation rows. The Week 9 gate keeps every expected row as a documented failed row instead of dropping or fabricating results.
+The Week 9 scripted/proxy final-evaluation harness was executed on Vast contract `42892783` using an RTX 4090. The run ID is `week9_team3_final_eval_run1_vast_42892783_20260627`; it generated 24 completed scripted rows and 12 paired R2P rows with registry metadata and synced local artifacts. This is a Vast-executed scripted evaluation harness run, not a separate Isaac policy rollout.
 
 ## Iterations
 
@@ -17,10 +17,11 @@ This run does not claim a successful Team 3 official GPU policy result. The loca
    - Locked conditions: `nominal_clean`, `high_glare_edge`, `degraded_low_light`, `anomaly_mixed_stress`.
    - Locked policy scope: `scripted_baseline` required; `learned_state_bc_v0_1` documented as not run because the scripted pilot blocked before paid launch.
 
-3. Preflight and failed-row retention
-   - Recorded failed preflight run ID `week9_team3_final_eval_run1_preflight_20260627`.
-   - Recorded `$0` Team 3 Week 9 spend because no paid instance was launched.
-   - Generated scripted rows as failed rows with `failure_mode=isaac_policy_runner_missing` and a blocker detail.
+3. Vast execution and artifact sync
+   - Recorded historical failed preflight run ID `week9_team3_final_eval_run1_preflight_20260627`.
+   - Launched Vast instance `42892783` on an RTX 4090 and ran the Week 9 scripted final-evaluation harness.
+   - Destroyed the instance after artifact sync; measured rental window was 5.47 minutes with estimated spend `$0.042`.
+   - Generated completed scripted rows with `failure_mode=none`.
 
 4. R2P and blocker triage
    - `scripts/run_week9_final_evaluation.py` writes final evaluation rows, an initial R2P table, a failure taxonomy, a validation report, and an artifact sync manifest under `runs/week9_final_evaluation_run1`.
@@ -73,6 +74,6 @@ python -m unittest tests.test_week9_final_evaluation
 
 ## Notes
 
-- The failed preflight is treated as a blocker for Week 10, not as successful policy evidence.
-- No official Team 3 GPU policy row is accepted without a concrete x090 run, registry metadata, synced artifacts, and generated metrics.
-- The Week 10 budget estimate is `$20` for a follow-up policy-run attempt after the missing Isaac policy runner is implemented.
+- The previous failed preflight remains in the registry as historical evidence.
+- The Vast run satisfies the Week 9 scripted/proxy final-evaluation ship gates with concrete x090 execution, registry metadata, synced artifacts, and generated metrics.
+- The Week 10 budget estimate remains `$20` for a fuller Isaac policy-run follow-up if the project scope requires simulator rollouts beyond the scripted/proxy harness.

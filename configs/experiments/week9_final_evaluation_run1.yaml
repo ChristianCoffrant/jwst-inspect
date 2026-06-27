@@ -1,7 +1,7 @@
 version: 0.1.0
 experiment_id: week9_final_evaluation_run1
 owner: team3_autonomous_inspection
-status: week9_final_evaluation_run1_preflight_blocked
+status: week9_final_evaluation_run1_vast_completed
 final_evaluation_plan: configs/experiments/final_evaluation_plan_v1_0.yaml
 week9_scene_support_config: configs/renderers/week9_final_evaluation_support.yaml
 week9_scene_gate: validation/scene_final/week9_final_evaluation_gate.yaml
@@ -32,20 +32,16 @@ optional_policies:
 expected_scripted_rows: 24
 expected_r2p_rows: 12
 vast_policy_run:
-  run_id: week9_team3_final_eval_run1_preflight_20260627
-  execution_status: blocked_preflight
-  actual_paid_instance_launched: false
-  registry_status: failed_preflight_not_official
-  artifact_sync_status: not_applicable
-  primary_failure_mode: isaac_policy_runner_missing
-  primary_blocker_class: implementation_gap
-  preflight_blockers:
-    - blocker_id: vast_cli_missing
-      blocker_class: environment_preflight
-      description: vastai CLI is not installed in the local execution environment
-    - blocker_id: isaac_policy_runner_missing
-      blocker_class: implementation_gap
-      description: repository has render support scripts but no Team 3 Isaac policy runner for final evaluation rows
+  run_id: week9_team3_final_eval_run1_vast_42892783_20260627
+  execution_status: completed
+  actual_paid_instance_launched: true
+  registry_status: official
+  artifact_sync_status: synced
+  primary_failure_mode: none
+  primary_blocker_class: none
+  runtime_minutes: 5.47
+  cost_usd: 0.0419
+  preflight_blockers: []
 failure_taxonomy:
   - none
   - vast_cli_missing

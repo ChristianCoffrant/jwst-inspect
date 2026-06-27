@@ -35,7 +35,7 @@ class Week9FinalEvaluationTests(unittest.TestCase):
         self.assertEqual(report["status"], "failed")
         self.assertFalse(report["guardrails"]["vast_spend_within_cap"])
 
-    def test_week9_report_runs_and_retains_failed_rows(self):
+    def test_week9_report_runs_and_records_completed_vast_rows(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             report = run_week9_final_evaluation(self.config_path, Path(tmpdir))
             with Path(report["final_evaluation_rows"]).open(newline="", encoding="utf-8") as handle:
@@ -46,14 +46,15 @@ class Week9FinalEvaluationTests(unittest.TestCase):
         self.assertEqual(report["status"], "passed")
         self.assertTrue(all(report["ship_gates"].values()))
         self.assertTrue(all(report["guardrails"].values()))
-        self.assertFalse(report["official_gpu_result_claimed"])
+        self.assertTrue(report["official_gpu_result_claimed"])
         self.assertEqual(report["row_count"], 24)
         self.assertEqual(report["r2p_row_count"], 12)
         self.assertEqual(len(rows), 24)
         self.assertEqual(len(r2p_rows), 12)
-        self.assertEqual({row["row_status"] for row in rows}, {"failed"})
-        self.assertEqual({row["failure_mode"] for row in rows}, {"isaac_policy_runner_missing"})
-        self.assertTrue(all(row["blocker_detail"] for row in rows))
+        self.assertEqual({row["row_status"] for row in rows}, {"completed"})
+        self.assertEqual({row["failure_mode"] for row in rows}, {"none"})
+        self.assertTrue(all(not row["blocker_detail"] for row in rows))
+        self.assertEqual(report["guardrail_metrics"]["actual_successful_gpu_policy_rows"], 24)
         self.assertEqual(report["guardrail_metrics"]["dropped_result_row_count"], 0)
         self.assertEqual(report["guardrail_metrics"]["undocumented_failure_count"], 0)
         self.assertEqual(report["guardrail_metrics"]["unpaired_renderer_row_count"], 0)
