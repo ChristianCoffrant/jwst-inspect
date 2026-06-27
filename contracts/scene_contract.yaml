@@ -113,6 +113,7 @@ validation:
     - python scripts/validate_contracts.py
     - python scripts/validate_scene.py
     - python scripts/validate_reference_manifest.py
+    - python scripts/validate_run_registry.py
     - python scripts/e2e_local_smoke.py
 thin_slice:
   scene_tag: scene-proxy-thin-slice-v0.1
@@ -134,6 +135,35 @@ thin_slice:
     status: blocked_vast_required
     blocker: No x090 Vast.ai instance has been allocated for this local Week 3 package.
     required_before_official_gate_credit: true
+coverage_surfaces:
+  surface_map: configs/coverage/coverage_surfaces.yaml
+  task_region_maps:
+    mirror_inspection_v0:
+      expected_coverage_patches: 16
+      required_patch_prefix: mirror_cell_
+      allowed_label_ids:
+        - 1
+        - 2
+    sunshield_survey_v0:
+      expected_coverage_patches: 24
+      required_patch_prefix: sunshield_cell_
+      allowed_label_ids:
+        - 3
+        - 4
+  guardrails:
+    coverage_patch_duplicates_allowed: false
+    coverage_cells_without_label_mapping_allowed: false
+    excluded_cells_without_reason_allowed: false
+    coverage_patch_names_match_rollout_logs: true
+sparse_annotations:
+  sparse_keypoint_template: validation/annotations/sparse_keypoints/week4_keypoints_template.csv
+  silhouette_mask_guidance: validation/annotations/silhouette_masks/README.md
+  candidate_min: 10
+  candidate_target: 20
+  guardrails:
+    public_reference_training_use_allowed: false
+    candidate_reference_manifest_required: true
+    annotation_artifact_large_file_git_tracking_allowed: false
 ship_gate:
   week2_contract_freeze_0_1:
     required:
@@ -152,6 +182,18 @@ ship_gate:
       - vast_smoke_result_or_blocker_recorded
       - external_reference_checklist_exists
       - no_large_or_generated_assets_committed
+  week4_validation_renders_and_coverage:
+    required:
+      - coverage_surface_map_exists
+      - coverage_surface_map_matches_frozen_task_region_ids
+      - duplicate_coverage_patch_ids_equal_zero
+      - coverage_cells_without_label_mapping_equal_zero
+      - excluded_cells_without_reason_equal_zero
+      - render_manifest_has_week4_paired_raster_and_path_traced_rows
+      - render_rows_do_not_claim_completion_without_artifacts
+      - sparse_keypoint_template_has_at_least_ten_training_excluded_candidates
+      - public_reference_rows_allowed_for_training_equal_zero
+      - all_local_validators_pass
 downstream_handoff:
   provides_to_workstream2:
     - labels
@@ -162,4 +204,5 @@ downstream_handoff:
     - frames
     - safety
     - task_regions
+    - coverage_surfaces
     - collision_proxies

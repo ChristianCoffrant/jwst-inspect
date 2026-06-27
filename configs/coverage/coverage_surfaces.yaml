@@ -1,0 +1,288 @@
+version: 0.1.0
+scene_tag: scene-proxy-thin-slice-v0.1
+owner: team1_semantics_and_safety_lead
+guardrails:
+  hand_place_to_favor_scripted_trajectory: prohibited
+  excluded_cells_require_reason: true
+  coverage_patch_names_match_rollout_logs: true
+coverage_surfaces:
+  - coverage_patch: mirror_cell_00
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    label_id: 1
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_01
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    label_id: 1
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_02
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    label_id: 1
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_03
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    label_id: 1
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_04
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    label_id: 1
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_05
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    label_id: 1
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_06
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    label_id: 1
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_07
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    label_id: 1
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_08
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    label_id: 1
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_09
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    label_id: 1
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_10
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    label_id: 1
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_11
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/PrimaryMirror
+    label_id: 1
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_12
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/SecondaryMirror
+    label_id: 2
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_13
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/SecondaryMirror
+    label_id: 2
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_14
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/SecondaryMirror
+    label_id: 2
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: mirror_cell_15
+    task_region_id: mirror_inspection_v0
+    target_prim: /World/JWST/Optics/SecondaryMirror
+    label_id: 2
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_00
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_01
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_02
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_03
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_04
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_05
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_06
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_07
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_08
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_09
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_10
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_11
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_12
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_13
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_14
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_15
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_16
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_17
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_18
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_19
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/OuterLayer
+    label_id: 3
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_20
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/EdgeBand
+    label_id: 4
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_21
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/EdgeBand
+    label_id: 4
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_22
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/EdgeBand
+    label_id: 4
+    included: true
+    weight: 1.0
+    exclusion_reason: ""
+  - coverage_patch: sunshield_cell_23
+    task_region_id: sunshield_survey_v0
+    target_prim: /World/JWST/Sunshield/EdgeBand
+    label_id: 4
+    included: true
+    weight: 1.0
+    exclusion_reason: ""

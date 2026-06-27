@@ -75,6 +75,49 @@ THIN_SLICE_CAMERA_IDS = {
 THIN_SLICE_RENDERER_MODES = {"rasterized", "path_traced"}
 VALID_RENDER_STATUS = {"planned", "blocked_vast_required", "completed"}
 
+COVERAGE_SURFACE_CONFIG = Path("configs/coverage/coverage_surfaces.yaml")
+SPARSE_KEYPOINT_TEMPLATE = Path("validation/annotations/sparse_keypoints/week4_keypoints_template.csv")
+
+REQUIRED_COVERAGE_COLUMNS = (
+    "coverage_patch",
+    "task_region_id",
+    "target_prim",
+    "label_id",
+    "included",
+    "weight",
+    "exclusion_reason",
+)
+
+EXPECTED_COVERAGE_PATCHES = {
+    "mirror_inspection_v0": {f"mirror_cell_{index:02d}" for index in range(16)},
+    "sunshield_survey_v0": {f"sunshield_cell_{index:02d}" for index in range(24)},
+}
+
+EXPECTED_COVERAGE_LABELS = {
+    "mirror_inspection_v0": {"1", "2"},
+    "sunshield_survey_v0": {"3", "4"},
+}
+
+REQUIRED_SPARSE_ANNOTATION_COLUMNS = (
+    "candidate_id",
+    "reference_id",
+    "source_url",
+    "image_type",
+    "annotation_type",
+    "planned_keypoints",
+    "component",
+    "heldout_split",
+    "excluded_from_training",
+    "status",
+    "notes",
+)
+
+VALID_SPARSE_ANNOTATION_TYPES = {"sparse_keypoints", "silhouette_outline"}
+VALID_SPARSE_HELDOUT_SPLITS = {"dev", "heldout"}
+VALID_SPARSE_STATUS = {"planned", "in_progress", "complete", "blocked"}
+SPARSE_ANNOTATION_MIN = 10
+SPARSE_ANNOTATION_MAX = 20
+
 REQUIRED_SCENE_TOKENS = (
     "status: frozen_week2_contract_0_1",
     "contract_freeze:",
@@ -89,6 +132,8 @@ REQUIRED_SCENE_TOKENS = (
     "materials:",
     "validation:",
     "thin_slice:",
+    "coverage_surfaces:",
+    "sparse_annotations:",
     "ship_gate:",
     "downstream_handoff:",
 )
@@ -179,6 +224,48 @@ USD_REQUIRED_TOKENS = {
 
 def _read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
+
+
+def _clean_scalar(value: str) -> str:
+    cleaned = value.strip()
+    if len(cleaned) >= 2 and cleaned[0] == cleaned[-1] == '"':
+        cleaned = cleaned[1:-1]
+    return cleaned
+
+
+def _parse_simple_yaml_list(path: Path, list_key: str) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    current: dict[str, str] | None = None
+    in_list = False
+
+    for raw_line in _read_text(path).splitlines():
+        stripped = raw_line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        indent = len(raw_line) - len(raw_line.lstrip(" "))
+        if stripped == f"{list_key}:":
+            in_list = True
+            continue
+        if not in_list:
+            continue
+        if indent == 0 and not stripped.startswith("- "):
+            break
+        if stripped.startswith("- "):
+            if current is not None:
+                rows.append(current)
+            current = {}
+            item = stripped[2:].strip()
+            if item and ":" in item:
+                key, value = item.split(":", 1)
+                current[key.strip()] = _clean_scalar(value)
+            continue
+        if current is not None and ":" in stripped:
+            key, value = stripped.split(":", 1)
+            current[key.strip()] = _clean_scalar(value)
+
+    if current is not None:
+        rows.append(current)
+    return rows
 
 
 def _section_text(text: str, section_name: str) -> str:
@@ -289,6 +376,7 @@ def validate_render_manifest(path: Path | str) -> list[str]:
 
     errors: list[str] = []
     paired: dict[str, set[str]] = {camera_id: set() for camera_id in THIN_SLICE_CAMERA_IDS}
+    week4_paired: dict[str, set[str]] = {camera_id: set() for camera_id in THIN_SLICE_CAMERA_IDS}
     seen_ids: set[str] = set()
     with manifest_path.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -323,8 +411,10 @@ def validate_render_manifest(path: Path | str) -> list[str]:
                 paired[camera_id].add(renderer_mode)
 
             output_path = row.get("expected_output_path", "").strip()
-            if not output_path.startswith("validation/renders/week3/"):
-                errors.append(f"{manifest_path}:{index}: expected_output_path must be under validation/renders/week3/")
+            if not output_path.startswith(("validation/renders/week3/", "validation/renders/week4/")):
+                errors.append(f"{manifest_path}:{index}: expected_output_path must be under validation/renders/week3/ or validation/renders/week4/")
+            elif output_path.startswith("validation/renders/week4/") and camera_id in week4_paired and renderer_mode in THIN_SLICE_RENDERER_MODES:
+                week4_paired[camera_id].add(renderer_mode)
 
             status = row.get("status", "").strip()
             if status not in VALID_RENDER_STATUS:
@@ -335,6 +425,143 @@ def validate_render_manifest(path: Path | str) -> list[str]:
     for camera_id, modes in paired.items():
         if modes != THIN_SLICE_RENDERER_MODES:
             errors.append(f"{manifest_path}: camera {camera_id!r} must have paired rasterized and path_traced rows")
+
+    for camera_id, modes in week4_paired.items():
+        if modes != THIN_SLICE_RENDERER_MODES:
+            errors.append(f"{manifest_path}: Week 4 camera {camera_id!r} must have paired rasterized and path_traced rows")
+
+    return errors
+
+
+def validate_coverage_surfaces(path: Path | str) -> list[str]:
+    coverage_path = Path(path)
+    if not coverage_path.exists():
+        return [f"Missing coverage surface config: {coverage_path}"]
+
+    errors: list[str] = []
+    rows = _parse_simple_yaml_list(coverage_path, "coverage_surfaces")
+    if not rows:
+        return [f"{coverage_path}: no coverage_surfaces rows found"]
+
+    seen_patches: set[str] = set()
+    patches_by_task: dict[str, set[str]] = {task_id: set() for task_id in EXPECTED_COVERAGE_PATCHES}
+    for index, row in enumerate(rows, start=1):
+        missing = [column for column in REQUIRED_COVERAGE_COLUMNS if column not in row]
+        if missing:
+            errors.append(f"{coverage_path}: coverage row {index} missing columns {missing}")
+            continue
+
+        coverage_patch = row["coverage_patch"].strip()
+        task_region_id = row["task_region_id"].strip()
+        target_prim = row["target_prim"].strip()
+        label_id = row["label_id"].strip()
+        included = row["included"].strip().lower()
+        exclusion_reason = row["exclusion_reason"].strip()
+
+        if coverage_patch in seen_patches:
+            errors.append(f"{coverage_path}: duplicate coverage_patch {coverage_patch!r}")
+        seen_patches.add(coverage_patch)
+
+        if task_region_id not in EXPECTED_COVERAGE_PATCHES:
+            errors.append(f"{coverage_path}: row {index} invalid task_region_id {task_region_id!r}")
+            continue
+
+        patches_by_task[task_region_id].add(coverage_patch)
+        if coverage_patch not in EXPECTED_COVERAGE_PATCHES[task_region_id]:
+            errors.append(f"{coverage_path}: row {index} coverage_patch {coverage_patch!r} is not expected for {task_region_id!r}")
+        if label_id not in EXPECTED_COVERAGE_LABELS[task_region_id]:
+            errors.append(f"{coverage_path}: row {index} label_id {label_id!r} is not valid for {task_region_id!r}")
+        if not target_prim.startswith("/World/"):
+            errors.append(f"{coverage_path}: row {index} target_prim must be an absolute /World path")
+        if included not in {"true", "false"}:
+            errors.append(f"{coverage_path}: row {index} included must be true or false")
+
+        try:
+            weight = float(row["weight"].strip())
+        except ValueError:
+            errors.append(f"{coverage_path}: row {index} weight must be numeric")
+        else:
+            if included == "true" and weight <= 0.0:
+                errors.append(f"{coverage_path}: row {index} included cells require positive weight")
+        if included == "false" and not exclusion_reason:
+            errors.append(f"{coverage_path}: row {index} excluded cells require exclusion_reason")
+
+    for task_region_id, expected_patches in EXPECTED_COVERAGE_PATCHES.items():
+        actual_patches = patches_by_task.get(task_region_id, set())
+        missing_patches = sorted(expected_patches - actual_patches)
+        extra_patches = sorted(actual_patches - expected_patches)
+        if missing_patches:
+            errors.append(f"{coverage_path}: {task_region_id} missing coverage patches {missing_patches}")
+        if extra_patches:
+            errors.append(f"{coverage_path}: {task_region_id} has unexpected coverage patches {extra_patches}")
+
+    return errors
+
+
+def validate_sparse_keypoint_template(path: Path | str, reference_manifest_path: Path | str) -> list[str]:
+    template_path = Path(path)
+    if not template_path.exists():
+        return [f"Missing sparse keypoint template: {template_path}"]
+    reference_path = Path(reference_manifest_path)
+    if not reference_path.exists():
+        return [f"Missing reference manifest: {reference_path}"]
+
+    errors: list[str] = []
+    with reference_path.open(newline="", encoding="utf-8") as f:
+        reference_reader = csv.DictReader(f)
+        reference_ids = {row.get("reference_id", "").strip() for row in reference_reader}
+
+    with template_path.open(newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        missing = [column for column in REQUIRED_SPARSE_ANNOTATION_COLUMNS if column not in (reader.fieldnames or [])]
+        if missing:
+            return [f"{template_path}: missing columns {missing}"]
+        rows = list(reader)
+
+    if len(rows) < SPARSE_ANNOTATION_MIN:
+        errors.append(f"{template_path}: expected at least {SPARSE_ANNOTATION_MIN} candidate rows, found {len(rows)}")
+    if len(rows) > SPARSE_ANNOTATION_MAX:
+        errors.append(f"{template_path}: expected at most {SPARSE_ANNOTATION_MAX} candidate rows, found {len(rows)}")
+
+    seen_candidates: set[str] = set()
+    for index, row in enumerate(rows, start=2):
+        candidate_id = row.get("candidate_id", "").strip()
+        reference_id = row.get("reference_id", "").strip()
+        if not candidate_id:
+            errors.append(f"{template_path}:{index}: empty candidate_id")
+        elif candidate_id in seen_candidates:
+            errors.append(f"{template_path}:{index}: duplicate candidate_id {candidate_id!r}")
+        seen_candidates.add(candidate_id)
+
+        if reference_id not in reference_ids:
+            errors.append(f"{template_path}:{index}: unknown reference_id {reference_id!r}")
+
+        for column in ("source_url", "image_type", "component", "notes"):
+            if not row.get(column, "").strip():
+                errors.append(f"{template_path}:{index}: empty required field {column}")
+
+        annotation_type = row.get("annotation_type", "").strip()
+        if annotation_type not in VALID_SPARSE_ANNOTATION_TYPES:
+            errors.append(f"{template_path}:{index}: invalid annotation_type {annotation_type!r}")
+
+        try:
+            planned_keypoints = int(row.get("planned_keypoints", "").strip())
+        except ValueError:
+            errors.append(f"{template_path}:{index}: planned_keypoints must be an integer")
+        else:
+            if planned_keypoints <= 0:
+                errors.append(f"{template_path}:{index}: planned_keypoints must be positive")
+
+        heldout_split = row.get("heldout_split", "").strip()
+        if heldout_split not in VALID_SPARSE_HELDOUT_SPLITS:
+            errors.append(f"{template_path}:{index}: invalid heldout_split {heldout_split!r}")
+
+        if row.get("excluded_from_training", "").strip().lower() != "true":
+            errors.append(f"{template_path}:{index}: sparse public-reference candidates must be excluded_from_training=true")
+
+        status = row.get("status", "").strip()
+        if status not in VALID_SPARSE_STATUS:
+            errors.append(f"{template_path}:{index}: invalid status {status!r}")
 
     return errors
 
@@ -385,6 +612,11 @@ def validate_scene_contract(root: Path | str = ".") -> list[str]:
         "render_manifest: validation/render_manifest.csv",
         "vast_smoke:",
         "blocked_vast_required",
+        "surface_map: configs/coverage/coverage_surfaces.yaml",
+        "coverage_patch_duplicates_allowed: false",
+        "excluded_cells_without_reason_allowed: false",
+        "sparse_keypoint_template: validation/annotations/sparse_keypoints/week4_keypoints_template.csv",
+        "week4_validation_renders_and_coverage",
     ):
         if guardrail not in text:
             errors.append(f"{contract_path}: missing guardrail {guardrail!r}")
@@ -441,5 +673,12 @@ def validate_scene_package(root: Path | str = ".") -> list[str]:
     errors.extend(validate_source_manifest(root_path / "assets" / "source_manifest.csv"))
     errors.extend(validate_component_mapping(root_path / "assets" / "jwst" / "component_mapping.csv"))
     errors.extend(validate_render_manifest(root_path / "validation" / "render_manifest.csv"))
+    errors.extend(validate_coverage_surfaces(root_path / COVERAGE_SURFACE_CONFIG))
+    errors.extend(
+        validate_sparse_keypoint_template(
+            root_path / SPARSE_KEYPOINT_TEMPLATE,
+            root_path / "validation" / "reference_manifest.csv",
+        )
+    )
     errors.extend(validate_usd_proxy_layers(root_path))
     return errors

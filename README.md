@@ -17,6 +17,7 @@ The shared research goal is to measure renderer-to-policy transfer: whether insp
 - Workstream 1 Week 1 execution log: `docs/workstream1_week1_execution.md`
 - Workstream 1 Week 2 execution log: `docs/workstream1_week2_execution.md`
 - Workstream 1 Week 3 execution log: `docs/workstream1_week3_execution.md`
+- Workstream 1 Week 4 execution log: `docs/workstream1_week4_execution.md`
 - Workstream 2 Week 1 execution log: `docs/workstream2_week1_execution.md`
 - Workstream 2 Week 2 execution log: `docs/workstream2_week2_execution.md`
 - Workstream 3 Week 1 execution log: `docs/workstream3_week1_execution.md`
@@ -38,7 +39,7 @@ The scaffold intentionally avoids committing large datasets, generated renders, 
 
 ## Current Workstream 1 Gate
 
-The Week 3 Digital Twin and Asset Benchmark gate supports the first thin vertical slice with fixed scene tag, seed, camera IDs, task aliases, safety metadata, external reference checklist, and paired raster/path-traced render manifest rows.
+The Week 4 Digital Twin and Asset Benchmark gate extends the thin vertical slice with a machine-readable coverage surface map, paired validation render-pack rows for raster/path-traced modes, sparse public-reference annotation candidates, and validation guardrails that preserve frozen task-region and safety contracts.
 
 Run:
 

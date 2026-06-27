@@ -10,6 +10,8 @@ Week 3 scene tag: `scene-proxy-thin-slice-v0.1`.
 
 Week 3 fixed seed: `31003`.
 
+Week 4 coverage surface map: `configs/coverage/coverage_surfaces.yaml`.
+
 This is a proxy scene for contract validation and downstream planning. It is not a flight-accurate JWST model and should not be presented as one.
 
 Selected external source asset: `jwst_nasa_glb_2025` in `assets/source_manifest.csv`.
@@ -52,7 +54,7 @@ Component mapping: `assets/jwst/component_mapping.csv`.
 | Mirror inspection | `mirror_inspection_v0` | `/World/JWST/Optics/PrimaryMirror`, `/World/JWST/Optics/SecondaryMirror` | 16 |
 | Sunshield survey | `sunshield_survey_v0` | `/World/JWST/Sunshield` | 24 |
 
-Coverage cells are machine-readable in `usd/layers/tasks.usd`. They should not be resized or removed to improve scores after policy work begins.
+Coverage cells are machine-readable in `usd/layers/tasks.usd`, with the Week 4 authoritative surface-to-label map in `configs/coverage/coverage_surfaces.yaml`. They should not be resized or removed to improve scores after policy work begins.
 
 ## Safety Regions
 
@@ -72,6 +74,8 @@ Use:
 - RGB/depth camera paths
 - material variant names
 - camera IDs from `configs/renderers/thin_slice_validation.yaml`
+- Week 4 validation render pack from `configs/renderers/week4_validation_renders.yaml`
+- sparse public-reference annotation candidates from `validation/annotations/sparse_keypoints/week4_keypoints_template.csv`
 - scene tag `scene-proxy-thin-slice-v0.1` for the first 100-frame thin-slice sample
 - `validation/reference_manifest.csv` only for validation and reporting, not training
 
@@ -87,6 +91,7 @@ Do not:
 Use:
 
 - task-region IDs from the contract
+- coverage patch IDs from `configs/coverage/coverage_surfaces.yaml`
 - episode aliases from `usd/layers/tasks.usd`
 - safety and collision proxy paths
 - standoff metadata in `contracts/scene_contract.yaml`
@@ -99,6 +104,7 @@ Do not:
 - count coverage collected during keepout or collision violation
 - change task-region IDs without a contract changelog entry
 - resize or remove coverage cells after policy work begins
+- rename coverage patches used by rollout logs
 
 ## Week 2 Freeze Rules
 
@@ -123,3 +129,9 @@ The local smoke test is not an Isaac Sim result. It verifies contracts, manifest
 ## Week 3 Render Status
 
 `validation/render_manifest.csv` reserves paired rasterized and path-traced rows for all required fixed camera IDs. Rows are marked `blocked_vast_required` until an Isaac Sim or Omniverse RTX run generates and syncs artifacts.
+
+## Week 4 Coverage and Render Status
+
+`configs/coverage/coverage_surfaces.yaml` declares 16 mirror coverage patches and 24 sunshield coverage patches. The patch names match the rollout `coverage_patch` field consumed by Workstream 3 metrics.
+
+`validation/render_manifest.csv` now includes Week 4 paired rasterized and path-traced rows under `validation/renders/week4/` for `mirror_inspection_fixed`, `sunshield_survey_fixed`, and `approach_standoff_overview`. These rows remain `blocked_vast_required`; no local placeholder render should be treated as a completed artifact.

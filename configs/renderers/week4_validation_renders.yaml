@@ -1,0 +1,16 @@
+version: 0.1.0
+scene_tag: scene-proxy-thin-slice-v0.1
+seed: 31003
+source_camera_config: configs/renderers/thin_slice_validation.yaml
+render_pack: week4_standard_validation
+cameras:
+  - camera_id: mirror_inspection_fixed
+    required_renderer_modes: [rasterized, path_traced]
+  - camera_id: sunshield_survey_fixed
+    required_renderer_modes: [rasterized, path_traced]
+  - camera_id: approach_standoff_overview
+    required_renderer_modes: [rasterized, path_traced]
+guardrails:
+  generated_outputs_tracked_in_git: false
+  completed_rows_require_run_metadata: true
+  paired_renderer_modes_required: true
