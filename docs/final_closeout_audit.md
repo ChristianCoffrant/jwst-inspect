@@ -12,7 +12,7 @@ The closeout work added:
 - Fallback logic so Week 11/12 final packages validate from a clean checkout instead of relying on ignored `runs/` artifacts.
 - Official NASA validation/reference images, excluded from training and tuning.
 - A paid Vast.ai visual rescue run on RTX 5090 rendering the official NASA JWST GLB with Blender 4.2 OptiX Cycles and EEVEE.
-- A visual comparison panel showing real NASA references, original project renders, and improved rescue renders.
+- A visual comparison panel showing real NASA references, original project renders, improved rescue renders, and a clearly labeled presentation-grade derivative of the raw path-traced output.
 
 ## Sponsor Requirement Check
 
@@ -42,6 +42,8 @@ The paid visual rescue run produced materially better visuals from the official 
 - Outputs: `outputs/visual_rescue/vast_42930897/`
 
 These rescue renders are suitable for communication and visual comparison, but they are not substitutes for the official Omniverse RTX path-traced benchmark deliverable.
+
+The file `nasa_jwst_cycles_v2_sunshield_sweep_cinematic.png` is a presentation-grade color/background treatment derived from the raw OptiX Cycles render. It is intentionally excluded from benchmark metrics and exists only to make the final deck visually legible.
 
 ## Completion Judgment
 

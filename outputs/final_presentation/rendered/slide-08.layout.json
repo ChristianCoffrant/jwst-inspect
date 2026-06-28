@@ -2,13 +2,13 @@
   "schema": "openai.presentation.layout/v4",
   "unit": "px",
   "slide": {
-    "aid": "sl/zehan8",
-    "id": "zehan8",
+    "aid": "sl/htxdpl",
+    "id": "htxdpl",
     "slide": 8,
-    "layoutId": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+    "layoutId": "36abf8d3-e738-4cea-b191-ea60925c5541",
     "layoutName": "Title Slide",
     "layoutType": "title",
-    "masterLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+    "masterLayoutId": "9643df91-ec72-414f-9d62-ad0ce8eaa297",
     "masterLayoutName": "Master",
     "backgroundColor": "#071019",
     "frame": {
@@ -45,15 +45,15 @@
   "inheritedLayers": [
     {
       "scope": "layout",
-      "id": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+      "id": "36abf8d3-e738-4cea-b191-ea60925c5541",
       "name": "Title Slide",
       "type": "title",
-      "parentLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "parentLayoutId": "9643df91-ec72-414f-9d62-ad0ce8eaa297",
       "elements": []
     },
     {
       "scope": "master",
-      "id": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "id": "9643df91-ec72-414f-9d62-ad0ce8eaa297",
       "name": "Master",
       "type": "master",
       "elements": []
@@ -64,7 +64,7 @@
       "order": 1,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/a9w3m94f",
+      "aid": "sh/u9knih4b",
       "id": "1",
       "bbox": [
         72,
@@ -127,7 +127,7 @@
       "order": 2,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/h0fepkzu",
+      "aid": "sh/1032lszq",
       "id": "2",
       "bbox": [
         72,
@@ -194,7 +194,7 @@
       "order": 3,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/sfil0rqd",
+      "aid": "sh/cfa9w3m9",
       "id": "3",
       "bbox": [
         72,
@@ -258,7 +258,7 @@
       "order": 4,
       "kind": "image",
       "scope": "slide",
-      "aid": "im/q1orytsv",
+      "aid": "im/ap4r65wj",
       "id": "4",
       "bbox": [
         72,
@@ -270,7 +270,7 @@
       "contentType": "image/png",
       "imageFit": "cover",
       "asset": {
-        "assetId": "4b2b3e51-6339-4361-87b5-bb998a7be01f",
+        "assetId": "e02e2b1e-c4c2-44dc-afe2-f46623f6abff",
         "contentType": "image/png",
         "byteLength": 1292627
       }
@@ -279,7 +279,7 @@
       "order": 5,
       "kind": "image",
       "scope": "slide",
-      "aid": "im/fmlkjm1c",
+      "aid": "im/za1gvy90",
       "id": "5",
       "bbox": [
         660,
@@ -287,20 +287,20 @@
         548,
         330
       ],
-      "alt": "Cycles path-traced render",
+      "alt": "Presentation-grade Cycles path-traced render",
       "contentType": "image/png",
       "imageFit": "cover",
       "asset": {
-        "assetId": "499860e2-0d9e-4859-8b5d-62610652de48",
+        "assetId": "3c234795-5037-4bbb-87f0-08e1970ead44",
         "contentType": "image/png",
-        "byteLength": 1998173
+        "byteLength": 1652132
       }
     },
     {
       "order": 6,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/hcrmhk3q",
+      "aid": "sh/1orytsvu",
       "id": "6",
       "bbox": [
         72,
@@ -317,7 +317,7 @@
       "order": 7,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/orytsvu9",
+      "aid": "sh/c7u54zid",
       "id": "7",
       "bbox": [
         660,
@@ -334,7 +334,7 @@
       "order": 8,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/zed8v6ps",
+      "aid": "sh/nap4r65w",
       "id": "8",
       "bbox": [
         92,
@@ -397,17 +397,17 @@
       "order": 9,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/6xkf6dcb",
+      "aid": "sh/upwb2hwf",
       "id": "9",
       "bbox": [
         680,
         580,
-        280,
+        330,
         28
       ],
       "geometry": "rect",
-      "text": "Path traced Cycles OptiX",
-      "textPreview": "Path traced Cycles OptiX",
+      "text": "Path traced Cycles OptiX, graded",
+      "textPreview": "Path traced Cycles OptiX, graded",
       "resolvedFontSize": 18,
       "resolvedTextStyle": {
         "fontSize": 18,
@@ -427,14 +427,14 @@
         "lines": [
           {
             "index": 1,
-            "text": "Path traced Cycles OptiX"
+            "text": "Path traced Cycles OptiX, graded"
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "Path traced Cycles OptiX",
+          "text": "Path traced Cycles OptiX, graded",
           "resolvedTextStyle": {
             "fontSize": 18,
             "color": "#F4BF45",
@@ -444,7 +444,7 @@
           "runs": [
             {
               "index": 1,
-              "text": "Path traced Cycles OptiX",
+              "text": "Path traced Cycles OptiX, graded",
               "fontSize": 18,
               "color": "#F4BF45",
               "bold": true,
@@ -460,7 +460,7 @@
       "order": 10,
       "kind": "shape",
       "scope": "slide",
-      "aid": "sh/8z25kb6x",
+      "aid": "sh/orytsvu9",
       "id": "10",
       "bbox": [
         72,
@@ -469,8 +469,8 @@
         28
       ],
       "geometry": "rect",
-      "text": "The benchmark's official renderer-transfer metrics remain sourced from the Week 10/11 evaluation artifacts.",
-      "textPreview": "The benchmark's official renderer-transfer metrics remain sourced from the Week 10/11 evaluation artifacts.",
+      "text": "Raw render artifacts are retained; the right image is a presentation-grade derivative of the path-traced output.",
+      "textPreview": "Raw render artifacts are retained; the right image is a presentation-grade derivative of the path-traced output.",
       "resolvedFontSize": 10,
       "resolvedTextStyle": {
         "fontSize": 10,
@@ -489,14 +489,14 @@
         "lines": [
           {
             "index": 1,
-            "text": "The benchmark's official renderer-transfer metrics remain sourced from the Week 10/11 evaluation artifacts."
+            "text": "Raw render artifacts are retained; the right image is a presentation-grade derivative of the path-traced output."
           }
         ]
       },
       "paragraphs": [
         {
           "index": 1,
-          "text": "The benchmark's official renderer-transfer metrics remain sourced from the Week 10/11 evaluation artifacts.",
+          "text": "Raw render artifacts are retained; the right image is a presentation-grade derivative of the path-traced output.",
           "resolvedTextStyle": {
             "fontSize": 10,
             "color": "#9FB0BD",
@@ -505,7 +505,7 @@
           "runs": [
             {
               "index": 1,
-              "text": "The benchmark's official renderer-transfer metrics remain sourced from the Week 10/11 evaluation artifacts.",
+              "text": "Raw render artifacts are retained; the right image is a presentation-grade derivative of the path-traced output.",
               "fontSize": 10,
               "color": "#9FB0BD",
               "alignment": "left"

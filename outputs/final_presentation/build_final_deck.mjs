@@ -14,6 +14,7 @@ const img = {
   comparison: path.join(ROOT, "outputs/visual_rescue/jwst_visual_comparison_panel.png"),
   cyclesWide: path.join(ROOT, "outputs/visual_rescue/vast_42930897/nasa_jwst_cycles_v2_sunshield_sweep.png"),
   cyclesClose: path.join(ROOT, "outputs/visual_rescue/vast_42930897/nasa_jwst_cycles_v2_mirror_close.png"),
+  cyclesCinematic: path.join(ROOT, "outputs/visual_rescue/vast_42930897/nasa_jwst_cycles_v2_sunshield_sweep_cinematic.png"),
   raster: path.join(ROOT, "outputs/visual_rescue/vast_42930897/nasa_jwst_eevee_v2_raster_overview.png"),
 };
 
@@ -312,12 +313,12 @@ async function makeDeck() {
   {
     const slide = await baseSlide(presentation, "Visual result", "Rasterized and path-traced views now look like JWST", "The rescue makes the inspection target recognizable: segmented gold mirrors, layered sunshield, and spacecraft bus detail are visible in both rendering modes.");
     await addImage(slide, img.raster, pos(72, 236, 548, 330), "cover", "EEVEE raster render");
-    await addImage(slide, img.cyclesWide, pos(660, 236, 548, 330), "cover", "Cycles path-traced render");
+    await addImage(slide, img.cyclesCinematic, pos(660, 236, 548, 330), "cover", "Presentation-grade Cycles path-traced render");
     addRect(slide, pos(72, 236, 548, 330), "#00000000", color.line, 8);
     addRect(slide, pos(660, 236, 548, 330), "#00000000", color.line, 8);
     addText(slide, "Rasterized EEVEE", pos(92, 580, 240, 28), { fontSize: 18, bold: true, color: color.cyan });
-    addText(slide, "Path traced Cycles OptiX", pos(680, 580, 280, 28), { fontSize: 18, bold: true, color: color.gold });
-    addFootnote(slide, "The benchmark's official renderer-transfer metrics remain sourced from the Week 10/11 evaluation artifacts.");
+    addText(slide, "Path traced Cycles OptiX, graded", pos(680, 580, 330, 28), { fontSize: 18, bold: true, color: color.gold });
+    addFootnote(slide, "Raw render artifacts are retained; the right image is a presentation-grade derivative of the path-traced output.");
   }
 
   // 9. Evaluation metrics
@@ -402,7 +403,7 @@ async function makeDeck() {
   {
     const slide = presentation.slides.add();
     slide.background.fill = color.bg;
-    await addImage(slide, img.cyclesClose, pos(0, 0, 1280, 720), "cover", "Close path traced JWST mirror render");
+    await addImage(slide, img.cyclesCinematic, pos(0, 0, 1280, 720), "cover", "Presentation-grade path traced JWST render");
     addRect(slide, pos(0, 0, 1280, 720), "#000000aa");
     addText(slide, "Winning strategy", pos(72, 68, 760, 68), { fontSize: 48, bold: true, color: color.white });
     addText(slide, "Do not chase every possible model. Make one public, reproducible benchmark that NVIDIA engineers would actually trust and want to run.", pos(76, 150, 840, 64), {

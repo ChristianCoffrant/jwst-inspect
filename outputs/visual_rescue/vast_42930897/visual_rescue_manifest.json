@@ -6,11 +6,13 @@
   "device_notes": {
     "nasa_jwst_cycles_v2_mirror_close.png": "optix",
     "nasa_jwst_cycles_v2_sunshield_sweep.png": "optix",
+    "nasa_jwst_cycles_v2_sunshield_sweep_cinematic.png": "postprocessed presentation derivative of optix output; not used for benchmark metrics",
     "nasa_jwst_eevee_v2_raster_overview.png": "eevee"
   },
   "outputs": [
     "nasa_jwst_cycles_v2_mirror_close.png",
     "nasa_jwst_cycles_v2_sunshield_sweep.png",
+    "nasa_jwst_cycles_v2_sunshield_sweep_cinematic.png",
     "nasa_jwst_eevee_v2_raster_overview.png"
   ],
   "errors": []
