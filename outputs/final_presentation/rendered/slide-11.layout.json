@@ -1,0 +1,761 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/5ufq5d",
+    "id": "5ufq5d",
+    "slide": 11,
+    "layoutId": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#071019",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/s36hcrmh",
+      "id": "1",
+      "bbox": [
+        72,
+        38,
+        720,
+        24
+      ],
+      "geometry": "rect",
+      "text": "COMPLETION STATUS",
+      "textPreview": "COMPLETION STATUS",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "+mn-lt",
+        "color": "#55C7E7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "COMPLETION STATUS"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "COMPLETION STATUS",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "color": "#55C7E7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "COMPLETION STATUS",
+              "fontSize": 12,
+              "color": "#55C7E7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zidonyd0",
+      "id": "2",
+      "bbox": [
+        72,
+        74,
+        760,
+        94
+      ],
+      "geometry": "rect",
+      "text": "Finished as a benchmark MVP, not yet as the highest-bar NVIDIA showcase",
+      "textPreview": "Finished as a benchmark MVP, not yet as the highest-bar NVIDIA showcase",
+      "resolvedFontSize": 40,
+      "resolvedTextStyle": {
+        "fontSize": 40,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Finished as a benchmark MVP, not yet as the"
+          },
+          {
+            "index": 2,
+            "text": "highest-bar NVIDIA showcase"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Finished as a benchmark MVP, not yet as the highest-bar NVIDIA showcase",
+          "resolvedTextStyle": {
+            "fontSize": 40,
+            "color": "#EEF5F7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Finished as a benchmark MVP, not yet as the highest-bar NVIDIA showcase",
+              "fontSize": 40,
+              "color": "#EEF5F7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/a1gvy90j",
+      "id": "3",
+      "bbox": [
+        72,
+        166,
+        800,
+        60
+      ],
+      "geometry": "rect",
+      "text": "The honest answer: the repo is technically shippable, but the sponsor-grade visual story still needs one more focused OpenUSD/Omniverse iteration.",
+      "textPreview": "The honest answer: the repo is technically shippable, but the sponsor-grade visual story still needs one more focused OpenUSD/Omniverse i...",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The honest answer: the repo is technically shippable, but the sponsor-grade visual story still needs one"
+          },
+          {
+            "index": 2,
+            "text": "more focused OpenUSD/Omniverse iteration."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The honest answer: the repo is technically shippable, but the sponsor-grade visual story still needs one more focused OpenUSD/Omniverse iteration.",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The honest answer: the repo is technically shippable, but the sponsor-grade visual story still needs one more focused OpenUSD/Omniverse iteration.",
+              "fontSize": 18,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hgn29gr2",
+      "id": "4",
+      "bbox": [
+        72,
+        254,
+        532,
+        330
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#0E1A25",
+      "lineColor": "#61D394",
+      "lineWidth": 1
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/svu9knih",
+      "id": "5",
+      "bbox": [
+        104,
+        284,
+        300,
+        32
+      ],
+      "geometry": "rect",
+      "text": "Complete now",
+      "textPreview": "Complete now",
+      "resolvedFontSize": 26,
+      "resolvedTextStyle": {
+        "fontSize": 26,
+        "typeface": "+mn-lt",
+        "color": "#61D394",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Complete now"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Complete now",
+          "resolvedTextStyle": {
+            "fontSize": 26,
+            "color": "#61D394",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Complete now",
+              "fontSize": 26,
+              "color": "#61D394",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/za1gvy90",
+      "id": "6",
+      "bbox": [
+        104,
+        338,
+        440,
+        144
+      ],
+      "geometry": "rect",
+      "text": "- Scene/data/evaluation package manifests and validators\n- Synthetic data package with metadata and held-out references\n- Raster-to-path policy comparisons and failure taxonomy\n- Defense evidence, cost logs, and reproducible clean checkout",
+      "textPreview": "- Scene/data/evaluation package manifests and validators | - Synthetic data package with metadata and held-out references | - Raster-to-p...",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 6,
+        "lines": [
+          {
+            "index": 1,
+            "text": "- Scene/data/evaluation package manifests and validators"
+          },
+          {
+            "index": 2,
+            "text": "- Synthetic data package with metadata and held-out"
+          },
+          {
+            "index": 3,
+            "text": "references"
+          },
+          {
+            "index": 4,
+            "text": "- Raster-to-path policy comparisons and failure taxonomy"
+          },
+          {
+            "index": 5,
+            "text": "- Defense evidence, cost logs, and reproducible clean"
+          },
+          {
+            "index": 6,
+            "text": "checkout"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "- Scene/data/evaluation package manifests and validators",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Scene/data/evaluation package manifests and validators",
+              "fontSize": 17,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "- Synthetic data package with metadata and held-out references",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Synthetic data package with metadata and held-out references",
+              "fontSize": 17,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "- Raster-to-path policy comparisons and failure taxonomy",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Raster-to-path policy comparisons and failure taxonomy",
+              "fontSize": 17,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 4,
+          "text": "- Defense evidence, cost logs, and reproducible clean checkout",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Defense evidence, cost logs, and reproducible clean checkout",
+              "fontSize": 17,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ap4r65wj",
+      "id": "7",
+      "bbox": [
+        676,
+        254,
+        532,
+        330
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#0E1A25",
+      "lineColor": "#F4BF45",
+      "lineWidth": 1
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h4byhgn2",
+      "id": "8",
+      "bbox": [
+        708,
+        284,
+        390,
+        32
+      ],
+      "geometry": "rect",
+      "text": "Highest-impact remaining work",
+      "textPreview": "Highest-impact remaining work",
+      "resolvedFontSize": 26,
+      "resolvedTextStyle": {
+        "fontSize": 26,
+        "typeface": "+mn-lt",
+        "color": "#F4BF45",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Highest-impact remaining work"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Highest-impact remaining work",
+          "resolvedTextStyle": {
+            "fontSize": 26,
+            "color": "#F4BF45",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Highest-impact remaining work",
+              "fontSize": 26,
+              "color": "#F4BF45",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sji5snel",
+      "id": "9",
+      "bbox": [
+        708,
+        338,
+        440,
+        156
+      ],
+      "geometry": "rect",
+      "text": "- Replace proxy USD geometry with official JWST-derived OpenUSD asset\n- Run official Omniverse/Isaac raster and RTX path-traced captures on that asset\n- Produce a 60-90 second end-to-end video from the official renderer path\n- Promote the benchmark as an open-source NVIDIA simulation reference repo",
+      "textPreview": "- Replace proxy USD geometry with official JWST-derived OpenUSD asset | - Run official Omniverse/Isaac raster and RTX path-traced capture...",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 8,
+        "lines": [
+          {
+            "index": 1,
+            "text": "- Replace proxy USD geometry with official JWST-derived"
+          },
+          {
+            "index": 2,
+            "text": "OpenUSD asset"
+          },
+          {
+            "index": 3,
+            "text": "- Run official Omniverse/Isaac raster and RTX path-traced"
+          },
+          {
+            "index": 4,
+            "text": "captures on that asset"
+          },
+          {
+            "index": 5,
+            "text": "- Produce a 60-90 second end-to-end video from the official"
+          },
+          {
+            "index": 6,
+            "text": "renderer path"
+          },
+          {
+            "index": 7,
+            "text": "- Promote the benchmark as an open-source NVIDIA"
+          },
+          {
+            "index": 8,
+            "text": "simulation reference repo"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "- Replace proxy USD geometry with official JWST-derived OpenUSD asset",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Replace proxy USD geometry with official JWST-derived OpenUSD asset",
+              "fontSize": 17,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "- Run official Omniverse/Isaac raster and RTX path-traced captures on that asset",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Run official Omniverse/Isaac raster and RTX path-traced captures on that asset",
+              "fontSize": 17,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "- Produce a 60-90 second end-to-end video from the official renderer path",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Produce a 60-90 second end-to-end video from the official renderer path",
+              "fontSize": 17,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 4,
+          "text": "- Promote the benchmark as an open-source NVIDIA simulation reference repo",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Promote the benchmark as an open-source NVIDIA simulation reference repo",
+              "fontSize": 17,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/qh0fepkz",
+      "id": "10",
+      "bbox": [
+        72,
+        672,
+        1136,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Recommended framing: ship the evidence package, then invest only in the official high-fidelity OpenUSD/RTX visual path.",
+      "textPreview": "Recommended framing: ship the evidence package, then invest only in the official high-fidelity OpenUSD/RTX visual path.",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Recommended framing: ship the evidence package, then invest only in the official high-fidelity OpenUSD/RTX visual path."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Recommended framing: ship the evidence package, then invest only in the official high-fidelity OpenUSD/RTX visual path.",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Recommended framing: ship the evidence package, then invest only in the official high-fidelity OpenUSD/RTX visual path.",
+              "fontSize": 10,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

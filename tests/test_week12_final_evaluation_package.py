@@ -115,7 +115,17 @@ def _write_week12_visual_manifest(output_dir: Path, *, status: str) -> None:
     (visual_dir / "visual_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
 
-def _write_config(path: Path, week11_output: Path, week12_output: Path, *, visual_status: str) -> None:
+def _write_config(
+    path: Path,
+    week11_output: Path,
+    week12_output: Path,
+    *,
+    visual_status: str,
+    evidence_manifest_path: Path | None = None,
+) -> None:
+    evidence_manifest_line = (
+        f"  evidence_manifest_path: {evidence_manifest_path.as_posix()}\n" if evidence_manifest_path is not None else ""
+    )
     path.write_text(
         f"""
 version: 1.0.0
@@ -171,7 +181,7 @@ visual_recovery:
   recovery_group_id: week12_team3_visual_recovery
   status: {visual_status}
   output_subdir: visual_recovery
-  active_vast_instances_after_run: 0
+{evidence_manifest_line}  active_vast_instances_after_run: 0
   total_cost_usd: 0.391
   attempt_count: 1
   successful_clip_count: 3
@@ -248,6 +258,35 @@ class Week12FinalEvaluationPackageTests(unittest.TestCase):
             self.assertEqual(validation["status"], "passed")
             self.assertEqual(report["visual_recovery"]["status"], "blocker_documented")
             self.assertEqual(report["guardrail_metrics"]["visual_success_claim_without_real_artifact_count"], 0)
+
+    def test_package_uses_tracked_blocker_manifest_fallback(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp = Path(tmp_dir)
+            week11_output = tmp / "week11_release_package"
+            week12_output = tmp / "week12_final_evaluation_package"
+            tracked_output = tmp / "tracked"
+            evidence_manifest = tmp / "validation" / "visual_evidence" / "week12_blocker.json"
+            config = tmp / "week12.yaml"
+            _write_week11_blocker_manifest(week11_output)
+            _write_week12_visual_manifest(tracked_output, status="blocker_documented")
+            source_manifest = tracked_output / "visual_recovery" / "visual_manifest.json"
+            evidence_manifest.parent.mkdir(parents=True, exist_ok=True)
+            evidence_manifest.write_text(source_manifest.read_text(encoding="utf-8"), encoding="utf-8")
+            _write_config(
+                config,
+                week11_output,
+                week12_output,
+                visual_status="blocker_documented",
+                evidence_manifest_path=evidence_manifest,
+            )
+
+            report = write_week12_final_evaluation_package(config, week12_output, ROOT)
+            validation = validate_week12_final_evaluation_package(ROOT, config, week12_output)
+
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(validation["status"], "passed")
+        self.assertEqual(report["visual_recovery"]["status"], "blocker_documented")
+        self.assertEqual(report["guardrail_metrics"]["claim_without_evidence_count"], 0)
 
 
 if __name__ == "__main__":

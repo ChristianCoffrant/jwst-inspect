@@ -61,6 +61,20 @@ def _load_json(path: Path) -> dict[str, Any]:
     return data if isinstance(data, dict) else {}
 
 
+def _visual_manifest(root: Path, output_path: Path, visual_config: dict[str, Any]) -> dict[str, Any]:
+    manifest_path = output_path / str(visual_config.get("output_subdir", "video_attempt")) / "visual_manifest.json"
+    manifest = _load_json(manifest_path)
+    if not manifest:
+        fallback = visual_config.get("evidence_manifest_path")
+        if fallback:
+            manifest_path = _resolve(root, str(fallback))
+            manifest = _load_json(manifest_path)
+    if not manifest:
+        return {"status": "missing", "manifest_path": manifest_path.as_posix(), "clips": []}
+    manifest["manifest_path"] = manifest_path.as_posix()
+    return manifest
+
+
 def validate_week11_release_package(
     root: Path | str | None = None,
     config_path: Path | str = "configs/experiments/week11_release_package.yaml",
@@ -81,7 +95,7 @@ def validate_week11_release_package(
     registry_row = _find_row(registry_rows, "run_id", visual_run_id)
     cost_row = _find_row(cost_rows, "run_id", visual_run_id)
     logged_cost = float(cost_row.get("estimated_cost_usd", 999999.0)) if cost_row else 999999.0
-    visual_manifest = _load_json(output_path / str(visual_config.get("output_subdir", "video_attempt")) / "visual_manifest.json")
+    visual_manifest = _visual_manifest(root_path, output_path, visual_config)
     report = _load_json(output_path / "week11_release_summary.json")
     claim_rows = _csv_rows(output_path / "claim_evidence_matrix.csv")
     storyboard_rows = _csv_rows(output_path / "video_storyboard.csv")

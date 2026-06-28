@@ -51,6 +51,7 @@ visual_recovery:
   recovery_group_id: week12_team3_visual_recovery
   status: blocker_documented
   output_subdir: visual_recovery
+  evidence_manifest_path: validation/visual_evidence/week12_team3_visual_recovery_blocker_manifest.json
   active_vast_instances_after_run: 0
   total_cost_usd: 0.1156
   attempt_count: 1

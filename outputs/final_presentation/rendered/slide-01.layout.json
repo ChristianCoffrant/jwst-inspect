@@ -1,0 +1,551 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/hdj12r",
+    "id": "hdj12r",
+    "slide": 1,
+    "layoutId": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#071019",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/szqtcj6t",
+      "id": "1",
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
+      "alt": "Real JWST cleanroom photo",
+      "contentType": "image/jpeg",
+      "imageFit": "cover",
+      "asset": {
+        "assetId": "dd7588cf-6c8b-41cc-9f98-2101408d5323",
+        "contentType": "image/jpeg",
+        "byteLength": 669638
+      }
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/eloj2t83",
+      "id": "2",
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
+      "geometry": "rect",
+      "fillColor": "rgba(0, 0, 0, 0.6)",
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/36hcrmhk",
+      "id": "3",
+      "bbox": [
+        72,
+        78,
+        690,
+        78
+      ],
+      "geometry": "rect",
+      "text": "JWST-Inspect",
+      "textPreview": "JWST-Inspect",
+      "resolvedFontSize": 58,
+      "resolvedTextStyle": {
+        "fontSize": 58,
+        "typeface": "+mn-lt",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "JWST-Inspect"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "JWST-Inspect",
+          "resolvedTextStyle": {
+            "fontSize": 58,
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "JWST-Inspect",
+              "fontSize": 58,
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wfyxobm5",
+      "id": "4",
+      "bbox": [
+        76,
+        164,
+        760,
+        64
+      ],
+      "geometry": "rect",
+      "text": "Final closeout: benchmark, data, policy evaluation, and visual fidelity rescue",
+      "textPreview": "Final closeout: benchmark, data, policy evaluation, and visual fidelity rescue",
+      "resolvedFontSize": 23,
+      "resolvedTextStyle": {
+        "fontSize": 23,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Final closeout: benchmark, data, policy evaluation, and visual fidelity rescue"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Final closeout: benchmark, data, policy evaluation, and visual fidelity rescue",
+          "resolvedTextStyle": {
+            "fontSize": 23,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Final closeout: benchmark, data, policy evaluation, and visual fidelity rescue",
+              "fontSize": 23,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/l0rqd4vm",
+      "id": "5",
+      "bbox": [
+        74,
+        276,
+        522,
+        2
+      ],
+      "geometry": "rect",
+      "fillColor": "#F4BF45",
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ed8bat47",
+      "id": "6",
+      "bbox": [
+        76,
+        310,
+        650,
+        126
+      ],
+      "geometry": "rect",
+      "text": "- Harvard capstone selected from NVIDIA sponsor brief\n- Three integrated workstreams plus end-to-end validation\n- Real JWST references compared against rasterized and path-traced visual outputs",
+      "textPreview": "- Harvard capstone selected from NVIDIA sponsor brief | - Three integrated workstreams plus end-to-end validation | - Real JWST reference...",
+      "resolvedFontSize": 19,
+      "resolvedTextStyle": {
+        "fontSize": 19,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "- Harvard capstone selected from NVIDIA sponsor brief"
+          },
+          {
+            "index": 2,
+            "text": "- Three integrated workstreams plus end-to-end validation"
+          },
+          {
+            "index": 3,
+            "text": "- Real JWST references compared against rasterized and path-traced visual"
+          },
+          {
+            "index": 4,
+            "text": "outputs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "- Harvard capstone selected from NVIDIA sponsor brief",
+          "resolvedTextStyle": {
+            "fontSize": 19,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Harvard capstone selected from NVIDIA sponsor brief",
+              "fontSize": 19,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "- Three integrated workstreams plus end-to-end validation",
+          "resolvedTextStyle": {
+            "fontSize": 19,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Three integrated workstreams plus end-to-end validation",
+              "fontSize": 19,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "- Real JWST references compared against rasterized and path-traced visual outputs",
+          "resolvedTextStyle": {
+            "fontSize": 19,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Real JWST references compared against rasterized and path-traced visual outputs",
+              "fontSize": 19,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7u54zido",
+      "id": "7",
+      "bbox": [
+        76,
+        524,
+        250,
+        36
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#61D394",
+      "lineColor": "#61D394",
+      "lineWidth": 1
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/w7mp0bi9",
+      "id": "8",
+      "bbox": [
+        86,
+        530,
+        230,
+        28
+      ],
+      "geometry": "rect",
+      "text": "FINAL TECHNICAL GATES: PASS",
+      "textPreview": "FINAL TECHNICAL GATES: PASS",
+      "resolvedFontSize": 13,
+      "resolvedTextStyle": {
+        "fontSize": 13,
+        "typeface": "+mn-lt",
+        "color": "#071019",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "FINAL TECHNICAL GATES: PASS"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "FINAL TECHNICAL GATES: PASS",
+          "resolvedTextStyle": {
+            "fontSize": 13,
+            "color": "#071019",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "FINAL TECHNICAL GATES: PASS",
+              "fontSize": 13,
+              "color": "#071019",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/psfil0rq",
+      "id": "9",
+      "bbox": [
+        76,
+        568,
+        620,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Visual status: showcase improved, Omniverse frame blocker remains documented",
+      "textPreview": "Visual status: showcase improved, Omniverse frame blocker remains documented",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Visual status: showcase improved, Omniverse frame blocker remains documented"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Visual status: showcase improved, Omniverse frame blocker remains documented",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Visual status: showcase improved, Omniverse frame blocker remains documented",
+              "fontSize": 15,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/tsvu9kni",
+      "id": "10",
+      "bbox": [
+        72,
+        672,
+        1136,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Real image source: NASA Golden Mirror JWST cleanroom imagery. Deck generated from tracked repo evidence.",
+      "textPreview": "Real image source: NASA Golden Mirror JWST cleanroom imagery. Deck generated from tracked repo evidence.",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Real image source: NASA Golden Mirror JWST cleanroom imagery. Deck generated from tracked repo evidence."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Real image source: NASA Golden Mirror JWST cleanroom imagery. Deck generated from tracked repo evidence.",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Real image source: NASA Golden Mirror JWST cleanroom imagery. Deck generated from tracked repo evidence.",
+              "fontSize": 10,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

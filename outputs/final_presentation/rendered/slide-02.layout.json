@@ -1,0 +1,976 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/de1bgv",
+    "id": "de1bgv",
+    "slide": 2,
+    "layoutId": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#071019",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hk3q5o7q",
+      "id": "1",
+      "bbox": [
+        72,
+        38,
+        720,
+        24
+      ],
+      "geometry": "rect",
+      "text": "FIRST PRINCIPLES",
+      "textPreview": "FIRST PRINCIPLES",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "+mn-lt",
+        "color": "#55C7E7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "FIRST PRINCIPLES"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "FIRST PRINCIPLES",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "color": "#55C7E7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "FIRST PRINCIPLES",
+              "fontSize": 12,
+              "color": "#55C7E7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6xkf6dcb",
+      "id": "2",
+      "bbox": [
+        72,
+        74,
+        760,
+        94
+      ],
+      "geometry": "rect",
+      "text": "What NVIDIA wanted",
+      "textPreview": "What NVIDIA wanted",
+      "resolvedFontSize": 40,
+      "resolvedTextStyle": {
+        "fontSize": 40,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "What NVIDIA wanted"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "What NVIDIA wanted",
+          "resolvedTextStyle": {
+            "fontSize": 40,
+            "color": "#EEF5F7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "What NVIDIA wanted",
+              "fontSize": 40,
+              "color": "#EEF5F7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zed8v6ps",
+      "id": "3",
+      "bbox": [
+        72,
+        166,
+        800,
+        60
+      ],
+      "geometry": "rect",
+      "text": "A benchmark to test whether autonomous inspection policies transfer from fast rasterized simulation to physically richer path-traced rendering.",
+      "textPreview": "A benchmark to test whether autonomous inspection policies transfer from fast rasterized simulation to physically richer path-traced rend...",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "A benchmark to test whether autonomous inspection policies transfer from fast rasterized simulation to"
+          },
+          {
+            "index": 2,
+            "text": "physically richer path-traced rendering."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "A benchmark to test whether autonomous inspection policies transfer from fast rasterized simulation to physically richer path-traced rendering.",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "A benchmark to test whether autonomous inspection policies transfer from fast rasterized simulation to physically richer path-traced rendering.",
+              "fontSize": 18,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/obm58z25",
+      "id": "4",
+      "bbox": [
+        72,
+        288,
+        342,
+        250
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#0E1A25",
+      "lineColor": "#284356",
+      "lineWidth": 1
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hwfyxobm",
+      "id": "5",
+      "bbox": [
+        94,
+        310,
+        44,
+        44
+      ],
+      "geometry": "rect",
+      "text": "1",
+      "textPreview": "1",
+      "resolvedFontSize": 30,
+      "resolvedTextStyle": {
+        "fontSize": 30,
+        "typeface": "+mn-lt",
+        "color": "#F4BF45",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "1",
+          "resolvedTextStyle": {
+            "fontSize": 30,
+            "color": "#F4BF45",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "1",
+              "fontSize": 30,
+              "color": "#F4BF45",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/65wjudg7",
+      "id": "6",
+      "bbox": [
+        150,
+        306,
+        230,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Benchmark Scene",
+      "textPreview": "Benchmark Scene",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Benchmark Scene"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Benchmark Scene",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#EEF5F7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Benchmark Scene",
+              "fontSize": 21,
+              "color": "#EEF5F7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zqtcj6to",
+      "id": "7",
+      "bbox": [
+        98,
+        370,
+        288,
+        106
+      ],
+      "geometry": "rect",
+      "text": "Reusable OpenUSD scene: JWST geometry, inspector spacecraft, lighting variants, sensors, materials, safety regions.",
+      "textPreview": "Reusable OpenUSD scene: JWST geometry, inspector spacecraft, lighting variants, sensors, materials, safety regions.",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Reusable OpenUSD scene: JWST"
+          },
+          {
+            "index": 2,
+            "text": "geometry, inspector spacecraft, lighting"
+          },
+          {
+            "index": 3,
+            "text": "variants, sensors, materials, safety"
+          },
+          {
+            "index": 4,
+            "text": "regions."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Reusable OpenUSD scene: JWST geometry, inspector spacecraft, lighting variants, sensors, materials, safety regions.",
+          "resolvedTextStyle": {
+            "fontSize": 16,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Reusable OpenUSD scene: JWST geometry, inspector spacecraft, lighting variants, sensors, materials, safety regions.",
+              "fontSize": 16,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sfil0rqd",
+      "id": "8",
+      "bbox": [
+        458,
+        288,
+        342,
+        250
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#0E1A25",
+      "lineColor": "#284356",
+      "lineWidth": 1
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h0fepkzu",
+      "id": "9",
+      "bbox": [
+        480,
+        310,
+        44,
+        44
+      ],
+      "geometry": "rect",
+      "text": "2",
+      "textPreview": "2",
+      "resolvedFontSize": 30,
+      "resolvedTextStyle": {
+        "fontSize": 30,
+        "typeface": "+mn-lt",
+        "color": "#F4BF45",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2",
+          "resolvedTextStyle": {
+            "fontSize": 30,
+            "color": "#F4BF45",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "2",
+              "fontSize": 30,
+              "color": "#F4BF45",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5wjudg7a",
+      "id": "10",
+      "bbox": [
+        536,
+        306,
+        230,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Synthetic Data Pipeline",
+      "textPreview": "Synthetic Data Pipeline",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Synthetic Data Pipeline"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Synthetic Data Pipeline",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#EEF5F7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Synthetic Data Pipeline",
+              "fontSize": 21,
+              "color": "#EEF5F7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gbq1oryt",
+      "id": "11",
+      "bbox": [
+        484,
+        370,
+        288,
+        106
+      ],
+      "geometry": "rect",
+      "text": "Replicator-style data package: RGB/depth/segmentation, poses, labels, metadata, manifests, validation split discipline.",
+      "textPreview": "Replicator-style data package: RGB/depth/segmentation, poses, labels, metadata, manifests, validation split discipline.",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Replicator-style data package:"
+          },
+          {
+            "index": 2,
+            "text": "RGB/depth/segmentation, poses, labels,"
+          },
+          {
+            "index": 3,
+            "text": "metadata, manifests, validation split"
+          },
+          {
+            "index": 4,
+            "text": "discipline."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Replicator-style data package: RGB/depth/segmentation, poses, labels, metadata, manifests, validation split discipline.",
+          "resolvedTextStyle": {
+            "fontSize": 16,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Replicator-style data package: RGB/depth/segmentation, poses, labels, metadata, manifests, validation split discipline.",
+              "fontSize": 16,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/nuxc3ylc",
+      "id": "12",
+      "bbox": [
+        844,
+        288,
+        342,
+        250
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#0E1A25",
+      "lineColor": "#284356",
+      "lineWidth": 1
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/y90je9cv",
+      "id": "13",
+      "bbox": [
+        866,
+        310,
+        44,
+        44
+      ],
+      "geometry": "rect",
+      "text": "3",
+      "textPreview": "3",
+      "resolvedFontSize": 30,
+      "resolvedTextStyle": {
+        "fontSize": 30,
+        "typeface": "+mn-lt",
+        "color": "#F4BF45",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "3"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "3",
+          "resolvedTextStyle": {
+            "fontSize": 30,
+            "color": "#F4BF45",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "3",
+              "fontSize": 30,
+              "color": "#F4BF45",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/58z25kb6",
+      "id": "14",
+      "bbox": [
+        922,
+        306,
+        230,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Policy Evaluation",
+      "textPreview": "Policy Evaluation",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Policy Evaluation"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Policy Evaluation",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#EEF5F7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Policy Evaluation",
+              "fontSize": 21,
+              "color": "#EEF5F7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gn29gr2p",
+      "id": "15",
+      "bbox": [
+        870,
+        370,
+        288,
+        106
+      ],
+      "geometry": "rect",
+      "text": "Scripted and learned baselines measured across rasterized and path-traced conditions with R2P gaps and failure modes.",
+      "textPreview": "Scripted and learned baselines measured across rasterized and path-traced conditions with R2P gaps and failure modes.",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Scripted and learned baselines measured"
+          },
+          {
+            "index": 2,
+            "text": "across rasterized and path-traced"
+          },
+          {
+            "index": 3,
+            "text": "conditions with R2P gaps and failure"
+          },
+          {
+            "index": 4,
+            "text": "modes."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Scripted and learned baselines measured across rasterized and path-traced conditions with R2P gaps and failure modes.",
+          "resolvedTextStyle": {
+            "fontSize": 16,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Scripted and learned baselines measured across rasterized and path-traced conditions with R2P gaps and failure modes.",
+              "fontSize": 16,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/n29gr2p8",
+      "id": "16",
+      "bbox": [
+        72,
+        628,
+        1136,
+        1
+      ],
+      "geometry": "rect",
+      "fillColor": "#284356",
+      "lineWidth": 0
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yhgn29gr",
+      "id": "17",
+      "bbox": [
+        72,
+        642,
+        1030,
+        26
+      ],
+      "geometry": "rect",
+      "text": "Validation standard: claims must trace to source files, run registries, cost logs, and reproducible clean-checkout validators.",
+      "textPreview": "Validation standard: claims must trace to source files, run registries, cost logs, and reproducible clean-checkout validators.",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Validation standard: claims must trace to source files, run registries, cost logs, and reproducible clean-checkout validators."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Validation standard: claims must trace to source files, run registries, cost logs, and reproducible clean-checkout validators.",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Validation standard: claims must trace to source files, run registries, cost logs, and reproducible clean-checkout validators.",
+              "fontSize": 15,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

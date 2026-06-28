@@ -1,0 +1,31 @@
+{
+  "artifact_sync_status": "synced_after_blocker",
+  "blocker_reason": "Vast instance 42913976 on driver 580.119.02 loaded the locked scene but timed out before PNG capture; a second Replicator BasicWriter capture path also timed out and crashed during shutdown. See docs/workstream3_week12_execution.md.",
+  "clips": [
+    {
+      "artifacts": [],
+      "blocker_reason": "RuntimeError: timed out waiting for Replicator PNG capture before the first selected episode frame was written.",
+      "clip_id": "clip01_nominal_scripted_approach",
+      "episode_id": "week10_nominal_clean_approach_hold_standoff_scripted_baseline_rasterized",
+      "status": "blocker_documented"
+    },
+    {
+      "artifacts": [],
+      "blocker_reason": "RuntimeError: timed out waiting for Replicator PNG capture before the selected episode frames were written.",
+      "clip_id": "clip02_anomaly_learned_sunshield",
+      "episode_id": "week10_anomaly_mixed_stress_sunshield_survey_learned_state_bc_v0_1_path_traced",
+      "status": "blocker_documented"
+    },
+    {
+      "artifacts": [],
+      "blocker_reason": "RuntimeError: timed out waiting for Replicator PNG capture before the selected episode frames were written.",
+      "clip_id": "clip03_anomaly_scripted_mirror",
+      "episode_id": "week10_anomaly_mixed_stress_mirror_inspection_scripted_baseline_path_traced",
+      "status": "blocker_documented"
+    }
+  ],
+  "dry_run": false,
+  "render_backend": "isaac_sim_viewport_capture_and_replicator_basicwriter",
+  "run_id": "week12_team3_visual_recovery_42913976_20260627_attempt2_replicator",
+  "status": "blocker_documented"
+}

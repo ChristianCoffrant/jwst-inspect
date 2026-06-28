@@ -1,0 +1,357 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/j56oob",
+    "id": "j56oob",
+    "slide": 5,
+    "layoutId": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#071019",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fa9w3m94",
+      "id": "1",
+      "bbox": [
+        72,
+        38,
+        720,
+        24
+      ],
+      "geometry": "rect",
+      "text": "VISUAL AUDIT",
+      "textPreview": "VISUAL AUDIT",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "+mn-lt",
+        "color": "#55C7E7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "VISUAL AUDIT"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "VISUAL AUDIT",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "color": "#55C7E7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "VISUAL AUDIT",
+              "fontSize": 12,
+              "color": "#55C7E7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/8v6psfil",
+      "id": "2",
+      "bbox": [
+        72,
+        74,
+        760,
+        94
+      ],
+      "geometry": "rect",
+      "text": "The original visuals did not meet the ambition",
+      "textPreview": "The original visuals did not meet the ambition",
+      "resolvedFontSize": 40,
+      "resolvedTextStyle": {
+        "fontSize": 40,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The original visuals did not meet the"
+          },
+          {
+            "index": 2,
+            "text": "ambition"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The original visuals did not meet the ambition",
+          "resolvedTextStyle": {
+            "fontSize": 40,
+            "color": "#EEF5F7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The original visuals did not meet the ambition",
+              "fontSize": 40,
+              "color": "#EEF5F7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xczed8v6",
+      "id": "3",
+      "bbox": [
+        72,
+        166,
+        800,
+        60
+      ],
+      "geometry": "rect",
+      "text": "The benchmark worked technically, but the proxy scene and failed official capture path did not produce the kind of JWST evidence that wins a room.",
+      "textPreview": "The benchmark worked technically, but the proxy scene and failed official capture path did not produce the kind of JWST evidence that win...",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The benchmark worked technically, but the proxy scene and failed official capture path did not produce"
+          },
+          {
+            "index": 2,
+            "text": "the kind of JWST evidence that wins a room."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The benchmark worked technically, but the proxy scene and failed official capture path did not produce the kind of JWST evidence that wins a room.",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The benchmark worked technically, but the proxy scene and failed official capture path did not produce the kind of JWST evidence that wins a room.",
+              "fontSize": 18,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/f6dcbulw",
+      "id": "4",
+      "bbox": [
+        58,
+        230,
+        1164,
+        410
+      ],
+      "alt": "Visual comparison panel",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "fdd5ba1c-258a-4268-80d0-e82816a5cd1b",
+        "contentType": "image/png",
+        "byteLength": 1019242
+      }
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fyxobm58",
+      "id": "5",
+      "bbox": [
+        58,
+        230,
+        1164,
+        410
+      ],
+      "geometry": "roundRect",
+      "fillColor": "rgba(0, 0, 0, 0)",
+      "lineColor": "#284356",
+      "lineWidth": 1
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/8jqh0fep",
+      "id": "6",
+      "bbox": [
+        72,
+        672,
+        1136,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Left to right comparison includes real NASA imagery, official 3D preview, original benchmark renders, and the Vast visual rescue outputs.",
+      "textPreview": "Left to right comparison includes real NASA imagery, official 3D preview, original benchmark renders, and the Vast visual rescue outputs.",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Left to right comparison includes real NASA imagery, official 3D preview, original benchmark renders, and the Vast visual rescue outputs."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Left to right comparison includes real NASA imagery, official 3D preview, original benchmark renders, and the Vast visual rescue outputs.",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Left to right comparison includes real NASA imagery, official 3D preview, original benchmark renders, and the Vast visual rescue outputs.",
+              "fontSize": 10,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

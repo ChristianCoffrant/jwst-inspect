@@ -25,6 +25,8 @@ validation/reference_images/**
 !validation/reference_images/spacecraft/
 !validation/reference_images/diagrams/
 !validation/reference_images/backgrounds/
+!validation/reference_images/spacecraft/nasa_jwst_cleanroom_sunshield_primary_mirror_2016_jwst1.jpg
+!validation/reference_images/spacecraft/nasa_jwst_cleanroom_primary_mirror_close_2016_jwst2.jpg
 validation/renders/**
 !validation/renders/README.md
 

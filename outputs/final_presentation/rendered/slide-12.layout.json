@@ -1,0 +1,510 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/f7vt9o",
+    "id": "f7vt9o",
+    "slide": 12,
+    "layoutId": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#071019",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/c7u54zid",
+      "id": "1",
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
+      "alt": "Close path traced JWST mirror render",
+      "contentType": "image/png",
+      "imageFit": "cover",
+      "asset": {
+        "assetId": "cbb095e1-a24d-4422-9cf7-9ce45f20686c",
+        "contentType": "image/png",
+        "byteLength": 1769078
+      }
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m94fu18j",
+      "id": "2",
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
+      "geometry": "rect",
+      "fillColor": "rgba(0, 0, 0, 0.66667)",
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fu18jqh0",
+      "id": "3",
+      "bbox": [
+        72,
+        68,
+        760,
+        68
+      ],
+      "geometry": "rect",
+      "text": "Winning strategy",
+      "textPreview": "Winning strategy",
+      "resolvedFontSize": 48,
+      "resolvedTextStyle": {
+        "fontSize": 48,
+        "typeface": "+mn-lt",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Winning strategy"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Winning strategy",
+          "resolvedTextStyle": {
+            "fontSize": 48,
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Winning strategy",
+              "fontSize": 48,
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/83itgfml",
+      "id": "4",
+      "bbox": [
+        76,
+        150,
+        840,
+        64
+      ],
+      "geometry": "rect",
+      "text": "Do not chase every possible model. Make one public, reproducible benchmark that NVIDIA engineers would actually trust and want to run.",
+      "textPreview": "Do not chase every possible model. Make one public, reproducible benchmark that NVIDIA engineers would actually trust and want to run.",
+      "resolvedFontSize": 23,
+      "resolvedTextStyle": {
+        "fontSize": 23,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Do not chase every possible model. Make one public, reproducible benchmark that"
+          },
+          {
+            "index": 2,
+            "text": "NVIDIA engineers would actually trust and want to run."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Do not chase every possible model. Make one public, reproducible benchmark that NVIDIA engineers would actually trust and want to run.",
+          "resolvedTextStyle": {
+            "fontSize": 23,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Do not chase every possible model. Make one public, reproducible benchmark that NVIDIA engineers would actually trust and want to run.",
+              "fontSize": 23,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xobm58z2",
+      "id": "5",
+      "bbox": [
+        78,
+        272,
+        820,
+        190
+      ],
+      "geometry": "rect",
+      "text": "- Lead with first-principles validation: renderer-transfer robustness, safety constraints, and traceable evidence.\n- Use the visual rescue as a proof of what the asset path can become, then rebuild it in official OpenUSD/Omniverse.\n- Publish the benchmark, docs, manifests, and failure cases. A clean, useful repo beats a brittle demo.\n- Only attempt novel techniques after the benchmark is credible; a small, rigorous finding is better than broad unsupported claims.",
+      "textPreview": "- Lead with first-principles validation: renderer-transfer robustness, safety constraints, and traceable evidence. | - Use the visual res...",
+      "resolvedFontSize": 19,
+      "resolvedTextStyle": {
+        "fontSize": 19,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 7,
+        "lines": [
+          {
+            "index": 1,
+            "text": "- Lead with first-principles validation: renderer-transfer robustness, safety constraints, and traceable"
+          },
+          {
+            "index": 2,
+            "text": "evidence."
+          },
+          {
+            "index": 3,
+            "text": "- Use the visual rescue as a proof of what the asset path can become, then rebuild it in official"
+          },
+          {
+            "index": 4,
+            "text": "OpenUSD/Omniverse."
+          },
+          {
+            "index": 5,
+            "text": "- Publish the benchmark, docs, manifests, and failure cases. A clean, useful repo beats a brittle demo."
+          },
+          {
+            "index": 6,
+            "text": "- Only attempt novel techniques after the benchmark is credible; a small, rigorous finding is better than"
+          },
+          {
+            "index": 7,
+            "text": "broad unsupported claims."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "- Lead with first-principles validation: renderer-transfer robustness, safety constraints, and traceable evidence.",
+          "resolvedTextStyle": {
+            "fontSize": 19,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Lead with first-principles validation: renderer-transfer robustness, safety constraints, and traceable evidence.",
+              "fontSize": 19,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "- Use the visual rescue as a proof of what the asset path can become, then rebuild it in official OpenUSD/Omniverse.",
+          "resolvedTextStyle": {
+            "fontSize": 19,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Use the visual rescue as a proof of what the asset path can become, then rebuild it in official OpenUSD/Omniverse.",
+              "fontSize": 19,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "- Publish the benchmark, docs, manifests, and failure cases. A clean, useful repo beats a brittle demo.",
+          "resolvedTextStyle": {
+            "fontSize": 19,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Publish the benchmark, docs, manifests, and failure cases. A clean, useful repo beats a brittle demo.",
+              "fontSize": 19,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 4,
+          "text": "- Only attempt novel techniques after the benchmark is credible; a small, rigorous finding is better than broad unsupported claims.",
+          "resolvedTextStyle": {
+            "fontSize": 19,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Only attempt novel techniques after the benchmark is credible; a small, rigorous finding is better than broad unsupported claims.",
+              "fontSize": 19,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/qxs72x4n",
+      "id": "6",
+      "bbox": [
+        76,
+        544,
+        646,
+        2
+      ],
+      "geometry": "rect",
+      "fillColor": "#F4BF45",
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fil0rqd4",
+      "id": "7",
+      "bbox": [
+        78,
+        568,
+        820,
+        58
+      ],
+      "geometry": "rect",
+      "text": "Final recommendation: one more focused sprint on official JWST OpenUSD visual fidelity and Omniverse RTX capture would convert this from technically complete to sponsor-showcase caliber.",
+      "textPreview": "Final recommendation: one more focused sprint on official JWST OpenUSD visual fidelity and Omniverse RTX capture would convert this from ...",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#F4BF45",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Final recommendation: one more focused sprint on official JWST OpenUSD visual fidelity and Omniverse RTX"
+          },
+          {
+            "index": 2,
+            "text": "capture would convert this from technically complete to sponsor-showcase caliber."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Final recommendation: one more focused sprint on official JWST OpenUSD visual fidelity and Omniverse RTX capture would convert this from technically complete to sponsor-showcase caliber.",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#F4BF45",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Final recommendation: one more focused sprint on official JWST OpenUSD visual fidelity and Omniverse RTX capture would convert this from technically complete to sponsor-showcase caliber.",
+              "fontSize": 17,
+              "color": "#F4BF45",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4zidonyd",
+      "id": "8",
+      "bbox": [
+        72,
+        672,
+        1136,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Deck outputs: outputs/final_presentation/JWST-Inspect_Final_Closeout.pptx and rendered slide PNGs.",
+      "textPreview": "Deck outputs: outputs/final_presentation/JWST-Inspect_Final_Closeout.pptx and rendered slide PNGs.",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Deck outputs: outputs/final_presentation/JWST-Inspect_Final_Closeout.pptx and rendered slide PNGs."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Deck outputs: outputs/final_presentation/JWST-Inspect_Final_Closeout.pptx and rendered slide PNGs.",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Deck outputs: outputs/final_presentation/JWST-Inspect_Final_Closeout.pptx and rendered slide PNGs.",
+              "fontSize": 10,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

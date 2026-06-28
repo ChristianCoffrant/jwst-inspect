@@ -47,6 +47,20 @@ def _load_json(path: Path) -> dict[str, Any]:
     return data if isinstance(data, dict) else {}
 
 
+def _visual_manifest(root: Path, output_path: Path, visual_config: dict[str, Any]) -> dict[str, Any]:
+    manifest_path = output_path / str(visual_config.get("output_subdir", "visual_recovery")) / "visual_manifest.json"
+    manifest = _load_json(manifest_path)
+    if not manifest:
+        fallback = visual_config.get("evidence_manifest_path")
+        if fallback:
+            manifest_path = _resolve(root, str(fallback))
+            manifest = _load_json(manifest_path)
+    if not manifest:
+        return {"status": "missing", "manifest_path": manifest_path.as_posix(), "clips": []}
+    manifest["manifest_path"] = manifest_path.as_posix()
+    return manifest
+
+
 def _csv_rows(path: Path) -> list[dict[str, str]]:
     if not path.exists():
         return []
@@ -79,7 +93,7 @@ def validate_week12_final_evaluation_package(
     visual_summary = _load_json(output_path / "visual_recovery_summary.json")
     defense_readiness = _load_json(output_path / "defense_readiness.json")
     visual_config = _as_mapping(config.get("visual_recovery"))
-    visual_manifest = _load_json(output_path / str(visual_config.get("output_subdir", "visual_recovery")) / "visual_manifest.json")
+    visual_manifest = _visual_manifest(root_path, output_path, visual_config)
     attempts = [row for row in _as_list(visual_config.get("attempts")) if isinstance(row, dict)]
     paid_attempts = [row for row in attempts if row.get("actual_paid_instance_launched")]
 

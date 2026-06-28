@@ -21,7 +21,10 @@ SELECTED = (
 )
 
 
-def _write_test_config(path: Path, week10_output: Path, output_dir: Path) -> None:
+def _write_test_config(path: Path, week10_output: Path, output_dir: Path, evidence_manifest_path: Path | None = None) -> None:
+    evidence_manifest_line = (
+        f"  evidence_manifest_path: {evidence_manifest_path.as_posix()}\n" if evidence_manifest_path is not None else ""
+    )
     path.write_text(
         f"""version: 0.1.0
 experiment_id: week11_release_package
@@ -76,7 +79,7 @@ visual_attempt:
   gpu_vram_gb: 24
   render_runner: isaac_env/scripts/render_week11_video_episodes.py
   render_backend: test_visual_manifest
-paper_outputs:
+{evidence_manifest_line}paper_outputs:
   paper_policy_score_summary: paper_policy_score_summary.csv
   paper_r2p_summary: paper_r2p_summary.csv
   paper_failure_summary: paper_failure_summary.csv
@@ -134,6 +137,36 @@ def _write_visual_manifest(output_dir: Path) -> None:
     )
 
 
+def _write_blocker_manifest(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(
+            {
+                "status": "blocker_documented",
+                "run_id": VISUAL_RUN_ID,
+                "artifact_sync_status": "synced_after_blocker",
+                "render_backend": "test_visual_blocker",
+                "dry_run": False,
+                "blocker_reason": "test renderer blocker",
+                "clips": [
+                    {
+                        "clip_id": f"clip{index:02d}",
+                        "episode_id": episode_id,
+                        "status": "blocker_documented",
+                        "artifacts": [],
+                        "blocker_reason": "test renderer blocker",
+                    }
+                    for index, episode_id in enumerate(SELECTED, start=1)
+                ],
+            },
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
 class Week11ReleasePackageTests(unittest.TestCase):
     def test_week11_release_package_passes_with_synced_visual_manifest(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -169,6 +202,40 @@ class Week11ReleasePackageTests(unittest.TestCase):
         self.assertTrue(all(report["guardrails"].values()))
         self.assertEqual(report["selected_visual_episode_count"], 3)
         self.assertEqual(report["guardrail_metrics"]["claim_without_evidence_count"], 0)
+
+    def test_week11_release_package_uses_tracked_blocker_manifest_fallback(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp = Path(tmpdir)
+            week10_output = tmp / "week10_final_results_lock"
+            output_dir = tmp / "week11_release_package"
+            evidence_manifest = tmp / "validation" / "visual_evidence" / "week11_blocker.json"
+            config_path = tmp / "week11_release_package.yaml"
+            subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "isaac_env" / "scripts" / "run_week10_policy_rollout.py"),
+                    "--repo-root",
+                    str(ROOT),
+                    "--config",
+                    str(ROOT / "configs" / "experiments" / "week10_final_results_lock.yaml"),
+                    "--output-dir",
+                    str(week10_output / "isaac_rollout"),
+                    "--dry-run",
+                ],
+                check=True,
+                cwd=ROOT,
+                stdout=subprocess.DEVNULL,
+            )
+            _write_blocker_manifest(evidence_manifest)
+            _write_test_config(config_path, week10_output, output_dir, evidence_manifest)
+
+            report = run_week11_release_package(config_path, output_dir, root=ROOT)
+            validation = validate_week11_release_package(ROOT, config_path, output_dir)
+
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(validation["status"], "passed")
+        self.assertEqual(report["visual_manifest_status"], "blocker_documented")
+        self.assertEqual(report["guardrail_metrics"]["visual_success_claim_without_artifact_count"], 0)
 
 
 if __name__ == "__main__":

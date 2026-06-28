@@ -1,0 +1,491 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/7crivw",
+    "id": "7crivw",
+    "slide": 6,
+    "layoutId": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#071019",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/epkzupwb",
+      "id": "1",
+      "bbox": [
+        72,
+        38,
+        720,
+        24
+      ],
+      "geometry": "rect",
+      "text": "REFERENCE TARGET",
+      "textPreview": "REFERENCE TARGET",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "+mn-lt",
+        "color": "#55C7E7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "REFERENCE TARGET"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "REFERENCE TARGET",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "color": "#55C7E7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "REFERENCE TARGET",
+              "fontSize": 12,
+              "color": "#55C7E7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/pg3ex0nu",
+      "id": "2",
+      "bbox": [
+        72,
+        74,
+        760,
+        94
+      ],
+      "geometry": "rect",
+      "text": "Real JWST validation images are now in scope",
+      "textPreview": "Real JWST validation images are now in scope",
+      "resolvedFontSize": 40,
+      "resolvedTextStyle": {
+        "fontSize": 40,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Real JWST validation images are now in"
+          },
+          {
+            "index": 2,
+            "text": "scope"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Real JWST validation images are now in scope",
+          "resolvedTextStyle": {
+            "fontSize": 40,
+            "color": "#EEF5F7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Real JWST validation images are now in scope",
+              "fontSize": 40,
+              "color": "#EEF5F7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wval87ed",
+      "id": "3",
+      "bbox": [
+        72,
+        166,
+        800,
+        60
+      ],
+      "geometry": "rect",
+      "text": "The project now uses public NASA images as qualitative visual references, not training data. They set the visual bar for mirrors, sunshield, scale, and materials.",
+      "textPreview": "The project now uses public NASA images as qualitative visual references, not training data. They set the visual bar for mirrors, sunshie...",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The project now uses public NASA images as qualitative visual references, not training data. They set the"
+          },
+          {
+            "index": 2,
+            "text": "visual bar for mirrors, sunshield, scale, and materials."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The project now uses public NASA images as qualitative visual references, not training data. They set the visual bar for mirrors, sunshield, scale, and materials.",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The project now uses public NASA images as qualitative visual references, not training data. They set the visual bar for mirrors, sunshield, scale, and materials.",
+              "fontSize": 18,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/upwb2hwf",
+      "id": "4",
+      "bbox": [
+        72,
+        250,
+        548,
+        326
+      ],
+      "alt": "JWST in cleanroom",
+      "contentType": "image/jpeg",
+      "imageFit": "cover",
+      "asset": {
+        "assetId": "52135fab-f20b-4495-aeb4-184a4e4675c3",
+        "contentType": "image/jpeg",
+        "byteLength": 669638
+      }
+    },
+    {
+      "order": 5,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/nap4r65w",
+      "id": "5",
+      "bbox": [
+        660,
+        250,
+        260,
+        326
+      ],
+      "alt": "JWST mirror close view",
+      "contentType": "image/jpeg",
+      "imageFit": "cover",
+      "asset": {
+        "assetId": "cfef3a65-138a-4383-a1f2-dc7212a62892",
+        "contentType": "image/jpeg",
+        "byteLength": 648720
+      }
+    },
+    {
+      "order": 6,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/cvixczed",
+      "id": "6",
+      "bbox": [
+        948,
+        250,
+        260,
+        326
+      ],
+      "alt": "Official NASA 3D preview",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "d2e2e857-f7f2-45b4-b836-41550ba6bbae",
+        "contentType": "image/png",
+        "byteLength": 481806
+      }
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/w7mp0bi9",
+      "id": "7",
+      "bbox": [
+        72,
+        596,
+        300,
+        26
+      ],
+      "geometry": "rect",
+      "text": "Visual reference only",
+      "textPreview": "Visual reference only",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "+mn-lt",
+        "color": "#F4BF45",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Visual reference only"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Visual reference only",
+          "resolvedTextStyle": {
+            "fontSize": 16,
+            "color": "#F4BF45",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Visual reference only",
+              "fontSize": 16,
+              "color": "#F4BF45",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7u54zido",
+      "id": "8",
+      "bbox": [
+        384,
+        592,
+        740,
+        72
+      ],
+      "geometry": "rect",
+      "text": "- Reference images excluded from training and tuning\n- Manifest entries are frozen outside the scored held-out split\n- Visual comparison focuses on geometry, material identity, and scene plausibility",
+      "textPreview": "- Reference images excluded from training and tuning | - Manifest entries are frozen outside the scored held-out split | - Visual compari...",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "- Reference images excluded from training and tuning"
+          },
+          {
+            "index": 2,
+            "text": "- Manifest entries are frozen outside the scored held-out split"
+          },
+          {
+            "index": 3,
+            "text": "- Visual comparison focuses on geometry, material identity, and scene plausibility"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "- Reference images excluded from training and tuning",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Reference images excluded from training and tuning",
+              "fontSize": 15,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "- Manifest entries are frozen outside the scored held-out split",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Manifest entries are frozen outside the scored held-out split",
+              "fontSize": 15,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "- Visual comparison focuses on geometry, material identity, and scene plausibility",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Visual comparison focuses on geometry, material identity, and scene plausibility",
+              "fontSize": 15,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

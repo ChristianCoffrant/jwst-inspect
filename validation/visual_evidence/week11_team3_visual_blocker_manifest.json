@@ -1,0 +1,31 @@
+{
+  "artifact_sync_status": "synced_after_blocker",
+  "blocker_reason": "Paid Isaac Sim viewport render on Vast instance 42901494 reached app ready, then crashed in gpu.foundation/scenerenderer RTX before frame capture; see ignored run logs recorded in docs/workstream3_week11_execution.md.",
+  "clips": [
+    {
+      "artifacts": [],
+      "blocker_reason": "Paid Isaac Sim viewport render on Vast instance 42901494 reached app ready, then crashed in gpu.foundation/scenerenderer RTX before frame capture.",
+      "clip_id": "clip01_nominal_scripted_approach",
+      "episode_id": "week10_nominal_clean_approach_hold_standoff_scripted_baseline_rasterized",
+      "status": "blocker_documented"
+    },
+    {
+      "artifacts": [],
+      "blocker_reason": "Paid Isaac Sim viewport render on Vast instance 42901494 reached app ready, then crashed in gpu.foundation/scenerenderer RTX before frame capture.",
+      "clip_id": "clip02_anomaly_learned_sunshield",
+      "episode_id": "week10_anomaly_mixed_stress_sunshield_survey_learned_state_bc_v0_1_path_traced",
+      "status": "blocker_documented"
+    },
+    {
+      "artifacts": [],
+      "blocker_reason": "Paid Isaac Sim viewport render on Vast instance 42901494 reached app ready, then crashed in gpu.foundation/scenerenderer RTX before frame capture.",
+      "clip_id": "clip03_anomaly_scripted_mirror",
+      "episode_id": "week10_anomaly_mixed_stress_mirror_inspection_scripted_baseline_path_traced",
+      "status": "blocker_documented"
+    }
+  ],
+  "dry_run": false,
+  "render_backend": "isaac_sim_viewport_capture",
+  "run_id": "week11_team3_visual_rerun_42901494_20260627",
+  "status": "blocker_documented"
+}

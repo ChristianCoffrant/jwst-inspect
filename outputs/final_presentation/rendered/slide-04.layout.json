@@ -1,0 +1,755 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/amvj30",
+    "id": "amvj30",
+    "slide": 4,
+    "layoutId": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#071019",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "d8dd8f28-85b2-4abd-b757-1a7a00008042",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "df0736b9-eccf-4f0e-ba35-a487538e517e",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/tcj6tova",
+      "id": "1",
+      "bbox": [
+        72,
+        38,
+        720,
+        24
+      ],
+      "geometry": "rect",
+      "text": "CLOSEOUT REPAIR",
+      "textPreview": "CLOSEOUT REPAIR",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "+mn-lt",
+        "color": "#55C7E7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CLOSEOUT REPAIR"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CLOSEOUT REPAIR",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "color": "#55C7E7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "CLOSEOUT REPAIR",
+              "fontSize": 12,
+              "color": "#55C7E7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/il0rqd4v",
+      "id": "2",
+      "bbox": [
+        72,
+        74,
+        760,
+        94
+      ],
+      "geometry": "rect",
+      "text": "The missing piece was reproducibility",
+      "textPreview": "The missing piece was reproducibility",
+      "resolvedFontSize": 40,
+      "resolvedTextStyle": {
+        "fontSize": 40,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The missing piece was reproducibility"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The missing piece was reproducibility",
+          "resolvedTextStyle": {
+            "fontSize": 40,
+            "color": "#EEF5F7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The missing piece was reproducibility",
+              "fontSize": 40,
+              "color": "#EEF5F7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/b6xkf6dc",
+      "id": "3",
+      "bbox": [
+        72,
+        166,
+        800,
+        60
+      ],
+      "geometry": "rect",
+      "text": "Team 3 had valid local run evidence, but some clean-checkout validators depended on ignored run artifacts. I converted that evidence into tracked manifests and config fallbacks.",
+      "textPreview": "Team 3 had valid local run evidence, but some clean-checkout validators depended on ignored run artifacts. I converted that evidence into...",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Team 3 had valid local run evidence, but some clean-checkout validators depended on ignored run"
+          },
+          {
+            "index": 2,
+            "text": "artifacts. I converted that evidence into tracked manifests and config fallbacks."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Team 3 had valid local run evidence, but some clean-checkout validators depended on ignored run artifacts. I converted that evidence into tracked manifests and config fallbacks.",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Team 3 had valid local run evidence, but some clean-checkout validators depended on ignored run artifacts. I converted that evidence into tracked manifests and config fallbacks.",
+              "fontSize": 18,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0je9cvix",
+      "id": "4",
+      "bbox": [
+        72,
+        276,
+        524,
+        192
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#0E1A25",
+      "lineColor": "#FF6B6B",
+      "lineWidth": 1
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/t47y1kre",
+      "id": "5",
+      "bbox": [
+        100,
+        300,
+        200,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Before",
+      "textPreview": "Before",
+      "resolvedFontSize": 26,
+      "resolvedTextStyle": {
+        "fontSize": 26,
+        "typeface": "+mn-lt",
+        "color": "#FF6B6B",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Before"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Before",
+          "resolvedTextStyle": {
+            "fontSize": 26,
+            "color": "#FF6B6B",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Before",
+              "fontSize": 26,
+              "color": "#FF6B6B",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/idonyd0z",
+      "id": "6",
+      "bbox": [
+        100,
+        354,
+        452,
+        70
+      ],
+      "geometry": "rect",
+      "text": "Week 12 evaluation validator failed on a clean checkout because blocker evidence only existed under ignored run outputs.",
+      "textPreview": "Week 12 evaluation validator failed on a clean checkout because blocker evidence only existed under ignored run outputs.",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Week 12 evaluation validator failed on a clean checkout"
+          },
+          {
+            "index": 2,
+            "text": "because blocker evidence only existed under ignored run"
+          },
+          {
+            "index": 3,
+            "text": "outputs."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Week 12 evaluation validator failed on a clean checkout because blocker evidence only existed under ignored run outputs.",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Week 12 evaluation validator failed on a clean checkout because blocker evidence only existed under ignored run outputs.",
+              "fontSize": 18,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/byhgn29g",
+      "id": "7",
+      "bbox": [
+        652,
+        276,
+        524,
+        192
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#0E1A25",
+      "lineColor": "#61D394",
+      "lineWidth": 1
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0fepkzup",
+      "id": "8",
+      "bbox": [
+        680,
+        300,
+        200,
+        34
+      ],
+      "geometry": "rect",
+      "text": "After",
+      "textPreview": "After",
+      "resolvedFontSize": 26,
+      "resolvedTextStyle": {
+        "fontSize": 26,
+        "typeface": "+mn-lt",
+        "color": "#61D394",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "After"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "After",
+          "resolvedTextStyle": {
+            "fontSize": 26,
+            "color": "#61D394",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "After",
+              "fontSize": 26,
+              "color": "#61D394",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/p0bi9s36",
+      "id": "9",
+      "bbox": [
+        680,
+        354,
+        452,
+        70
+      ],
+      "geometry": "rect",
+      "text": "Tracked visual evidence manifests are referenced by Week 11 and Week 12 configs; validators pass without private local caches.",
+      "textPreview": "Tracked visual evidence manifests are referenced by Week 11 and Week 12 configs; validators pass without private local caches.",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Tracked visual evidence manifests are referenced by Week"
+          },
+          {
+            "index": 2,
+            "text": "11 and Week 12 configs; validators pass without private"
+          },
+          {
+            "index": 3,
+            "text": "local caches."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Tracked visual evidence manifests are referenced by Week 11 and Week 12 configs; validators pass without private local caches.",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Tracked visual evidence manifests are referenced by Week 11 and Week 12 configs; validators pass without private local caches.",
+              "fontSize": 18,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/x0nuxc3y",
+      "id": "10",
+      "bbox": [
+        72,
+        516,
+        1136,
+        86
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#122535",
+      "lineColor": "#284356",
+      "lineWidth": 1
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4fu18jqh",
+      "id": "11",
+      "bbox": [
+        100,
+        536,
+        160,
+        24
+      ],
+      "geometry": "rect",
+      "text": "Files changed",
+      "textPreview": "Files changed",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#55C7E7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Files changed"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Files changed",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#55C7E7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Files changed",
+              "fontSize": 15,
+              "color": "#55C7E7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fu18jqh0",
+      "id": "12",
+      "bbox": [
+        266,
+        536,
+        870,
+        38
+      ],
+      "geometry": "rect",
+      "text": "validation/visual_evidence/*.json, configs/experiments/week11_release_package.yaml, configs/experiments/week12_final_evaluation_package.yaml, validation/evaluation fallback code, focused regression tests",
+      "textPreview": "validation/visual_evidence/*.json, configs/experiments/week11_release_package.yaml, configs/experiments/week12_final_evaluation_package.y...",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "fontSize": 14,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "validation/visual_evidence/*.json, configs/experiments/week11_release_package.yaml,"
+          },
+          {
+            "index": 2,
+            "text": "configs/experiments/week12_final_evaluation_package.yaml, validation/evaluation fallback code, focused regression tests"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "validation/visual_evidence/*.json, configs/experiments/week11_release_package.yaml, configs/experiments/week12_final_evaluation_package.yaml, validation/evaluation fallback code, focused regression tests",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "validation/visual_evidence/*.json, configs/experiments/week11_release_package.yaml, configs/experiments/week12_final_evaluation_package.yaml, validation/evaluation fallback code, focused regression tests",
+              "fontSize": 14,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m94fu18j",
+      "id": "13",
+      "bbox": [
+        72,
+        672,
+        1136,
+        28
+      ],
+      "geometry": "rect",
+      "text": "This is the practical difference between a local demo and a defensible final submission.",
+      "textPreview": "This is the practical difference between a local demo and a defensible final submission.",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "This is the practical difference between a local demo and a defensible final submission."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "This is the practical difference between a local demo and a defensible final submission.",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "This is the practical difference between a local demo and a defensible final submission.",
+              "fontSize": 10,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

@@ -88,16 +88,17 @@ def _clip_artifact_hashes(visual_manifest: dict[str, Any]) -> list[dict[str, Any
     return rows
 
 
-def _visual_manifest(output_path: Path, config: dict[str, Any]) -> dict[str, Any]:
+def _visual_manifest(output_path: Path, config: dict[str, Any], root: Path) -> dict[str, Any]:
     visual_config = _as_mapping(config.get("visual_recovery"))
     manifest_path = output_path / str(visual_config.get("output_subdir", "visual_recovery")) / "visual_manifest.json"
     manifest = _load_json(manifest_path)
     if not manifest:
-        return {
-            "status": "missing",
-            "manifest_path": manifest_path.as_posix(),
-            "clips": [],
-        }
+        fallback = visual_config.get("evidence_manifest_path")
+        if fallback:
+            manifest_path = _resolve(root, str(fallback))
+            manifest = _load_json(manifest_path)
+    if not manifest:
+        return {"status": "missing", "manifest_path": manifest_path.as_posix(), "clips": []}
     manifest["manifest_path"] = manifest_path.as_posix()
     return manifest
 
@@ -245,7 +246,7 @@ def write_week12_final_evaluation_package(
     }
     policy_rows = _read_csv(Path(str(week11_report["final_policy_results"])))
     r2p_rows = _read_csv(Path(str(week11_report["final_r2p_gap_table"])))
-    visual_manifest = _visual_manifest(output_path, config)
+    visual_manifest = _visual_manifest(output_path, config, root_path)
     visual_artifacts = _clip_artifact_hashes(visual_manifest)
     attempt_metrics = _attempt_metrics(config, root_path)
     claim_rows = _claim_evidence_rows(

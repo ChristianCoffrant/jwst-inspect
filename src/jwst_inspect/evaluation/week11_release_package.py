@@ -211,21 +211,34 @@ def _failure_summary(policy_rows: list[dict[str, str]], source_run_id: str) -> l
     return output
 
 
-def _visual_manifest(output_path: Path, config: dict[str, Any]) -> dict[str, Any]:
-    visual_config = _as_mapping(config.get("visual_attempt"))
-    manifest_path = output_path / str(visual_config.get("output_subdir", "video_attempt")) / "visual_manifest.json"
-    if not manifest_path.exists():
-        return {
-            "status": "missing",
-            "manifest_path": manifest_path.as_posix(),
-            "clips": [],
-        }
-    with manifest_path.open("r", encoding="utf-8") as handle:
+def _load_visual_manifest(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    with path.open("r", encoding="utf-8") as handle:
         data = json.load(handle)
     if not isinstance(data, dict):
-        return {"status": "invalid", "manifest_path": manifest_path.as_posix(), "clips": []}
-    data["manifest_path"] = manifest_path.as_posix()
+        return {"status": "invalid", "manifest_path": path.as_posix(), "clips": []}
+    data["manifest_path"] = path.as_posix()
     return data
+
+
+def _visual_manifest(output_path: Path, config: dict[str, Any], root: Path) -> dict[str, Any]:
+    visual_config = _as_mapping(config.get("visual_attempt"))
+    manifest_path = output_path / str(visual_config.get("output_subdir", "video_attempt")) / "visual_manifest.json"
+    manifest = _load_visual_manifest(manifest_path)
+    if manifest:
+        return manifest
+    fallback = visual_config.get("evidence_manifest_path")
+    if fallback:
+        manifest = _load_visual_manifest(_resolve(root, str(fallback)))
+        if manifest:
+            manifest["manifest_source"] = "tracked_evidence"
+            return manifest
+    return {
+        "status": "missing",
+        "manifest_path": manifest_path.as_posix(),
+        "clips": [],
+    }
 
 
 def _r2p_lookup(r2p_rows: list[dict[str, str]]) -> dict[tuple[str, str, str], dict[str, str]]:
@@ -552,7 +565,7 @@ def run_week11_release_package(
     policy_summary = _policy_score_summary(policy_rows, source_run_id)
     r2p_summary = _r2p_summary(r2p_rows, source_run_id)
     failure_summary = _failure_summary(policy_rows, source_run_id)
-    visual_manifest = _visual_manifest(output_path, config)
+    visual_manifest = _visual_manifest(output_path, config, root_path)
     storyboard_rows = _storyboard_rows(config, output_path, policy_rows, r2p_rows, visual_manifest)
     claim_rows = _claim_rows(
         config=config,

@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "source_asset": "NASA 3D Resources James Webb Space Telescope (B) GLB",
+  "source_url": "https://science.nasa.gov/3d-resources/james-webb-space-telescope-b/",
+  "renderer": "Blender 4.2 Cycles and EEVEE on Vast.ai RTX 5090",
+  "device_notes": {
+    "nasa_jwst_cycles_v2_mirror_close.png": "optix",
+    "nasa_jwst_cycles_v2_sunshield_sweep.png": "optix",
+    "nasa_jwst_eevee_v2_raster_overview.png": "eevee"
+  },
+  "outputs": [
+    "nasa_jwst_cycles_v2_mirror_close.png",
+    "nasa_jwst_cycles_v2_sunshield_sweep.png",
+    "nasa_jwst_eevee_v2_raster_overview.png"
+  ],
+  "errors": []
+}

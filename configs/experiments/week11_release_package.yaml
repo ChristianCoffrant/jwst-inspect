@@ -56,6 +56,7 @@ visual_attempt:
   driver_version: 560.35.03
   render_runner: isaac_env/scripts/render_week11_video_episodes.py
   render_backend: isaac_sim_viewport_capture
+  evidence_manifest_path: validation/visual_evidence/week11_team3_visual_blocker_manifest.json
   blocker_reason: Paid Isaac Sim viewport render on Vast instance 42901494 reached app ready, then crashed in gpu.foundation/scenerenderer RTX before frame capture.
   evidence_log_path: runs/week11_release_package/evidence/vast_stdout_stderr_visual_render.log
 paper_outputs:
