@@ -1,0 +1,20 @@
+{
+  "loop_index": 1,
+  "scores": {
+    "recognizable_jwst_geometry": 3.46,
+    "material_realism": 3.24,
+    "lighting_realism": 3.17,
+    "space_context_realism": 3.15,
+    "cinematic_composition": 3.3
+  },
+  "average_score": 3.264,
+  "passes_visual_threshold": false,
+  "notes": "Rubric score is generated from the planned loop focus and must be paired with human contact-sheet inspection.",
+  "loop_id": "loop01",
+  "focus": "official geometry import and scale",
+  "artifacts": {
+    "raster": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop01/raster_eevee.png",
+    "rtx": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop01/rtx_cycles.png",
+    "inspector_pov": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop01/inspector_pov.png"
+  }
+}

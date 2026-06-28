@@ -1,0 +1,83 @@
+{
+  "video_id": "jwst_inspect_v2_research_showcase",
+  "status": "success",
+  "duration_seconds": 60,
+  "fps": 24,
+  "path": "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/v2_showcase/final_video/jwst_inspect_v2_research_showcase.mp4",
+  "segments": [
+    {
+      "seconds": [
+        0,
+        8
+      ],
+      "topic": "official reference media",
+      "artifacts": [
+        "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/v2_showcase/reference_board/nasa_webb_launch_final_view.webp",
+        "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/v2_showcase/reference_board/esa_hubble_webb_separation_image.jpg",
+        "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/v2_showcase/reference_board/nasa_svs_l2_visualization.jpg",
+        "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/v2_showcase/reference_board/nasa_cleanroom_gold_mirror.jpg"
+      ]
+    },
+    {
+      "seconds": [
+        8,
+        16
+      ],
+      "topic": "scene upgrade",
+      "artifacts": [
+        "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/v2_showcase/visual_render/render_loops/loop01/rtx_cycles.png",
+        "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/v2_showcase/visual_render/render_loops/loop20/rtx_cycles.png"
+      ]
+    },
+    {
+      "seconds": [
+        16,
+        30
+      ],
+      "topic": "first policy POV",
+      "artifacts": [
+        "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/v2_showcase/visual_render/videos/first_iteration_policy_pov.mp4"
+      ]
+    },
+    {
+      "seconds": [
+        30,
+        44
+      ],
+      "topic": "final policy POV",
+      "artifacts": [
+        "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/v2_showcase/visual_render/videos/final_policy_pov.mp4"
+      ]
+    },
+    {
+      "seconds": [
+        44,
+        52
+      ],
+      "topic": "RL metrics",
+      "artifacts": [
+        "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/rl_v2/inspection_readiness_curve.png",
+        "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/rl_v2/policy_readiness_comparison.png"
+      ]
+    },
+    {
+      "seconds": [
+        52,
+        60
+      ],
+      "topic": "raster/RTX/POV final evidence",
+      "artifacts": [
+        "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/v2_showcase/visual_render/v2_final_loop_triptych.png"
+      ]
+    }
+  ],
+  "run_ids": {
+    "visual_manifest": "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/v2_showcase/visual_render/v2_visual_render_manifest.json",
+    "rl_summary": "C:/Users/chris/OneDrive/Documents/jwst-inspect-team2-worktree/outputs/rl_v2/ppo_training_summary.json"
+  },
+  "guardrails": {
+    "raw_render_artifacts_used": true,
+    "postprocessed_only_success_claim": false,
+    "video_frames_trace_to_artifacts": true
+  }
+}

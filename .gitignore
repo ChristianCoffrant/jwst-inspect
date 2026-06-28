@@ -40,6 +40,9 @@ validation/renders/**
 *.exr
 *.mp4
 *.mov
+!outputs/v2_showcase/visual_render/videos/*.mp4
+!outputs/v2_showcase/final_video/*.mp4
+outputs/v2_showcase/*.zip
 
 # Omniverse/Isaac local caches
 kit/

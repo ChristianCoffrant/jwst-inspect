@@ -1,0 +1,20 @@
+{
+  "loop_index": 4,
+  "scores": {
+    "recognizable_jwst_geometry": 4.09,
+    "material_realism": 3.96,
+    "lighting_realism": 3.98,
+    "space_context_realism": 4.05,
+    "cinematic_composition": 4.05
+  },
+  "average_score": 4.026,
+  "passes_visual_threshold": false,
+  "notes": "Rubric score is generated from the planned loop focus and must be paired with human contact-sheet inspection.",
+  "loop_id": "loop04",
+  "focus": "space lighting",
+  "artifacts": {
+    "raster": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop04/raster_eevee.png",
+    "rtx": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop04/rtx_cycles.png",
+    "inspector_pov": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop04/inspector_pov.png"
+  }
+}

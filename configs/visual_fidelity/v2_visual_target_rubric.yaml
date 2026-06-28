@@ -1,0 +1,41 @@
+version: 0.1.0
+rubric_id: visual_target_rubric_v2
+minimum_loop_count_before_video_lock: 8
+pass_thresholds:
+  average_score_min: 4.3
+  category_score_min: 4.0
+  raw_rtx_artifacts_required: true
+  postprocessed_only_success_allowed: false
+categories:
+  recognizable_jwst_geometry:
+    weight: 0.25
+    target: Segmented primary mirror, secondary mirror support, sunshield layers, truss, and bus read clearly from hero and inspector POV cameras.
+  material_realism:
+    weight: 0.20
+    target: Gold mirror cells, thermal blanket, white/metal truss, dark bus, and sunshield layers have plausible roughness/specular response.
+  lighting_realism:
+    weight: 0.20
+    target: Hard solar key light, deep black shadows, mirror glints, and no flat gray studio background.
+  space_context_realism:
+    weight: 0.15
+    target: L2/starfield environment and spacecraft scale feel consistent with official mission visualizations.
+  cinematic_composition:
+    weight: 0.20
+    target: NASA/ESA-inspired framing, readable silhouette, motivated camera motion, and clear comparison views.
+render_loops:
+  - loop_id: loop01_geometry_scale
+    focus: Official geometry import and scale.
+  - loop_id: loop02_mirror_materials
+    focus: Mirror cell material realism and glints.
+  - loop_id: loop03_sunshield_layers
+    focus: Sunshield layering, roughness, wrinkles, and edge detail.
+  - loop_id: loop04_space_lighting
+    focus: Solar key light, black space, L2/starfield environment.
+  - loop_id: loop05_reference_composition
+    focus: Camera composition based on official NASA/ESA visual frames.
+  - loop_id: loop06_inspector_pov
+    focus: Inspection craft POV and motion framing.
+  - loop_id: loop07_high_sample_rtx
+    focus: High-sample path-traced hero still.
+  - loop_id: loop08_video_style_lock
+    focus: Final video frame style lock.

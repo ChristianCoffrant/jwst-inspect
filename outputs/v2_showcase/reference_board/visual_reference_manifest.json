@@ -1,0 +1,125 @@
+{
+  "reference_board_id": "jwst_visual_reference_board_v2",
+  "status": "passed",
+  "source_count": 7,
+  "guardrails": {
+    "real_closeup_in_space_photo_claim_allowed": false,
+    "references_used_for_training_or_tuning": false,
+    "source_provenance_required": true,
+    "generated_or_postprocessed_media_must_be_labeled": true
+  },
+  "records": [
+    {
+      "source_id": "nasa_webb_launch_final_view",
+      "organization": "NASA",
+      "media_type": "official_mission_page",
+      "page_url": "https://science.nasa.gov/mission/webb/launch/",
+      "downloaded_media_url": "https://science.nasa.gov/wp-content/uploads/2023/06/jwst-launch-jpeg.webp",
+      "local_artifact": "outputs/v2_showcase/reference_board/nasa_webb_launch_final_view.webp",
+      "intended_use": [
+        "real_in_space_spacecraft_evidence",
+        "solar_array_deployment_context",
+        "silhouette_reference"
+      ],
+      "capture_mode": "downloaded_official_page_preview",
+      "notes": "Actual post-separation/final-view mission media is the best real in-space evidence, but it is low-detail compared with CGI references.",
+      "used_for_training_or_tuning": false
+    },
+    {
+      "source_id": "esa_webb_separation_video",
+      "organization": "ESA",
+      "media_type": "official_video_page",
+      "page_url": "https://www.esa.int/ESA_Multimedia/Videos/2021/12/Webb_separation_from_Ariane_5",
+      "downloaded_media_url": "",
+      "local_artifact": "outputs/v2_showcase/reference_board/esa_webb_separation_video.png",
+      "intended_use": [
+        "real_in_space_spacecraft_evidence",
+        "spacecraft_scale",
+        "deployment_geometry"
+      ],
+      "capture_mode": "official_page_preview_or_placeholder",
+      "notes": "Official Ariane 5 upper-stage view of Webb separation.",
+      "used_for_training_or_tuning": false
+    },
+    {
+      "source_id": "esa_hubble_webb_separation_image",
+      "organization": "ESA/Hubble",
+      "media_type": "official_image_page",
+      "page_url": "https://esahubble.org/images/FHdGeSgX0AoOwbm/",
+      "downloaded_media_url": "http://cdn.esahubble.org/archives/images/screen/FHdGeSgX0AoOwbm.jpg",
+      "local_artifact": "outputs/v2_showcase/reference_board/esa_hubble_webb_separation_image.jpg",
+      "intended_use": [
+        "real_in_space_spacecraft_evidence",
+        "separation_silhouette",
+        "spacecraft_scale"
+      ],
+      "capture_mode": "downloaded_official_page_preview",
+      "notes": "Official ESA/Hubble image record for Webb separated from Ariane 5 and flying on its own.",
+      "used_for_training_or_tuning": false
+    },
+    {
+      "source_id": "nasa_svs_deployment_sequence",
+      "organization": "NASA Scientific Visualization Studio",
+      "media_type": "official_animation_page",
+      "page_url": "https://svs.gsfc.nasa.gov/20339/",
+      "downloaded_media_url": "https://svs.gsfc.nasa.gov/vis/a020000/a020300/a020339/WEBB_Deployment_v2_30fps_4k_ProRes.02695_print.jpg",
+      "local_artifact": "outputs/v2_showcase/reference_board/nasa_svs_deployment_sequence.jpg",
+      "intended_use": [
+        "deployment_geometry",
+        "camera_composition",
+        "sunshield_shape"
+      ],
+      "capture_mode": "downloaded_official_page_preview",
+      "notes": "CGI animation, not real camera footage; use as visual target, not physical ground truth.",
+      "used_for_training_or_tuning": false
+    },
+    {
+      "source_id": "nasa_svs_l2_visualization",
+      "organization": "NASA Scientific Visualization Studio",
+      "media_type": "official_visualization_page",
+      "page_url": "https://svs.gsfc.nasa.gov/4991/",
+      "downloaded_media_url": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004991/jwst_orbit_full_comp_3470_print.jpg",
+      "local_artifact": "outputs/v2_showcase/reference_board/nasa_svs_l2_visualization.jpg",
+      "intended_use": [
+        "l2_space_context",
+        "starfield_environment",
+        "mission_context"
+      ],
+      "capture_mode": "downloaded_official_page_preview",
+      "notes": "Visualization of JWST at L2; useful for background and context.",
+      "used_for_training_or_tuning": false
+    },
+    {
+      "source_id": "nasa_jwst_3d_resource",
+      "organization": "NASA",
+      "media_type": "official_3d_asset_page",
+      "page_url": "https://science.nasa.gov/3d-resources/james-webb-space-telescope-b/",
+      "downloaded_media_url": "https://assets.science.nasa.gov/content/dam/science/cds/3d/resources/model/james-webb-space-telescope-(b)/James%20Webb%20Space%20Telescope%20(B).png/jcr:content/renditions/cq5dam.web.1280.1280.png",
+      "local_artifact": "outputs/v2_showcase/reference_board/nasa_jwst_3d_resource.png",
+      "intended_use": [
+        "geometry",
+        "silhouette",
+        "component_layout"
+      ],
+      "capture_mode": "downloaded_official_page_preview",
+      "notes": "Official model used as the v2 visual/geometry foundation.",
+      "used_for_training_or_tuning": false
+    },
+    {
+      "source_id": "nasa_cleanroom_gold_mirror",
+      "organization": "NASA",
+      "media_type": "official_photo_page",
+      "page_url": "https://www.nasa.gov/universe/james-webb-space-telescopes-golden-mirror-unveiled/",
+      "downloaded_media_url": "https://www.nasa.gov/wp-content/uploads/2016/04/jwst1.jpg",
+      "local_artifact": "outputs/v2_showcase/reference_board/nasa_cleanroom_gold_mirror.jpg",
+      "intended_use": [
+        "mirror_material",
+        "sunshield_material",
+        "cleanroom_detail_reference"
+      ],
+      "capture_mode": "downloaded_official_page_preview",
+      "notes": "Earth/cleanroom photos are not in-space references but are high-value material references.",
+      "used_for_training_or_tuning": false
+    }
+  ]
+}

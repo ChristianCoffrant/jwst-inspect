@@ -1,0 +1,67 @@
+version: 0.1.0
+experiment_id: v2_inspection_ppo
+policy_id: ppo_inspection_v1
+owner: team3_autonomous_inspection
+output_dir: outputs/rl_v2
+seed: 260628
+training:
+  iterations: 80
+  episodes_per_iteration: 18
+  max_steps: 90
+  policy_lr: 0.018
+  value_lr: 0.035
+  clip_epsilon: 0.18
+  entropy_bonus: 0.006
+  action_sigma: 0.16
+  checkpoint_iterations:
+    - 1
+    - 10
+    - 25
+    - 50
+    - 80
+environment:
+  standoff_target_m: 35.0
+  keepout_radius_m: 18.0
+  max_radius_m: 72.0
+  max_speed_mps: 2.2
+  control_dt_s: 1.0
+  component_targets:
+    - component_id: primary_mirror
+      weight: 1.0
+      position_m: [0.0, -4.0, 8.0]
+      anomaly_priority: 0.95
+    - component_id: secondary_mirror
+      weight: 0.8
+      position_m: [0.0, -1.5, 17.0]
+      anomaly_priority: 0.70
+    - component_id: sunshield_left
+      weight: 0.7
+      position_m: [-14.0, 0.0, 0.0]
+      anomaly_priority: 0.55
+    - component_id: sunshield_right
+      weight: 0.7
+      position_m: [14.0, 0.0, 0.0]
+      anomaly_priority: 0.55
+    - component_id: bus
+      weight: 0.45
+      position_m: [0.0, -8.0, 2.0]
+      anomaly_priority: 0.35
+reward:
+  new_coverage: 2.2
+  high_value_component: 0.8
+  anomaly_reacquisition: 1.4
+  standoff_quality: 0.9
+  smooth_control: 0.2
+  view_diversity: 0.25
+  successful_return_or_hold: 1.0
+  repeated_view_penalty: 0.12
+  keepout_penalty: 4.0
+  collision_penalty: 8.0
+  velocity_penalty: 0.12
+  missed_priority_penalty: 1.5
+guardrails:
+  safety_metric_disable_allowed: false
+  hidden_failed_checkpoints_allowed: false
+  manual_metric_edits_allowed: false
+  ppo_final_must_beat_scripted_on_inspection_readiness: true
+  ppo_final_safety_violation_rate_must_not_exceed_scripted: true

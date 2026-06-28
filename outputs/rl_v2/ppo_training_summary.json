@@ -1,0 +1,125 @@
+{
+  "version": "inspection_rl_v0_1",
+  "config_path": "C:\\Users\\chris\\OneDrive\\Documents\\jwst-inspect-team2-worktree\\configs\\experiments\\v2_inspection_ppo.yaml",
+  "status": "passed",
+  "scripted_score": 0.787498,
+  "first_ppo_score": 0.0,
+  "best_ppo_score": 0.854948,
+  "best_iteration": 49,
+  "final_path_traced_score": 0.807187,
+  "curve_path": "outputs/rl_v2/inspection_readiness_curve.csv",
+  "comparison_path": "outputs/rl_v2/policy_readiness_comparison.csv",
+  "first_iteration_trajectory": "outputs/rl_v2/first_iteration_policy_trajectory.json",
+  "final_policy_trajectory": "outputs/rl_v2/final_policy_trajectory.json",
+  "scripted_reference_trajectory": "outputs/rl_v2/scripted_reference_trajectory.json",
+  "best_policy_trajectory": "outputs/rl_v2/best_policy_trajectory.json",
+  "checkpoints": [
+    {
+      "iteration": 1,
+      "path": "outputs/rl_v2/ppo_checkpoint_iter_001.json",
+      "readiness": {
+        "score_version": "inspection_readiness_v0_1",
+        "inspection_readiness_score": 0.0,
+        "safe_component_coverage": 0.0,
+        "anomaly_recall": 0.0,
+        "anomaly_localization_quality": 0.0,
+        "standoff_quality": 0.0,
+        "view_diversity": 0.0,
+        "smooth_control": 0.91909,
+        "successful_return_or_hold": 0.0,
+        "keepout_penalty": 0.0,
+        "collision_penalty": 0.0,
+        "unsafe_coverage_penalty": 0.0,
+        "false_alarm_penalty": 0.0,
+        "missed_priority_penalty": 0.15
+      }
+    },
+    {
+      "iteration": 10,
+      "path": "outputs/rl_v2/ppo_checkpoint_iter_010.json",
+      "readiness": {
+        "score_version": "inspection_readiness_v0_1",
+        "inspection_readiness_score": 0.0,
+        "safe_component_coverage": 0.0,
+        "anomaly_recall": 0.0,
+        "anomaly_localization_quality": 0.0,
+        "standoff_quality": 0.0,
+        "view_diversity": 0.0,
+        "smooth_control": 0.872622,
+        "successful_return_or_hold": 0.0,
+        "keepout_penalty": 0.0,
+        "collision_penalty": 0.0,
+        "unsafe_coverage_penalty": 0.0,
+        "false_alarm_penalty": 0.0,
+        "missed_priority_penalty": 0.15
+      }
+    },
+    {
+      "iteration": 25,
+      "path": "outputs/rl_v2/ppo_checkpoint_iter_025.json",
+      "readiness": {
+        "score_version": "inspection_readiness_v0_1",
+        "inspection_readiness_score": 0.832743,
+        "safe_component_coverage": 1.0,
+        "anomaly_recall": 1.0,
+        "anomaly_localization_quality": 1.0,
+        "standoff_quality": 0.0,
+        "view_diversity": 1.0,
+        "smooth_control": 0.827426,
+        "successful_return_or_hold": 1.0,
+        "keepout_penalty": 0.0,
+        "collision_penalty": 0.0,
+        "unsafe_coverage_penalty": 0.0,
+        "false_alarm_penalty": 0.0,
+        "missed_priority_penalty": 0.0
+      }
+    },
+    {
+      "iteration": 50,
+      "path": "outputs/rl_v2/ppo_checkpoint_iter_050.json",
+      "readiness": {
+        "score_version": "inspection_readiness_v0_1",
+        "inspection_readiness_score": 0.809459,
+        "safe_component_coverage": 1.0,
+        "anomaly_recall": 1.0,
+        "anomaly_localization_quality": 1.0,
+        "standoff_quality": 0.055543,
+        "view_diversity": 0.8,
+        "smooth_control": 0.711273,
+        "successful_return_or_hold": 1.0,
+        "keepout_penalty": 0.0,
+        "collision_penalty": 0.0,
+        "unsafe_coverage_penalty": 0.0,
+        "false_alarm_penalty": 0.0,
+        "missed_priority_penalty": 0.0
+      }
+    },
+    {
+      "iteration": 80,
+      "path": "outputs/rl_v2/ppo_checkpoint_iter_080.json",
+      "readiness": {
+        "score_version": "inspection_readiness_v0_1",
+        "inspection_readiness_score": 0.809524,
+        "safe_component_coverage": 1.0,
+        "anomaly_recall": 1.0,
+        "anomaly_localization_quality": 1.0,
+        "standoff_quality": 0.0,
+        "view_diversity": 1.0,
+        "smooth_control": 0.595239,
+        "successful_return_or_hold": 1.0,
+        "keepout_penalty": 0.0,
+        "collision_penalty": 0.0,
+        "unsafe_coverage_penalty": 0.0,
+        "false_alarm_penalty": 0.0,
+        "missed_priority_penalty": 0.0
+      }
+    }
+  ],
+  "guardrails": {
+    "ppo_final_beats_scripted": true,
+    "ppo_best_beats_state_bc_proxy": true,
+    "ppo_final_safety_not_worse_than_scripted": true,
+    "hidden_failed_checkpoints": 0,
+    "manual_metric_edits": 0
+  }
+}

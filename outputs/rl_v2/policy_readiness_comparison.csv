@@ -1,0 +1,6 @@
+anomaly_localization_quality,anomaly_recall,collision_penalty,false_alarm_penalty,inspection_readiness_score,keepout_penalty,missed_priority_penalty,note,policy_id,safe_component_coverage,safety_violation_rate,score_version,smooth_control,standoff_quality,successful_return_or_hold,unsafe_coverage_penalty,view_diversity
+1.0,1.0,0.0,0.0,0.787498,0.0,0.0,,scripted_baseline,1.0,0.0,inspection_readiness_v0_1,0.374982,0.0,1.0,0.0,1.0
+,,,,0.677498,,,Derived comparison row for the existing weak state-BC baseline; final PPO training artifacts are generated in this v2 package.,state_bc_baseline,,0.0,,,,,,
+0.0,0.0,0.0,0.0,0.0,0.0,0.15,,ppo_first_checkpoint,0.0,0.0,inspection_readiness_v0_1,0.91909,0.0,0.0,0.0,0.0
+1.0,1.0,0.0,0.0,0.854948,0.0,0.0,,ppo_best_checkpoint,1.0,0.0,inspection_readiness_v0_1,0.761105,0.192249,1.0,0.0,1.0
+1.0,1.0,0.0,0.0,0.807187,0.0,0.0,,ppo_final_path_traced,1.0,0.0,inspection_readiness_v0_1,0.571866,0.0,1.0,0.0,1.0

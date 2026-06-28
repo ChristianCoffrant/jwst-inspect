@@ -1,0 +1,20 @@
+{
+  "loop_index": 3,
+  "scores": {
+    "recognizable_jwst_geometry": 3.88,
+    "material_realism": 3.72,
+    "lighting_realism": 3.71,
+    "space_context_realism": 3.75,
+    "cinematic_composition": 3.8
+  },
+  "average_score": 3.772,
+  "passes_visual_threshold": false,
+  "notes": "Rubric score is generated from the planned loop focus and must be paired with human contact-sheet inspection.",
+  "loop_id": "loop03",
+  "focus": "sunshield layering",
+  "artifacts": {
+    "raster": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop03/raster_eevee.png",
+    "rtx": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop03/rtx_cycles.png",
+    "inspector_pov": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop03/inspector_pov.png"
+  }
+}

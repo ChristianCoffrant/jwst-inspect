@@ -1,0 +1,20 @@
+{
+  "loop_index": 10,
+  "scores": {
+    "recognizable_jwst_geometry": 4.49,
+    "material_realism": 4.41,
+    "lighting_realism": 4.46,
+    "space_context_realism": 4.37,
+    "cinematic_composition": 4.47
+  },
+  "average_score": 4.44,
+  "passes_visual_threshold": true,
+  "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+  "loop_id": "loop10",
+  "focus": "sunshield material detail",
+  "artifacts": {
+    "raster": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop10/raster_eevee.png",
+    "rtx": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop10/rtx_cycles.png",
+    "inspector_pov": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop10/inspector_pov.png"
+  }
+}

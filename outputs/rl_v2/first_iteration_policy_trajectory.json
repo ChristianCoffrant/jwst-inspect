@@ -1,0 +1,2383 @@
+{
+  "policy_id": "ppo_inspection_v1",
+  "episode_id": "ppo_eval_iter_001",
+  "renderer_mode": "rasterized",
+  "total_reward": -2.993699,
+  "metrics": {
+    "task_success": 0.0,
+    "surface_coverage": 0.0,
+    "safe_component_coverage": 0.0,
+    "raw_surface_coverage": 0.0,
+    "unsafe_coverage_fraction": 0.0,
+    "anomaly_recall": 0.0,
+    "anomaly_localization_quality": 0.0,
+    "standoff_error_mean": 23.50423555555556,
+    "standoff_error_max": 28.5582,
+    "view_diversity": 0.0,
+    "control_effort": 0.2427286652097749,
+    "successful_return_or_hold": 0.0,
+    "keepout_violation_rate": 0.0,
+    "collision_rate": 0.0,
+    "false_alarm_rate": 0.0,
+    "missed_priority_fraction": 1.0,
+    "steps": 90
+  },
+  "inspection_readiness": {
+    "score_version": "inspection_readiness_v0_1",
+    "inspection_readiness_score": 0.0,
+    "safe_component_coverage": 0.0,
+    "anomaly_recall": 0.0,
+    "anomaly_localization_quality": 0.0,
+    "standoff_quality": 0.0,
+    "view_diversity": 0.0,
+    "smooth_control": 0.91909,
+    "successful_return_or_hold": 0.0,
+    "keepout_penalty": 0.0,
+    "collision_penalty": 0.0,
+    "unsafe_coverage_penalty": 0.0,
+    "false_alarm_penalty": 0.0,
+    "missed_priority_penalty": 0.15
+  },
+  "samples": [
+    {
+      "step": 1,
+      "time_s": 1.0,
+      "position_m": [
+        -0.6391,
+        -62.5536,
+        11.2377
+      ],
+      "velocity_mps": [
+        0.0464,
+        0.0505,
+        -0.0013
+      ],
+      "desired_velocity_mps": [
+        0.1657,
+        0.1804,
+        -0.0048
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 28.5582,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034477
+    },
+    {
+      "step": 2,
+      "time_s": 2.0,
+      "position_m": [
+        -0.5603,
+        -62.4655,
+        11.2335
+      ],
+      "velocity_mps": [
+        0.0788,
+        0.088,
+        -0.0041
+      ],
+      "desired_velocity_mps": [
+        0.1621,
+        0.1845,
+        -0.0113
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 28.4701,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033446
+    },
+    {
+      "step": 3,
+      "time_s": 3.0,
+      "position_m": [
+        -0.459,
+        -62.351,
+        11.2262
+      ],
+      "velocity_mps": [
+        0.1014,
+        0.1145,
+        -0.0074
+      ],
+      "desired_velocity_mps": [
+        0.1594,
+        0.1826,
+        -0.0157
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 28.3553,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033275
+    },
+    {
+      "step": 4,
+      "time_s": 4.0,
+      "position_m": [
+        -0.3418,
+        -62.218,
+        11.2156
+      ],
+      "velocity_mps": [
+        0.1172,
+        0.133,
+        -0.0106
+      ],
+      "desired_velocity_mps": [
+        0.1577,
+        0.1806,
+        -0.0189
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 28.2217,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033139
+    },
+    {
+      "step": 5,
+      "time_s": 5.0,
+      "position_m": [
+        -0.2135,
+        -62.0722,
+        11.202
+      ],
+      "velocity_mps": [
+        0.1283,
+        0.1458,
+        -0.0136
+      ],
+      "desired_velocity_mps": [
+        0.1569,
+        0.1786,
+        -0.0213
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 28.0753,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033034
+    },
+    {
+      "step": 6,
+      "time_s": 6.0,
+      "position_m": [
+        -0.0773,
+        -61.9178,
+        11.1857
+      ],
+      "velocity_mps": [
+        0.1362,
+        0.1544,
+        -0.0163
+      ],
+      "desired_velocity_mps": [
+        0.1566,
+        0.1766,
+        -0.0233
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 27.9201,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032951
+    },
+    {
+      "step": 7,
+      "time_s": 7.0,
+      "position_m": [
+        0.0646,
+        -61.7577,
+        11.167
+      ],
+      "velocity_mps": [
+        0.142,
+        0.1601,
+        -0.0187
+      ],
+      "desired_velocity_mps": [
+        0.1568,
+        0.1746,
+        -0.0249
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 27.7592,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032883
+    },
+    {
+      "step": 8,
+      "time_s": 8.0,
+      "position_m": [
+        0.2109,
+        -61.5941,
+        11.1461
+      ],
+      "velocity_mps": [
+        0.1462,
+        0.1636,
+        -0.0208
+      ],
+      "desired_velocity_mps": [
+        0.1572,
+        0.1726,
+        -0.0263
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 27.5949,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032827
+    },
+    {
+      "step": 9,
+      "time_s": 9.0,
+      "position_m": [
+        0.3604,
+        -61.4286,
+        11.1235
+      ],
+      "velocity_mps": [
+        0.1495,
+        0.1656,
+        -0.0227
+      ],
+      "desired_velocity_mps": [
+        0.1579,
+        0.1706,
+        -0.0275
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 27.4286,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.03278
+    },
+    {
+      "step": 10,
+      "time_s": 10.0,
+      "position_m": [
+        0.5125,
+        -61.2622,
+        11.0991
+      ],
+      "velocity_mps": [
+        0.1521,
+        0.1664,
+        -0.0243
+      ],
+      "desired_velocity_mps": [
+        0.1588,
+        0.1686,
+        -0.0286
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 27.2616,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032739
+    },
+    {
+      "step": 11,
+      "time_s": 11.0,
+      "position_m": [
+        0.6667,
+        -61.0957,
+        11.0733
+      ],
+      "velocity_mps": [
+        0.1542,
+        0.1665,
+        -0.0258
+      ],
+      "desired_velocity_mps": [
+        0.1597,
+        0.1666,
+        -0.0296
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 27.0947,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032704
+    },
+    {
+      "step": 12,
+      "time_s": 12.0,
+      "position_m": [
+        0.8228,
+        -60.9298,
+        11.0462
+      ],
+      "velocity_mps": [
+        0.1561,
+        0.166,
+        -0.0271
+      ],
+      "desired_velocity_mps": [
+        0.1608,
+        0.1646,
+        -0.0305
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 26.9284,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032673
+    },
+    {
+      "step": 13,
+      "time_s": 13.0,
+      "position_m": [
+        0.9805,
+        -60.7647,
+        11.0178
+      ],
+      "velocity_mps": [
+        0.1577,
+        0.165,
+        -0.0283
+      ],
+      "desired_velocity_mps": [
+        0.1619,
+        0.1626,
+        -0.0315
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 26.7633,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032646
+    },
+    {
+      "step": 14,
+      "time_s": 14.0,
+      "position_m": [
+        1.1397,
+        -60.6009,
+        10.9884
+      ],
+      "velocity_mps": [
+        0.1592,
+        0.1638,
+        -0.0295
+      ],
+      "desired_velocity_mps": [
+        0.1631,
+        0.1607,
+        -0.0323
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 26.5996,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032622
+    },
+    {
+      "step": 15,
+      "time_s": 15.0,
+      "position_m": [
+        1.3003,
+        -60.4386,
+        10.9579
+      ],
+      "velocity_mps": [
+        0.1606,
+        0.1624,
+        -0.0305
+      ],
+      "desired_velocity_mps": [
+        0.1643,
+        0.1587,
+        -0.0332
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 26.4377,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032601
+    },
+    {
+      "step": 16,
+      "time_s": 16.0,
+      "position_m": [
+        1.4623,
+        -60.2778,
+        10.9264
+      ],
+      "velocity_mps": [
+        0.162,
+        0.1608,
+        -0.0315
+      ],
+      "desired_velocity_mps": [
+        0.1655,
+        0.1567,
+        -0.034
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 26.2775,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032582
+    },
+    {
+      "step": 17,
+      "time_s": 17.0,
+      "position_m": [
+        1.6256,
+        -60.1187,
+        10.8939
+      ],
+      "velocity_mps": [
+        0.1633,
+        0.1591,
+        -0.0324
+      ],
+      "desired_velocity_mps": [
+        0.1668,
+        0.1548,
+        -0.0349
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 26.1194,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032565
+    },
+    {
+      "step": 18,
+      "time_s": 18.0,
+      "position_m": [
+        1.7903,
+        -59.9613,
+        10.8606
+      ],
+      "velocity_mps": [
+        0.1646,
+        0.1573,
+        -0.0334
+      ],
+      "desired_velocity_mps": [
+        0.168,
+        0.1528,
+        -0.0357
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 25.9633,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.03255
+    },
+    {
+      "step": 19,
+      "time_s": 19.0,
+      "position_m": [
+        1.9562,
+        -59.8058,
+        10.8264
+      ],
+      "velocity_mps": [
+        0.1659,
+        0.1555,
+        -0.0342
+      ],
+      "desired_velocity_mps": [
+        0.1693,
+        0.1508,
+        -0.0365
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 25.8093,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032538
+    },
+    {
+      "step": 20,
+      "time_s": 20.0,
+      "position_m": [
+        2.1234,
+        -59.6522,
+        10.7913
+      ],
+      "velocity_mps": [
+        0.1672,
+        0.1537,
+        -0.0351
+      ],
+      "desired_velocity_mps": [
+        0.1706,
+        0.1489,
+        -0.0373
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 25.6576,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032527
+    },
+    {
+      "step": 21,
+      "time_s": 21.0,
+      "position_m": [
+        2.292,
+        -59.5004,
+        10.7554
+      ],
+      "velocity_mps": [
+        0.1685,
+        0.1518,
+        -0.0359
+      ],
+      "desired_velocity_mps": [
+        0.1719,
+        0.1469,
+        -0.0381
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 25.5081,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032518
+    },
+    {
+      "step": 22,
+      "time_s": 22.0,
+      "position_m": [
+        2.4618,
+        -59.3505,
+        10.7186
+      ],
+      "velocity_mps": [
+        0.1698,
+        0.1499,
+        -0.0367
+      ],
+      "desired_velocity_mps": [
+        0.1732,
+        0.145,
+        -0.0388
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 25.3609,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032511
+    },
+    {
+      "step": 23,
+      "time_s": 23.0,
+      "position_m": [
+        2.6329,
+        -59.2026,
+        10.6811
+      ],
+      "velocity_mps": [
+        0.1711,
+        0.148,
+        -0.0375
+      ],
+      "desired_velocity_mps": [
+        0.1745,
+        0.143,
+        -0.0396
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 25.216,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032505
+    },
+    {
+      "step": 24,
+      "time_s": 24.0,
+      "position_m": [
+        2.8054,
+        -59.0565,
+        10.6428
+      ],
+      "velocity_mps": [
+        0.1724,
+        0.146,
+        -0.0383
+      ],
+      "desired_velocity_mps": [
+        0.1758,
+        0.1411,
+        -0.0403
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 25.0734,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032501
+    },
+    {
+      "step": 25,
+      "time_s": 25.0,
+      "position_m": [
+        2.9791,
+        -58.9124,
+        10.6037
+      ],
+      "velocity_mps": [
+        0.1737,
+        0.1441,
+        -0.0391
+      ],
+      "desired_velocity_mps": [
+        0.1771,
+        0.1392,
+        -0.0411
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 24.9332,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032499
+    },
+    {
+      "step": 26,
+      "time_s": 26.0,
+      "position_m": [
+        3.1541,
+        -58.7702,
+        10.5638
+      ],
+      "velocity_mps": [
+        0.175,
+        0.1422,
+        -0.0399
+      ],
+      "desired_velocity_mps": [
+        0.1784,
+        0.1372,
+        -0.0418
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 24.7953,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032499
+    },
+    {
+      "step": 27,
+      "time_s": 27.0,
+      "position_m": [
+        3.3305,
+        -58.63,
+        10.5232
+      ],
+      "velocity_mps": [
+        0.1764,
+        0.1403,
+        -0.0406
+      ],
+      "desired_velocity_mps": [
+        0.1797,
+        0.1353,
+        -0.0426
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 24.6599,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.0325
+    },
+    {
+      "step": 28,
+      "time_s": 28.0,
+      "position_m": [
+        3.5082,
+        -58.4916,
+        10.4818
+      ],
+      "velocity_mps": [
+        0.1777,
+        0.1383,
+        -0.0414
+      ],
+      "desired_velocity_mps": [
+        0.1811,
+        0.1334,
+        -0.0433
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 24.5269,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032502
+    },
+    {
+      "step": 29,
+      "time_s": 29.0,
+      "position_m": [
+        3.6871,
+        -58.3552,
+        10.4397
+      ],
+      "velocity_mps": [
+        0.179,
+        0.1364,
+        -0.0421
+      ],
+      "desired_velocity_mps": [
+        0.1824,
+        0.1315,
+        -0.044
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 24.3963,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032507
+    },
+    {
+      "step": 30,
+      "time_s": 30.0,
+      "position_m": [
+        3.8675,
+        -58.2207,
+        10.3969
+      ],
+      "velocity_mps": [
+        0.1803,
+        0.1345,
+        -0.0428
+      ],
+      "desired_velocity_mps": [
+        0.1837,
+        0.1295,
+        -0.0447
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 24.2681,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032513
+    },
+    {
+      "step": 31,
+      "time_s": 31.0,
+      "position_m": [
+        4.0491,
+        -58.0882,
+        10.3534
+      ],
+      "velocity_mps": [
+        0.1816,
+        0.1326,
+        -0.0435
+      ],
+      "desired_velocity_mps": [
+        0.185,
+        0.1276,
+        -0.0454
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 24.1424,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.03252
+    },
+    {
+      "step": 32,
+      "time_s": 32.0,
+      "position_m": [
+        4.2321,
+        -57.9575,
+        10.3091
+      ],
+      "velocity_mps": [
+        0.183,
+        0.1307,
+        -0.0442
+      ],
+      "desired_velocity_mps": [
+        0.1864,
+        0.1257,
+        -0.0461
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 24.0192,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032529
+    },
+    {
+      "step": 33,
+      "time_s": 33.0,
+      "position_m": [
+        4.4164,
+        -57.8288,
+        10.2642
+      ],
+      "velocity_mps": [
+        0.1843,
+        0.1287,
+        -0.0449
+      ],
+      "desired_velocity_mps": [
+        0.1877,
+        0.1238,
+        -0.0467
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 23.8984,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032539
+    },
+    {
+      "step": 34,
+      "time_s": 34.0,
+      "position_m": [
+        4.602,
+        -57.702,
+        10.2186
+      ],
+      "velocity_mps": [
+        0.1856,
+        0.1268,
+        -0.0456
+      ],
+      "desired_velocity_mps": [
+        0.1891,
+        0.1219,
+        -0.0474
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 23.7802,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032551
+    },
+    {
+      "step": 35,
+      "time_s": 35.0,
+      "position_m": [
+        4.789,
+        -57.577,
+        10.1723
+      ],
+      "velocity_mps": [
+        0.187,
+        0.1249,
+        -0.0463
+      ],
+      "desired_velocity_mps": [
+        0.1904,
+        0.12,
+        -0.048
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 23.6645,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032565
+    },
+    {
+      "step": 36,
+      "time_s": 36.0,
+      "position_m": [
+        4.9773,
+        -57.454,
+        10.1253
+      ],
+      "velocity_mps": [
+        0.1883,
+        0.123,
+        -0.047
+      ],
+      "desired_velocity_mps": [
+        0.1918,
+        0.1181,
+        -0.0487
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 23.5513,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.03258
+    },
+    {
+      "step": 37,
+      "time_s": 37.0,
+      "position_m": [
+        5.167,
+        -57.3329,
+        10.0777
+      ],
+      "velocity_mps": [
+        0.1897,
+        0.1211,
+        -0.0476
+      ],
+      "desired_velocity_mps": [
+        0.1931,
+        0.1162,
+        -0.0493
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 23.4407,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032597
+    },
+    {
+      "step": 38,
+      "time_s": 38.0,
+      "position_m": [
+        5.358,
+        -57.2137,
+        10.0294
+      ],
+      "velocity_mps": [
+        0.191,
+        0.1192,
+        -0.0483
+      ],
+      "desired_velocity_mps": [
+        0.1945,
+        0.1143,
+        -0.05
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 23.3327,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032615
+    },
+    {
+      "step": 39,
+      "time_s": 39.0,
+      "position_m": [
+        5.5503,
+        -57.0964,
+        9.9805
+      ],
+      "velocity_mps": [
+        0.1924,
+        0.1173,
+        -0.0489
+      ],
+      "desired_velocity_mps": [
+        0.1958,
+        0.1125,
+        -0.0506
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 23.2272,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032634
+    },
+    {
+      "step": 40,
+      "time_s": 40.0,
+      "position_m": [
+        5.7441,
+        -56.9809,
+        9.9309
+      ],
+      "velocity_mps": [
+        0.1937,
+        0.1154,
+        -0.0496
+      ],
+      "desired_velocity_mps": [
+        0.1972,
+        0.1106,
+        -0.0512
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 23.1244,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032655
+    },
+    {
+      "step": 41,
+      "time_s": 41.0,
+      "position_m": [
+        5.9391,
+        -56.8674,
+        9.8807
+      ],
+      "velocity_mps": [
+        0.1951,
+        0.1135,
+        -0.0502
+      ],
+      "desired_velocity_mps": [
+        0.1986,
+        0.1087,
+        -0.0518
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 23.0241,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032677
+    },
+    {
+      "step": 42,
+      "time_s": 42.0,
+      "position_m": [
+        6.1356,
+        -56.7557,
+        9.8299
+      ],
+      "velocity_mps": [
+        0.1964,
+        0.1117,
+        -0.0508
+      ],
+      "desired_velocity_mps": [
+        0.1999,
+        0.1068,
+        -0.0524
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 22.9265,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032701
+    },
+    {
+      "step": 43,
+      "time_s": 43.0,
+      "position_m": [
+        6.3334,
+        -56.6459,
+        9.7785
+      ],
+      "velocity_mps": [
+        0.1978,
+        0.1098,
+        -0.0514
+      ],
+      "desired_velocity_mps": [
+        0.2013,
+        0.105,
+        -0.053
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 22.8316,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032726
+    },
+    {
+      "step": 44,
+      "time_s": 44.0,
+      "position_m": [
+        6.5325,
+        -56.538,
+        9.7265
+      ],
+      "velocity_mps": [
+        0.1992,
+        0.1079,
+        -0.052
+      ],
+      "desired_velocity_mps": [
+        0.2027,
+        0.1031,
+        -0.0535
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 22.7393,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032752
+    },
+    {
+      "step": 45,
+      "time_s": 45.0,
+      "position_m": [
+        6.733,
+        -56.432,
+        9.6739
+      ],
+      "velocity_mps": [
+        0.2005,
+        0.106,
+        -0.0526
+      ],
+      "desired_velocity_mps": [
+        0.204,
+        0.1012,
+        -0.0541
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 22.6497,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.03278
+    },
+    {
+      "step": 46,
+      "time_s": 46.0,
+      "position_m": [
+        6.9349,
+        -56.3278,
+        9.6207
+      ],
+      "velocity_mps": [
+        0.2019,
+        0.1042,
+        -0.0532
+      ],
+      "desired_velocity_mps": [
+        0.2054,
+        0.0994,
+        -0.0547
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 22.5628,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032809
+    },
+    {
+      "step": 47,
+      "time_s": 47.0,
+      "position_m": [
+        7.1382,
+        -56.2255,
+        9.567
+      ],
+      "velocity_mps": [
+        0.2033,
+        0.1023,
+        -0.0537
+      ],
+      "desired_velocity_mps": [
+        0.2068,
+        0.0975,
+        -0.0552
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 22.4786,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.03284
+    },
+    {
+      "step": 48,
+      "time_s": 48.0,
+      "position_m": [
+        7.3428,
+        -56.1251,
+        9.5127
+      ],
+      "velocity_mps": [
+        0.2046,
+        0.1004,
+        -0.0543
+      ],
+      "desired_velocity_mps": [
+        0.2082,
+        0.0957,
+        -0.0558
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 22.3971,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032871
+    },
+    {
+      "step": 49,
+      "time_s": 49.0,
+      "position_m": [
+        7.5488,
+        -56.0265,
+        9.4578
+      ],
+      "velocity_mps": [
+        0.206,
+        0.0986,
+        -0.0549
+      ],
+      "desired_velocity_mps": [
+        0.2095,
+        0.0938,
+        -0.0563
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 22.3184,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032904
+    },
+    {
+      "step": 50,
+      "time_s": 50.0,
+      "position_m": [
+        7.7562,
+        -55.9297,
+        9.4024
+      ],
+      "velocity_mps": [
+        0.2074,
+        0.0967,
+        -0.0554
+      ],
+      "desired_velocity_mps": [
+        0.2109,
+        0.092,
+        -0.0568
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 22.2425,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032938
+    },
+    {
+      "step": 51,
+      "time_s": 51.0,
+      "position_m": [
+        7.965,
+        -55.8349,
+        9.3465
+      ],
+      "velocity_mps": [
+        0.2088,
+        0.0949,
+        -0.0559
+      ],
+      "desired_velocity_mps": [
+        0.2123,
+        0.0901,
+        -0.0573
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 22.1693,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.032974
+    },
+    {
+      "step": 52,
+      "time_s": 52.0,
+      "position_m": [
+        8.1751,
+        -55.7418,
+        9.29
+      ],
+      "velocity_mps": [
+        0.2101,
+        0.093,
+        -0.0565
+      ],
+      "desired_velocity_mps": [
+        0.2137,
+        0.0883,
+        -0.0578
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 22.0989,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.03301
+    },
+    {
+      "step": 53,
+      "time_s": 53.0,
+      "position_m": [
+        8.3866,
+        -55.6506,
+        9.233
+      ],
+      "velocity_mps": [
+        0.2115,
+        0.0912,
+        -0.057
+      ],
+      "desired_velocity_mps": [
+        0.2151,
+        0.0865,
+        -0.0583
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 22.0314,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033048
+    },
+    {
+      "step": 54,
+      "time_s": 54.0,
+      "position_m": [
+        8.5995,
+        -55.5613,
+        9.1755
+      ],
+      "velocity_mps": [
+        0.2129,
+        0.0894,
+        -0.0575
+      ],
+      "desired_velocity_mps": [
+        0.2165,
+        0.0846,
+        -0.0588
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.9666,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033087
+    },
+    {
+      "step": 55,
+      "time_s": 55.0,
+      "position_m": [
+        8.8138,
+        -55.4737,
+        9.1175
+      ],
+      "velocity_mps": [
+        0.2143,
+        0.0875,
+        -0.058
+      ],
+      "desired_velocity_mps": [
+        0.2178,
+        0.0828,
+        -0.0593
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.9047,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033127
+    },
+    {
+      "step": 56,
+      "time_s": 56.0,
+      "position_m": [
+        9.0295,
+        -55.388,
+        9.059
+      ],
+      "velocity_mps": [
+        0.2157,
+        0.0857,
+        -0.0585
+      ],
+      "desired_velocity_mps": [
+        0.2192,
+        0.081,
+        -0.0598
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.8457,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033169
+    },
+    {
+      "step": 57,
+      "time_s": 57.0,
+      "position_m": [
+        9.2465,
+        -55.3042,
+        9.0
+      ],
+      "velocity_mps": [
+        0.2171,
+        0.0839,
+        -0.059
+      ],
+      "desired_velocity_mps": [
+        0.2206,
+        0.0792,
+        -0.0602
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.7895,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033211
+    },
+    {
+      "step": 58,
+      "time_s": 58.0,
+      "position_m": [
+        9.465,
+        -55.2221,
+        8.9405
+      ],
+      "velocity_mps": [
+        0.2184,
+        0.082,
+        -0.0595
+      ],
+      "desired_velocity_mps": [
+        0.222,
+        0.0774,
+        -0.0607
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.7363,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033254
+    },
+    {
+      "step": 59,
+      "time_s": 59.0,
+      "position_m": [
+        9.6848,
+        -55.1419,
+        8.8806
+      ],
+      "velocity_mps": [
+        0.2198,
+        0.0802,
+        -0.0599
+      ],
+      "desired_velocity_mps": [
+        0.2234,
+        0.0756,
+        -0.0611
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.6859,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033299
+    },
+    {
+      "step": 60,
+      "time_s": 60.0,
+      "position_m": [
+        9.906,
+        -55.0635,
+        8.8202
+      ],
+      "velocity_mps": [
+        0.2212,
+        0.0784,
+        -0.0604
+      ],
+      "desired_velocity_mps": [
+        0.2248,
+        0.0737,
+        -0.0616
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.6384,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033344
+    },
+    {
+      "step": 61,
+      "time_s": 61.0,
+      "position_m": [
+        10.1286,
+        -54.9869,
+        8.7594
+      ],
+      "velocity_mps": [
+        0.2226,
+        0.0766,
+        -0.0608
+      ],
+      "desired_velocity_mps": [
+        0.2262,
+        0.0719,
+        -0.062
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.5939,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033391
+    },
+    {
+      "step": 62,
+      "time_s": 62.0,
+      "position_m": [
+        10.3526,
+        -54.9121,
+        8.6981
+      ],
+      "velocity_mps": [
+        0.224,
+        0.0748,
+        -0.0613
+      ],
+      "desired_velocity_mps": [
+        0.2276,
+        0.0702,
+        -0.0624
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.5524,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033438
+    },
+    {
+      "step": 63,
+      "time_s": 63.0,
+      "position_m": [
+        10.578,
+        -54.8391,
+        8.6364
+      ],
+      "velocity_mps": [
+        0.2254,
+        0.073,
+        -0.0617
+      ],
+      "desired_velocity_mps": [
+        0.229,
+        0.0684,
+        -0.0628
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.5138,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033487
+    },
+    {
+      "step": 64,
+      "time_s": 64.0,
+      "position_m": [
+        10.8048,
+        -54.7679,
+        8.5742
+      ],
+      "velocity_mps": [
+        0.2268,
+        0.0712,
+        -0.0621
+      ],
+      "desired_velocity_mps": [
+        0.2303,
+        0.0666,
+        -0.0632
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.4782,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033536
+    },
+    {
+      "step": 65,
+      "time_s": 65.0,
+      "position_m": [
+        11.0329,
+        -54.6985,
+        8.5117
+      ],
+      "velocity_mps": [
+        0.2282,
+        0.0694,
+        -0.0626
+      ],
+      "desired_velocity_mps": [
+        0.2317,
+        0.0648,
+        -0.0636
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.4455,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033587
+    },
+    {
+      "step": 66,
+      "time_s": 66.0,
+      "position_m": [
+        11.2625,
+        -54.6309,
+        8.4487
+      ],
+      "velocity_mps": [
+        0.2296,
+        0.0676,
+        -0.063
+      ],
+      "desired_velocity_mps": [
+        0.2331,
+        0.063,
+        -0.064
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.4159,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033638
+    },
+    {
+      "step": 67,
+      "time_s": 67.0,
+      "position_m": [
+        11.4934,
+        -54.565,
+        8.3853
+      ],
+      "velocity_mps": [
+        0.2309,
+        0.0658,
+        -0.0634
+      ],
+      "desired_velocity_mps": [
+        0.2345,
+        0.0612,
+        -0.0644
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.3893,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.03369
+    },
+    {
+      "step": 68,
+      "time_s": 68.0,
+      "position_m": [
+        11.7258,
+        -54.501,
+        8.3216
+      ],
+      "velocity_mps": [
+        0.2323,
+        0.0641,
+        -0.0638
+      ],
+      "desired_velocity_mps": [
+        0.2359,
+        0.0595,
+        -0.0648
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.3658,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033743
+    },
+    {
+      "step": 69,
+      "time_s": 69.0,
+      "position_m": [
+        11.9595,
+        -54.4387,
+        8.2574
+      ],
+      "velocity_mps": [
+        0.2337,
+        0.0623,
+        -0.0641
+      ],
+      "desired_velocity_mps": [
+        0.2373,
+        0.0577,
+        -0.0651
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.3452,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033797
+    },
+    {
+      "step": 70,
+      "time_s": 70.0,
+      "position_m": [
+        12.1946,
+        -54.3782,
+        8.1929
+      ],
+      "velocity_mps": [
+        0.2351,
+        0.0605,
+        -0.0645
+      ],
+      "desired_velocity_mps": [
+        0.2387,
+        0.056,
+        -0.0655
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.3278,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033852
+    },
+    {
+      "step": 71,
+      "time_s": 71.0,
+      "position_m": [
+        12.4311,
+        -54.3195,
+        8.128
+      ],
+      "velocity_mps": [
+        0.2365,
+        0.0587,
+        -0.0649
+      ],
+      "desired_velocity_mps": [
+        0.2401,
+        0.0542,
+        -0.0658
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.3134,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033907
+    },
+    {
+      "step": 72,
+      "time_s": 72.0,
+      "position_m": [
+        12.669,
+        -54.2625,
+        8.0627
+      ],
+      "velocity_mps": [
+        0.2379,
+        0.057,
+        -0.0653
+      ],
+      "desired_velocity_mps": [
+        0.2415,
+        0.0525,
+        -0.0662
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.3021,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.033964
+    },
+    {
+      "step": 73,
+      "time_s": 73.0,
+      "position_m": [
+        12.9083,
+        -54.2073,
+        7.9971
+      ],
+      "velocity_mps": [
+        0.2393,
+        0.0552,
+        -0.0656
+      ],
+      "desired_velocity_mps": [
+        0.2429,
+        0.0507,
+        -0.0665
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.2939,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034021
+    },
+    {
+      "step": 74,
+      "time_s": 74.0,
+      "position_m": [
+        13.149,
+        -54.1538,
+        7.9312
+      ],
+      "velocity_mps": [
+        0.2407,
+        0.0535,
+        -0.066
+      ],
+      "desired_velocity_mps": [
+        0.2442,
+        0.049,
+        -0.0668
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.2888,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034079
+    },
+    {
+      "step": 75,
+      "time_s": 75.0,
+      "position_m": [
+        13.391,
+        -54.1021,
+        7.8649
+      ],
+      "velocity_mps": [
+        0.2421,
+        0.0517,
+        -0.0663
+      ],
+      "desired_velocity_mps": [
+        0.2456,
+        0.0472,
+        -0.0672
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.2868,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034137
+    },
+    {
+      "step": 76,
+      "time_s": 76.0,
+      "position_m": [
+        13.6345,
+        -54.0521,
+        7.7983
+      ],
+      "velocity_mps": [
+        0.2435,
+        0.05,
+        -0.0666
+      ],
+      "desired_velocity_mps": [
+        0.247,
+        0.0455,
+        -0.0675
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.288,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034196
+    },
+    {
+      "step": 77,
+      "time_s": 77.0,
+      "position_m": [
+        13.8793,
+        -54.0038,
+        7.7313
+      ],
+      "velocity_mps": [
+        0.2448,
+        0.0482,
+        -0.067
+      ],
+      "desired_velocity_mps": [
+        0.2484,
+        0.0438,
+        -0.0678
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.2923,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034256
+    },
+    {
+      "step": 78,
+      "time_s": 78.0,
+      "position_m": [
+        14.1255,
+        -53.9573,
+        7.664
+      ],
+      "velocity_mps": [
+        0.2462,
+        0.0465,
+        -0.0673
+      ],
+      "desired_velocity_mps": [
+        0.2498,
+        0.0421,
+        -0.0681
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.2997,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034317
+    },
+    {
+      "step": 79,
+      "time_s": 79.0,
+      "position_m": [
+        14.3731,
+        -53.9125,
+        7.5965
+      ],
+      "velocity_mps": [
+        0.2476,
+        0.0448,
+        -0.0676
+      ],
+      "desired_velocity_mps": [
+        0.2512,
+        0.0403,
+        -0.0684
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.3103,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034378
+    },
+    {
+      "step": 80,
+      "time_s": 80.0,
+      "position_m": [
+        14.6221,
+        -53.8695,
+        7.5286
+      ],
+      "velocity_mps": [
+        0.249,
+        0.0431,
+        -0.0679
+      ],
+      "desired_velocity_mps": [
+        0.2525,
+        0.0386,
+        -0.0687
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.3241,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.03444
+    },
+    {
+      "step": 81,
+      "time_s": 81.0,
+      "position_m": [
+        14.8725,
+        -53.8281,
+        7.4604
+      ],
+      "velocity_mps": [
+        0.2504,
+        0.0413,
+        -0.0682
+      ],
+      "desired_velocity_mps": [
+        0.2539,
+        0.0369,
+        -0.0689
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.3411,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034502
+    },
+    {
+      "step": 82,
+      "time_s": 82.0,
+      "position_m": [
+        15.1243,
+        -53.7885,
+        7.392
+      ],
+      "velocity_mps": [
+        0.2518,
+        0.0396,
+        -0.0685
+      ],
+      "desired_velocity_mps": [
+        0.2553,
+        0.0352,
+        -0.0692
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.3612,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034565
+    },
+    {
+      "step": 83,
+      "time_s": 83.0,
+      "position_m": [
+        15.3774,
+        -53.7506,
+        7.3232
+      ],
+      "velocity_mps": [
+        0.2531,
+        0.0379,
+        -0.0687
+      ],
+      "desired_velocity_mps": [
+        0.2567,
+        0.0335,
+        -0.0695
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.3845,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034629
+    },
+    {
+      "step": 84,
+      "time_s": 84.0,
+      "position_m": [
+        15.6319,
+        -53.7143,
+        7.2542
+      ],
+      "velocity_mps": [
+        0.2545,
+        0.0362,
+        -0.069
+      ],
+      "desired_velocity_mps": [
+        0.258,
+        0.0318,
+        -0.0697
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.4111,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034693
+    },
+    {
+      "step": 85,
+      "time_s": 85.0,
+      "position_m": [
+        15.8878,
+        -53.6798,
+        7.1849
+      ],
+      "velocity_mps": [
+        0.2559,
+        0.0345,
+        -0.0693
+      ],
+      "desired_velocity_mps": [
+        0.2594,
+        0.0302,
+        -0.07
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.4408,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034758
+    },
+    {
+      "step": 86,
+      "time_s": 86.0,
+      "position_m": [
+        16.145,
+        -53.647,
+        7.1154
+      ],
+      "velocity_mps": [
+        0.2573,
+        0.0328,
+        -0.0695
+      ],
+      "desired_velocity_mps": [
+        0.2608,
+        0.0285,
+        -0.0702
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.4738,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034823
+    },
+    {
+      "step": 87,
+      "time_s": 87.0,
+      "position_m": [
+        16.4037,
+        -53.6158,
+        7.0456
+      ],
+      "velocity_mps": [
+        0.2586,
+        0.0312,
+        -0.0698
+      ],
+      "desired_velocity_mps": [
+        0.2622,
+        0.0268,
+        -0.0704
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.51,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034889
+    },
+    {
+      "step": 88,
+      "time_s": 88.0,
+      "position_m": [
+        16.6637,
+        -53.5863,
+        6.9756
+      ],
+      "velocity_mps": [
+        0.26,
+        0.0295,
+        -0.07
+      ],
+      "desired_velocity_mps": [
+        0.2635,
+        0.0252,
+        -0.0707
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.5494,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.034955
+    },
+    {
+      "step": 89,
+      "time_s": 89.0,
+      "position_m": [
+        16.925,
+        -53.5585,
+        6.9053
+      ],
+      "velocity_mps": [
+        0.2614,
+        0.0278,
+        -0.0703
+      ],
+      "desired_velocity_mps": [
+        0.2649,
+        0.0235,
+        -0.0709
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.592,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.035021
+    },
+    {
+      "step": 90,
+      "time_s": 90.0,
+      "position_m": [
+        17.1878,
+        -53.5324,
+        6.8348
+      ],
+      "velocity_mps": [
+        0.2627,
+        0.0261,
+        -0.0705
+      ],
+      "desired_velocity_mps": [
+        0.2662,
+        0.0218,
+        -0.0711
+      ],
+      "target_component": "primary_mirror",
+      "coverage_event": false,
+      "covered_components": [],
+      "standoff_error_m": 21.6379,
+      "keepout_violation": false,
+      "collision": false,
+      "reward": -0.035088
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "release_id": "jwst_inspect_v2_visual_fidelity_rl_showcase",
+  "status": "complete_with_documented_limitations",
+  "date": "2026-06-28",
+  "visual_reference_manifest": "outputs/v2_showcase/reference_board/visual_reference_manifest.json",
+  "visual_render_manifest": "outputs/v2_showcase/visual_render/v2_visual_render_manifest.json",
+  "rl_training_summary": "outputs/rl_v2/ppo_training_summary.json",
+  "research_video_manifest": "outputs/v2_showcase/final_video/jwst_inspect_v2_research_showcase_manifest.json",
+  "presentation": "outputs/v2_showcase/final_presentation/JWST-Inspect_v2_Showcase.pptx",
+  "validators": [
+    "python scripts/validate_v2_visual_references.py",
+    "python scripts/validate_v2_visual_showcase.py",
+    "python scripts/validate_v2_rl_showcase.py",
+    "python scripts/validate_v2_final_video.py"
+  ],
+  "guardrails": {
+    "postprocessed_only_visual_success_claim": false,
+    "manual_metric_edits": 0,
+    "hidden_failed_policy_checkpoints": 0,
+    "active_vast_instances_after_shutdown": 0,
+    "raster_rtx_pov_artifacts_paired": true
+  },
+  "vast_run": {
+    "instance_id": 42971599,
+    "gpu": "NVIDIA GeForce RTX 5090",
+    "driver": "580.119.02",
+    "duration_hours": 1.011,
+    "estimated_cost_usd": 0.472,
+    "destroyed": true
+  },
+  "limitations": [
+    "Procedural high-detail augmentation is used over the official NASA GLB provenance asset.",
+    "This is not yet a full Isaac Lab/Omniverse PPO training stack.",
+    "Real close-up in-space JWST images are scarce, so visual grounding combines real mission media with official NASA/SVS assets."
+  ]
+}

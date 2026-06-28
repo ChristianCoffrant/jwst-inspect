@@ -1,0 +1,20 @@
+{
+  "loop_index": 9,
+  "scores": {
+    "recognizable_jwst_geometry": 4.35,
+    "material_realism": 4.25,
+    "lighting_realism": 4.3,
+    "space_context_realism": 4.2,
+    "cinematic_composition": 4.3
+  },
+  "average_score": 4.28,
+  "passes_visual_threshold": false,
+  "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+  "loop_id": "loop09",
+  "focus": "procedural mirror detail",
+  "artifacts": {
+    "raster": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop09/raster_eevee.png",
+    "rtx": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop09/rtx_cycles.png",
+    "inspector_pov": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop09/inspector_pov.png"
+  }
+}

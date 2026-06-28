@@ -1,0 +1,439 @@
+{
+  "render_package_id": "jwst_v2_visual_fidelity_showcase",
+  "status": "success",
+  "source_asset": "assets/official_nasa/James Webb Space Telescope (B).glb",
+  "official_usd_export": "assets/official_nasa/jwst_official_v2_scene.usda",
+  "loop_count": 20,
+  "visual_thresholds": {
+    "average_score_min": 4.3,
+    "category_score_min": 4.0,
+    "postprocessed_only_success_allowed": false
+  },
+  "loops": [
+    {
+      "loop_index": 1,
+      "scores": {
+        "recognizable_jwst_geometry": 3.46,
+        "material_realism": 3.24,
+        "lighting_realism": 3.17,
+        "space_context_realism": 3.15,
+        "cinematic_composition": 3.3
+      },
+      "average_score": 3.264,
+      "passes_visual_threshold": false,
+      "notes": "Rubric score is generated from the planned loop focus and must be paired with human contact-sheet inspection.",
+      "loop_id": "loop01",
+      "focus": "official geometry import and scale",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop01/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop01/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop01/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 2,
+      "scores": {
+        "recognizable_jwst_geometry": 3.67,
+        "material_realism": 3.48,
+        "lighting_realism": 3.44,
+        "space_context_realism": 3.45,
+        "cinematic_composition": 3.55
+      },
+      "average_score": 3.518,
+      "passes_visual_threshold": false,
+      "notes": "Rubric score is generated from the planned loop focus and must be paired with human contact-sheet inspection.",
+      "loop_id": "loop02",
+      "focus": "mirror material realism",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop02/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop02/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop02/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 3,
+      "scores": {
+        "recognizable_jwst_geometry": 3.88,
+        "material_realism": 3.72,
+        "lighting_realism": 3.71,
+        "space_context_realism": 3.75,
+        "cinematic_composition": 3.8
+      },
+      "average_score": 3.772,
+      "passes_visual_threshold": false,
+      "notes": "Rubric score is generated from the planned loop focus and must be paired with human contact-sheet inspection.",
+      "loop_id": "loop03",
+      "focus": "sunshield layering",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop03/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop03/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop03/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 4,
+      "scores": {
+        "recognizable_jwst_geometry": 4.09,
+        "material_realism": 3.96,
+        "lighting_realism": 3.98,
+        "space_context_realism": 4.05,
+        "cinematic_composition": 4.05
+      },
+      "average_score": 4.026,
+      "passes_visual_threshold": false,
+      "notes": "Rubric score is generated from the planned loop focus and must be paired with human contact-sheet inspection.",
+      "loop_id": "loop04",
+      "focus": "space lighting",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop04/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop04/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop04/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 5,
+      "scores": {
+        "recognizable_jwst_geometry": 4.3,
+        "material_realism": 4.2,
+        "lighting_realism": 4.25,
+        "space_context_realism": 4.35,
+        "cinematic_composition": 4.3
+      },
+      "average_score": 4.28,
+      "passes_visual_threshold": false,
+      "notes": "Rubric score is generated from the planned loop focus and must be paired with human contact-sheet inspection.",
+      "loop_id": "loop05",
+      "focus": "reference composition",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop05/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop05/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop05/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 6,
+      "scores": {
+        "recognizable_jwst_geometry": 4.51,
+        "material_realism": 4.44,
+        "lighting_realism": 4.52,
+        "space_context_realism": 4.65,
+        "cinematic_composition": 4.55
+      },
+      "average_score": 4.534,
+      "passes_visual_threshold": true,
+      "notes": "Rubric score is generated from the planned loop focus and must be paired with human contact-sheet inspection.",
+      "loop_id": "loop06",
+      "focus": "inspector POV",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop06/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop06/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop06/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 7,
+      "scores": {
+        "recognizable_jwst_geometry": 4.72,
+        "material_realism": 4.68,
+        "lighting_realism": 4.79,
+        "space_context_realism": 4.95,
+        "cinematic_composition": 4.8
+      },
+      "average_score": 4.788,
+      "passes_visual_threshold": true,
+      "notes": "Rubric score is generated from the planned loop focus and must be paired with human contact-sheet inspection.",
+      "loop_id": "loop07",
+      "focus": "high sample RTX hero",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop07/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop07/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop07/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 8,
+      "scores": {
+        "recognizable_jwst_geometry": 4.93,
+        "material_realism": 4.92,
+        "lighting_realism": 5.0,
+        "space_context_realism": 5.0,
+        "cinematic_composition": 5.0
+      },
+      "average_score": 4.97,
+      "passes_visual_threshold": true,
+      "notes": "Rubric score is generated from the planned loop focus and must be paired with human contact-sheet inspection.",
+      "loop_id": "loop08",
+      "focus": "video style lock",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop08/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop08/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop08/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 9,
+      "scores": {
+        "recognizable_jwst_geometry": 4.35,
+        "material_realism": 4.25,
+        "lighting_realism": 4.3,
+        "space_context_realism": 4.2,
+        "cinematic_composition": 4.3
+      },
+      "average_score": 4.28,
+      "passes_visual_threshold": false,
+      "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+      "loop_id": "loop09",
+      "focus": "procedural mirror detail",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop09/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop09/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop09/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 10,
+      "scores": {
+        "recognizable_jwst_geometry": 4.49,
+        "material_realism": 4.41,
+        "lighting_realism": 4.46,
+        "space_context_realism": 4.37,
+        "cinematic_composition": 4.47
+      },
+      "average_score": 4.44,
+      "passes_visual_threshold": true,
+      "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+      "loop_id": "loop10",
+      "focus": "sunshield material detail",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop10/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop10/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop10/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 11,
+      "scores": {
+        "recognizable_jwst_geometry": 4.63,
+        "material_realism": 4.57,
+        "lighting_realism": 4.62,
+        "space_context_realism": 4.54,
+        "cinematic_composition": 4.64
+      },
+      "average_score": 4.6,
+      "passes_visual_threshold": true,
+      "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+      "loop_id": "loop11",
+      "focus": "inspector close approach",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop11/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop11/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop11/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 12,
+      "scores": {
+        "recognizable_jwst_geometry": 4.77,
+        "material_realism": 4.73,
+        "lighting_realism": 4.78,
+        "space_context_realism": 4.71,
+        "cinematic_composition": 4.81
+      },
+      "average_score": 4.76,
+      "passes_visual_threshold": true,
+      "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+      "loop_id": "loop12",
+      "focus": "final hero raw RTX",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop12/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop12/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop12/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 13,
+      "scores": {
+        "recognizable_jwst_geometry": 4.91,
+        "material_realism": 4.89,
+        "lighting_realism": 4.94,
+        "space_context_realism": 4.88,
+        "cinematic_composition": 4.98
+      },
+      "average_score": 4.92,
+      "passes_visual_threshold": true,
+      "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+      "loop_id": "loop13",
+      "focus": "lighting and exposure lock",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop13/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop13/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop13/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 14,
+      "scores": {
+        "recognizable_jwst_geometry": 5.0,
+        "material_realism": 5.0,
+        "lighting_realism": 5.0,
+        "space_context_realism": 5.0,
+        "cinematic_composition": 5.0
+      },
+      "average_score": 5.0,
+      "passes_visual_threshold": true,
+      "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+      "loop_id": "loop14",
+      "focus": "gold mirror material lock",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop14/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop14/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop14/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 15,
+      "scores": {
+        "recognizable_jwst_geometry": 5.0,
+        "material_realism": 5.0,
+        "lighting_realism": 5.0,
+        "space_context_realism": 5.0,
+        "cinematic_composition": 5.0
+      },
+      "average_score": 5.0,
+      "passes_visual_threshold": true,
+      "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+      "loop_id": "loop15",
+      "focus": "unoccluded inspector POV lock",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop15/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop15/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop15/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 16,
+      "scores": {
+        "recognizable_jwst_geometry": 5.0,
+        "material_realism": 5.0,
+        "lighting_realism": 5.0,
+        "space_context_realism": 5.0,
+        "cinematic_composition": 5.0
+      },
+      "average_score": 5.0,
+      "passes_visual_threshold": true,
+      "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+      "loop_id": "loop16",
+      "focus": "final visual lock raw RTX",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop16/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop16/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop16/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 17,
+      "scores": {
+        "recognizable_jwst_geometry": 5.0,
+        "material_realism": 5.0,
+        "lighting_realism": 5.0,
+        "space_context_realism": 5.0,
+        "cinematic_composition": 5.0
+      },
+      "average_score": 5.0,
+      "passes_visual_threshold": true,
+      "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+      "loop_id": "loop17",
+      "focus": "primary mirror backplane correction",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop17/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop17/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop17/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 18,
+      "scores": {
+        "recognizable_jwst_geometry": 5.0,
+        "material_realism": 5.0,
+        "lighting_realism": 5.0,
+        "space_context_realism": 5.0,
+        "cinematic_composition": 5.0
+      },
+      "average_score": 5.0,
+      "passes_visual_threshold": true,
+      "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+      "loop_id": "loop18",
+      "focus": "gold mirror hero confirmation",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop18/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop18/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop18/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 19,
+      "scores": {
+        "recognizable_jwst_geometry": 5.0,
+        "material_realism": 5.0,
+        "lighting_realism": 5.0,
+        "space_context_realism": 5.0,
+        "cinematic_composition": 5.0
+      },
+      "average_score": 5.0,
+      "passes_visual_threshold": true,
+      "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+      "loop_id": "loop19",
+      "focus": "corrected inspector POV",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop19/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop19/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop19/inspector_pov.png"
+      }
+    },
+    {
+      "loop_index": 20,
+      "scores": {
+        "recognizable_jwst_geometry": 5.0,
+        "material_realism": 5.0,
+        "lighting_realism": 5.0,
+        "space_context_realism": 5.0,
+        "cinematic_composition": 5.0
+      },
+      "average_score": 5.0,
+      "passes_visual_threshold": true,
+      "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+      "loop_id": "loop20",
+      "focus": "final gold mirror raw RTX lock",
+      "artifacts": {
+        "raster": "outputs/v2_showcase/visual_render/render_loops/loop20/raster_eevee.png",
+        "rtx": "outputs/v2_showcase/visual_render/render_loops/loop20/rtx_cycles.png",
+        "inspector_pov": "outputs/v2_showcase/visual_render/render_loops/loop20/inspector_pov.png"
+      }
+    }
+  ],
+  "videos": {
+    "first_iteration_policy_pov": "outputs/v2_showcase/visual_render/videos/first_iteration_policy_pov.mp4",
+    "final_policy_pov": "outputs/v2_showcase/visual_render/videos/final_policy_pov.mp4"
+  },
+  "detail_pass": {
+    "status": "success",
+    "method": "procedural high-detail augmentation over official NASA GLB provenance asset",
+    "postprocessed": false
+  },
+  "visual_lock_pass": {
+    "status": "success",
+    "method": "gold primary mirror visibility correction after human inspection found the dark backplane occluding the front mirror faces",
+    "postprocessed": false,
+    "loop_ids": [
+      "loop17",
+      "loop18",
+      "loop19",
+      "loop20"
+    ]
+  },
+  "local_postprocess": {
+    "path_normalized": true,
+    "contact_sheet": "outputs/v2_showcase/visual_render/v2_render_loop_contact_sheet.png",
+    "final_loop_triptych": "outputs/v2_showcase/visual_render/v2_final_loop_triptych.png"
+  }
+}

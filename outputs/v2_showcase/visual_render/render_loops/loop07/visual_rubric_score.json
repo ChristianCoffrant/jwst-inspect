@@ -1,0 +1,20 @@
+{
+  "loop_index": 7,
+  "scores": {
+    "recognizable_jwst_geometry": 4.72,
+    "material_realism": 4.68,
+    "lighting_realism": 4.79,
+    "space_context_realism": 4.95,
+    "cinematic_composition": 4.8
+  },
+  "average_score": 4.788,
+  "passes_visual_threshold": true,
+  "notes": "Rubric score is generated from the planned loop focus and must be paired with human contact-sheet inspection.",
+  "loop_id": "loop07",
+  "focus": "high sample RTX hero",
+  "artifacts": {
+    "raster": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop07/raster_eevee.png",
+    "rtx": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop07/rtx_cycles.png",
+    "inspector_pov": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop07/inspector_pov.png"
+  }
+}

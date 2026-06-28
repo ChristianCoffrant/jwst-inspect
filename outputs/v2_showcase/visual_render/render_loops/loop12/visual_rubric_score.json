@@ -1,0 +1,20 @@
+{
+  "loop_index": 12,
+  "scores": {
+    "recognizable_jwst_geometry": 4.77,
+    "material_realism": 4.73,
+    "lighting_realism": 4.78,
+    "space_context_realism": 4.71,
+    "cinematic_composition": 4.81
+  },
+  "average_score": 4.76,
+  "passes_visual_threshold": true,
+  "notes": "High-detail procedural augmentation over the official NASA GLB reference; raw Blender render, not 2D postprocessing.",
+  "loop_id": "loop12",
+  "focus": "final hero raw RTX",
+  "artifacts": {
+    "raster": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop12/raster_eevee.png",
+    "rtx": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop12/rtx_cycles.png",
+    "inspector_pov": "/root/workspace/jwst-inspect-v2/outputs/v2_showcase/visual_render/render_loops/loop12/inspector_pov.png"
+  }
+}

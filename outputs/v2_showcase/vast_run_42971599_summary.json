@@ -1,0 +1,10 @@
+{
+    "id":  42971599,
+    "gpu":  "RTX 5090",
+    "dph_total":  0.44666666666666666,
+    "duration_hours":  1.0111,
+    "estimated_cost_usd":  0.4716,
+    "driver":  "580.119.02",
+    "ssh_host":  "ssh1.vast.ai",
+    "ssh_port":  11598
+}
