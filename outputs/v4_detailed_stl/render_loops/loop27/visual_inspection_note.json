@@ -1,0 +1,10 @@
+{
+  "loop_id": "loop27",
+  "focus": "final wide SVS-style composition",
+  "artifacts": {
+    "rtx": "/root/workspace/jwst-inspect-v3/outputs/v4_detailed_stl/render_loops/loop27/rtx_cycles.png"
+  },
+  "human_inspection_status": "pending",
+  "postprocessed": false,
+  "uses_official_detailed_stl": true
+}

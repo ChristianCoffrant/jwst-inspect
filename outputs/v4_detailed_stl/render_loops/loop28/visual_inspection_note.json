@@ -1,0 +1,10 @@
+{
+  "loop_id": "loop28",
+  "focus": "final low cinematic sunshield",
+  "artifacts": {
+    "rtx": "/root/workspace/jwst-inspect-v3/outputs/v4_detailed_stl/render_loops/loop28/rtx_cycles.png"
+  },
+  "human_inspection_status": "pending",
+  "postprocessed": false,
+  "uses_official_detailed_stl": true
+}

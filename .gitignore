@@ -43,6 +43,15 @@ validation/renders/**
 !outputs/v2_showcase/visual_render/videos/*.mp4
 !outputs/v2_showcase/final_video/*.mp4
 outputs/v2_showcase/*.zip
+outputs/v2_showcase/vast_v3_offer_search.json
+outputs/v3_photoreal/
+outputs/v4_detailed_stl/render_loops/loop0*/
+outputs/v4_detailed_stl/render_loops/loop1*/
+outputs/v4_detailed_stl/render_loops/loop2[0-4]/
+
+# Downloaded official asset packages are reproducible from source URLs in docs/manifests.
+assets/official_nasa/jwst_detailed_stl/
+assets/official_nasa/jwst_detailed_stl_nasa.zip
 
 # Omniverse/Isaac local caches
 kit/

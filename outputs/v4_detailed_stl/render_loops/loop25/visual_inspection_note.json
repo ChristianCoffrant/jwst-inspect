@@ -1,0 +1,10 @@
+{
+  "loop_id": "loop25",
+  "focus": "final clean STL full body",
+  "artifacts": {
+    "rtx": "/root/workspace/jwst-inspect-v3/outputs/v4_detailed_stl/render_loops/loop25/rtx_cycles.png"
+  },
+  "human_inspection_status": "pending",
+  "postprocessed": false,
+  "uses_official_detailed_stl": true
+}

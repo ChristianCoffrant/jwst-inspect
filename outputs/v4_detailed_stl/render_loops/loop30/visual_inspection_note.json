@@ -1,0 +1,10 @@
+{
+  "loop_id": "loop30",
+  "focus": "final high-sample detailed STL hero",
+  "artifacts": {
+    "rtx": "/root/workspace/jwst-inspect-v3/outputs/v4_detailed_stl/render_loops/loop30/rtx_cycles.png"
+  },
+  "human_inspection_status": "pending",
+  "postprocessed": false,
+  "uses_official_detailed_stl": true
+}

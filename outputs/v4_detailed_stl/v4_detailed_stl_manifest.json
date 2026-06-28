@@ -1,0 +1,85 @@
+{
+  "render_package_id": "jwst_v4_official_detailed_stl",
+  "status": "inspection_required",
+  "source_asset": "NASA official detailed STL package: webb telescope model for 3D printing, detailed version",
+  "source_url": "https://science.nasa.gov/asset/webb/webb-telescope-model-for-3d-printing-detailed-version/",
+  "part_material_map": {
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.10 Sunshield pin connection (print 4).stl": "sunshield_foil",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.11 Primary mirror and instruments.stl": "gold_mirror",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.12 Arm with secondary mirror.stl": "dark_truss",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.13 Starboard arm to secondary mirror.stl": "dark_truss",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.14 Port arm to secondary mirror.stl": "dark_truss",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.15 Primary mirror and instruments mount to secondary mirror.stl": "gold_mirror",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.16 Arms mount to primary mirror and instruments.stl": "gold_mirror",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.2 Starboard boom.stl": "dark_truss",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.3 Solar array extended.stl": "solar_panel",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.4 Flap mechanism.stl": "dark_truss",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.5 Aft cover.stl": "black_blanket",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.6 Forward cover.stl": "black_blanket",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.7 Lower Bus mount.stl": "black_blanket",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.8 Sunshield forward section.stl": "sunshield_foil",
+    "STScI-01G2ZGC3XJ31A395Z6WBVYKEEH.9 Sunshield Aft section.stl": "sunshield_foil"
+  },
+  "loops": [
+    {
+      "loop_id": "loop25",
+      "focus": "final clean STL full body",
+      "artifacts": {
+        "rtx": "/root/workspace/jwst-inspect-v3/outputs/v4_detailed_stl/render_loops/loop25/rtx_cycles.png"
+      },
+      "human_inspection_status": "pending",
+      "postprocessed": false,
+      "uses_official_detailed_stl": true
+    },
+    {
+      "loop_id": "loop26",
+      "focus": "final clean mirror close",
+      "artifacts": {
+        "rtx": "/root/workspace/jwst-inspect-v3/outputs/v4_detailed_stl/render_loops/loop26/rtx_cycles.png"
+      },
+      "human_inspection_status": "pending",
+      "postprocessed": false,
+      "uses_official_detailed_stl": true
+    },
+    {
+      "loop_id": "loop27",
+      "focus": "final wide SVS-style composition",
+      "artifacts": {
+        "rtx": "/root/workspace/jwst-inspect-v3/outputs/v4_detailed_stl/render_loops/loop27/rtx_cycles.png"
+      },
+      "human_inspection_status": "pending",
+      "postprocessed": false,
+      "uses_official_detailed_stl": true
+    },
+    {
+      "loop_id": "loop28",
+      "focus": "final low cinematic sunshield",
+      "artifacts": {
+        "rtx": "/root/workspace/jwst-inspect-v3/outputs/v4_detailed_stl/render_loops/loop28/rtx_cycles.png"
+      },
+      "human_inspection_status": "pending",
+      "postprocessed": false,
+      "uses_official_detailed_stl": true
+    },
+    {
+      "loop_id": "loop29",
+      "focus": "final positive-y inspection POV",
+      "artifacts": {
+        "rtx": "/root/workspace/jwst-inspect-v3/outputs/v4_detailed_stl/render_loops/loop29/rtx_cycles.png"
+      },
+      "human_inspection_status": "pending",
+      "postprocessed": false,
+      "uses_official_detailed_stl": true
+    },
+    {
+      "loop_id": "loop30",
+      "focus": "final high-sample detailed STL hero",
+      "artifacts": {
+        "rtx": "/root/workspace/jwst-inspect-v3/outputs/v4_detailed_stl/render_loops/loop30/rtx_cycles.png"
+      },
+      "human_inspection_status": "pending",
+      "postprocessed": false,
+      "uses_official_detailed_stl": true
+    }
+  ]
+}
