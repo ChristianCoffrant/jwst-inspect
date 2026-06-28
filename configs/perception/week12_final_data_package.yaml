@@ -1,0 +1,48 @@
+version: 1.0.0
+package_id: week12-final-data-package-v1.0.0
+source_package_id: week11-data-perception-package-v1.0.0
+source_lock_id: week10-final-perception-lock-v1.0.0
+dataset_tag: week8-final-data-v1.0.0
+scene_tag: scene-final-v1.0.0
+final_scene_version_identifier: scene-final-v1.0.0+week10-lock
+baseline_type: dependency_free_rgb_heuristic
+week11_package_path: validation/reports/week11_data_perception_package.json
+week11_claim_evidence_path: validation/reports/week11_data_perception_claim_evidence.json
+week11_visual_summary_path: validation/reports/week11_data_perception_visual_summary.json
+week10_lock_path: validation/reports/week10_final_perception_results_lock.json
+week10_table_path: validation/reports/week10_final_perception_table.json
+week10_sample_package_path: validation/final_test/week10_final_sample_dataset_package.json
+week9_report_path: validation/reports/week9_final_perception_run1_report.json
+week9_failures_path: validation/reports/week9_final_perception_run1_failures.json
+data_card_path: docs/data_card.md
+readme_path: README.md
+final_package_manifest_path: validation/reports/week12_final_data_package.json
+regeneration_audit_path: validation/reports/week12_regeneration_audit.json
+validity_claims_path: validation/reports/week12_synthetic_data_validity_claims.json
+defense_talking_points_path: docs/workstream2_week12_defense_talking_points.md
+validity_faq_path: docs/workstream2_synthetic_data_validity_faq.md
+execution_doc_path: docs/workstream2_week12_execution.md
+regeneration_commands:
+  - python scripts/validate_week10_final_perception_lock.py
+  - python scripts/validate_week11_data_perception_package.py
+  - python scripts/write_week12_final_data_package.py
+  - python scripts/validate_week12_final_data_package.py
+  - python scripts/validate_week9_final_perception_run1.py
+  - python scripts/evaluate_week9_final_perception_run1.py
+  - python scripts/validate_contracts.py
+  - python scripts/validate_dataset.py
+  - python scripts/validate_run_registry.py
+  - python scripts/e2e_local_smoke.py
+guardrails:
+  final_test_training_use_required: 0
+  final_test_tuning_use_required: 0
+  public_reference_training_use_required: 0
+  heldout_reference_tuning_use_required: 0
+  generated_large_media_committed_required: 0
+  renderer_specific_metrics_required: true
+  final_test_failure_must_remain_reported: true
+  tracked_sample_regeneration_audit_required: true
+  temporary_full_regeneration_audit_required: true
+  final_test_metric_changes_allowed: false
+  optional_week12_gpu_spend_usd_max: 0.0
+  vast_x090_rerun_spend_cap_usd: 5.0

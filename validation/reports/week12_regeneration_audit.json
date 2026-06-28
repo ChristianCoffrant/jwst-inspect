@@ -1,0 +1,79 @@
+{
+  "audit_id": "week12_regeneration_audit_v1_0_0",
+  "dataset_tag": "week8-final-data-v1.0.0",
+  "errors": [],
+  "guardrails": {
+    "final_test_training_use": 0,
+    "final_test_tuning_use": 0,
+    "generated_large_media_committed_count": 0,
+    "heldout_reference_tuning_use": 0,
+    "optional_week12_gpu_spend_usd": 0.0,
+    "public_reference_training_use": 0,
+    "temporary_regeneration_committed_media_count": 0,
+    "vast_x090_rerun_spend_cap_usd": 5.0
+  },
+  "locked_final_perception_result": {
+    "classification": "final_path_traced_perception_regression",
+    "final_test_anomaly_f1": 0.0,
+    "final_test_anomaly_recall": 0.0,
+    "final_test_definition_id": "week8-final-perception-test-v1.0.0",
+    "final_test_high_glare_false_alarm_rate": 0.0
+  },
+  "package_id": "week12-final-data-package-v1.0.0",
+  "regeneration_commands": [
+    "python scripts/validate_week10_final_perception_lock.py",
+    "python scripts/validate_week11_data_perception_package.py",
+    "python scripts/write_week12_final_data_package.py",
+    "python scripts/validate_week12_final_data_package.py",
+    "python scripts/validate_week9_final_perception_run1.py",
+    "python scripts/evaluate_week9_final_perception_run1.py",
+    "python scripts/validate_contracts.py",
+    "python scripts/validate_dataset.py",
+    "python scripts/validate_run_registry.py",
+    "python scripts/e2e_local_smoke.py"
+  ],
+  "scene_tag": "scene-final-v1.0.0",
+  "source_package_id": "week11-data-perception-package-v1.0.0",
+  "status": "passed",
+  "temporary_full_regeneration_audit": {
+    "final_test_definition": {
+      "cross_split_frame_id_overlap_count": 0,
+      "cross_split_seed_overlap_count": 0,
+      "definition_id": "week8-final-perception-test-v1.0.0",
+      "expected_frame_count": 120,
+      "expected_high_glare_control_count": 40,
+      "expected_true_anomaly_count": 40,
+      "frame_count": 120,
+      "generated_media_count": 0,
+      "high_glare_control_count": 40,
+      "manifest_frame_count": 120,
+      "metadata_completeness": 1.0,
+      "training_or_tuning_exposure_count": 0,
+      "true_anomaly_count": 40
+    },
+    "status": "passed",
+    "temporary_files_retained": false,
+    "train_validation": {
+      "cross_split_seed_overlap_count": 0,
+      "expected_frame_count": 600,
+      "expected_train_frame_count": 480,
+      "expected_validation_frame_count": 120,
+      "final_test_generated_media_count": 0,
+      "frame_count": 600,
+      "manifest_frame_count": 600,
+      "media_completeness": 1.0,
+      "metadata_completeness": 1.0,
+      "train_frame_count": 480,
+      "validation_frame_count": 120,
+      "week8_metadata_completeness": 1.0
+    }
+  },
+  "tracked_sample_audit": {
+    "manifest_path": "datasets/sample/dataset_manifest.json",
+    "status": "passed",
+    "tracked_generated_media_count": 0,
+    "tracked_sample_frame_count": 24,
+    "tracked_sample_manifest_sha256": "71809a770bb2fcfc5e9b4a598d90a6d6fa01e4f6dc04d180a7c7a0e6115578eb",
+    "validation_error_count": 0
+  }
+}

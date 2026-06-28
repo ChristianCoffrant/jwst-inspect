@@ -1,0 +1,108 @@
+{
+  "claim_count": 8,
+  "dataset_tag": "week8-final-data-v1.0.0",
+  "errors": [],
+  "final_test_definition_id": "week8-final-perception-test-v1.0.0",
+  "guardrails": {
+    "final_test_failure_remains_reported": true,
+    "final_test_training_use": 0,
+    "final_test_tuning_use": 0,
+    "generated_large_media_committed_count": 0,
+    "heldout_reference_tuning_use": 0,
+    "optional_week12_gpu_spend_usd": 0.0,
+    "public_reference_training_use": 0,
+    "renderer_specific_metrics_reported": true,
+    "temporary_full_regeneration_audit_passed": true,
+    "tracked_sample_regeneration_audit_passed": true,
+    "vast_x090_rerun_spend_cap_usd": 5.0
+  },
+  "metric_summary": {
+    "final_test_path_traced": {
+      "anomaly_f1": 0.0,
+      "anomaly_recall": 0.0,
+      "high_glare_false_alarm_rate": 0.0,
+      "semantic_miou": 0.01629893599285529,
+      "semantic_pixel_accuracy": 0.09513888888888888
+    },
+    "validation_rasterized": {
+      "anomaly_f1": 1.0,
+      "anomaly_recall": 1.0,
+      "high_glare_false_alarm_rate": 0.0,
+      "semantic_miou": 0.2710119654580008,
+      "semantic_pixel_accuracy": 0.3834683641975309
+    }
+  },
+  "output_artifacts": {
+    "defense_talking_points": {
+      "path": "docs/workstream2_week12_defense_talking_points.md",
+      "sha256": "9724e66cf65ea5d351394e61a94e59ef6f4b8a58b23bede2e67b953c51c2f652"
+    },
+    "execution_doc": {
+      "path": "docs/workstream2_week12_execution.md",
+      "sha256": "6f66acc398a88a750bf618438635ebf587a9fbd474836411c7900fc8adb1e395"
+    },
+    "regeneration_audit": {
+      "path": "validation/reports/week12_regeneration_audit.json",
+      "sha256": "8446c40070070473380aa0d431008f32886ddf3114719874c6aa4e13025b9778"
+    },
+    "validity_claims": {
+      "path": "validation/reports/week12_synthetic_data_validity_claims.json",
+      "sha256": "be42693089e4161fdb7c44e624af0aa450d489d20121edbb94259e494e02b7d4"
+    },
+    "validity_faq": {
+      "path": "docs/workstream2_synthetic_data_validity_faq.md",
+      "sha256": "ed7a694afcfa38eeb576b67b24dd356fe1b361b3ea2a663cb7033744179abcef"
+    }
+  },
+  "package_id": "week12-final-data-package-v1.0.0",
+  "regeneration_commands": [
+    "python scripts/validate_week10_final_perception_lock.py",
+    "python scripts/validate_week11_data_perception_package.py",
+    "python scripts/write_week12_final_data_package.py",
+    "python scripts/validate_week12_final_data_package.py",
+    "python scripts/validate_week9_final_perception_run1.py",
+    "python scripts/evaluate_week9_final_perception_run1.py",
+    "python scripts/validate_contracts.py",
+    "python scripts/validate_dataset.py",
+    "python scripts/validate_run_registry.py",
+    "python scripts/e2e_local_smoke.py"
+  ],
+  "scene_tag": "scene-final-v1.0.0",
+  "source_artifacts": {
+    "config": {
+      "path": "configs/perception/week12_final_data_package.yaml",
+      "sha256": "8fbb406bd2e1a4abffbe62076adf4c6ef7e624fc1ad72a603686797fb3048e68"
+    },
+    "data_card": {
+      "path": "docs/data_card.md",
+      "sha256": "e59a6177dd8e900b585f32285b7baeddca5197344c05d71aa3e1e6260eea0e85"
+    },
+    "readme": {
+      "path": "README.md",
+      "sha256": "96e842534f4276b77ea175354dc78404f3f21c74ed13a5a72c157501a4d1274f"
+    },
+    "week10_lock": {
+      "path": "validation/reports/week10_final_perception_results_lock.json",
+      "sha256": "5e41256162f0e42dfbab110cd613a2e10465a3f905502abf888986f4f0abb7e1"
+    },
+    "week10_sample_package": {
+      "path": "validation/final_test/week10_final_sample_dataset_package.json",
+      "sha256": "60f949018cf9432f4cbe9ae50b97387e8ea1b2daa66a9a66d8f5e44baf4cf5a1"
+    },
+    "week10_table": {
+      "path": "validation/reports/week10_final_perception_table.json",
+      "sha256": "ca532344193ce1af10b56482f1275fa16fc1acf97b9e97a07eba49693a5727cf"
+    },
+    "week11_claim_evidence": {
+      "path": "validation/reports/week11_data_perception_claim_evidence.json",
+      "sha256": "d1c2bd5c152048828b6e8b37dd125fb00c2a2e1eabd79f9fb7f5d3f804a6826e"
+    },
+    "week11_package": {
+      "path": "validation/reports/week11_data_perception_package.json",
+      "sha256": "51425cf9b5c3ac34c9f722c07f80381e86e0fc281cb2fb379ca21a74a5c5ecdd"
+    }
+  },
+  "source_lock_id": "week10-final-perception-lock-v1.0.0",
+  "source_package_id": "week11-data-perception-package-v1.0.0",
+  "status": "passed"
+}

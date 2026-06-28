@@ -110,6 +110,14 @@ from jwst_inspect.perception.week11_package import (
     validate_week11_data_perception_package,
     validate_week11_package_config,
 )
+from jwst_inspect.perception.week12_package import (
+    WEEK12_PACKAGE_ID,
+    build_week12_final_data_package_manifest,
+    build_week12_regeneration_audit,
+    build_week12_synthetic_data_validity_claims,
+    validate_week12_final_data_package,
+    validate_week12_package_config,
+)
 from jwst_inspect.validation.dataset import (
     validate_sample_dataset,
     validate_week5_anomaly_dataset,
@@ -1141,6 +1149,64 @@ class Week11DataPerceptionPackageTests(unittest.TestCase):
         self.assertIn("final-test anomaly F1", (ROOT / "docs" / "data_card.md").read_text(encoding="utf-8"))
         self.assertIn(WEEK11_PACKAGE_ID, paper)
         self.assertIn("python scripts/validate_week11_data_perception_package.py", guide)
+
+
+class Week12FinalDataPackageTests(unittest.TestCase):
+    def test_week12_package_config_passes_guardrails(self):
+        self.assertEqual(validate_week12_package_config(ROOT), [])
+
+    def test_week12_package_passes_ship_gates(self):
+        errors, report = validate_week12_final_data_package(ROOT)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(report["status"], "passed")
+        self.assertEqual(report["package_id"], WEEK12_PACKAGE_ID)
+        self.assertEqual(report["guardrails"]["final_test_training_use"], 0)
+        self.assertEqual(report["guardrails"]["final_test_tuning_use"], 0)
+        self.assertEqual(report["guardrails"]["generated_large_media_committed_count"], 0)
+        self.assertTrue(report["guardrails"]["tracked_sample_regeneration_audit_passed"])
+        self.assertTrue(report["guardrails"]["temporary_full_regeneration_audit_passed"])
+        self.assertTrue(report["guardrails"]["final_test_failure_remains_reported"])
+
+    def test_week12_regeneration_audit_passes(self):
+        audit = build_week12_regeneration_audit(ROOT)
+
+        self.assertEqual(audit["status"], "passed")
+        self.assertEqual(audit["tracked_sample_audit"]["tracked_sample_frame_count"], 24)
+        self.assertEqual(audit["temporary_full_regeneration_audit"]["train_validation"]["frame_count"], WEEK8_FRAME_COUNT)
+        self.assertEqual(
+            audit["temporary_full_regeneration_audit"]["final_test_definition"]["frame_count"],
+            WEEK8_FINAL_TEST_FRAME_COUNT,
+        )
+        self.assertEqual(audit["guardrails"]["generated_large_media_committed_count"], 0)
+        self.assertEqual(audit["guardrails"]["optional_week12_gpu_spend_usd"], 0.0)
+
+    def test_week12_validity_claims_regenerate(self):
+        audit = build_week12_regeneration_audit(ROOT)
+        expected = build_week12_synthetic_data_validity_claims(ROOT, regeneration_audit=audit)
+        path = ROOT / "validation" / "reports" / "week12_synthetic_data_validity_claims.json"
+        actual = json.loads(path.read_text(encoding="utf-8"))
+
+        self.assertEqual(actual, expected)
+        self.assertEqual(len(actual["claims"]), 8)
+        self.assertTrue(all(claim["status"] == "supported" for claim in actual["claims"]))
+        failure_claim = next(claim for claim in actual["claims"] if claim["claim_id"] == "final_test_failure_is_retained")
+        self.assertEqual(failure_claim["value"]["final_test_anomaly_f1"], 0.0)
+
+    def test_week12_manifest_and_docs_are_consistent(self):
+        expected = build_week12_final_data_package_manifest(ROOT)
+        manifest_path = ROOT / "validation" / "reports" / "week12_final_data_package.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        talking_points = (ROOT / "docs" / "workstream2_week12_defense_talking_points.md").read_text(encoding="utf-8")
+        faq = (ROOT / "docs" / "workstream2_synthetic_data_validity_faq.md").read_text(encoding="utf-8")
+
+        self.assertEqual(manifest, expected)
+        self.assertEqual(manifest["status"], "passed")
+        self.assertEqual(manifest["source_package_id"], WEEK11_PACKAGE_ID)
+        self.assertEqual(manifest["metric_summary"]["final_test_path_traced"]["anomaly_f1"], 0.0)
+        self.assertIn(WEEK12_PACKAGE_ID, talking_points)
+        self.assertIn("Synthetic anomalies are benchmark stressors", faq)
+        self.assertIn(WEEK12_PACKAGE_ID, (ROOT / "docs" / "data_card.md").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

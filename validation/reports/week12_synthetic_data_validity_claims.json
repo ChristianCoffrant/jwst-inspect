@@ -1,0 +1,127 @@
+{
+  "claim_matrix_id": "week12_synthetic_data_validity_claims_v1_0_0",
+  "claims": [
+    {
+      "claim": "The locked Week 8 train/validation dataset and final-test definition regenerate from tracked configs.",
+      "claim_id": "dataset_contract_is_reproducible",
+      "evidence": [
+        "validation/reports/week12_regeneration_audit.json",
+        "validation/final_test/week10_final_sample_dataset_package.json"
+      ],
+      "status": "supported",
+      "value": {
+        "final_test_frame_count": 120,
+        "temporary_full_regeneration_status": "passed",
+        "tracked_sample_status": "passed",
+        "train_validation_frame_count": 600
+      }
+    },
+    {
+      "claim": "Synthetic anomalies are benchmark stressors and do not claim real JWST fault diagnosis.",
+      "claim_id": "synthetic_stressors_not_flight_fault_claims",
+      "evidence": [
+        "docs/workstream2_synthetic_data_validity_faq.md",
+        "validation/reports/week11_data_perception_package.json"
+      ],
+      "status": "supported",
+      "value": {
+        "active_anomaly_families": [
+          "mirror_region_obstruction",
+          "sunshield_discoloration",
+          "sunshield_tear_proxy",
+          "truss_occlusion_proxy"
+        ],
+        "positioning": "benchmark_stressor_only"
+      }
+    },
+    {
+      "claim": "Public references, held-out references, and final-test labels were not used for training or tuning.",
+      "claim_id": "no_reference_or_final_test_leakage",
+      "evidence": [
+        "validation/reports/week10_final_perception_results_lock.json",
+        "validation/reports/week12_regeneration_audit.json"
+      ],
+      "status": "supported",
+      "value": {
+        "final_test_training_use": 0,
+        "final_test_tuning_use": 0,
+        "heldout_reference_tuning_use": 0,
+        "public_reference_training_use": 0
+      }
+    },
+    {
+      "claim": "Rasterized validation and path-traced final-test metrics are separated.",
+      "claim_id": "renderer_specific_metrics_are_reported",
+      "evidence": [
+        "validation/reports/week10_final_perception_table.json",
+        "validation/reports/week11_data_perception_visual_summary.json"
+      ],
+      "status": "supported",
+      "value": {
+        "final_test_anomaly_f1": 0.0,
+        "final_test_semantic_miou": 0.01629893599285529,
+        "validation_anomaly_f1": 1.0,
+        "validation_semantic_miou": 0.2710119654580008
+      }
+    },
+    {
+      "claim": "The final-test anomaly failure remains reported and was not tuned away.",
+      "claim_id": "final_test_failure_is_retained",
+      "evidence": [
+        "validation/reports/week10_final_perception_results_lock.json",
+        "validation/reports/week9_final_perception_run1_failures.json"
+      ],
+      "status": "supported",
+      "value": {
+        "failure_example_count": 16,
+        "false_negative_count": 40,
+        "final_test_anomaly_f1": 0.0,
+        "final_test_anomaly_recall": 0.0
+      }
+    },
+    {
+      "claim": "The final result reports high-glare no-anomaly controls separately from true anomalies.",
+      "claim_id": "high_glare_controls_remain_visible",
+      "evidence": [
+        "validation/reports/week10_final_perception_table.json",
+        "validation/reports/week9_final_perception_run1_report.json"
+      ],
+      "status": "supported",
+      "value": {
+        "final_test_high_glare_control_count": 40,
+        "final_test_high_glare_false_alarm_rate": 0.0
+      }
+    },
+    {
+      "claim": "Large generated train/validation and final-test media are excluded from Git.",
+      "claim_id": "large_media_policy_is_enforced",
+      "evidence": [
+        "validation/final_test/week10_final_sample_dataset_package.json",
+        "validation/reports/week12_regeneration_audit.json"
+      ],
+      "status": "supported",
+      "value": {
+        "temporary_regeneration_committed_media_count": 0,
+        "tracked_generated_media_count": 0
+      }
+    },
+    {
+      "claim": "Week 12 defense docs trace every claim to the locked reports and package manifests.",
+      "claim_id": "defense_package_is_traceable",
+      "evidence": [
+        "validation/reports/week12_final_data_package.json",
+        "docs/workstream2_week12_defense_talking_points.md",
+        "validation/reports/week12_synthetic_data_validity_claims.json"
+      ],
+      "status": "supported",
+      "value": {
+        "claim_count": 8,
+        "source_lock_id": "week10-final-perception-lock-v1.0.0",
+        "source_package_id": "week11-data-perception-package-v1.0.0"
+      }
+    }
+  ],
+  "package_id": "week12-final-data-package-v1.0.0",
+  "source_lock_id": "week10-final-perception-lock-v1.0.0",
+  "source_package_id": "week11-data-perception-package-v1.0.0"
+}

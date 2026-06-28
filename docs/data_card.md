@@ -258,6 +258,20 @@ anomaly F1 as `1.0`. This is the stated perception-transfer finding: the
 dependency-free RGB heuristic fails under the locked path-traced final-test
 imagery while remaining apparently strong under rasterized validation imagery.
 
+## Week 12 Final Data Package
+
+Week 12 freezes the final Team 2 defense package as
+`week12-final-data-package-v1.0.0`. The package adds a temp-regeneration audit,
+synthetic-data validity claim matrix, defense talking points, and validity FAQ
+on top of `week11-data-perception-package-v1.0.0`.
+
+The Week 12 package preserves the locked result: validation anomaly F1 remains
+`1.0`, final-test anomaly F1 remains `0.0`, and there is no final-test tuning.
+Synthetic anomalies are benchmark stressors, not claims about real JWST faults.
+The regeneration audit validates the tracked sample and regenerates the Week 8
+train/validation dataset plus the locked final-test definition in a temporary
+directory; no large generated media is committed.
+
 ## Metadata
 
 Every frame must include:

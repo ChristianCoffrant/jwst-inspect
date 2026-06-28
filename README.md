@@ -95,24 +95,26 @@ python -m unittest discover -s tests
 
 ## Current Workstream 2 Gate
 
-The Week 11 Synthetic Data and Perception Benchmark gate packages the locked
-Team 2 final evidence as `week11-data-perception-package-v1.0.0`. It keeps the
-Week 10 final metric lock, adds the paper data/perception section, regenerates
-small tracked visual summaries from stored artifacts, and documents exact
-regeneration commands. It does not tune on final-test imagery and does not
-commit large generated media.
+The Week 12 Synthetic Data and Perception Benchmark gate freezes the final Team
+2 defense package as `week12-final-data-package-v1.0.0`. It builds on
+`week11-data-perception-package-v1.0.0`, keeps the Week 10 final metric lock,
+adds a temp-regeneration audit, synthetic-data validity claim matrix, defense
+talking points, and validity FAQ. The package preserves final-test anomaly F1
+as `0.0`, performs no final-test tuning, and does not commit large generated
+media.
 
 Run:
 
 ```bash
 python scripts/validate_week10_final_perception_lock.py
-python scripts/write_week11_data_perception_package.py
 python scripts/validate_week11_data_perception_package.py
+python scripts/write_week12_final_data_package.py
+python scripts/validate_week12_final_data_package.py
 python scripts/validate_contracts.py
 python scripts/validate_dataset.py
 python scripts/validate_run_registry.py
 python scripts/e2e_local_smoke.py
-python -m unittest tests.test_dataset_validation.Week11DataPerceptionPackageTests
+python -m unittest tests.test_dataset_validation.Week12FinalDataPackageTests
 ```
 
 ## Current Workstream 3 Gate
