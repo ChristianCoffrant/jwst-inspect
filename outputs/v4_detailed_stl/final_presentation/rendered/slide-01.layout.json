@@ -1,0 +1,491 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/jcxego",
+    "id": "jcxego",
+    "slide": 1,
+    "layoutId": "1cc2a122-2566-4ee9-ba03-9772923b0833",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "cf63ab71-2824-4b56-8fd0-106d83f0f4ea",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#050A10",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "1cc2a122-2566-4ee9-ba03-9772923b0833",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "cf63ab71-2824-4b56-8fd0-106d83f0f4ea",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "cf63ab71-2824-4b56-8fd0-106d83f0f4ea",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/d4vmtwra",
+      "id": "1",
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
+      "alt": "Final accepted v4 JWST render",
+      "contentType": "image/png",
+      "imageFit": "cover",
+      "asset": {
+        "assetId": "ba17732d-5d0f-4b49-bd41-a981089f6e32",
+        "contentType": "image/png",
+        "byteLength": 2260574
+      }
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/re1w7mp0",
+      "id": "2",
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
+      "geometry": "rect",
+      "fillColor": "rgba(0, 0, 0, 0.50196)",
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2t83itgf",
+      "id": "3",
+      "bbox": [
+        72,
+        58,
+        196,
+        38
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F4BF45",
+      "lineColor": "#F4BF45",
+      "lineWidth": 1
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9w3m94fu",
+      "id": "4",
+      "bbox": [
+        84,
+        66,
+        172,
+        26
+      ],
+      "geometry": "rect",
+      "text": "V4 VISUAL SHOWCASE",
+      "textPreview": "V4 VISUAL SHOWCASE",
+      "resolvedFontSize": 13,
+      "resolvedTextStyle": {
+        "fontSize": 13,
+        "typeface": "+mn-lt",
+        "color": "#050A10",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "V4 VISUAL SHOWCASE"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "V4 VISUAL SHOWCASE",
+          "resolvedTextStyle": {
+            "fontSize": 13,
+            "color": "#050A10",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "V4 VISUAL SHOWCASE",
+              "fontSize": 13,
+              "color": "#050A10",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kb6xkf6d",
+      "id": "5",
+      "bbox": [
+        72,
+        142,
+        620,
+        82
+      ],
+      "geometry": "rect",
+      "text": "JWST-Inspect",
+      "textPreview": "JWST-Inspect",
+      "resolvedFontSize": 64,
+      "resolvedTextStyle": {
+        "fontSize": 64,
+        "typeface": "+mn-lt",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "JWST-Inspect"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "JWST-Inspect",
+          "resolvedTextStyle": {
+            "fontSize": 64,
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "JWST-Inspect",
+              "fontSize": 64,
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rqd4vmtw",
+      "id": "6",
+      "bbox": [
+        76,
+        230,
+        760,
+        70
+      ],
+      "geometry": "rect",
+      "text": "Official detailed-STL visual recovery, RL policy evidence, and final presentation video",
+      "textPreview": "Official detailed-STL visual recovery, RL policy evidence, and final presentation video",
+      "resolvedFontSize": 25,
+      "resolvedTextStyle": {
+        "fontSize": 25,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Official detailed-STL visual recovery, RL policy evidence, and final"
+          },
+          {
+            "index": 2,
+            "text": "presentation video"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Official detailed-STL visual recovery, RL policy evidence, and final presentation video",
+          "resolvedTextStyle": {
+            "fontSize": 25,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Official detailed-STL visual recovery, RL policy evidence, and final presentation video",
+              "fontSize": 25,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/25kb6xkf",
+      "id": "7",
+      "bbox": [
+        76,
+        324,
+        560,
+        2
+      ],
+      "geometry": "rect",
+      "fillColor": "#F4BF45",
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/94fu18jq",
+      "id": "8",
+      "bbox": [
+        78,
+        356,
+        700,
+        118
+      ],
+      "geometry": "rect",
+      "text": "- Final visuals use official NASA detailed STL geometry and raw Cycles renders.\n- Bad visual branches are documented rather than hidden.\n- The policy claim is measured with Inspection Readiness Score, not visual appeal.",
+      "textPreview": "- Final visuals use official NASA detailed STL geometry and raw Cycles renders. | - Bad visual branches are documented rather than hidden...",
+      "resolvedFontSize": 19,
+      "resolvedTextStyle": {
+        "fontSize": 19,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "- Final visuals use official NASA detailed STL geometry and raw Cycles renders."
+          },
+          {
+            "index": 2,
+            "text": "- Bad visual branches are documented rather than hidden."
+          },
+          {
+            "index": 3,
+            "text": "- The policy claim is measured with Inspection Readiness Score, not visual appeal."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "- Final visuals use official NASA detailed STL geometry and raw Cycles renders.",
+          "resolvedTextStyle": {
+            "fontSize": 19,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Final visuals use official NASA detailed STL geometry and raw Cycles renders.",
+              "fontSize": 19,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "- Bad visual branches are documented rather than hidden.",
+          "resolvedTextStyle": {
+            "fontSize": 19,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Bad visual branches are documented rather than hidden.",
+              "fontSize": 19,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "- The policy claim is measured with Inspection Readiness Score, not visual appeal.",
+          "resolvedTextStyle": {
+            "fontSize": 19,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- The policy claim is measured with Inspection Readiness Score, not visual appeal.",
+              "fontSize": 19,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kjm1cfa9",
+      "id": "9",
+      "bbox": [
+        78,
+        610,
+        990,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Video: outputs/v4_detailed_stl/final_video/jwst_inspect_v4_visual_quality_showcase.mp4",
+      "textPreview": "Video: outputs/v4_detailed_stl/final_video/jwst_inspect_v4_visual_quality_showcase.mp4",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "fontSize": 14,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Video: outputs/v4_detailed_stl/final_video/jwst_inspect_v4_visual_quality_showcase.mp4"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Video: outputs/v4_detailed_stl/final_video/jwst_inspect_v4_visual_quality_showcase.mp4",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Video: outputs/v4_detailed_stl/final_video/jwst_inspect_v4_visual_quality_showcase.mp4",
+              "fontSize": 14,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

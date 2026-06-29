@@ -1,0 +1,181 @@
+{"kind":"deck","id":"pr/pa27yf","name":"Deck"}
+{"kind":"layout","layoutId":"cf63ab71-2824-4b56-8fd0-106d83f0f4ea","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"1cc2a122-2566-4ee9-ba03-9772923b0833","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/jcxego","slide":1,"title":"V4 VISUAL SHOWCASE","textShapes":5}
+{"kind":"shape","id":"sh/re1w7mp0","slide":1,"bbox":[0,0,1280,720]}
+{"kind":"shape","id":"sh/2t83itgf","slide":1,"bbox":[72,58,196,38]}
+{"kind":"textbox","id":"sh/9w3m94fu","slide":1,"text":"V4 VISUAL SHOWCASE","textPreview":"V4 VISUAL SHOWCASE","textChars":18,"textLines":1,"bbox":[84,66,172,26]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":1,"text":"JWST-Inspect","textPreview":"JWST-Inspect","textChars":12,"textLines":1,"bbox":[72,142,620,82]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":1,"text":"Official detailed-STL visual recovery, RL policy evidence, and final presentation video","textPreview":"Official detailed-STL visual recovery, RL policy evidence, and final presentation video","textChars":87,"textLines":1,"bbox":[76,230,760,70]}
+{"kind":"shape","id":"sh/25kb6xkf","slide":1,"bbox":[76,324,560,2]}
+{"kind":"textbox","id":"sh/94fu18jq","slide":1,"text":"- Final visuals use official NASA detailed STL geometry and raw Cycles renders.\n- Bad visual branches are documented rather than hidden.\n- The policy claim is measured with Inspection Readiness Score, not visual appeal.","textPreview":"- Final visuals use official NASA detailed STL geometry and raw Cycles renders. | - Bad visual branches are documented rather than hidden...","textChars":219,"textLines":3,"bbox":[78,356,700,118]}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":1,"text":"Video: outputs/v4_detailed_stl/final_video/jwst_inspect_v4_visual_quality_showcase.mp4","textPreview":"Video: outputs/v4_detailed_stl/final_video/jwst_inspect_v4_visual_quality_showcase.mp4","textChars":86,"textLines":1,"bbox":[78,610,990,28]}
+{"kind":"image","id":"im/d4vmtwra","slide":1,"name":"","alt":"Final accepted v4 JWST render","bbox":[0,0,1280,720]}
+{"kind":"notes","id":"nt/jcxego","slide":1,"text":""}
+{"kind":"slide","id":"sl/9eajku","slide":2,"title":"SPONSOR ASK","textShapes":21}
+{"kind":"textbox","id":"sh/58z25kb6","slide":2,"text":"SPONSOR ASK","textPreview":"SPONSOR ASK","textChars":11,"textLines":1,"bbox":[72,30,680,24]}
+{"kind":"textbox","id":"sh/yhgn29gr","slide":2,"text":"What the capstone had to prove","textPreview":"What the capstone had to prove","textChars":30,"textLines":1,"bbox":[72,56,1030,60]}
+{"kind":"textbox","id":"sh/n29gr2p8","slide":2,"text":"A credible autonomous inspection benchmark needs a scene, a data pipeline, a policy loop, and renderer-transfer evidence.","textPreview":"A credible autonomous inspection benchmark needs a scene, a data pipeline, a policy loop, and renderer-transfer evidence.","textChars":121,"textLines":1,"bbox":[72,122,1020,56]}
+{"kind":"shape","id":"sh/gbq1oryt","slide":2,"bbox":[72,250,250,284]}
+{"kind":"textbox","id":"sh/5wjudg7a","slide":2,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[96,274,46,44]}
+{"kind":"textbox","id":"sh/y90je9cv","slide":2,"text":"Scene","textPreview":"Scene","textChars":5,"textLines":1,"bbox":[152,274,132,34]}
+{"kind":"textbox","id":"sh/nuxc3ylc","slide":2,"text":"JWST target, inspector craft, safety zones, semantic labels, lighting/material variants.","textPreview":"JWST target, inspector craft, safety zones, semantic labels, lighting/material variants.","textChars":88,"textLines":1,"bbox":[98,342,198,124]}
+{"kind":"shape","id":"sh/cbulwval","slide":2,"bbox":[364,250,250,284]}
+{"kind":"textbox","id":"sh/5sneloj2","slide":2,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[388,274,46,44]}
+{"kind":"textbox","id":"sh/tcj6tova","slide":2,"text":"Data","textPreview":"Data","textChars":4,"textLines":1,"bbox":[444,274,132,34]}
+{"kind":"textbox","id":"sh/0rqd4vmt","slide":2,"text":"Synthetic RGB/depth/segmentation, manifests, provenance, held-out reference discipline.","textPreview":"Synthetic RGB/depth/segmentation, manifests, provenance, held-out reference discipline.","textChars":87,"textLines":1,"bbox":[390,342,198,124]}
+{"kind":"shape","id":"sh/b6xkf6dc","slide":2,"bbox":[656,250,250,284]}
+{"kind":"textbox","id":"sh/il0rqd4v","slide":2,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[680,274,46,44]}
+{"kind":"textbox","id":"sh/t47y1kre","slide":2,"text":"Policy","textPreview":"Policy","textChars":6,"textLines":1,"bbox":[736,274,132,34]}
+{"kind":"textbox","id":"sh/0je9cvix","slide":2,"text":"Scripted and learned inspection behavior measured for safe coverage and anomaly handling.","textPreview":"Scripted and learned inspection behavior measured for safe coverage and anomaly handling.","textChars":89,"textLines":1,"bbox":[682,342,198,124]}
+{"kind":"shape","id":"sh/byhgn29g","slide":2,"bbox":[948,250,250,284]}
+{"kind":"textbox","id":"sh/idonyd0z","slide":2,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[972,274,46,44]}
+{"kind":"textbox","id":"sh/p0bi9s36","slide":2,"text":"Transfer","textPreview":"Transfer","textChars":8,"textLines":1,"bbox":[1028,274,132,34]}
+{"kind":"textbox","id":"sh/0fepkzup","slide":2,"text":"Rasterized versus path-traced behavior compared without hiding failures.","textPreview":"Rasterized versus path-traced behavior compared without hiding failures.","textChars":72,"textLines":1,"bbox":[974,342,198,124]}
+{"kind":"shape","id":"sh/cbulwval","slide":2,"bbox":[170,584,230,90]}
+{"kind":"textbox","id":"sh/5sneloj2","slide":2,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[186,598,198,42]}
+{"kind":"textbox","id":"sh/u54zidon","slide":2,"text":"workstreams integrated","textPreview":"workstreams integrated","textChars":22,"textLines":1,"bbox":[186,644,198,40]}
+{"kind":"shape","id":"sh/nqxs72x4","slide":2,"bbox":[525,584,230,90]}
+{"kind":"textbox","id":"sh/czed8v6p","slide":2,"text":"Week 12","textPreview":"Week 12","textChars":7,"textLines":1,"bbox":[541,598,198,42]}
+{"kind":"textbox","id":"sh/5kb6xkf6","slide":2,"text":"validation gates retained","textPreview":"validation gates retained","textChars":25,"textLines":1,"bbox":[541,644,198,40]}
+{"kind":"shape","id":"sh/ytsvu9kn","slide":2,"bbox":[880,584,230,90]}
+{"kind":"textbox","id":"sh/neloj2t8","slide":2,"text":"0","textPreview":"0","textChars":1,"textLines":1,"bbox":[896,598,198,42]}
+{"kind":"textbox","id":"sh/gn29gr2p","slide":2,"text":"hidden failed checkpoints","textPreview":"hidden failed checkpoints","textChars":25,"textLines":1,"bbox":[896,644,198,40]}
+{"kind":"notes","id":"nt/9eajku","slide":2,"text":""}
+{"kind":"slide","id":"sl/rjlikc","slide":3,"title":"REFERENCE GROUNDING","textShapes":6}
+{"kind":"textbox","id":"sh/5sneloj2","slide":3,"text":"REFERENCE GROUNDING","textPreview":"REFERENCE GROUNDING","textChars":19,"textLines":1,"bbox":[72,30,680,24]}
+{"kind":"textbox","id":"sh/u54zidon","slide":3,"text":"Visual targets came from official mission media","textPreview":"Visual targets came from official mission media","textChars":47,"textLines":1,"bbox":[72,56,1030,60]}
+{"kind":"textbox","id":"sh/nqxs72x4","slide":3,"text":"The strongest available flight-like evidence is separation/deployment imagery plus official NASA/SVS and NASA 3D assets.","textPreview":"The strongest available flight-like evidence is separation/deployment imagery plus official NASA/SVS and NASA 3D assets.","textChars":120,"textLines":1,"bbox":[72,122,1020,56]}
+{"kind":"shape","id":"sh/5kb6xkf6","slide":3,"bbox":[820,232,360,320]}
+{"kind":"textbox","id":"sh/ytsvu9kn","slide":3,"text":"Reference intent","textPreview":"Reference intent","textChars":16,"textLines":1,"bbox":[850,262,280,34]}
+{"kind":"textbox","id":"sh/neloj2t8","slide":3,"text":"- Use real/official media for silhouette, material cues, and camera language.\n- Avoid pretending there are abundant close-up in-space JWST photos.\n- Use cleanroom imagery and NASA 3D resources for component/material detail.\n- Keep validation images out of training and tuning claims.","textPreview":"- Use real/official media for silhouette, material cues, and camera language. | - Avoid pretending there are abundant close-up in-space J...","textChars":283,"textLines":4,"bbox":[850,322,270,160]}
+{"kind":"textbox","id":"sh/gn29gr2p","slide":3,"text":"Reference board includes official NASA/SVS-style deployment imagery already tracked in the project output package.","textPreview":"Reference board includes official NASA/SVS-style deployment imagery already tracked in the project output package.","textChars":114,"textLines":1,"bbox":[72,674,1130,24]}
+{"kind":"image","id":"im/tcj6tova","slide":3,"name":"","alt":"Official JWST visual reference board","bbox":[52,218,720,410]}
+{"kind":"notes","id":"nt/rjlikc","slide":3,"text":""}
+{"kind":"slide","id":"sl/kwxrvx","slide":4,"title":"VISUAL RECOVERY","textShapes":7}
+{"kind":"textbox","id":"sh/w7mp0bi9","slide":4,"text":"VISUAL RECOVERY","textPreview":"VISUAL RECOVERY","textChars":15,"textLines":1,"bbox":[72,30,680,24]}
+{"kind":"textbox","id":"sh/7mp0bi9s","slide":4,"text":"The bad branches were rejected","textPreview":"The bad branches were rejected","textChars":30,"textLines":1,"bbox":[72,56,1030,60]}
+{"kind":"textbox","id":"sh/e1w7mp0b","slide":4,"text":"The earlier loop problem was real: later attempts introduced fake geometry or overlays. The accepted branch resets on official detailed STL geometry.","textPreview":"The earlier loop problem was real: later attempts introduced fake geometry or overlays. The accepted branch resets on official detailed S...","textChars":149,"textLines":1,"bbox":[72,122,1020,56]}
+{"kind":"textbox","id":"sh/pg3ex0nu","slide":4,"text":"Rejected branch","textPreview":"Rejected branch","textChars":15,"textLines":1,"bbox":[72,214,350,28]}
+{"kind":"textbox","id":"sh/wval87ed","slide":4,"text":"Accepted v4 branch","textPreview":"Accepted v4 branch","textChars":18,"textLines":1,"bbox":[682,214,350,28]}
+{"kind":"textbox","id":"sh/lc7u54zi","slide":4,"text":"Crude/fake mirror overlays or geometry","textPreview":"Crude/fake mirror overlays or geometry","textChars":38,"textLines":1,"bbox":[72,586,420,26]}
+{"kind":"textbox","id":"sh/wra5gbq1","slide":4,"text":"Raw Cycles render, official NASA detailed STL","textPreview":"Raw Cycles render, official NASA detailed STL","textChars":45,"textLines":1,"bbox":[682,586,430,26]}
+{"kind":"image","id":"im/itgfmlkj","slide":4,"name":"","alt":"Rejected visual branch","bbox":[72,260,544,306]}
+{"kind":"image","id":"im/7ed8bat4","slide":4,"name":"","alt":"Accepted v4 branch","bbox":[682,260,544,306]}
+{"kind":"notes","id":"nt/kwxrvx","slide":4,"text":""}
+{"kind":"slide","id":"sl/bfvfgk","slide":5,"title":"ACCEPTED ASSET","textShapes":4}
+{"kind":"textbox","id":"sh/kzupwb2h","slide":5,"text":"ACCEPTED ASSET","textPreview":"ACCEPTED ASSET","textChars":14,"textLines":1,"bbox":[72,30,680,24]}
+{"kind":"textbox","id":"sh/re1w7mp0","slide":5,"text":"Final v4 visual quality set","textPreview":"Final v4 visual quality set","textChars":27,"textLines":1,"bbox":[72,56,1030,60]}
+{"kind":"textbox","id":"sh/2t83itgf","slide":5,"text":"Six accepted raw Cycles frames cover the hero, close-up, wide, low cinematic, and inspection-POV angles.","textPreview":"Six accepted raw Cycles frames cover the hero, close-up, wide, low cinematic, and inspection-POV angles.","textChars":104,"textLines":1,"bbox":[72,122,1020,56]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":5,"text":"Render package: jwst_v4_official_detailed_stl. Source: NASA official detailed STL package: webb telescope model for 3D printing, detailed version.","textPreview":"Render package: jwst_v4_official_detailed_stl. Source: NASA official detailed STL package: webb telescope model for 3D printing, detailed...","textChars":146,"textLines":1,"bbox":[72,674,1130,24]}
+{"kind":"image","id":"im/0z61032l","slide":5,"name":"","alt":"Final v4 visual contact sheet","bbox":[42,198,1196,436]}
+{"kind":"notes","id":"nt/bfvfgk","slide":5,"text":""}
+{"kind":"slide","id":"sl/fl817f","slide":6,"title":"RAW CYCLES","textShapes":7}
+{"kind":"shape","id":"sh/l87ed8ba","slide":6,"bbox":[0,0,1280,220]}
+{"kind":"shape","id":"sh/sneloj2t","slide":6,"bbox":[72,58,138,36]}
+{"kind":"textbox","id":"sh/3ex0nuxc","slide":6,"text":"RAW CYCLES","textPreview":"RAW CYCLES","textChars":10,"textLines":1,"bbox":[84,66,114,24]}
+{"kind":"textbox","id":"sh/at47y1kr","slide":6,"text":"Final hero render","textPreview":"Final hero render","textChars":17,"textLines":1,"bbox":[72,108,640,62]}
+{"kind":"textbox","id":"sh/lkjm1cfa","slide":6,"text":"The outcome is credible for a capstone demo because it uses the detailed official mesh, restrained materials, and no fake presentation-only overlays.","textPreview":"The outcome is credible for a capstone demo because it uses the detailed official mesh, restrained materials, and no fake presentation-on...","textChars":149,"textLines":1,"bbox":[76,170,880,36]}
+{"kind":"shape","id":"sh/szqtcj6t","slide":6,"bbox":[930,496,230,92]}
+{"kind":"textbox","id":"sh/3itgfmlk","slide":6,"text":"30","textPreview":"30","textChars":2,"textLines":1,"bbox":[946,510,198,42]}
+{"kind":"textbox","id":"sh/ex0nuxc3","slide":6,"text":"accepted final render loop","textPreview":"accepted final render loop","textChars":26,"textLines":1,"bbox":[946,556,198,40]}
+{"kind":"shape","id":"sh/wfyxobm5","slide":6,"bbox":[930,604,230,92]}
+{"kind":"textbox","id":"sh/l0rqd4vm","slide":6,"text":"0","textPreview":"0","textChars":1,"textLines":1,"bbox":[946,618,198,42]}
+{"kind":"textbox","id":"sh/ed8bat47","slide":6,"text":"postprocessed-only success claims","textPreview":"postprocessed-only success claims","textChars":33,"textLines":1,"bbox":[946,664,198,40]}
+{"kind":"image","id":"im/36hcrmhk","slide":6,"name":"","alt":"Final v4 accepted hero render","bbox":[0,0,1280,720]}
+{"kind":"notes","id":"nt/fl817f","slide":6,"text":""}
+{"kind":"slide","id":"sl/p908fx","slide":7,"title":"RL EVIDENCE","textShapes":11}
+{"kind":"textbox","id":"sh/54zidony","slide":7,"text":"RL EVIDENCE","textPreview":"RL EVIDENCE","textChars":11,"textLines":1,"bbox":[72,30,680,24]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":7,"text":"The policy work remains measured, not cosmetic","textPreview":"The policy work remains measured, not cosmetic","textChars":46,"textLines":1,"bbox":[72,56,1030,60]}
+{"kind":"textbox","id":"sh/nyd0z610","slide":7,"text":"The visual upgrade improves communication; the inspection claim still rests on policy metrics and safety guardrails.","textPreview":"The visual upgrade improves communication; the inspection claim still rests on policy metrics and safety guardrails.","textChars":116,"textLines":1,"bbox":[72,122,1020,56]}
+{"kind":"shape","id":"sh/upwb2hwf","slide":7,"bbox":[142,594,198,82]}
+{"kind":"textbox","id":"sh/nap4r65w","slide":7,"text":"0.787","textPreview":"0.787","textChars":5,"textLines":1,"bbox":[158,608,166,42]}
+{"kind":"textbox","id":"sh/c7u54zid","slide":7,"text":"scripted baseline","textPreview":"scripted baseline","textChars":17,"textLines":1,"bbox":[158,654,166,40]}
+{"kind":"shape","id":"sh/1orytsvu","slide":7,"bbox":[402,594,198,82]}
+{"kind":"textbox","id":"sh/l0rqd4vm","slide":7,"text":"0.855","textPreview":"0.855","textChars":5,"textLines":1,"bbox":[418,608,166,42]}
+{"kind":"textbox","id":"sh/wfyxobm5","slide":7,"text":"best PPO, iter 49","textPreview":"best PPO, iter 49","textChars":17,"textLines":1,"bbox":[418,654,166,40]}
+{"kind":"shape","id":"sh/7u54zido","slide":7,"bbox":[662,594,198,82]}
+{"kind":"textbox","id":"sh/ed8bat47","slide":7,"text":"0.807","textPreview":"0.807","textChars":5,"textLines":1,"bbox":[678,608,166,42]}
+{"kind":"textbox","id":"sh/lc7u54zi","slide":7,"text":"final path-traced eval","textPreview":"final path-traced eval","textChars":22,"textLines":1,"bbox":[678,654,166,40]}
+{"kind":"shape","id":"sh/wra5gbq1","slide":7,"bbox":[922,594,198,82]}
+{"kind":"textbox","id":"sh/36hcrmhk","slide":7,"text":"0","textPreview":"0","textChars":1,"textLines":1,"bbox":[938,608,166,42]}
+{"kind":"textbox","id":"sh/eloj2t83","slide":7,"text":"hidden failed checkpoints","textPreview":"hidden failed checkpoints","textChars":25,"textLines":1,"bbox":[938,654,166,40]}
+{"kind":"image","id":"im/1gvy90je","slide":7,"name":"","alt":"Inspection Readiness Score over PPO training","bbox":[72,238,520,330]}
+{"kind":"image","id":"im/8z25kb6x","slide":7,"name":"","alt":"Policy comparison chart","bbox":[670,238,520,330]}
+{"kind":"notes","id":"nt/p908fx","slide":7,"text":""}
+{"kind":"slide","id":"sl/h0ngsd","slide":8,"title":"POLICY POV","textShapes":7}
+{"kind":"textbox","id":"sh/qxs72x4n","slide":8,"text":"POLICY POV","textPreview":"POLICY POV","textChars":10,"textLines":1,"bbox":[72,30,680,24]}
+{"kind":"textbox","id":"sh/xobm58z2","slide":8,"text":"Before and after policy behavior","textPreview":"Before and after policy behavior","textChars":32,"textLines":1,"bbox":[72,56,1030,60]}
+{"kind":"textbox","id":"sh/83itgfml","slide":8,"text":"The deck separates policy progression from visual quality so the viewer can judge both claims independently.","textPreview":"The deck separates policy progression from visual quality so the viewer can judge both claims independently.","textChars":108,"textLines":1,"bbox":[72,122,1020,56]}
+{"kind":"textbox","id":"sh/fu18jqh0","slide":8,"text":"First iteration","textPreview":"First iteration","textChars":15,"textLines":1,"bbox":[72,214,350,28]}
+{"kind":"textbox","id":"sh/m94fu18j","slide":8,"text":"Final policy","textPreview":"Final policy","textChars":12,"textLines":1,"bbox":[682,214,350,28]}
+{"kind":"textbox","id":"sh/f6dcbulw","slide":8,"text":"Early checkpoint: weak readiness, poor mission progress.","textPreview":"Early checkpoint: weak readiness, poor mission progress.","textChars":56,"textLines":1,"bbox":[72,586,460,26]}
+{"kind":"textbox","id":"sh/mlkjm1cf","slide":8,"text":"Final checkpoint: safe inspection route, measured under path-traced evaluation.","textPreview":"Final checkpoint: safe inspection route, measured under path-traced evaluation.","textChars":79,"textLines":1,"bbox":[682,586,480,26]}
+{"kind":"image","id":"im/onyd0z61","slide":8,"name":"","alt":"First iteration policy POV","bbox":[72,260,544,306]}
+{"kind":"image","id":"im/d8v6psfi","slide":8,"name":"","alt":"Final policy POV","bbox":[682,260,544,306]}
+{"kind":"notes","id":"nt/h0ngsd","slide":8,"text":""}
+{"kind":"slide","id":"sl/er370i","slide":9,"title":"TRACEABILITY","textShapes":19}
+{"kind":"textbox","id":"sh/kzupwb2h","slide":9,"text":"TRACEABILITY","textPreview":"TRACEABILITY","textChars":12,"textLines":1,"bbox":[72,30,680,24]}
+{"kind":"textbox","id":"sh/re1w7mp0","slide":9,"text":"Every visual claim points to an artifact","textPreview":"Every visual claim points to an artifact","textChars":40,"textLines":1,"bbox":[72,56,1030,60]}
+{"kind":"textbox","id":"sh/2t83itgf","slide":9,"text":"The package is designed to survive a skeptical review: source asset, manifest, render loops, RL curves, and final video all have file-level evidence.","textPreview":"The package is designed to survive a skeptical review: source asset, manifest, render loops, RL curves, and final video all have file-lev...","textChars":149,"textLines":1,"bbox":[72,122,1020,56]}
+{"kind":"shape","id":"sh/9w3m94fu","slide":9,"bbox":[72,224,1136,350]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":9,"text":"Official asset","textPreview":"Official asset","textChars":14,"textLines":1,"bbox":[110,254,170,26]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":9,"text":"https://science.nasa.gov/asset/webb/webb-telescope-model-for-3d-printing-detailed-version/","textPreview":"https://science.nasa.gov/asset/webb/webb-telescope-model-for-3d-printing-detailed-version/","textChars":90,"textLines":1,"bbox":[308,254,800,28]}
+{"kind":"shape","id":"sh/25kb6xkf","slide":9,"bbox":[104,296,1000,1]}
+{"kind":"textbox","id":"sh/94fu18jq","slide":9,"text":"Render manifest","textPreview":"Render manifest","textChars":15,"textLines":1,"bbox":[110,314,170,26]}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":9,"text":"outputs/v4_detailed_stl/v4_detailed_stl_manifest.json","textPreview":"outputs/v4_detailed_stl/v4_detailed_stl_manifest.json","textChars":53,"textLines":1,"bbox":[308,314,800,28]}
+{"kind":"shape","id":"sh/mlkjm1cf","slide":9,"bbox":[104,356,1000,1]}
+{"kind":"textbox","id":"sh/f6dcbulw","slide":9,"text":"Accepted frames","textPreview":"Accepted frames","textChars":15,"textLines":1,"bbox":[110,374,170,26]}
+{"kind":"textbox","id":"sh/4r65wjud","slide":9,"text":"outputs/v4_detailed_stl/render_loops/loop25..loop30/rtx_cycles.png","textPreview":"outputs/v4_detailed_stl/render_loops/loop25..loop30/rtx_cycles.png","textChars":66,"textLines":1,"bbox":[308,374,800,28]}
+{"kind":"shape","id":"sh/xc3ylc7u","slide":9,"bbox":[104,416,1000,1]}
+{"kind":"textbox","id":"sh/mtwra5gb","slide":9,"text":"RL evidence","textPreview":"RL evidence","textChars":11,"textLines":1,"bbox":[110,434,170,26]}
+{"kind":"textbox","id":"sh/fepkzupw","slide":9,"text":"outputs/rl_v2/ppo_training_summary.json and chart PNGs","textPreview":"outputs/rl_v2/ppo_training_summary.json and chart PNGs","textChars":54,"textLines":1,"bbox":[308,434,800,28]}
+{"kind":"shape","id":"sh/4zidonyd","slide":9,"bbox":[104,476,1000,1]}
+{"kind":"textbox","id":"sh/xkf6dcbu","slide":9,"text":"Video","textPreview":"Video","textChars":5,"textLines":1,"bbox":[110,494,170,26]}
+{"kind":"textbox","id":"sh/qxs72x4n","slide":9,"text":"outputs/v4_detailed_stl/final_video/jwst_inspect_v4_visual_quality_showcase.mp4","textPreview":"outputs/v4_detailed_stl/final_video/jwst_inspect_v4_visual_quality_showcase.mp4","textChars":79,"textLines":1,"bbox":[308,494,800,28]}
+{"kind":"shape","id":"sh/fil0rqd4","slide":9,"bbox":[170,604,220,82]}
+{"kind":"textbox","id":"sh/7ed8bat4","slide":9,"text":"0","textPreview":"0","textChars":1,"textLines":1,"bbox":[186,618,188,42]}
+{"kind":"textbox","id":"sh/itgfmlkj","slide":9,"text":"manual metric edits","textPreview":"manual metric edits","textChars":19,"textLines":1,"bbox":[186,664,188,40]}
+{"kind":"shape","id":"sh/pkzupwb2","slide":9,"bbox":[530,604,220,82]}
+{"kind":"textbox","id":"sh/0z61032l","slide":9,"text":"0","textPreview":"0","textChars":1,"textLines":1,"bbox":[546,618,188,42]}
+{"kind":"textbox","id":"sh/72x4nap4","slide":9,"text":"safety disables","textPreview":"safety disables","textChars":15,"textLines":1,"bbox":[546,664,188,40]}
+{"kind":"shape","id":"sh/ih4byhgn","slide":9,"bbox":[890,604,220,82]}
+{"kind":"textbox","id":"sh/p8nqxs72","slide":9,"text":"0","textPreview":"0","textChars":1,"textLines":1,"bbox":[906,618,188,42]}
+{"kind":"textbox","id":"sh/0nuxc3yl","slide":9,"text":"postprocessed-only wins","textPreview":"postprocessed-only wins","textChars":23,"textLines":1,"bbox":[906,664,188,40]}
+{"kind":"notes","id":"nt/er370i","slide":9,"text":""}
+{"kind":"slide","id":"sl/1bgjiu","slide":10,"title":"VIDEO DELIVERABLE","textShapes":6}
+{"kind":"textbox","id":"sh/at47y1kr","slide":10,"text":"VIDEO DELIVERABLE","textPreview":"VIDEO DELIVERABLE","textChars":17,"textLines":1,"bbox":[72,30,680,24]}
+{"kind":"textbox","id":"sh/lkjm1cfa","slide":10,"text":"A short visual-quality showcase is now generated","textPreview":"A short visual-quality showcase is now generated","textChars":48,"textLines":1,"bbox":[72,56,1030,60]}
+{"kind":"textbox","id":"sh/szqtcj6t","slide":10,"text":"The MP4 walks through reference grounding, rejected-vs-accepted visual recovery, final v4 views, and RL metric evidence.","textPreview":"The MP4 walks through reference grounding, rejected-vs-accepted visual recovery, final v4 views, and RL metric evidence.","textChars":120,"textLines":1,"bbox":[72,122,1020,56]}
+{"kind":"shape","id":"sh/ahoza1gv","slide":10,"bbox":[840,222,368,406]}
+{"kind":"textbox","id":"sh/l87ed8ba","slide":10,"text":"MP4 output","textPreview":"MP4 output","textChars":10,"textLines":1,"bbox":[872,258,240,30]}
+{"kind":"textbox","id":"sh/sneloj2t","slide":10,"text":"Folder:\noutputs/v4_detailed_stl/final_video\n\nFile:\njwst_inspect_v4_visual_quality_showcase.mp4","textPreview":"Folder: | outputs/v4_detailed_stl/final_video |  | File: | jwst_inspect_v4_visual_quality_showcase.mp4","textChars":94,"textLines":5,"bbox":[872,314,286,104]}
+{"kind":"textbox","id":"sh/3q5o7qpg","slide":10,"text":"- 1920 x 1080\n- 46 seconds\n- H.264 MP4\n- Uses only tracked source artifacts","textPreview":"- 1920 x 1080 | - 46 seconds | - H.264 MP4 | - Uses only tracked source artifacts","textChars":75,"textLines":4,"bbox":[872,424,260,120]}
+{"kind":"image","id":"im/a9w3m94f","slide":10,"name":"","alt":"Video poster frame","bbox":[72,222,720,406]}
+{"kind":"notes","id":"nt/1bgjiu","slide":10,"text":""}
+{"kind":"slide","id":"sl/alkmii","slide":11,"title":"LIMITS","textShapes":11}
+{"kind":"textbox","id":"sh/nuxc3ylc","slide":11,"text":"LIMITS","textPreview":"LIMITS","textChars":6,"textLines":1,"bbox":[72,30,680,24]}
+{"kind":"textbox","id":"sh/gbq1oryt","slide":11,"text":"What this still does not claim","textPreview":"What this still does not claim","textChars":30,"textLines":1,"bbox":[72,56,1030,60]}
+{"kind":"textbox","id":"sh/5wjudg7a","slide":11,"text":"This is now much better presentation material, but the strongest version of the project would still rebuild the accepted asset in full OpenUSD/Omniverse.","textPreview":"This is now much better presentation material, but the strongest version of the project would still rebuild the accepted asset in full Op...","textChars":153,"textLines":1,"bbox":[72,122,1020,56]}
+{"kind":"shape","id":"sh/yhgn29gr","slide":11,"bbox":[72,230,518,126]}
+{"kind":"textbox","id":"sh/n29gr2p8","slide":11,"text":"Not a flight photo","textPreview":"Not a flight photo","textChars":18,"textLines":1,"bbox":[100,252,300,28]}
+{"kind":"textbox","id":"sh/gn29gr2p","slide":11,"text":"The final visual is a raw render from official geometry, not an actual in-space JWST camera capture.","textPreview":"The final visual is a raw render from official geometry, not an actual in-space JWST camera capture.","textChars":100,"textLines":1,"bbox":[100,294,430,42]}
+{"kind":"shape","id":"sh/58z25kb6","slide":11,"bbox":[640,230,518,126]}
+{"kind":"textbox","id":"sh/ytsvu9kn","slide":11,"text":"Not VFX-grade mesh","textPreview":"Not VFX-grade mesh","textChars":18,"textLines":1,"bbox":[668,252,300,28]}
+{"kind":"textbox","id":"sh/neloj2t8","slide":11,"text":"The NASA detailed STL is excellent for provenance, but it is not the same as a production hero model with physically exact mirror segments.","textPreview":"The NASA detailed STL is excellent for provenance, but it is not the same as a production hero model with physically exact mirror segments.","textChars":139,"textLines":1,"bbox":[668,294,430,42]}
+{"kind":"shape","id":"sh/nap4r65w","slide":11,"bbox":[72,404,518,126]}
+{"kind":"textbox","id":"sh/upwb2hwf","slide":11,"text":"Not postprocess magic","textPreview":"Not postprocess magic","textChars":21,"textLines":1,"bbox":[100,426,300,28]}
+{"kind":"textbox","id":"sh/5gbq1ory","slide":11,"text":"The accepted branch avoids fake mirror overlays and does not base success on cinematic postprocessing alone.","textPreview":"The accepted branch avoids fake mirror overlays and does not base success on cinematic postprocessing alone.","textChars":108,"textLines":1,"bbox":[100,468,430,42]}
+{"kind":"shape","id":"sh/cvixczed","slide":11,"bbox":[640,404,518,126]}
+{"kind":"textbox","id":"sh/nyd0z610","slide":11,"text":"Policy still needs depth","textPreview":"Policy still needs depth","textChars":24,"textLines":1,"bbox":[668,426,300,28]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":11,"text":"The PPO evidence beats baselines on the readiness metric, but a future paper should expand dynamics, perception, and domain randomization.","textPreview":"The PPO evidence beats baselines on the readiness metric, but a future paper should expand dynamics, perception, and domain randomization.","textChars":138,"textLines":1,"bbox":[668,468,430,42]}
+{"kind":"notes","id":"nt/alkmii","slide":11,"text":""}
+{"kind":"slide","id":"sl/fjbe2k","slide":12,"title":"Final position","textShapes":4}
+{"kind":"shape","id":"sh/jqh0fepk","slide":12,"bbox":[0,0,1280,720]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":12,"text":"Final position","textPreview":"Final position","textChars":14,"textLines":1,"bbox":[72,86,620,64]}
+{"kind":"textbox","id":"sh/18jqh0fe","slide":12,"text":"The project is no longer just technically defensible. It now has a clean visual story: official geometry, rejected bad branches, measured policy progress, and a generated video package.","textPreview":"The project is no longer just technically defensible. It now has a clean visual story: official geometry, rejected bad branches, measured...","textChars":185,"textLines":1,"bbox":[76,166,880,74]}
+{"kind":"shape","id":"sh/8nqxs72x","slide":12,"bbox":[76,280,620,2]}
+{"kind":"textbox","id":"sh/j2t83itg","slide":12,"text":"- Use this deck for defense and sponsor review.\n- Use the MP4 when the audience needs to see visual quality quickly.\n- For a publication-grade NVIDIA demo, the next investment is official OpenUSD/Omniverse capture on top of the accepted v4 asset path.","textPreview":"- Use this deck for defense and sponsor review. | - Use the MP4 when the audience needs to see visual quality quickly. | - For a publicat...","textChars":251,"textLines":3,"bbox":[78,318,820,132]}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":12,"text":"JWST-Inspect v4 Visual Showcase","textPreview":"JWST-Inspect v4 Visual Showcase","textChars":31,"textLines":1,"bbox":[78,608,580,32]}
+{"kind":"image","id":"im/9gr2p8nq","slide":12,"name":"","alt":"Final v4 render","bbox":[0,0,1280,720]}
+{"kind":"notes","id":"nt/fjbe2k","slide":12,"text":""}

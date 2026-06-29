@@ -42,6 +42,8 @@ validation/renders/**
 *.mov
 !outputs/v2_showcase/visual_render/videos/*.mp4
 !outputs/v2_showcase/final_video/*.mp4
+!outputs/v4_detailed_stl/final_video/*.mp4
+outputs/v4_detailed_stl/final_video/frames/
 outputs/v2_showcase/*.zip
 outputs/v2_showcase/vast_v3_offer_search.json
 outputs/v3_photoreal/

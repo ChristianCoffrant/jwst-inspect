@@ -1,0 +1,565 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/rjlikc",
+    "id": "rjlikc",
+    "slide": 3,
+    "layoutId": "1cc2a122-2566-4ee9-ba03-9772923b0833",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "cf63ab71-2824-4b56-8fd0-106d83f0f4ea",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#050A10",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "1cc2a122-2566-4ee9-ba03-9772923b0833",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "cf63ab71-2824-4b56-8fd0-106d83f0f4ea",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "cf63ab71-2824-4b56-8fd0-106d83f0f4ea",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5sneloj2",
+      "id": "1",
+      "bbox": [
+        72,
+        30,
+        680,
+        24
+      ],
+      "geometry": "rect",
+      "text": "REFERENCE GROUNDING",
+      "textPreview": "REFERENCE GROUNDING",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "+mn-lt",
+        "color": "#55C7E7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "REFERENCE GROUNDING"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "REFERENCE GROUNDING",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "color": "#55C7E7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "REFERENCE GROUNDING",
+              "fontSize": 12,
+              "color": "#55C7E7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/u54zidon",
+      "id": "2",
+      "bbox": [
+        72,
+        56,
+        1030,
+        60
+      ],
+      "geometry": "rect",
+      "text": "Visual targets came from official mission media",
+      "textPreview": "Visual targets came from official mission media",
+      "resolvedFontSize": 42,
+      "resolvedTextStyle": {
+        "fontSize": 42,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Visual targets came from official mission media"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Visual targets came from official mission media",
+          "resolvedTextStyle": {
+            "fontSize": 42,
+            "color": "#EEF5F7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Visual targets came from official mission media",
+              "fontSize": 42,
+              "color": "#EEF5F7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/nqxs72x4",
+      "id": "3",
+      "bbox": [
+        72,
+        122,
+        1020,
+        56
+      ],
+      "geometry": "rect",
+      "text": "The strongest available flight-like evidence is separation/deployment imagery plus official NASA/SVS and NASA 3D assets.",
+      "textPreview": "The strongest available flight-like evidence is separation/deployment imagery plus official NASA/SVS and NASA 3D assets.",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The strongest available flight-like evidence is separation/deployment imagery plus official NASA/SVS and NASA"
+          },
+          {
+            "index": 2,
+            "text": "3D assets."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The strongest available flight-like evidence is separation/deployment imagery plus official NASA/SVS and NASA 3D assets.",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The strongest available flight-like evidence is separation/deployment imagery plus official NASA/SVS and NASA 3D assets.",
+              "fontSize": 22,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/tcj6tova",
+      "id": "4",
+      "bbox": [
+        52,
+        218,
+        720,
+        410
+      ],
+      "alt": "Official JWST visual reference board",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "e27c811f-5198-430e-8c2e-40dcac8ff93a",
+        "contentType": "image/png",
+        "byteLength": 450864
+      }
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5kb6xkf6",
+      "id": "5",
+      "bbox": [
+        820,
+        232,
+        360,
+        320
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#0E1A25",
+      "lineColor": "#284356",
+      "lineWidth": 1
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ytsvu9kn",
+      "id": "6",
+      "bbox": [
+        850,
+        262,
+        280,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Reference intent",
+      "textPreview": "Reference intent",
+      "resolvedFontSize": 25,
+      "resolvedTextStyle": {
+        "fontSize": 25,
+        "typeface": "+mn-lt",
+        "color": "#F4BF45",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Reference intent"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Reference intent",
+          "resolvedTextStyle": {
+            "fontSize": 25,
+            "color": "#F4BF45",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Reference intent",
+              "fontSize": 25,
+              "color": "#F4BF45",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/neloj2t8",
+      "id": "7",
+      "bbox": [
+        850,
+        322,
+        270,
+        160
+      ],
+      "geometry": "rect",
+      "text": "- Use real/official media for silhouette, material cues, and camera language.\n- Avoid pretending there are abundant close-up in-space JWST photos.\n- Use cleanroom imagery and NASA 3D resources for component/material detail.\n- Keep validation images out of training and tuning claims.",
+      "textPreview": "- Use real/official media for silhouette, material cues, and camera language. | - Avoid pretending there are abundant close-up in-space J...",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 9,
+        "lines": [
+          {
+            "index": 1,
+            "text": "- Use real/official media for silhouette,"
+          },
+          {
+            "index": 2,
+            "text": "material cues, and camera language."
+          },
+          {
+            "index": 3,
+            "text": "- Avoid pretending there are abundant"
+          },
+          {
+            "index": 4,
+            "text": "close-up in-space JWST photos."
+          },
+          {
+            "index": 5,
+            "text": "- Use cleanroom imagery and NASA 3D"
+          },
+          {
+            "index": 6,
+            "text": "resources for component/material"
+          },
+          {
+            "index": 7,
+            "text": "detail."
+          },
+          {
+            "index": 8,
+            "text": "- Keep validation images out of training"
+          },
+          {
+            "index": 9,
+            "text": "and tuning claims."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "- Use real/official media for silhouette, material cues, and camera language.",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Use real/official media for silhouette, material cues, and camera language.",
+              "fontSize": 15,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "- Avoid pretending there are abundant close-up in-space JWST photos.",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Avoid pretending there are abundant close-up in-space JWST photos.",
+              "fontSize": 15,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "- Use cleanroom imagery and NASA 3D resources for component/material detail.",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Use cleanroom imagery and NASA 3D resources for component/material detail.",
+              "fontSize": 15,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 4,
+          "text": "- Keep validation images out of training and tuning claims.",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#EEF5F7",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "- Keep validation images out of training and tuning claims.",
+              "fontSize": 15,
+              "color": "#EEF5F7",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gn29gr2p",
+      "id": "8",
+      "bbox": [
+        72,
+        674,
+        1130,
+        24
+      ],
+      "geometry": "rect",
+      "text": "Reference board includes official NASA/SVS-style deployment imagery already tracked in the project output package.",
+      "textPreview": "Reference board includes official NASA/SVS-style deployment imagery already tracked in the project output package.",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Reference board includes official NASA/SVS-style deployment imagery already tracked in the project output package."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Reference board includes official NASA/SVS-style deployment imagery already tracked in the project output package.",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Reference board includes official NASA/SVS-style deployment imagery already tracked in the project output package.",
+              "fontSize": 10,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

@@ -1,0 +1,839 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/alkmii",
+    "id": "alkmii",
+    "slide": 11,
+    "layoutId": "1cc2a122-2566-4ee9-ba03-9772923b0833",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "cf63ab71-2824-4b56-8fd0-106d83f0f4ea",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#050A10",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "1cc2a122-2566-4ee9-ba03-9772923b0833",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "cf63ab71-2824-4b56-8fd0-106d83f0f4ea",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "cf63ab71-2824-4b56-8fd0-106d83f0f4ea",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/nuxc3ylc",
+      "id": "1",
+      "bbox": [
+        72,
+        30,
+        680,
+        24
+      ],
+      "geometry": "rect",
+      "text": "LIMITS",
+      "textPreview": "LIMITS",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "+mn-lt",
+        "color": "#55C7E7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "LIMITS"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "LIMITS",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "color": "#55C7E7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "LIMITS",
+              "fontSize": 12,
+              "color": "#55C7E7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gbq1oryt",
+      "id": "2",
+      "bbox": [
+        72,
+        56,
+        1030,
+        60
+      ],
+      "geometry": "rect",
+      "text": "What this still does not claim",
+      "textPreview": "What this still does not claim",
+      "resolvedFontSize": 42,
+      "resolvedTextStyle": {
+        "fontSize": 42,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "What this still does not claim"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "What this still does not claim",
+          "resolvedTextStyle": {
+            "fontSize": 42,
+            "color": "#EEF5F7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "What this still does not claim",
+              "fontSize": 42,
+              "color": "#EEF5F7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5wjudg7a",
+      "id": "3",
+      "bbox": [
+        72,
+        122,
+        1020,
+        56
+      ],
+      "geometry": "rect",
+      "text": "This is now much better presentation material, but the strongest version of the project would still rebuild the accepted asset in full OpenUSD/Omniverse.",
+      "textPreview": "This is now much better presentation material, but the strongest version of the project would still rebuild the accepted asset in full Op...",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "This is now much better presentation material, but the strongest version of the project would still rebuild the"
+          },
+          {
+            "index": 2,
+            "text": "accepted asset in full OpenUSD/Omniverse."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "This is now much better presentation material, but the strongest version of the project would still rebuild the accepted asset in full OpenUSD/Omniverse.",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "This is now much better presentation material, but the strongest version of the project would still rebuild the accepted asset in full OpenUSD/Omniverse.",
+              "fontSize": 22,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yhgn29gr",
+      "id": "4",
+      "bbox": [
+        72,
+        230,
+        518,
+        126
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#0E1A25",
+      "lineColor": "#284356",
+      "lineWidth": 1
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/n29gr2p8",
+      "id": "5",
+      "bbox": [
+        100,
+        252,
+        300,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Not a flight photo",
+      "textPreview": "Not a flight photo",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "+mn-lt",
+        "color": "#F4BF45",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Not a flight photo"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Not a flight photo",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#F4BF45",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Not a flight photo",
+              "fontSize": 22,
+              "color": "#F4BF45",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gn29gr2p",
+      "id": "6",
+      "bbox": [
+        100,
+        294,
+        430,
+        42
+      ],
+      "geometry": "rect",
+      "text": "The final visual is a raw render from official geometry, not an actual in-space JWST camera capture.",
+      "textPreview": "The final visual is a raw render from official geometry, not an actual in-space JWST camera capture.",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The final visual is a raw render from official geometry, not an actual"
+          },
+          {
+            "index": 2,
+            "text": "in-space JWST camera capture."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The final visual is a raw render from official geometry, not an actual in-space JWST camera capture.",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The final visual is a raw render from official geometry, not an actual in-space JWST camera capture.",
+              "fontSize": 15,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/58z25kb6",
+      "id": "7",
+      "bbox": [
+        640,
+        230,
+        518,
+        126
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#0E1A25",
+      "lineColor": "#284356",
+      "lineWidth": 1
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ytsvu9kn",
+      "id": "8",
+      "bbox": [
+        668,
+        252,
+        300,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Not VFX-grade mesh",
+      "textPreview": "Not VFX-grade mesh",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "+mn-lt",
+        "color": "#F4BF45",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Not VFX-grade mesh"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Not VFX-grade mesh",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#F4BF45",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Not VFX-grade mesh",
+              "fontSize": 22,
+              "color": "#F4BF45",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/neloj2t8",
+      "id": "9",
+      "bbox": [
+        668,
+        294,
+        430,
+        42
+      ],
+      "geometry": "rect",
+      "text": "The NASA detailed STL is excellent for provenance, but it is not the same as a production hero model with physically exact mirror segments.",
+      "textPreview": "The NASA detailed STL is excellent for provenance, but it is not the same as a production hero model with physically exact mirror segments.",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The NASA detailed STL is excellent for provenance, but it is not the"
+          },
+          {
+            "index": 2,
+            "text": "same as a production hero model with physically exact mirror"
+          },
+          {
+            "index": 3,
+            "text": "segments."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The NASA detailed STL is excellent for provenance, but it is not the same as a production hero model with physically exact mirror segments.",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The NASA detailed STL is excellent for provenance, but it is not the same as a production hero model with physically exact mirror segments.",
+              "fontSize": 15,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/nap4r65w",
+      "id": "10",
+      "bbox": [
+        72,
+        404,
+        518,
+        126
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#0E1A25",
+      "lineColor": "#284356",
+      "lineWidth": 1
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/upwb2hwf",
+      "id": "11",
+      "bbox": [
+        100,
+        426,
+        300,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Not postprocess magic",
+      "textPreview": "Not postprocess magic",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "+mn-lt",
+        "color": "#F4BF45",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Not postprocess magic"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Not postprocess magic",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#F4BF45",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Not postprocess magic",
+              "fontSize": 22,
+              "color": "#F4BF45",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5gbq1ory",
+      "id": "12",
+      "bbox": [
+        100,
+        468,
+        430,
+        42
+      ],
+      "geometry": "rect",
+      "text": "The accepted branch avoids fake mirror overlays and does not base success on cinematic postprocessing alone.",
+      "textPreview": "The accepted branch avoids fake mirror overlays and does not base success on cinematic postprocessing alone.",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The accepted branch avoids fake mirror overlays and does not base"
+          },
+          {
+            "index": 2,
+            "text": "success on cinematic postprocessing alone."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The accepted branch avoids fake mirror overlays and does not base success on cinematic postprocessing alone.",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The accepted branch avoids fake mirror overlays and does not base success on cinematic postprocessing alone.",
+              "fontSize": 15,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/cvixczed",
+      "id": "13",
+      "bbox": [
+        640,
+        404,
+        518,
+        126
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#0E1A25",
+      "lineColor": "#284356",
+      "lineWidth": 1
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/nyd0z610",
+      "id": "14",
+      "bbox": [
+        668,
+        426,
+        300,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Policy still needs depth",
+      "textPreview": "Policy still needs depth",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "+mn-lt",
+        "color": "#F4BF45",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Policy still needs depth"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Policy still needs depth",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#F4BF45",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Policy still needs depth",
+              "fontSize": 22,
+              "color": "#F4BF45",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/udg7adsj",
+      "id": "15",
+      "bbox": [
+        668,
+        468,
+        430,
+        42
+      ],
+      "geometry": "rect",
+      "text": "The PPO evidence beats baselines on the readiness metric, but a future paper should expand dynamics, perception, and domain randomization.",
+      "textPreview": "The PPO evidence beats baselines on the readiness metric, but a future paper should expand dynamics, perception, and domain randomization.",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The PPO evidence beats baselines on the readiness metric, but a"
+          },
+          {
+            "index": 2,
+            "text": "future paper should expand dynamics, perception, and domain"
+          },
+          {
+            "index": 3,
+            "text": "randomization."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The PPO evidence beats baselines on the readiness metric, but a future paper should expand dynamics, perception, and domain randomization.",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The PPO evidence beats baselines on the readiness metric, but a future paper should expand dynamics, perception, and domain randomization.",
+              "fontSize": 15,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

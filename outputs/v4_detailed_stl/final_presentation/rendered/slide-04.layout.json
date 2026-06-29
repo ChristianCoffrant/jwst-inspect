@@ -1,0 +1,543 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/kwxrvx",
+    "id": "kwxrvx",
+    "slide": 4,
+    "layoutId": "1cc2a122-2566-4ee9-ba03-9772923b0833",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "cf63ab71-2824-4b56-8fd0-106d83f0f4ea",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#050A10",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "1cc2a122-2566-4ee9-ba03-9772923b0833",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "cf63ab71-2824-4b56-8fd0-106d83f0f4ea",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "cf63ab71-2824-4b56-8fd0-106d83f0f4ea",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/w7mp0bi9",
+      "id": "1",
+      "bbox": [
+        72,
+        30,
+        680,
+        24
+      ],
+      "geometry": "rect",
+      "text": "VISUAL RECOVERY",
+      "textPreview": "VISUAL RECOVERY",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "+mn-lt",
+        "color": "#55C7E7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "VISUAL RECOVERY"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "VISUAL RECOVERY",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "color": "#55C7E7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "VISUAL RECOVERY",
+              "fontSize": 12,
+              "color": "#55C7E7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7mp0bi9s",
+      "id": "2",
+      "bbox": [
+        72,
+        56,
+        1030,
+        60
+      ],
+      "geometry": "rect",
+      "text": "The bad branches were rejected",
+      "textPreview": "The bad branches were rejected",
+      "resolvedFontSize": 42,
+      "resolvedTextStyle": {
+        "fontSize": 42,
+        "typeface": "+mn-lt",
+        "color": "#EEF5F7",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The bad branches were rejected"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The bad branches were rejected",
+          "resolvedTextStyle": {
+            "fontSize": 42,
+            "color": "#EEF5F7",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The bad branches were rejected",
+              "fontSize": 42,
+              "color": "#EEF5F7",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/e1w7mp0b",
+      "id": "3",
+      "bbox": [
+        72,
+        122,
+        1020,
+        56
+      ],
+      "geometry": "rect",
+      "text": "The earlier loop problem was real: later attempts introduced fake geometry or overlays. The accepted branch resets on official detailed STL geometry.",
+      "textPreview": "The earlier loop problem was real: later attempts introduced fake geometry or overlays. The accepted branch resets on official detailed S...",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The earlier loop problem was real: later attempts introduced fake geometry or overlays. The accepted branch"
+          },
+          {
+            "index": 2,
+            "text": "resets on official detailed STL geometry."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The earlier loop problem was real: later attempts introduced fake geometry or overlays. The accepted branch resets on official detailed STL geometry.",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The earlier loop problem was real: later attempts introduced fake geometry or overlays. The accepted branch resets on official detailed STL geometry.",
+              "fontSize": 22,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/pg3ex0nu",
+      "id": "4",
+      "bbox": [
+        72,
+        214,
+        350,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Rejected branch",
+      "textPreview": "Rejected branch",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "+mn-lt",
+        "color": "#FF6B6B",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Rejected branch"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Rejected branch",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#FF6B6B",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Rejected branch",
+              "fontSize": 22,
+              "color": "#FF6B6B",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wval87ed",
+      "id": "5",
+      "bbox": [
+        682,
+        214,
+        350,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Accepted v4 branch",
+      "textPreview": "Accepted v4 branch",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "+mn-lt",
+        "color": "#61D394",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Accepted v4 branch"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Accepted v4 branch",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#61D394",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Accepted v4 branch",
+              "fontSize": 22,
+              "color": "#61D394",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/itgfmlkj",
+      "id": "6",
+      "bbox": [
+        72,
+        260,
+        544,
+        306
+      ],
+      "alt": "Rejected visual branch",
+      "contentType": "image/png",
+      "imageFit": "cover",
+      "asset": {
+        "assetId": "ba9fc6e1-a8c7-4b8f-95f5-3277fa8362b5",
+        "contentType": "image/png",
+        "byteLength": 609559
+      }
+    },
+    {
+      "order": 7,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/7ed8bat4",
+      "id": "7",
+      "bbox": [
+        682,
+        260,
+        544,
+        306
+      ],
+      "alt": "Accepted v4 branch",
+      "contentType": "image/png",
+      "imageFit": "cover",
+      "asset": {
+        "assetId": "4217cf6b-cce8-4d4e-9a80-c1820e2da140",
+        "contentType": "image/png",
+        "byteLength": 2260574
+      }
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lc7u54zi",
+      "id": "8",
+      "bbox": [
+        72,
+        586,
+        420,
+        26
+      ],
+      "geometry": "rect",
+      "text": "Crude/fake mirror overlays or geometry",
+      "textPreview": "Crude/fake mirror overlays or geometry",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Crude/fake mirror overlays or geometry"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Crude/fake mirror overlays or geometry",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Crude/fake mirror overlays or geometry",
+              "fontSize": 15,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wra5gbq1",
+      "id": "9",
+      "bbox": [
+        682,
+        586,
+        430,
+        26
+      ],
+      "geometry": "rect",
+      "text": "Raw Cycles render, official NASA detailed STL",
+      "textPreview": "Raw Cycles render, official NASA detailed STL",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#9FB0BD",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Raw Cycles render, official NASA detailed STL"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Raw Cycles render, official NASA detailed STL",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#9FB0BD",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Raw Cycles render, official NASA detailed STL",
+              "fontSize": 15,
+              "color": "#9FB0BD",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}
