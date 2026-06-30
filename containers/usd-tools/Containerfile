@@ -1,0 +1,16 @@
+ARG JWST_BASE_IMAGE=jwst-base:dev
+FROM ${JWST_BASE_IMAGE}
+
+ARG JWST_IMAGE_VERSION=dev
+LABEL org.opencontainers.image.title="jwst-usd-tools"
+LABEL org.opencontainers.image.version="${JWST_IMAGE_VERSION}"
+LABEL org.opencontainers.image.description="JWST-Inspect OpenUSD validation tools"
+
+ENV JWST_CONTAINER_ROLE=usd-tools
+
+COPY contracts /opt/jwst/repo/contracts
+COPY assets /opt/jwst/repo/assets
+COPY usd /opt/jwst/repo/usd
+COPY validation /opt/jwst/repo/validation
+
+ENTRYPOINT ["jwst-usd-smoke"]

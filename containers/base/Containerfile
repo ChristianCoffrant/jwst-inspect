@@ -1,0 +1,19 @@
+FROM python:3.11-slim-bookworm
+
+ARG JWST_IMAGE_VERSION=dev
+ARG JWST_IMAGE_NAME=jwst-base
+LABEL org.opencontainers.image.title="${JWST_IMAGE_NAME}"
+LABEL org.opencontainers.image.version="${JWST_IMAGE_VERSION}"
+LABEL org.opencontainers.image.description="JWST-Inspect shared runtime and smoke CLI"
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    JWST_CONTAINER_ROLE=base
+
+WORKDIR /opt/jwst/repo
+COPY pyproject.toml README.md /opt/jwst/repo/
+COPY src /opt/jwst/repo/src
+RUN python -m pip install --no-cache-dir --upgrade pip && \
+    python -m pip install --no-cache-dir -e /opt/jwst/repo
+
+ENTRYPOINT ["jwst-runtime-info"]

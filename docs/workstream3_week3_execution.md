@@ -47,7 +47,7 @@ Implemented:
 
 Decision:
 
-- Path-traced rows are proxy-labeled unless backed by synced Vast.ai/RTX logs.
+- Path-traced rows are proxy-labeled unless backed by synced Slurm OCI RTX logs.
 - No official GPU result is accepted without synced logs and run-registry metadata.
 
 ## Guardrail Status
@@ -80,6 +80,6 @@ python scripts/evaluate_thin_slice.py --config configs/experiments/thin_slice.ya
 python -m unittest tests.test_thin_slice_evaluation tests.test_proxy_approach tests.test_metrics
 ```
 
-## Vast.ai Smoke Status
+## Slurm OCI Smoke Status
 
 Week 3 does not claim an official GPU result. A future GPU result must have synced rollout logs, run-registry metadata, and locally regenerated metrics before it can be treated as official evidence.

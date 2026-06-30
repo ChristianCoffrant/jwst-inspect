@@ -3,7 +3,42 @@ anomalies:
   - anomaly_id: none
     description: No anomaly.
   - anomaly_id: sunshield_tear_proxy
-    description: Synthetic benchmark stressor only.
+    description: Synthetic sunshield tear benchmark stressor only.
+    benchmark_only: true
+    target_regions:
+      - sunshield_survey
+  - anomaly_id: sunshield_discoloration
+    description: Synthetic sunshield discoloration benchmark stressor only.
+    benchmark_only: true
+    target_regions:
+      - sunshield_survey
   - anomaly_id: mirror_obstruction_proxy
-    description: Synthetic benchmark stressor only.
-
+    description: Synthetic mirror obstruction benchmark stressor only.
+    benchmark_only: true
+    target_regions:
+      - mirror_inspection
+  - anomaly_id: mirror_region_obstruction
+    description: Synthetic mirror-region obstruction benchmark stressor only.
+    benchmark_only: true
+    target_regions:
+      - mirror_inspection
+  - anomaly_id: thermal_blanket_discoloration
+    description: Synthetic thermal blanket discoloration benchmark stressor only.
+    benchmark_only: true
+    target_regions:
+      - approach_hold_standoff
+  - anomaly_id: truss_occlusion_proxy
+    description: Synthetic truss occlusion or deformation benchmark stressor only.
+    benchmark_only: true
+    target_regions:
+      - approach_hold_standoff
+  - anomaly_id: missing_small_component_proxy
+    description: Synthetic missing small component benchmark stressor only.
+    benchmark_only: true
+    target_regions:
+      - approach_hold_standoff
+  - anomaly_id: glare_induced_false_anomaly_condition
+    description: Nominal high-glare condition used to measure false alarms.
+    benchmark_only: true
+    target_regions:
+      - mirror_inspection

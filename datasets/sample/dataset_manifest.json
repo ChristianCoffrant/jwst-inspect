@@ -1,0 +1,205 @@
+{
+  "dataset": "jwst-inspect-sample",
+  "dataset_version": "0.1.0",
+  "frames": [
+    {
+      "frame_id": "wk2_0000",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0000.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0001",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0001.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0002",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0002.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0003",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0003.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0004",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0004.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0005",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0005.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0006",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0006.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0007",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0007.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0008",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0008.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0009",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0009.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0010",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0010.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0011",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0011.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0012",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0012.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0013",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0013.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0014",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0014.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0015",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/train/wk2_0015.json",
+      "renderer_mode": "rasterized",
+      "split": "train"
+    },
+    {
+      "frame_id": "wk2_0016",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/validation/wk2_0016.json",
+      "renderer_mode": "rasterized",
+      "split": "validation"
+    },
+    {
+      "frame_id": "wk2_0017",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/validation/wk2_0017.json",
+      "renderer_mode": "rasterized",
+      "split": "validation"
+    },
+    {
+      "frame_id": "wk2_0018",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/validation/wk2_0018.json",
+      "renderer_mode": "rasterized",
+      "split": "validation"
+    },
+    {
+      "frame_id": "wk2_0019",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/validation/wk2_0019.json",
+      "renderer_mode": "rasterized",
+      "split": "validation"
+    },
+    {
+      "frame_id": "wk2_0020",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/dev_test/wk2_0020.json",
+      "renderer_mode": "rasterized",
+      "split": "dev_test"
+    },
+    {
+      "frame_id": "wk2_0021",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/dev_test/wk2_0021.json",
+      "renderer_mode": "path_traced",
+      "split": "dev_test"
+    },
+    {
+      "frame_id": "wk2_0022",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/dev_test/wk2_0022.json",
+      "renderer_mode": "rasterized",
+      "split": "dev_test"
+    },
+    {
+      "frame_id": "wk2_0023",
+      "media_status": "tiny_placeholder_media",
+      "metadata_path": "metadata/dev_test/wk2_0023.json",
+      "renderer_mode": "path_traced",
+      "split": "dev_test"
+    }
+  ],
+  "generated_by": "scripts/generate_dummy_dataset.py",
+  "purpose": "Week 2 tiny placeholder media sample; not rendered Isaac Sim or Replicator data.",
+  "schema_version": "0.1.0",
+  "summary": {
+    "anomaly_counts": {
+      "glare_induced_false_anomaly_condition": 3,
+      "mirror_region_obstruction": 2,
+      "missing_small_component_proxy": 2,
+      "none": 8,
+      "sunshield_discoloration": 2,
+      "sunshield_tear_proxy": 3,
+      "thermal_blanket_discoloration": 2,
+      "truss_occlusion_proxy": 2
+    },
+    "frame_count": 24,
+    "large_generated_outputs_committed": false,
+    "media_height_px": 12,
+    "media_status": "tiny_placeholder_media",
+    "media_width_px": 16,
+    "placeholder_media_files": 96,
+    "public_reference_images_used_for_training": false,
+    "renderer_counts": {
+      "path_traced": 2,
+      "rasterized": 22
+    },
+    "split_counts": {
+      "dev_test": 4,
+      "train": 16,
+      "validation": 4
+    }
+  }
+}

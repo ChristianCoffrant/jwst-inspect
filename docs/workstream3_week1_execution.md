@@ -17,7 +17,7 @@ Implemented:
 - low-dimensional state observation assumptions
 - velocity-control action assumptions
 - termination rules for collision, keepout, max steps, and abort
-- local-vs-Vast boundary for Team 3
+- local-vs-Slurm-OCI boundary for Team 3
 
 Decision:
 
@@ -49,7 +49,7 @@ Implemented:
 Decision:
 
 - Keep these as tiny committed fixtures, not official run artifacts.
-- Real Isaac Sim and Vast.ai run outputs remain ignored by Git and must be represented through the run registry.
+- Real Isaac Sim and the shared NVIDIA workstation run outputs remain ignored by Git and must be represented through the run registry.
 
 ## Iteration 4: Local Scoring and R2P Placeholder
 
@@ -80,7 +80,7 @@ Decision:
 | --- | --- | --- |
 | Do not define metrics after seeing policy performance | Enforced by contract | `metrics_schema.yaml` defines weights and formula before learned policy work. |
 | Do not make image-based policy required | Enforced by contract | `episode_schema.yaml` marks RGB/depth/semantic observations as optional later work. |
-| Do not start long GPU training before local metric tests pass | Enforced by workflow | Local tests and smoke command run without Vast.ai or Isaac Sim. |
+| Do not start long GPU training before local metric tests pass | Enforced by workflow | Local tests and smoke command run without the shared NVIDIA workstation or Isaac Sim. |
 | Unsafe coverage cannot count as success | Enforced in code | `compute_trajectory_metrics` excludes unsafe patches from `surface_coverage`. |
 | Abort episodes count in summary metrics | Enforced in code | Abort count and rate are primary metrics and force `task_success = 0`. |
 | Do not declare success from video only | Enforced in report | R2P report carries `video_only_success_disallowed: true`. |
@@ -92,7 +92,7 @@ Pass criteria:
 - episode contract covers task, seed, initial state, renderer mode, nuisance condition, and policy ID
 - metrics code has unit tests on toy trajectories
 - safety violation definition is unambiguous
-- Team 3 Vast.ai requirements are documented
+- Team 3 shared NVIDIA workstation requirements are documented
 - toy trajectory can be scored from a JSON log
 
 Current status: ready for validation through:
@@ -111,4 +111,4 @@ Week 2 should add complexity in this order:
 2. Implement scripted approach and hold-standoff behavior using velocity control.
 3. Save rollout logs in the JSON format validated this week.
 4. Run one complete proxy episode without manual intervention.
-5. Log the first Isaac Sim or Isaac Lab headless smoke test on a Vast.ai x090 instance only after local scoring passes.
+5. Log the first Isaac Sim or Isaac Lab headless smoke test on a Slurm OCI GPU job on the shared NVIDIA workstation only after local scoring passes.

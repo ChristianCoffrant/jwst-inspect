@@ -63,7 +63,7 @@ python scripts/score_rollout.py runs/local_proxy/dev_approach_0001.json
 | Do not shrink safety zones to improve scores | Followed | Week 2 uses fixed proxy keepout/collision defaults and Team 1 standoff target. |
 | Do not start long GPU training | Followed | Week 2 adds no PPO, BC, or image policy training. |
 | Do not claim success from video | Followed | Ship evidence is rollout JSON plus scripted metrics. |
-| Do not leave Vast.ai sessions idle | Deferred | No Week 2 official GPU smoke is claimed unless a real run is later registered. |
+| Do not leave the shared NVIDIA workstation sessions idle | Deferred | No Week 2 official GPU smoke is claimed unless a real run is later registered. |
 
 ## Week 2 Ship Gate
 
@@ -84,6 +84,6 @@ python scripts/score_rollout.py runs/local_proxy/dev_approach_0001.json
 python -m unittest discover -s tests
 ```
 
-## Vast.ai Smoke Status
+## Shared NVIDIA Workstation Smoke Status
 
-Week 2 does not claim an official GPU result. The first Vast.ai x090 smoke test should remain short: load scene, run one scripted episode or documented headless placeholder, sync logs, update the run registry, and shut down.
+Week 2 does not claim an official GPU result. The first Slurm OCI smoke test should remain short: load scene, run one scripted episode or documented headless placeholder, sync logs, update the run registry, and shut down.

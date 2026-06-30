@@ -1,2 +1,1 @@
-run_id,date,team,owner,git_commit,scene_tag,dataset_tag,policy_tag,config_path,gpu_model,gpu_vram_gb,hourly_price_usd,rental_type,runtime_minutes,setup_minutes,artifact_sync_status,status,notes
-
+run_id,date,team,owner,git_commit,scene_tag,dataset_tag,policy_tag,config_path,slurm_job_id,slurm_partition,slurm_node,container_runtime,oci_bundle_path,image_digest,bundle_checksum,gpu_model,gpu_vram_gb,allocated_gres,runtime_minutes,artifact_manifest_path,artifact_sync_status,status,notes

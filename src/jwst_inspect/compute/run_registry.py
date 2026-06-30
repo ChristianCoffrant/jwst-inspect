@@ -14,12 +14,18 @@ REQUIRED_COLUMNS = (
     "dataset_tag",
     "policy_tag",
     "config_path",
+    "slurm_job_id",
+    "slurm_partition",
+    "slurm_node",
+    "container_runtime",
+    "oci_bundle_path",
+    "image_digest",
+    "bundle_checksum",
     "gpu_model",
     "gpu_vram_gb",
-    "hourly_price_usd",
-    "rental_type",
+    "allocated_gres",
     "runtime_minutes",
-    "setup_minutes",
+    "artifact_manifest_path",
     "artifact_sync_status",
     "status",
     "notes",
@@ -27,6 +33,7 @@ REQUIRED_COLUMNS = (
 
 VALID_SYNC_STATUS = {"synced", "not_synced", "not_applicable", ""}
 VALID_STATUS = {"success", "failed", "aborted", "planned", ""}
+VALID_CONTAINER_RUNTIME = {"slurm_oci", "pyxis_enroot_bridge", "none", ""}
 
 
 def validate_gpu_run_registry(path: Path | str) -> list[str]:
@@ -51,8 +58,14 @@ def validate_gpu_run_registry(path: Path | str) -> list[str]:
             status = row.get("status", "").strip()
             if status not in VALID_STATUS:
                 errors.append(f"{registry_path}:{index}: invalid status {status!r}")
+            container_runtime = row.get("container_runtime", "").strip()
+            if container_runtime not in VALID_CONTAINER_RUNTIME:
+                errors.append(f"{registry_path}:{index}: invalid container_runtime {container_runtime!r}")
             if status == "success" and sync_status != "synced":
                 errors.append(f"{registry_path}:{index}: successful official run must have synced artifacts")
+            if status == "success" and container_runtime == "slurm_oci":
+                for column in ("slurm_job_id", "oci_bundle_path", "image_digest", "bundle_checksum", "artifact_manifest_path"):
+                    if not row.get(column, "").strip():
+                        errors.append(f"{registry_path}:{index}: successful Slurm OCI run missing {column}")
 
     return errors
-

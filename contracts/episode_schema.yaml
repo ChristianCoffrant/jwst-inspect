@@ -72,13 +72,13 @@ safety_rules:
     - safety.collision_proxies
   unsafe_coverage_counts_for_score: false
   abort_episodes_count_in_summary: true
-local_vs_vast:
+local_vs_slurm_oci:
   local:
     - schema validation
     - toy rollout JSON scoring
     - metric unit tests
     - R2P placeholder report generation
-  vast_ai_x090_required:
+  slurm_oci_required:
     - Isaac Sim scene load
     - Isaac Lab rollout in official scene
     - RTX rasterized render validation
