@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -14,6 +15,113 @@ from jwst_inspect.evaluation.week12_final_package import write_week12_final_eval
 from jwst_inspect.validation.week12_final_package import validate_week12_final_evaluation_package
 
 WEEK11_VISUAL_RUN_ID = "week11_team3_visual_rerun_42901494_20260627"
+WEEK10_RUN_ID = "week10_team3_final_policy_isaac_42896511_20260627"
+SELECTED_EPISODES = (
+    "week10_nominal_clean_approach_hold_standoff_scripted_baseline_rasterized",
+    "week10_anomaly_mixed_stress_sunshield_survey_learned_state_bc_v0_1_path_traced",
+    "week10_anomaly_mixed_stress_mirror_inspection_scripted_baseline_path_traced",
+)
+
+
+def _materialize_week10_rollouts(week10_output: Path) -> None:
+    subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "isaac_env" / "scripts" / "run_week10_policy_rollout.py"),
+            "--repo-root",
+            str(ROOT),
+            "--config",
+            str(ROOT / "configs" / "experiments" / "week10_final_results_lock.yaml"),
+            "--output-dir",
+            str(week10_output / "isaac_rollout"),
+            "--dry-run",
+        ],
+        check=True,
+        cwd=ROOT,
+        stdout=subprocess.DEVNULL,
+    )
+
+
+def _write_week11_config(path: Path, week10_output: Path, week11_output: Path) -> None:
+    path.write_text(
+        f"""version: 0.1.0
+experiment_id: week11_release_package
+owner: team3_autonomous_inspection
+status: test_completed_visual_manifest
+week10_final_results_config: {(ROOT / 'configs' / 'experiments' / 'week10_final_results_lock.yaml').as_posix()}
+week10_output_dir: {week10_output.as_posix()}
+output_dir: {week11_output.as_posix()}
+gpu_run_registry: {(ROOT / 'compute' / 'gpu_run_registry.csv').as_posix()}
+cost_log: {(ROOT / 'compute' / 'cost_log.csv').as_posix()}
+scene_tag: scene-final-v1.0.0
+dataset_tag: week8-final-data-v1.0.0
+source_run_id: {WEEK10_RUN_ID}
+max_spend_usd: 10.0
+expected_policy_rows: 48
+expected_r2p_rows: 24
+expected_visual_episode_count: 3
+selected_visual_episodes:
+  - clip_id: clip01_nominal_scripted_approach
+    episode_id: {SELECTED_EPISODES[0]}
+    task_name: approach_hold_standoff
+    condition_id: nominal_clean
+    policy_id: scripted_baseline
+    renderer_mode: rasterized
+    rationale: nominal scripted success baseline
+  - clip_id: clip02_anomaly_learned_sunshield
+    episode_id: {SELECTED_EPISODES[1]}
+    task_name: sunshield_survey
+    condition_id: anomaly_mixed_stress
+    policy_id: learned_state_bc_v0_1
+    renderer_mode: path_traced
+    rationale: learned policy high R2P and metric-threshold stress case
+  - clip_id: clip03_anomaly_scripted_mirror
+    episode_id: {SELECTED_EPISODES[2]}
+    task_name: mirror_inspection
+    condition_id: anomaly_mixed_stress
+    policy_id: scripted_baseline
+    renderer_mode: path_traced
+    rationale: scripted mirror high R2P stress case
+visual_attempt:
+  run_id: {WEEK11_VISUAL_RUN_ID}
+  execution_status: failed
+  actual_paid_instance_launched: true
+  registry_status: failed_official
+  artifact_sync_status: synced
+  visual_artifact_status: blocker_documented
+  output_subdir: video_attempt
+  active_vast_instances_after_run: 0
+  cost_usd: 0.3911
+  runtime_minutes: 48.55
+  gpu_model: NVIDIA GeForce RTX 4090
+  gpu_vram_gb: 24
+  render_runner: isaac_env/scripts/render_week11_video_episodes.py
+  render_backend: test_visual_manifest
+paper_outputs:
+  paper_policy_score_summary: paper_policy_score_summary.csv
+  paper_r2p_summary: paper_r2p_summary.csv
+  paper_failure_summary: paper_failure_summary.csv
+  claim_evidence_matrix: claim_evidence_matrix.csv
+  video_storyboard: video_storyboard.csv
+  plot_manifest: plot_manifest.json
+  release_summary: week11_release_summary.json
+guardrails:
+  metric_weight_changes_after_freeze_allowed: false
+  final_result_mutation_allowed: false
+  manual_metrics_edit_allowed: false
+  ad_hoc_notebook_results_allowed: false
+  untraced_claims_allowed: false
+  untraced_storyboard_clips_allowed: false
+  cherry_picked_unlogged_video_allowed: false
+  unsupported_learned_mirror_hidden_allowed: false
+  generated_large_artifacts_committed: false
+  official_gpu_run_requires_registry_metadata: true
+  official_gpu_run_requires_synced_artifacts: true
+  final_heldout_seed_tuning_allowed: false
+  safety_metrics_disable_allowed: false
+""",
+        encoding="utf-8",
+    )
 
 
 def _write_week11_blocker_manifest(output_dir: Path) -> None:
@@ -117,6 +225,7 @@ def _write_week12_visual_manifest(output_dir: Path, *, status: str) -> None:
 
 def _write_config(
     path: Path,
+    week11_config: Path,
     week11_output: Path,
     week12_output: Path,
     *,
@@ -137,7 +246,7 @@ dataset_tag: week8-final-data-v1.0.0
 source_week10_run_id: week10_team3_final_policy_isaac_42896511_20260627
 source_week11_visual_run_id: {WEEK11_VISUAL_RUN_ID}
 week10_final_results_config: configs/experiments/week10_final_results_lock.yaml
-week11_release_config: configs/experiments/week11_release_package.yaml
+week11_release_config: {week11_config.as_posix()}
 week11_output_dir: {week11_output.as_posix()}
 output_dir: {week12_output.as_posix()}
 gpu_run_registry: compute/gpu_run_registry.csv
@@ -226,12 +335,16 @@ class Week12FinalEvaluationPackageTests(unittest.TestCase):
     def test_package_passes_with_successful_visual_manifest(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp = Path(tmp_dir)
+            week10_output = tmp / "week10_final_results_lock"
             week11_output = tmp / "week11_release_package"
             week12_output = tmp / "week12_final_evaluation_package"
+            week11_config = tmp / "week11_release_package.yaml"
             config = tmp / "week12.yaml"
+            _materialize_week10_rollouts(week10_output)
             _write_week11_blocker_manifest(week11_output)
+            _write_week11_config(week11_config, week10_output, week11_output)
             _write_week12_visual_manifest(week12_output, status="success")
-            _write_config(config, week11_output, week12_output, visual_status="success")
+            _write_config(config, week11_config, week11_output, week12_output, visual_status="success")
 
             report = write_week12_final_evaluation_package(config, week12_output, ROOT)
             validation = validate_week12_final_evaluation_package(ROOT, config, week12_output)
@@ -244,12 +357,16 @@ class Week12FinalEvaluationPackageTests(unittest.TestCase):
     def test_package_passes_with_blocker_manifest(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp = Path(tmp_dir)
+            week10_output = tmp / "week10_final_results_lock"
             week11_output = tmp / "week11_release_package"
             week12_output = tmp / "week12_final_evaluation_package"
+            week11_config = tmp / "week11_release_package.yaml"
             config = tmp / "week12.yaml"
+            _materialize_week10_rollouts(week10_output)
             _write_week11_blocker_manifest(week11_output)
+            _write_week11_config(week11_config, week10_output, week11_output)
             _write_week12_visual_manifest(week12_output, status="blocker_documented")
-            _write_config(config, week11_output, week12_output, visual_status="blocker_documented")
+            _write_config(config, week11_config, week11_output, week12_output, visual_status="blocker_documented")
 
             report = write_week12_final_evaluation_package(config, week12_output, ROOT)
             validation = validate_week12_final_evaluation_package(ROOT, config, week12_output)
@@ -262,18 +379,23 @@ class Week12FinalEvaluationPackageTests(unittest.TestCase):
     def test_package_uses_tracked_blocker_manifest_fallback(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp = Path(tmp_dir)
+            week10_output = tmp / "week10_final_results_lock"
             week11_output = tmp / "week11_release_package"
             week12_output = tmp / "week12_final_evaluation_package"
             tracked_output = tmp / "tracked"
             evidence_manifest = tmp / "validation" / "visual_evidence" / "week12_blocker.json"
+            week11_config = tmp / "week11_release_package.yaml"
             config = tmp / "week12.yaml"
+            _materialize_week10_rollouts(week10_output)
             _write_week11_blocker_manifest(week11_output)
+            _write_week11_config(week11_config, week10_output, week11_output)
             _write_week12_visual_manifest(tracked_output, status="blocker_documented")
             source_manifest = tracked_output / "visual_recovery" / "visual_manifest.json"
             evidence_manifest.parent.mkdir(parents=True, exist_ok=True)
             evidence_manifest.write_text(source_manifest.read_text(encoding="utf-8"), encoding="utf-8")
             _write_config(
                 config,
+                week11_config,
                 week11_output,
                 week12_output,
                 visual_status="blocker_documented",

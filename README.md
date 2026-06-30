@@ -38,6 +38,8 @@ The shared research goal is to measure renderer-to-policy transfer: whether insp
 - Workstream 2 Week 9 execution log: `docs/workstream2_week9_execution.md`
 - Workstream 2 Week 10 execution log: `docs/workstream2_week10_execution.md`
 - Workstream 3 Week 1 execution log: `docs/workstream3_week1_execution.md`
+- Stack lock: `docs/stack_lock.md`
+- Slurm OCI validation runbook: `docs/slurm_oci_validation.md`
 - Workstream 3 Week 9 execution log: `docs/workstream3_week9_execution.md`
 - Workstream 3 Week 10 execution log: `docs/workstream3_week10_execution.md`
 - Workstream 3 Week 11 execution log: `docs/workstream3_week11_execution.md`
@@ -49,11 +51,57 @@ The shared research goal is to measure renderer-to-policy transfer: whether insp
 - Contracts: `contracts/`
 - Local smoke test: `python scripts/e2e_local_smoke.py`
 
-## Local vs GPU Work
+## Running On The NVIDIA Server
+
+The checked-out project on the shared workstation is:
+
+```text
+/data/groups/autonomous/jwst-inspect-current
+```
+
+Most team members only need this command on the workstation:
+
+```bash
+cd /data/groups/autonomous/jwst-inspect-current
+bash slurm/submit-e2e-smoke.sh
+```
+
+That submits the native Slurm OCI validation chain. In plain terms: Slurm is the
+server scheduler, and each OCI container is a packaged runtime for one project
+scope. The submit script creates per-user container configs, runs the jobs in the
+right order, and writes outputs under:
+
+```text
+/data/groups/autonomous/runs/
+```
+
+The latest passing native OCI validation is documented in
+`docs/slurm_oci_validation.md`.
+
+## Container Map
+
+- `jwst-base`: shared Python/CUDA runtime plus common metadata and smoke tools.
+- `jwst-usd-tools`: OpenUSD scene validation, asset manifests, semantic labels,
+  material bindings, and contract checks.
+- `jwst-isaac-sim`: Isaac Sim, Omniverse Kit, Replicator, and RTX/synthetic-data
+  smoke validation.
+- `jwst-isaac-lab`: Isaac Lab imports, scripted rollout checks, policy/evaluation
+  utilities, and R2P smoke jobs.
+- `jwst-astro-data`: FITS/reference-data prep and CPU-side data utilities.
+
+## Local vs Server GPU Work
 
 Local laptops should handle contracts, manifests, configs, validators, toy metrics, documentation, and paper work.
 
-Use Vast.ai x090-class NVIDIA RTX instances for Isaac Sim, Omniverse/RTX rendering, Replicator data generation, policy training, path-traced evaluation, and final video renders.
+Use the shared NVIDIA workstation through Slurm OCI containers for Isaac Sim,
+Omniverse/RTX rendering, Replicator data generation, policy training,
+path-traced evaluation, and final video renders.
+
+Before running server jobs from a new machine, check access locally:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\jwst_remote_preflight.ps1 -User ccoffrant
+```
 
 ## Current Scaffold
 

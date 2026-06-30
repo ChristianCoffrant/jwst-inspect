@@ -26,7 +26,10 @@ jwst-inspect/
   isaac_env/                  Team 3 Isaac Sim / Isaac Lab environment code
   evaluation/                 Cross-team metrics and reports
   configs/                    Versioned experiment, renderer, episode, and policy configs
-  compute/                    Vast.ai plans, run registry, cost logs, sync notes
+  containers/                 OCI image definitions and bundle publishing helpers
+  slurm/                      Native Slurm OCI smoke and validation jobs
+  compute/                    Slurm run registry, resource logs, sync notes
+  compute/credentials/        Local ignored credentials; do not commit secrets
   src/jwst_inspect/           Lightweight shared Python package
   scripts/                    CLI entry points and validation commands
   tests/                      Local tests for contract and metric logic
@@ -127,7 +130,7 @@ Good PRs:
 - add a material variant config plus validation render metadata
 - add one Replicator sampler mode and tests
 - add one metric and toy test
-- add one Vast.ai run registry entry
+- add one Slurm OCI run registry entry
 
 Bad PRs:
 
@@ -185,7 +188,8 @@ Do not track in Git:
 - rendered videos
 - checkpoint files
 - Isaac Sim caches
-- raw Vast.ai scratch outputs
+- raw Slurm scratch outputs
+- local credentials, SSH keys, or workstation passwords
 
 Use external storage for large artifacts and record paths in manifests.
 
@@ -210,9 +214,9 @@ python scripts/validate_run_registry.py
 python scripts/e2e_local_smoke.py
 ```
 
-## Vast.ai Strategy
+## Slurm OCI GPU Strategy
 
-Use Vast.ai x090-class RTX instances for:
+Use the shared NVIDIA workstation through native Slurm OCI containers for:
 
 - Isaac Sim scene loading
 - RTX raster/path-traced renders
@@ -221,16 +225,35 @@ Use Vast.ai x090-class RTX instances for:
 - Isaac Lab policy training
 - official final R2P evaluations
 
-Every Vast.ai run must have:
+Before any GPU run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\jwst_remote_preflight.ps1 -User ccoffrant
+```
+
+On the workstation:
+
+```bash
+bash /data/shared/project/first_login_check.sh
+bash slurm/submit-e2e-smoke.sh
+```
+
+Every Slurm OCI run must have:
 
 - run ID
 - owner
 - team
+- Slurm job ID
+- Slurm partition and node
+- container runtime
+- OCI bundle path
+- image digest
+- bundle checksum
 - GPU model
 - GPU VRAM
-- price at launch
 - git commit
 - scene/data/policy/config tags
+- artifact manifest path
 - artifact sync status
 - success/failure status
 
@@ -267,7 +290,7 @@ Every Vast.ai run must have:
 ### GPU Experiment PR
 
 - run registry updated
-- cost log updated
+- Slurm resource log updated
 - artifacts synced
 - failure status included
 - config committed
@@ -281,4 +304,3 @@ python scripts/e2e_local_smoke.py
 ```
 
 The local smoke test is not a substitute for Isaac Sim. It is the early warning system that contracts, metrics, manifests, and team handoffs are still coherent.
-

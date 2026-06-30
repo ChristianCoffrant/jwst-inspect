@@ -1,0 +1,16 @@
+ARG JWST_BASE_IMAGE=jwst-base:dev
+FROM ${JWST_BASE_IMAGE}
+
+ARG JWST_IMAGE_VERSION=dev
+LABEL org.opencontainers.image.title="jwst-astro-data"
+LABEL org.opencontainers.image.version="${JWST_IMAGE_VERSION}"
+LABEL org.opencontainers.image.description="JWST-Inspect public data preparation runtime"
+
+ENV JWST_CONTAINER_ROLE=astro-data
+
+RUN python -m pip install --no-cache-dir astropy astroquery
+
+COPY datasets /opt/jwst/repo/datasets
+COPY validation /opt/jwst/repo/validation
+
+ENTRYPOINT ["jwst-runtime-info"]

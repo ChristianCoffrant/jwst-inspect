@@ -203,7 +203,7 @@ def evaluate_thin_slice(config_path: Path | str, output_dir: Path | str) -> dict
         "experiment_id": config.get("experiment_id", "thin_slice_v0_1"),
         "config_path": config_path.as_posix(),
         "generated_by": "scripts/evaluate_thin_slice.py",
-        "renderer_note": "path_traced rows are proxy-labeled unless backed by synced Vast.ai/RTX logs",
+        "renderer_note": "path_traced rows are proxy-labeled unless backed by synced Slurm OCI RTX logs",
         "metrics_table": metrics_table_path.as_posix(),
         "rollouts": [score["rollout_path"] for score in scores],
         "metrics": [score["metrics"] for score in scores],

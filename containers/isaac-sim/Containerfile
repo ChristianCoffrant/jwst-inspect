@@ -1,0 +1,26 @@
+ARG ISAAC_SIM_BASE_IMAGE=nvcr.io/nvidia/isaac-sim:5.1.0
+FROM ${ISAAC_SIM_BASE_IMAGE}
+
+ARG JWST_IMAGE_VERSION=dev
+LABEL org.opencontainers.image.title="jwst-isaac-sim"
+LABEL org.opencontainers.image.version="${JWST_IMAGE_VERSION}"
+LABEL org.opencontainers.image.description="JWST-Inspect Isaac Sim and Replicator smoke runtime"
+
+ENV JWST_CONTAINER_ROLE=isaac-sim \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /opt/jwst/repo
+COPY pyproject.toml README.md /opt/jwst/repo/
+COPY src /opt/jwst/repo/src
+COPY contracts /opt/jwst/repo/contracts
+COPY assets /opt/jwst/repo/assets
+COPY usd /opt/jwst/repo/usd
+COPY replicator /opt/jwst/repo/replicator
+
+RUN if [ -x /isaac-sim/python.sh ]; then \
+      /isaac-sim/python.sh -m pip install --no-cache-dir -e /opt/jwst/repo; \
+    else \
+      python -m pip install --no-cache-dir -e /opt/jwst/repo; \
+    fi
+
+ENTRYPOINT ["jwst-replicator-smoke"]

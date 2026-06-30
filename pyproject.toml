@@ -14,6 +14,14 @@ dependencies = ["PyYAML>=6.0"]
 dev = ["pytest>=8.0"]
 sim = []
 
+[project.scripts]
+jwst-runtime-info = "jwst_inspect.smoke:runtime_info_main"
+jwst-usd-smoke = "jwst_inspect.smoke:usd_smoke_main"
+jwst-replicator-smoke = "jwst_inspect.smoke:replicator_smoke_main"
+jwst-isaaclab-smoke = "jwst_inspect.smoke:isaaclab_smoke_main"
+jwst-r2p-smoke = "jwst_inspect.smoke:r2p_smoke_main"
+jwst-artifact-validate = "jwst_inspect.smoke:artifact_validate_main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

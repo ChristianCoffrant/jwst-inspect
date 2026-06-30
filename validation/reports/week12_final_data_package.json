@@ -71,19 +71,19 @@
   "source_artifacts": {
     "config": {
       "path": "configs/perception/week12_final_data_package.yaml",
-      "sha256": "8fbb406bd2e1a4abffbe62076adf4c6ef7e624fc1ad72a603686797fb3048e68"
+      "sha256": "e424b654c192b778533dae6fc4fdd5ec22fe2e4aaacf364be48ab2a750c1ea6b"
     },
     "data_card": {
       "path": "docs/data_card.md",
-      "sha256": "e59a6177dd8e900b585f32285b7baeddca5197344c05d71aa3e1e6260eea0e85"
+      "sha256": "19bdb42425a59797d072383646c3d3b5895c995c9c50fb216034bd05e91d7d4e"
     },
     "readme": {
       "path": "README.md",
-      "sha256": "96e842534f4276b77ea175354dc78404f3f21c74ed13a5a72c157501a4d1274f"
+      "sha256": "cb0fbeb9a8610eed77e3ba7ac5f0ec41f4bb86e2d6b79298ba1d3d619bcf3432"
     },
     "week10_lock": {
       "path": "validation/reports/week10_final_perception_results_lock.json",
-      "sha256": "5e41256162f0e42dfbab110cd613a2e10465a3f905502abf888986f4f0abb7e1"
+      "sha256": "ac5df47d93e0dbe82f1ff17935857f1e789b948a7780c2297b93f2b237f0a6d1"
     },
     "week10_sample_package": {
       "path": "validation/final_test/week10_final_sample_dataset_package.json",
@@ -99,7 +99,7 @@
     },
     "week11_package": {
       "path": "validation/reports/week11_data_perception_package.json",
-      "sha256": "51425cf9b5c3ac34c9f722c07f80381e86e0fc281cb2fb379ca21a74a5c5ecdd"
+      "sha256": "ad4f05c831cedc2c3df43563ede558527cc659597d1aeefac886f799b6f208ea"
     }
   },
   "source_lock_id": "week10-final-perception-lock-v1.0.0",

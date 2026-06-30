@@ -57,19 +57,19 @@ package_files:
     sha256: 8af2b70fef7e658dddc5139c2401472ea80b359759d8d7c221e71d88e75bb777
   - path: usd/jwst_inspect_root.usd
     role: root_usd_scene
-    sha256: edfe99357b91c44d6985ed227cd7448e9bed8622a97442c0a7c367abd4a8170d
+    sha256: 7fa4f94d62e560694ac760f162581f0161ef8321fc9d24c34be072e6ee0a80a9
   - path: usd/layers/geometry.usd
     role: usd_layer
-    sha256: 4436f82af505112832233af81c483f15b1e37cfbef954c7815450e3d66309242
+    sha256: 6c4d28be094771c165e6e3a3d02bdb169f4735e9827b2cc941b39afffbf3b9d2
   - path: usd/layers/materials.usd
     role: usd_layer
-    sha256: 7be3a05a8915ffb54fa8aa5718d7af65d476f4d0f771b897e34606b24a33ffbe
+    sha256: 032ed6d6b26fcdd4a2515caa8e150569dea5a6164cdd0380b0dcfdcd3b81d97d
   - path: usd/layers/semantics.usd
     role: usd_layer
-    sha256: 3b61ee4159f2b286e67fd07424fe7eca696de8708736e8cf3dbdc995f41dd377
+    sha256: 3b752317e7094f138b4d247a11d0321571293fe51160a02971e3a1d8bdb9d2d5
   - path: usd/layers/sensors.usd
     role: usd_layer
-    sha256: 3e9868b80db0b59a8f2ef5a43d13cab589dad91e9eab270a955a71a77ed978c0
+    sha256: b4b78f7444e7e2fdb08fa62ffce1a8d1419dabe684b1b52e57762d0278392efc
   - path: usd/layers/safety_zones.usd
     role: usd_layer
     sha256: a19ce78a3ba03e22f7f9abf7003753daa8c5bad6ef74dafc977acbc8a2e9ebc2

@@ -1,0 +1,98 @@
+version: 0.1.0
+owner: integration
+status: active
+description: NVIDIA stack alignment contract for JWST-Inspect Slurm OCI containers.
+runtime:
+  execution_plane: slurm_oci
+  workstation: jwst-ws
+  driver: "580.95.05"
+  cuda_family: "12.8"
+  python: "3.11"
+  gpu_class: "NVIDIA RTX PRO 6000 Blackwell"
+  slurm: "23.11.4"
+  oci_runtime: scrun
+container_defaults:
+  nvidia_visible_devices: all
+  nvidia_driver_capabilities:
+    - compute
+    - utility
+    - graphics
+    - video
+    - display
+  mount_roots:
+    - /data
+    - /workspace
+tools:
+  cuda:
+    source: NVIDIA CUDA NGC image
+    expected_commands:
+      - nvidia-smi
+    expected_modules: []
+    roles:
+      - base
+      - usd-tools
+      - isaac-sim
+      - isaac-lab
+      - astro-data
+  pytorch:
+    source: PyTorch cu128 wheel compatible with Blackwell
+    expected_commands: []
+    expected_modules:
+      - torch
+    roles:
+      - isaac-lab
+  openusd:
+    source: OpenUSD / usd-core Python bindings
+    expected_commands: []
+    expected_modules:
+      - pxr.Usd
+      - pxr.UsdGeom
+      - pxr.UsdShade
+    roles:
+      - usd-tools
+      - isaac-sim
+      - isaac-lab
+  omniverse_kit:
+    source: Isaac Sim bundled Omniverse Kit
+    expected_commands: []
+    expected_modules:
+      - carb
+      - omni.kit.app
+    roles:
+      - isaac-sim
+  replicator:
+    source: Isaac Sim bundled Omniverse Replicator
+    expected_commands: []
+    expected_modules:
+      - omni.replicator.core
+    roles:
+      - isaac-sim
+  isaac_sim:
+    source: nvcr.io/nvidia/isaac-sim:5.1.0
+    expected_commands: []
+    expected_modules:
+      - omni.isaac.core
+    roles:
+      - isaac-sim
+  isaac_lab:
+    source: NVIDIA Isaac Lab container or staged /data/shared/env/IsaacLab install
+    expected_commands: []
+    expected_modules:
+      - isaaclab
+    roles:
+      - isaac-lab
+  mdl_rtx:
+    source: Isaac Sim bundled RTX renderer and MDL support
+    expected_commands: []
+    expected_modules:
+      - omni.kit.renderer.core
+    roles:
+      - isaac-sim
+validation:
+  required_json_fields:
+    - generated_at
+    - container.role
+    - nvidia.gpus
+    - stack.tools
+    - stack.role_status
+  fail_missing_role_tools: true

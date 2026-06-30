@@ -13,6 +13,14 @@ Thumbs.db
 .idea/
 .vscode/
 
+# Local secrets and credentials
+.env
+.env.*
+*.secret
+*.secrets
+compute/credentials/*
+!compute/credentials/README.md
+
 # Runtime artifacts
 runs/*
 !runs/README.md
@@ -33,6 +41,9 @@ validation/renders/**
 # Heavy generated outputs
 *.log
 *.tmp
+*.sqsh
+*.sif
+*.oci
 *.ckpt
 *.pth
 *.pt
@@ -61,3 +72,10 @@ cache/
 ov/
 _isaac_sim/
 
+# OCI bundle staging
+oci-bundles/
+containers/**/rootfs/
+containers/**/*.sha256
+
+# Planning/rendered document artifacts
+outputs/jwst_alignment_plan/

@@ -99,7 +99,7 @@
     },
     "week10_scene_package": {
       "path": "validation/scene_final/week10_final_scene_package.yaml",
-      "sha256": "48d252f4ceb8449a52a7d3fd64aeae64f8ae0c53983284a682f655b07711cada"
+      "sha256": "dfa2ff6bb3e74de9802bdd432a5436d64f3a95f48f2ed8fd7b478130cf0c6e58"
     },
     "week9_failures": {
       "path": "validation/reports/week9_final_perception_run1_failures.json",

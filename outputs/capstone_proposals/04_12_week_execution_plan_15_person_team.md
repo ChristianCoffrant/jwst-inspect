@@ -26,7 +26,7 @@ The work should be managed as a benchmark project, not as three disconnected dem
 - Qualitative videos are supporting evidence, not the result.
 - Every team must ship a weekly runnable artifact, not just slides.
 - Public JWST images are validation references, not training data.
-- GPU work is scheduled in bursts on Vast.ai; local laptops are for control-plane work, not RTX simulation.
+- GPU work is scheduled in bursts on shared NVIDIA workstation; local laptops are for control-plane work, not RTX simulation.
 
 ## External JWST Image Validation Strategy
 
@@ -131,7 +131,7 @@ Level 3: Holdout visual challenge
 - Science images from JWST cannot validate spacecraft geometry.
 - If a public reference is an artistic render or processed outreach product, label it as such.
 
-## Compute Strategy With Vast.ai
+## Compute Strategy With The Shared NVIDIA Workstation
 
 The project should use a control-plane / compute-plane split.
 
@@ -146,7 +146,7 @@ Your local laptop is the control plane:
 - small sample visualization
 - experiment config design
 
-Vast.ai x090-class instances are the compute plane:
+Slurm OCI GPU jobs on shared NVIDIA workstation are the compute plane:
 
 - Isaac Sim scene load and validation
 - Omniverse/RTX rendering
@@ -157,96 +157,137 @@ Vast.ai x090-class instances are the compute plane:
 - final benchmark runs
 - final video renders
 
-For this project, "x090" should usually mean RTX 4090 or RTX 5090 class. RTX 3090 can be useful for cheaper tests because it has 24 GB VRAM, but RTX 4090/5090 is the better default for Isaac Sim, Replicator, and path-traced evaluation. Avoid A100/H100 for this specific workload because Isaac Sim's RTX rendering path requires GPUs with RT cores.
+For this project, "Slurm OCI" should usually mean RTX PRO 6000 Blackwell class. RTX 3090 can be useful for cheaper tests because it has 24 GB VRAM, but RTX PRO 6000 Blackwell is the better default for Isaac Sim, Replicator, and path-traced evaluation. Avoid A100/H100 for this specific workload because Isaac Sim's RTX rendering path requires GPUs with RT cores.
 
-### Vast.ai Instance Selection Rules
+### Shared NVIDIA Workstation Run Rules
 
 Use these filters by default:
 
-- GPU: RTX 4090, RTX 5090, or better RTX workstation GPU.
+- GPU: RTX PRO 6000 Blackwell workstation GPU through Slurm.
 - VRAM: 24 GB minimum preferred; 32 GB or more if affordable.
 - System RAM: 64 GB minimum preferred.
 - Disk: 300-500 GB minimum for active work; more for dataset batches.
 - CPU: 8+ vCPU preferred.
 - Reliability: prioritize high-reliability hosts for final runs.
-- Rental type: on-demand for interactive/debug/final runs; interruptible only for checkpointed batch jobs.
+- Allocation type: interactive for debug/smoke runs; batch for reproducible long jobs with checkpointing.
 - Image/template: custom project template with Isaac Sim, CUDA, Python deps, repo checkout, and storage mount.
-- Network/storage: enough bandwidth to sync outputs without wasting paid GPU time.
+- Network/storage: enough bandwidth to sync outputs without wasting reserved GPU allocation time.
 
-### Vast.ai Operating Model
+### Shared NVIDIA Workstation Operating Model
 
 Create:
 
 ```text
 compute/
-  vast_instance_checklist.md
-  vast_template_notes.md
   cost_log.csv
   gpu_run_registry.csv
   storage_sync_plan.md
+  credentials/
+    README.md
+containers/
+  base/
+  usd-tools/
+  isaac-sim/
+  isaac-lab/
+  astro-data/
+  oci/
+slurm/
+  smoke-base.sbatch
+  smoke-usd.sbatch
+  smoke-replicator.sbatch
+  smoke-isaaclab.sbatch
+  smoke-r2p.sbatch
+  smoke-e2e.sbatch
+  submit-e2e-smoke.sh
+docs/
+  stack_lock.md
+  slurm_oci_validation.md
 ```
 
-Before using a paid instance:
+### Workstation Access
+
+Normal GPU work uses Tailscale, SSH, Slurm, and native Slurm OCI bundles. No
+repo-managed provider API key is required.
+
+Engineers should run the local preflight before server work:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\jwst_remote_preflight.ps1 -User ccoffrant
+```
+
+Then submit Slurm OCI smoke jobs from the workstation:
+
+```bash
+bash slurm/submit-e2e-smoke.sh
+squeue -u $USER
+sacct -j <job_ids> --format=JobID,JobName,State,ExitCode,Elapsed,AllocGRES
+```
+
+Before using a GPU allocation:
 
 - confirm GPU model, VRAM, driver, CUDA visibility, disk, RAM, and CPU
-- run `nvidia-smi`
+- run `srun -p interactive --gres=gpu:1 nvidia-smi -L`
+- run the base OCI smoke
 - run Isaac Sim headless hello-world
 - run one tiny render
 - run one tiny Replicator output
-- verify persistent storage or immediate sync path
-- confirm shutdown command and idle policy
+- verify the persistent run directory and artifact manifest path
 
 During use:
 
 - checkpoint long runs
-- sync outputs off-instance after each run
-- log GPU type, hourly price, start time, stop time, and run ID
-- shut down immediately after batch completion
-- do not leave interactive sessions idle
+- sync outputs from scratch/container filesystems to shared storage after each run
+- log GPU type, Slurm job ID, start time, stop time, and run ID
+- log OCI bundle path, image digest, and bundle checksum
+- release interactive allocations immediately after use
 
 After use:
 
 - copy run logs, configs, metrics, checkpoints, and sample outputs to durable storage
 - record failures as failures, not as missing data
-- update cost log
+- update the Slurm resource log and run registry
 
 ### Compute Guardrails
 
 - No official result is accepted without GPU type, run time, and config metadata.
-- No final result can depend on files stored only on a Vast instance.
+- No final result can depend on files stored only inside a container filesystem or scratch path.
 - Interactive debug sessions should have a named owner and planned stop time.
 - Interruptible instances are allowed only for jobs that checkpoint or can be rerun cheaply.
 - Final benchmark runs should use on-demand or high-reliability instances.
 - Use one well-tested template rather than each student building a separate environment.
 - Batch jobs should be launched from scripts, not ad hoc notebook state.
+- Never commit `external SSH/Tailscale credentials`.
+- Never paste API keys into notebooks, issue comments, run logs, screenshots, or slides.
+- Rotate the API key immediately if it is exposed.
+- Prefer scoped shared NVIDIA workstation API keys where possible.
 
-### Local vs Vast Decision Rule
+### Local vs Slurm OCI Decision Rule
 
-Use local work when the task can complete without NVIDIA RTX hardware and does not require Isaac Sim rendering. Use Vast when the task requires RTX rendering, GPU training, GPU data generation, or validating real Omniverse/Isaac behavior.
+Use local work when the task can complete without NVIDIA RTX hardware and does not require Isaac Sim rendering. Use Slurm OCI when the task requires RTX rendering, GPU training, GPU data generation, or validating real Omniverse/Isaac behavior.
 
-If the task changes a contract, metric, schema, or paper argument, do it locally first. If the task changes scene fidelity, renderer settings, Replicator generation, or policy training, validate it on Vast before calling it done.
+If the task changes a contract, metric, schema, or paper argument, do it locally first. If the task changes scene fidelity, renderer settings, Replicator generation, or policy training, validate it on Slurm OCI before calling it done.
 
 ### Subproject Compute Decision Table
 
-| Subproject | Work Locally | Use Vast.ai x090 |
+| Subproject | Work Locally | Use Slurm OCI |
 | --- | --- | --- |
 | Digital Twin | source manifest, reference manifest, sparse annotations, scene contract, USD path planning, validation report writing | Isaac Sim scene load, RTX renders, material stress renders, path-traced validation, final video source renders |
 | Synthetic Data | dataset schema, metadata validators, split logic, data card, small visualization from downloaded samples, metric scripts | Replicator generation, depth/segmentation export validation, large sample generation, path-traced samples, GPU perception training |
 | Autonomy | episode schema, metrics, toy dynamics, reward design, log analysis, plots, paper results | Isaac Sim/Isaac Lab rollouts, scripted policy in real scene, PPO/BC training, path-traced evaluation, stress-condition evaluation |
 | Integration | contracts, changelog, run registry, cost audit, report generation, claim-evidence matrix | E2E smoke test requiring Isaac Sim, final official benchmark runs, reproduction run, final render/video generation |
 
-Local-first means the team should prove the logic on toy data before spending GPU money. Vast-required means the result is not credible until it has been tested on an NVIDIA RTX instance.
+Local-first means the team should prove the logic on toy data before spending GPU money. Slurm OCI-required means the result is not credible until it has been tested on an NVIDIA RTX instance.
 
 ### Expected Compute Schedule
 
-| Week | Local Work | Vast.ai Work | Expected Vast Intensity |
+| Week | Local Work | Shared NVIDIA Workstation Work | Expected Slurm OCI Intensity |
 | --- | --- | --- | --- |
 | 1 | contracts, repo, reference manifest, proxy configs | one environment smoke test if available | 2-4 GPU hours |
 | 2 | asset manifest, schemas, validation annotations | scene import, headless load, first render | 8-15 GPU hours |
 | 3 | thin-slice configs and metrics | first E2E scene/data/policy smoke test | 10-20 GPU hours |
 | 4 | reference annotations, validators, data QA | Replicator randomization and render validation | 15-30 GPU hours |
 | 5 | anomaly catalog, cost review, paper notes | material variants, stress renders, small data batches | 20-40 GPU hours |
-| 6 | contract freeze, reports, dev-test definitions | contract validation on x090, baseline GPU tests | 20-40 GPU hours |
+| 6 | contract freeze, reports, dev-test definitions | contract validation on Slurm OCI, baseline GPU tests | 20-40 GPU hours |
 | 7 | failure review, metric analysis | perception baseline and learned policy dev runs | 30-70 GPU hours |
 | 8 | R2P analysis scripts, validation reporting | path-traced dev evaluation and stress tests | 40-80 GPU hours |
 | 9 | beta report, issue triage | beta dataset and beta policy runs | 40-100 GPU hours |
@@ -260,14 +301,14 @@ The table is deliberately conservative. It assumes disciplined shutdowns and scr
 
 This overlay applies to all three subprojects. It should be reviewed every Friday by the integration council.
 
-| Week | Validation Focus | Local Work | Vast.ai Work | Weekly Evidence |
+| Week | Validation Focus | Local Work | Shared NVIDIA Workstation Work | Weekly Evidence |
 | --- | --- | --- | --- | --- |
-| 1 | Start reference manifest and define validation categories | collect source URLs, create manifest, draft annotations schema | optional x090 smoke test | reference manifest v0.1, Vast checklist v0.1 |
+| 1 | Start reference manifest and define validation categories | collect source URLs, create manifest, draft annotations schema | optional Slurm OCI smoke test | reference manifest v0.1, Slurm OCI checklist v0.1 |
 | 2 | Validate imported geometry against reference checklist | annotate initial components and keypoints | scene import, first RTX render | side-by-side render/reference notes |
 | 3 | Validate thin slice rather than visual quality | compare proxy labels to reference checklist | E2E proxy scene/data/policy smoke | first E2E report with render, data, metrics |
 | 4 | Begin sparse keypoint/silhouette checks | annotate 10-20 reference images | validation renders from matched viewpoints | external validation report v0.1 |
 | 5 | Validate material and lighting stress variants | review public references for material categories | high-glare and degraded material renders | material stress report with references |
-| 6 | Freeze dev and held-out references | freeze validation sets and schemas | x090 contract validation run | reference freeze log, compute template test |
+| 6 | Freeze dev and held-out references | freeze validation sets and schemas | Slurm OCI contract validation run | reference freeze log, compute template test |
 | 7 | Validate data/perception on dev references only | analyze failures, update data card | perception baseline and learned policy dev runs | dev-reference perception sanity report |
 | 8 | Validate renderer-transfer behavior | write R2P analysis scripts | path-traced dev evaluation | R2P report v0.1 and reference audit delta |
 | 9 | Validate beta benchmark coherence | triage scene/data/policy inconsistencies | beta data and policy runs | beta integration report |
@@ -275,7 +316,7 @@ This overlay applies to all three subprojects. It should be reviewed every Frida
 | 11 | Validate reproducibility | independent reviewer follows docs | reproduction run and video renders | reproduction report |
 | 12 | Validate claims | final defense checks | emergency reruns only | claim-evidence matrix |
 
-The local work is not lower-status work. It is where the contracts, claims, validators, schemas, manifests, and paper are made rigorous. Vast.ai should be used only when the team needs actual NVIDIA RTX behavior, GPU training, Replicator output, or path-traced evidence.
+The local work is not lower-status work. It is where the contracts, claims, validators, schemas, manifests, and paper are made rigorous. shared NVIDIA workstation should be used only when the team needs actual NVIDIA RTX behavior, GPU training, Replicator output, or path-traced evidence.
 
 ## Team Structure
 
@@ -321,7 +362,7 @@ Responsibilities:
 - run weekly end-to-end smoke tests
 - protect held-out evaluation seeds
 - protect held-out external reference images
-- approve Vast.ai official-run windows
+- approve shared NVIDIA workstation official-run windows
 - monitor GPU spend and idle time
 - prevent metric gaming
 - produce weekly benchmark status
@@ -371,8 +412,8 @@ jwst-inspect/
     annotations/
     reports/
   compute/
-    vast_instance_checklist.md
-    vast_template_notes.md
+    slurm_oci_validation.md
+    stack_lock.md
     cost_log.csv
     gpu_run_registry.csv
     storage_sync_plan.md
@@ -402,7 +443,7 @@ Required by end of Week 1:
 - contract files stubbed
 - coding conventions documented
 - compute plan documented
-- Vast.ai instance checklist drafted
+- shared NVIDIA workstation instance checklist drafted
 - external JWST reference manifest started
 - first proxy scene committed
 - no team blocked waiting for final assets
@@ -418,7 +459,7 @@ Required by end of Week 3:
 - one raster and one path-traced validation render exist
 - all outputs use fixed seeds and have metadata
 - first external reference checklist exists
-- first Vast.ai smoke test result is logged, or a documented blocker exists
+- first shared NVIDIA workstation smoke test result is logged, or a documented blocker exists
 
 ### Gate 2: Contract Freeze 0.2
 
@@ -432,7 +473,7 @@ Required by end of Week 6:
 - scripted baseline stable
 - path-traced evaluation subset defined
 - dev and held-out external reference sets frozen
-- Vast.ai template and storage sync plan tested
+- shared NVIDIA workstation template and storage sync plan tested
 
 ### Gate 3: Benchmark Beta
 
@@ -475,7 +516,7 @@ These rules protect the benchmark from looking good for the wrong reasons.
 - Contract changes require changelog entries after Week 3.
 - External validation images are split into dev references and held-out references.
 - Held-out external references cannot be used for material, geometry, or camera tuning.
-- Vast.ai run IDs, instance IDs or host aliases, GPU models, prices, and runtimes are logged for official runs.
+- Slurm job IDs, nodes, GPU models, OCI bundle paths, image digests, bundle checksums, and runtimes are logged for official runs.
 
 ### Scene Guardrails
 
@@ -517,10 +558,10 @@ These rules protect the benchmark from looking good for the wrong reasons.
 
 ### Compute Guardrails
 
-- No final result may live only on a Vast.ai instance disk.
-- Long Vast.ai jobs must checkpoint or be rerunnable from a config.
+- No final result may live only inside a container filesystem, home directory, or scratch path.
+- Long shared NVIDIA workstation jobs must checkpoint or be rerunnable from a config.
 - Interactive sessions require a named owner and stop time.
-- Official runs must record GPU model, VRAM, host reliability class if available, price, runtime, git commit, scene tag, data tag, policy tag, and config path.
+- Official runs must record GPU model, VRAM, Slurm job ID, node, OCI bundle path, image digest, bundle checksum, runtime, git commit, scene tag, data tag, policy tag, and config path.
 - Idle instances should be shut down; idle cost is reported as waste, not research compute.
 - Final benchmark runs use high-reliability or on-demand instances unless the job is fully checkpointed.
 
@@ -578,14 +619,14 @@ These rules protect the benchmark from looking good for the wrong reasons.
 
 ### Compute Metrics
 
-- Vast.ai GPU hours by team
+- shared NVIDIA workstation GPU hours by team
 - GPU cost by run type
 - failed or wasted GPU hours
 - average instance setup time
 - storage synced versus left on instance
 - final-run reproducibility status
 - local-only smoke test pass rate
-- x090 smoke test pass rate
+- Slurm OCI smoke test pass rate
 
 ## Weekly Plan: Subproject 1, Digital Twin and Asset Benchmark
 
@@ -1349,7 +1390,7 @@ What the team does:
 - Draft `episode_schema.yaml` and `metrics_schema.yaml`.
 - Define observation space, action space, tasks, termination rules, and safety rules.
 - Implement metric stubs independent of Isaac Sim.
-- Define which parts of the environment can be tested locally and which require Vast.ai.
+- Define which parts of the environment can be tested locally and which require shared NVIDIA workstation.
 
 How to do it:
 
@@ -1363,7 +1404,7 @@ Quality metrics:
 - Episode schema covers task, seed, initial state, renderer mode, nuisance condition, and policy ID.
 - Metrics code has unit tests on toy trajectories.
 - Safety violation definition is unambiguous.
-- Vast.ai requirements for Team 3 are documented.
+- shared NVIDIA workstation requirements for Team 3 are documented.
 
 Ship gate:
 
@@ -1383,14 +1424,14 @@ What the team does:
 - Implement scripted approach and hold-standoff behavior.
 - Log states, actions, rewards, and safety distances.
 - Run first episode with Team 1 proxy scene.
-- Run first Isaac Sim or Isaac Lab headless smoke test on a Vast.ai x090 instance.
+- Run first Isaac Sim or Isaac Lab headless smoke test on a Slurm OCI GPU job on shared NVIDIA workstation.
 
 How to do it:
 
 - Use simple velocity control.
 - Keep dynamics local and zero-gravity.
 - Save all rollouts to a standard run format.
-- Keep the first Vast.ai run short: load scene, run one episode, save logs, shut down.
+- Keep the first shared NVIDIA workstation run short: load scene, run one episode, save logs, shut down.
 
 Quality metrics:
 
@@ -1407,7 +1448,7 @@ Guardrails:
 
 - Abort episodes count in summary metrics.
 - Unsafe coverage cannot be counted as task success.
-- Do not leave Vast.ai sessions idle after smoke tests.
+- Do not leave shared NVIDIA workstation sessions idle after smoke tests.
 
 ### Week 3: Thin Vertical Slice Evaluation
 
@@ -1417,20 +1458,20 @@ What the team does:
 - Add coverage metric for simple target regions.
 - Run one raster and one path-traced evaluation episode if compute allows.
 - Produce first R2P score placeholder.
-- Verify that local metric scripts can consume Vast.ai-generated rollout logs.
+- Verify that local metric scripts can consume shared NVIDIA workstation-generated rollout logs.
 
 How to do it:
 
 - Use fixed seed and fixed episode config.
 - Compute R2P even if the early policy is only scripted and the scene is proxy.
-- Sync all Vast.ai outputs to durable storage before shutting down.
+- Sync all shared NVIDIA workstation outputs to durable storage before shutting down.
 
 Quality metrics:
 
 - Coverage, standoff, safety, and success metrics computed from logs.
 - Metrics table generated from script.
 - Team 2 can join episode frames to rollout logs.
-- Local rerun of metrics from synced logs matches the Vast.ai report.
+- Local rerun of metrics from synced logs matches the shared NVIDIA workstation report.
 
 Ship gate:
 
@@ -1478,14 +1519,14 @@ What the team does:
 - Train first PPO or behavior-cloning state-based policy.
 - Compare against scripted baseline on dev episodes.
 - Log training config, seed, compute, and checkpoints.
-- Use Vast.ai x090 for training only after scripted baseline and dev evaluation command pass.
+- Use Slurm OCI for training only after scripted baseline and dev evaluation command pass.
 
 How to do it:
 
 - Start with state observations, not images.
 - Use short episodes and simple reward.
 - Keep scripted baseline as the reference.
-- Use checkpointing so interruptible Vast.ai jobs can be resumed or safely rerun.
+- Use checkpointing so interruptible shared NVIDIA workstation jobs can be resumed or safely rerun.
 
 Quality metrics:
 
@@ -1512,21 +1553,21 @@ What the team does:
 - Freeze official task list, episode schema, metric formulas, baseline policy list, and dev-test suite.
 - Define final held-out evaluation seed policy with integration council.
 - Add latency and noise hooks.
-- Freeze Vast.ai template, storage sync plan, and official-run metadata requirements.
+- Freeze shared NVIDIA workstation template, storage sync plan, and official-run metadata requirements.
 
 How to do it:
 
 - Store evaluation configs in versioned YAML.
 - Record metric formula weights.
 - Create one command to run the official dev evaluation suite.
-- Confirm the dev evaluation suite can run on the selected x090 template.
+- Confirm the dev evaluation suite can run on the selected Slurm OCI template.
 
 Quality metrics:
 
 - Dev evaluation suite runs from config.
 - Metrics regenerate exactly.
 - Scripted and learned baselines both run.
-- Vast.ai template test passes and is logged.
+- shared NVIDIA workstation template test passes and is logged.
 
 Ship gate:
 
@@ -1544,7 +1585,7 @@ What the team does:
 - Add sensor noise, actuation delay, and latency stress conditions.
 - Add mirror inspection or anomaly reacquisition task if core tasks are stable.
 - Run stress evaluation for scripted baseline.
-- Use Vast.ai for stress conditions that require RTX rendering; run scoring locally from logs.
+- Use shared NVIDIA workstation for stress conditions that require RTX rendering; run scoring locally from logs.
 
 How to do it:
 
@@ -1575,7 +1616,7 @@ What the team does:
 - Run rasterized versus path-traced evaluation for scripted and learned policy on dev-test set.
 - Compute R2P gap by task and policy.
 - Produce first failure taxonomy.
-- Use Vast.ai x090 or better for path-traced dev evaluation.
+- Use Slurm OCI or better for path-traced dev evaluation.
 
 How to do it:
 
@@ -1607,14 +1648,14 @@ What the team does:
 - Run beta evaluation on scene beta and dataset beta conditions.
 - Evaluate scripted and learned baselines.
 - Identify blocking failures before final experiments.
-- Estimate final Week 10 Vast.ai budget from beta runtime and failure rate.
+- Estimate final Week 10 shared NVIDIA workstation budget from beta runtime and failure rate.
 
 How to do it:
 
 - Use integration-approved scene and data tags.
 - Run all official dev-test episodes.
 - Produce automated report.
-- Use the same Vast.ai template intended for final runs unless a blocker is documented.
+- Use the same shared NVIDIA workstation template intended for final runs unless a blocker is documented.
 
 Quality metrics:
 
@@ -1641,7 +1682,7 @@ What the team does:
 - Compute final R2P metrics.
 - Generate final plots and failure examples.
 - Run optional vision-conditioned policy only if core baselines are complete.
-- Use high-reliability or on-demand Vast.ai instances for official final runs.
+- Use high-reliability or on-demand shared NVIDIA workstation instances for official final runs.
 
 How to do it:
 
@@ -1672,13 +1713,13 @@ What the team does:
 - Package environment, baselines, evaluation scripts, configs, and run reports.
 - Write policy evaluation section of the paper.
 - Prepare video episode list tied to metrics.
-- Package Vast.ai reproduction instructions and expected runtime.
+- Package shared NVIDIA workstation reproduction instructions and expected runtime.
 
 How to do it:
 
 - Have a non-Team-3 reviewer run a short evaluation.
 - Document compute needs and expected runtime.
-- Test one clean reproduction run on the selected x090 template or document why not.
+- Test one clean reproduction run on the selected Slurm OCI template or document why not.
 
 Quality metrics:
 
@@ -1754,7 +1795,7 @@ The project lead or technical lead owns:
 - final held-out seed custody
 - held-out public reference custody
 - release tagging
-- Vast.ai budget and official-run window approval
+- shared NVIDIA workstation budget and official-run window approval
 - sponsor demo readiness
 - final paper coherence
 
@@ -1766,7 +1807,7 @@ Monday:
 - external reference set changes
 - blockers
 - compute booking
-- Vast.ai budget review
+- shared NVIDIA workstation budget review
 - weekly target release tag
 
 Wednesday:
@@ -1776,7 +1817,7 @@ Wednesday:
 - one tiny data generation run
 - one short policy rollout
 - one metric report
-- one artifact sync check for any Vast.ai run
+- one artifact sync check for any shared NVIDIA workstation run
 
 Friday:
 
@@ -1823,7 +1864,7 @@ Required:
 - one scripted episode runs
 - metrics table generated
 - first reference checklist generated
-- first Vast.ai smoke test logged or explicitly deferred
+- first shared NVIDIA workstation smoke test logged or explicitly deferred
 
 Target week:
 
@@ -1911,8 +1952,8 @@ Target week:
 
 ### Compute Artifacts
 
-- `compute/vast_instance_checklist.md`
-- `compute/vast_template_notes.md`
+- `compute/slurm_oci_validation.md`
+- `compute/stack_lock.md`
 - `compute/storage_sync_plan.md`
 - `compute/cost_log.csv`
 - `compute/gpu_run_registry.csv`
@@ -1927,7 +1968,7 @@ make validate-reference-set
 make generate-tiny-dataset
 make run-short-policy
 make evaluate-short-run
-make vast-preflight
+make Slurm OCI-preflight
 make sync-run-artifacts
 make e2e-smoke
 ```
@@ -1947,8 +1988,8 @@ Every official run should record:
 - seed
 - GPU type
 - GPU VRAM
-- Vast.ai price at launch
-- Vast.ai rental type
+- Slurm partition and requested GRES
+- Slurm job mode
 - renderer mode
 - runtime
 - setup time
@@ -2045,7 +2086,7 @@ Fail response:
 
 - affected scene, material, or visual-realism claim must be downgraded to qualitative or removed.
 
-### Vast.ai Compute Gate
+### Shared NVIDIA Workstation Compute Gate
 
 Pass criteria:
 
@@ -2191,7 +2232,7 @@ The team should optimize for a strong Week 3 thin vertical slice and a strong We
 - keep the R2P metric
 - keep the sample dataset
 - keep the external reference validation manifest and held-out audit
-- keep the Vast.ai run registry and cost audit
+- keep the shared NVIDIA workstation run registry and cost audit
 - cut optional image-based RL
 - cut extra anomaly types
 - cut visual polish that does not support evaluation
@@ -2209,5 +2250,5 @@ Use these as starting points for reference imagery, validation resources, and co
 - NASA image and media guidelines: https://www.nasa.gov/nasa-brand-center/images-and-media/
 - Isaac Sim system requirements: https://docs.isaacsim.omniverse.nvidia.com/6.0.0/installation/requirements.html
 - Isaac Sim cloud deployment: https://docs.isaacsim.omniverse.nvidia.com/6.0.0/installation/install_cloud.html
-- Vast.ai pricing: https://vast.ai/pricing
-- Vast.ai documentation: https://docs.vast.ai/
+- shared NVIDIA workstation runbook: docs/slurm_oci_validation.md
+- NVIDIA stack lock: docs/stack_lock.md
