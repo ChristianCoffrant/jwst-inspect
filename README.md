@@ -37,6 +37,9 @@ right order, and writes outputs under:
 The latest passing native OCI validation is documented in
 `docs/slurm_oci_validation.md`.
 
+If you are new to Slurm or containers, start with
+`docs/student_container_quickstart.md`.
+
 ## Container Map
 
 - `jwst-base`: shared Python/CUDA runtime plus common metadata and smoke tools.
