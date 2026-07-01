@@ -79,7 +79,7 @@
     },
     "readme": {
       "path": "README.md",
-      "sha256": "cb0fbeb9a8610eed77e3ba7ac5f0ec41f4bb86e2d6b79298ba1d3d619bcf3432"
+      "sha256": "736905452599a4b0fa7d781f142c9ad342d488d3beb6ddf3bfd453cf02b159b3"
     },
     "week10_lock": {
       "path": "validation/reports/week10_final_perception_results_lock.json",

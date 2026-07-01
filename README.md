@@ -10,47 +10,6 @@ The project is organized around three subprojects:
 
 The shared research goal is to measure renderer-to-policy transfer: whether inspection behavior developed under fast rasterized simulation remains safe and effective under RTX path-traced rendering, reflective materials, sensor noise, latency, and standoff constraints.
 
-## Start Here
-
-- Repo architecture: `docs/architecture/repo_structure_atomic_work_packages.md`
-- Workstream 1 handoff: `docs/workstream1_handoff.md`
-- Workstream 1 Week 1 execution log: `docs/workstream1_week1_execution.md`
-- Workstream 1 Week 2 execution log: `docs/workstream1_week2_execution.md`
-- Workstream 1 Week 3 execution log: `docs/workstream1_week3_execution.md`
-- Workstream 1 Week 4 execution log: `docs/workstream1_week4_execution.md`
-- Workstream 1 Week 5 execution log: `docs/workstream1_week5_execution.md`
-- Workstream 1 Week 6 execution log: `docs/workstream1_week6_execution.md`
-- Workstream 1 Week 7 execution log: `docs/workstream1_week7_execution.md`
-- Workstream 1 Week 8 execution log: `docs/workstream1_week8_execution.md`
-- Workstream 1 Week 9 execution log: `docs/workstream1_week9_execution.md`
-- Workstream 1 Week 10 execution log: `docs/workstream1_week10_execution.md`
-- Workstream 1 Week 11 execution log: `docs/workstream1_week11_execution.md`
-- Workstream 1 Week 12 execution log: `docs/workstream1_week12_execution.md`
-- Workstream 1 paper scene section: `docs/paper_scene_section.md`
-- Workstream 1 benchmark card scene section: `docs/benchmark_card_scene_section.md`
-- Workstream 1 clean-checkout rehearsal: `docs/scene_clean_checkout_rehearsal.md`
-- Workstream 1 defense talking points: `docs/defense_scene_talking_points.md`
-- Workstream 2 Week 1 execution log: `docs/workstream2_week1_execution.md`
-- Workstream 2 Week 2 execution log: `docs/workstream2_week2_execution.md`
-- Workstream 2 Week 6 execution log: `docs/workstream2_week6_execution.md`
-- Workstream 2 Week 7 execution log: `docs/workstream2_week7_execution.md`
-- Workstream 2 Week 8 execution log: `docs/workstream2_week8_execution.md`
-- Workstream 2 Week 9 execution log: `docs/workstream2_week9_execution.md`
-- Workstream 2 Week 10 execution log: `docs/workstream2_week10_execution.md`
-- Workstream 3 Week 1 execution log: `docs/workstream3_week1_execution.md`
-- Stack lock: `docs/stack_lock.md`
-- Slurm OCI validation runbook: `docs/slurm_oci_validation.md`
-- Workstream 3 Week 9 execution log: `docs/workstream3_week9_execution.md`
-- Workstream 3 Week 10 execution log: `docs/workstream3_week10_execution.md`
-- Workstream 3 Week 11 execution log: `docs/workstream3_week11_execution.md`
-- Workstream 3 Week 12 execution log: `docs/workstream3_week12_execution.md`
-- Workstream 3 paper evaluation section: `docs/paper_workstream3_evaluation.md`
-- Workstream 3 benchmark card section: `docs/benchmark_card_policy_r2p_section.md`
-- Workstream 3 defense talking points: `docs/workstream3_defense_talking_points.md`
-- Execution plan: `outputs/capstone_proposals/04_12_week_execution_plan_15_person_team.md`
-- Contracts: `contracts/`
-- Local smoke test: `python scripts/e2e_local_smoke.py`
-
 ## Running On The NVIDIA Server
 
 The checked-out project on the shared workstation is:
@@ -120,6 +79,8 @@ guardrail metrics.
 
 The previous Week 11 Digital Twin package remains the paper-ready
 reproducibility package referenced by the Week 12 final release manifest.
+The paper scene section lives at `docs/paper_scene_section.md`; defense notes
+live at `docs/defense_scene_talking_points.md`.
 
 Run:
 
