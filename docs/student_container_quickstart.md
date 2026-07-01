@@ -1,93 +1,97 @@
-# Student Quickstart: JWST Containers
+# Student Quickstart: Working In The JWST Containers
 
-Use this if you just want to run the project on the NVIDIA server and do not
-know Slurm, containers, Isaac Sim, or the NVIDIA stack yet.
+These containers are ready-made project environments on the NVIDIA server. You
+do not need to install Isaac Sim, Isaac Lab, CUDA, OpenUSD, or Docker locally.
+Slurm is just the server queue: ask Slurm for CPU/GPU time, then work inside the
+right container.
 
-## What You Need
+## 1. Connect To The Server
 
-- A server account with access to the shared NVIDIA workstation.
-- A terminal on the workstation, either through SSH or JupyterHub terminal.
-- No Docker commands. We run through Slurm because that is how the shared GPUs
-  are scheduled.
+macOS/Linux Terminal:
 
-If you are testing access from Windows first:
+```bash
+ssh <your-server-username>@jwst-ws
+```
+
+Windows PowerShell:
+
+```powershell
+ssh <your-server-username>@jwst-ws
+```
+
+If `jwst-ws` does not resolve, connect Tailscale first or use the project
+JupyterHub terminal. From Windows you can also check access with:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\jwst_remote_preflight.ps1 -User <your-server-username>
 ```
 
-## The One Command To Run
+## 2. Choose The Container
 
-On the NVIDIA server:
+```text
+jwst-usd-tools   Workstream 1: OpenUSD scene, assets, semantics, materials
+jwst-isaac-sim   Workstream 2: Isaac Sim, Omniverse Replicator, synthetic data
+jwst-isaac-lab   Workstream 3: Isaac Lab, rollouts, policies, R2P evaluation
+jwst-astro-data  FITS/reference-data prep and CPU-side data utilities
+jwst-base        Shared Python/CUDA utilities
+```
+
+Set up your per-user container configs once:
 
 ```bash
 cd /data/groups/autonomous/jwst-inspect-current
-bash slurm/submit-e2e-smoke.sh
+python3 slurm/materialize-user-oci-bundles.py
 ```
 
-The script prints a run directory and Slurm job IDs, for example:
+## 3. Start Working
 
-```text
-JWST_RUN_DIR=/data/groups/autonomous/runs/20260701T011642Z-jwst-e2e
-base=271
-usd=272
-replicator=273
-isaaclab=274
-r2p=275
-e2e=276
-```
-
-Check progress:
+CPU/OpenUSD shell:
 
 ```bash
-squeue -u "$USER"
-sacct -j "271,272,273,274,275,276" --format=JobID,JobName,State,ExitCode,Elapsed,AllocTRES
+B=/data/groups/autonomous/oci-bundles/users/$USER/jwst-usd-tools/current
+srun -p interactive --mem=16G --pty --container="$B" /bin/bash
 ```
 
-Success means every job says `COMPLETED` and `ExitCode` is `0:0`.
-
-## What The Containers Do
-
-- `jwst-base`: checks Python, CUDA/GPU visibility, package versions, and run
-  metadata.
-- `jwst-usd-tools`: validates the JWST OpenUSD scene, asset manifests,
-  semantics, materials, and scene contracts.
-- `jwst-isaac-sim`: starts Isaac Sim/Omniverse Replicator and writes a tiny
-  two-frame synthetic-data sample.
-- `jwst-isaac-lab`: imports Isaac Lab and runs a short scripted rollout.
-- `jwst-astro-data`: holds CPU-side FITS/reference-data prep tools.
-
-You usually do not run these directly. The submit script runs them in order and
-passes files through the shared run directory.
-
-## Where Results Go
-
-Everything goes under:
-
-```text
-/data/groups/autonomous/runs/
-```
-
-For one run, inspect:
+Isaac Sim / Replicator GPU shell:
 
 ```bash
-cat "$JWST_RUN_DIR/artifact_manifest.json"
-cat "$JWST_RUN_DIR/replicator/dataset_manifest.json"
-cat "$JWST_RUN_DIR/isaaclab/episode_log.json"
-cat "$JWST_RUN_DIR/evaluation/r2p_smoke_summary.json"
+B=/data/groups/autonomous/oci-bundles/users/$USER/jwst-isaac-sim/current
+srun -p interactive --gres=gpu:1 --mem=96G --pty --container="$B" /bin/bash
 ```
 
-Look for `"status": "passed"`. Do not commit generated run outputs, rendered
-images, checkpoints, container bundles, or raw datasets.
+Isaac Lab / policy GPU shell:
 
-## If Something Fails
+```bash
+B=/data/groups/autonomous/oci-bundles/users/$USER/jwst-isaac-lab/current
+srun -p interactive --gres=gpu:1 --mem=64G --pty --container="$B" /bin/bash
+```
 
-- `PENDING (Resources)`: the GPU is busy. Wait or try later.
-- `FAILED`: open the matching Slurm output in the run directory and share the
-  run directory plus job ID with the team.
-- `No oci.conf` or container start errors: this is a server Slurm/OCI setup
-  issue, not a Python bug.
-- GPU not visible inside a GPU job: ask for the Slurm OCI/NVIDIA driver mount
-  config to be checked.
+Inside the container:
 
-For deeper details, read `docs/slurm_oci_validation.md`.
+```bash
+cd /data/groups/autonomous/jwst-inspect-current
+export JWST_OUT=/data/groups/autonomous/runs/$USER/$(date -u +%Y%m%dT%H%M%SZ)-my-work
+mkdir -p "$JWST_OUT"
+```
+
+Then run useful work, for example:
+
+```bash
+python scripts/validate_scene.py
+/isaac-sim/python.sh your_replicator_script.py --out "$JWST_OUT"
+python your_isaaclab_or_policy_script.py --out "$JWST_OUT"
+```
+
+Use the first command for scene/asset work, the second for Isaac Sim or
+Replicator, and the third for Isaac Lab, training, rollouts, or evaluation.
+
+## 4. Save The Right Things
+
+Save code, configs, small manifests, and documentation in Git. Save generated
+renders, datasets, logs, checkpoints, and large outputs under
+`/data/groups/autonomous/runs/$USER/` or `/data/scratch/$USER/`; do not commit
+them.
+
+If the GPU job says `PENDING (Resources)`, the GPU is busy. If a container will
+not start, share the exact command, job ID, and output directory with the team.
+To run a quick health check only, use `bash slurm/submit-e2e-smoke.sh`.
